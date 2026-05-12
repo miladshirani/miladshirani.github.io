@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Milad Shirani — Mechanics & Physical AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=Outfit:wght@200;300;400&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --ink: #0e0d0b;
+      --paper: #f5f0e8;
+      --sienna: #8b4513;
+      --gold: #b8860b;
+      --gold-light: #d4a843;
+      --muted: #6b6355;
+      --rule: rgba(139,69,19,0.18);
+      --grid: rgba(139,69,19,0.06);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Parchment texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 28px, var(--grid) 28px, var(--grid) 29px),
+        repeating-linear-gradient(90deg, transparent, transparent 28px, var(--grid) 28px, var(--grid) 29px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.6;
+    }
+
+    /* ── HEADER NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(245,240,232,0.82);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: var(--sienna);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.4rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--sienna); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 4rem 4rem;
+      gap: 4rem;
+    }
+
+    .hero-text { max-width: 580px; }
+
+    .hero-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sienna);
+      margin-bottom: 1.4rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.1s forwards;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(3.2rem, 5.5vw, 5.2rem);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.3rem;
+      opacity: 0;
+      animation: fadeUp 0.9s ease 0.2s forwards;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--sienna);
+    }
+
+    .title-rule {
+      width: 64px;
+      height: 1px;
+      background: var(--gold);
+      margin: 1.6rem 0;
+      opacity: 0;
+      animation: expandWidth 0.8s ease 0.5s forwards;
+      transform-origin: left;
+    }
+
+    .hero-role {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--muted);
+      margin-bottom: 1.6rem;
+      line-height: 1.5;
+      opacity: 0;
+      animation: fadeUp 0.9s ease 0.6s forwards;
+    }
+
+    .hero-desc {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: #3a3530;
+      max-width: 480px;
+      opacity: 0;
+      animation: fadeUp 0.9s ease 0.75s forwards;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1.2rem;
+      margin-top: 2.4rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.9s ease 0.9s forwards;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 0.7rem 1.8rem;
+      background: var(--sienna);
+      color: var(--paper);
+      text-decoration: none;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-primary:hover { background: #6b340f; transform: translateY(-1px); }
+
+    .btn-ghost {
+      display: inline-block;
+      padding: 0.7rem 1.8rem;
+      border: 1px solid var(--sienna);
+      color: var(--sienna);
+      text-decoration: none;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+
+    .btn-ghost:hover { background: var(--sienna); color: var(--paper); }
+
+    /* ── HERO RIGHT PANEL ── */
+    .hero-panel {
+      position: relative;
+      opacity: 0;
+      animation: fadeIn 1.2s ease 0.4s forwards;
+    }
+
+    .panel-card {
+      background: rgba(255,255,255,0.55);
+      border: 1px solid var(--rule);
+      padding: 2.4rem;
+      position: relative;
+      backdrop-filter: blur(4px);
+    }
+
+    .panel-card::before {
+      content: '';
+      position: absolute;
+      top: -6px; left: -6px;
+      right: 6px; bottom: 6px;
+      border: 1px solid var(--gold);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .panel-heading {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--sienna);
+      margin-bottom: 1.4rem;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat {
+      border-left: 2px solid var(--gold);
+      padding-left: 0.9rem;
+    }
+
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 300;
+      line-height: 1;
+      color: var(--ink);
+    }
+
+    .stat-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-top: 0.25rem;
+      text-transform: uppercase;
+    }
+
+    .affiliation-list {
+      list-style: none;
+      border-top: 1px solid var(--rule);
+      padding-top: 1.4rem;
+    }
+
+    .affiliation-list li {
+      display: flex;
+      align-items: baseline;
+      gap: 0.7rem;
+      padding: 0.45rem 0;
+      border-bottom: 1px dashed var(--grid);
+    }
+
+    .aff-bullet {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: var(--gold);
+    }
+
+    .aff-text {
+      font-size: 0.82rem;
+      line-height: 1.45;
+      color: #3a3530;
+    }
+
+    .aff-text strong {
+      font-weight: 400;
+      color: var(--ink);
+    }
+
+    /* ── RESEARCH THEMES ── */
+    .section {
+      position: relative;
+      z-index: 1;
+      padding: 6rem 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--sienna);
+      margin-bottom: 0.7rem;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3vw, 2.8rem);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 3rem;
+    }
+
+    .themes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+    }
+
+    .theme-card {
+      background: var(--paper);
+      padding: 2rem 1.8rem;
+      transition: background 0.2s;
+      cursor: default;
+    }
+
+    .theme-card:hover { background: rgba(255,255,255,0.7); }
+
+    .theme-icon {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-style: italic;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+
+    .theme-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+
+    .theme-desc {
+      font-size: 0.82rem;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    /* ── TIMELINE ── */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+    }
+
+    .tl-item {
+      position: relative;
+      padding: 0 0 2.4rem 2rem;
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: opacity 0.6s, transform 0.6s;
+    }
+
+    .tl-item.visible { opacity: 1; transform: translateX(0); }
+
+    .tl-dot {
+      position: absolute;
+      left: -2rem;
+      top: 0.25rem;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--gold);
+      border: 2px solid var(--paper);
+      box-shadow: 0 0 0 1px var(--gold);
+    }
+
+    .tl-year {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: var(--sienna);
+      margin-bottom: 0.25rem;
+    }
+
+    .tl-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .tl-sub {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--rule);
+      padding: 2rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    .footer-links { display: flex; gap: 1.6rem; }
+    .footer-links a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--sienna); }
+
+    /* ── DIVIDER ── */
+    .ornament {
+      text-align: center;
+      color: var(--gold);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      margin: 1rem 0 3rem;
+      letter-spacing: 0.5em;
+    }
+
+    /* ── KEYFRAMES ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes expandWidth {
+      from { opacity: 0; transform: scaleX(0); }
+      to   { opacity: 1; transform: scaleX(1); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; padding: 7rem 2rem 3rem; }
+      .hero-panel { display: none; }
+      .themes-grid { grid-template-columns: 1fr 1fr; }
+      nav { padding: 1rem 2rem; }
+      .nav-links { gap: 1.2rem; }
+      .section { padding: 4rem 2rem; }
+      footer { flex-direction: column; gap: 1rem; padding: 2rem; }
+    }
+
+    @media (max-width: 600px) {
+      .themes-grid { grid-template-columns: 1fr; }
+      .stat-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-logo">M. Shirani</span>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#journey">Journey</a></li>
+      <li><a href="mailto:milad.shirani@yale.edu">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="about">
+    <div class="hero-text">
+      <p class="hero-label">Postdoctoral Associate · Yale University</p>
+      <h1>Milad<br /><em>Shirani</em></h1>
+      <div class="title-rule"></div>
+      <p class="hero-role">
+        Continuum Mechanics &amp; Physical AI<br />
+        Biomedical Engineering, Yale University
+      </p>
+      <p class="hero-desc">
+        My research spans the boundary between rigorous continuum mechanics and physics-informed machine learning —
+        from thermodynamically consistent models of soft biological tissues and nematic elastomers,
+        to differentiable simulation and neural constitutive laws for Physical AI.
+        I build models that are mathematically provable, computationally efficient, and physically meaningful.
+      </p>
+      <div class="hero-cta">
+        <a href="#research" class="btn-primary">Explore Research</a>
+        <a href="mailto:milad.shirani@yale.edu" class="btn-ghost">Get in Touch</a>
+      </div>
+    </div>
+
+    <div class="hero-panel">
+      <div class="panel-card">
+        <p class="panel-heading">Research Profile</p>
+        <div class="stat-grid">
+          <div class="stat">
+            <div class="stat-num">32+</div>
+            <div class="stat-label">Journal Papers</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">2</div>
+            <div class="stat-label">Co-authored Books</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">5</div>
+            <div class="stat-label">Book Chapters</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">3</div>
+            <div class="stat-label">Years at Yale</div>
+          </div>
+        </div>
+
+        <ul class="affiliation-list">
+          <li>
+            <span class="aff-bullet">◆</span>
+            <span class="aff-text"><strong>Postdoctoral Associate</strong> — Yale University<br />Dept. of Biomedical Engineering · Advisor: Prof. Jay D. Humphrey</span>
+          </li>
+          <li>
+            <span class="aff-bullet">◆</span>
+            <span class="aff-text"><strong>PhD, Mechanical Engineering</strong> — UC Berkeley<br />Advisor: Prof. David Steigmann · Minors: Mathematics &amp; Dynamics</span>
+          </li>
+          <li>
+            <span class="aff-bullet">◆</span>
+            <span class="aff-text"><strong>MSc, Mechanical Engineering</strong> — Isfahan University of Technology<br />Best Thesis Award · Constitutive Modeling of Shape Memory Alloys</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESEARCH THEMES -->
+  <div style="position:relative;z-index:1;background:rgba(255,255,255,0.3);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);">
+    <div class="section" id="research">
+      <p class="section-label">Areas of Expertise</p>
+      <h2 class="section-title">Research Themes</h2>
+      <div class="ornament">— ✦ —</div>
+
+      <div class="themes-grid">
+        <div class="theme-card">
+          <span class="theme-icon">∇</span>
+          <div class="theme-title">Nonlinear Continuum Mechanics</div>
+          <p class="theme-desc">Cosserat, micropolar, and higher-gradient theories; Legendre–Hadamard and polyconvexity conditions for soft matter; variational methods for elastic rods, shells, and fibrous composites.</p>
+        </div>
+        <div class="theme-card">
+          <span class="theme-icon">ψ</span>
+          <div class="theme-title">Soft Matter &amp; Biomechanics</div>
+          <p class="theme-desc">Nematic liquid crystal elastomers, hydrogels, lipid bilayers, biological tissues. Thermodynamically consistent modeling of chemotaxis, durotaxis, and cell migration in fibrous substrates.</p>
+        </div>
+        <div class="theme-card">
+          <span class="theme-icon">∫</span>
+          <div class="theme-title">Physics-Informed Machine Learning</div>
+          <p class="theme-desc">PINNs, Deep Energy Methods, DeepONets, and ICNNs for constitutive modeling. Enforcing frame indifference, polyconvexity, and Legendre–Hadamard stability as hard constraints in neural architectures.</p>
+        </div>
+        <div class="theme-card">
+          <span class="theme-icon">𝒢</span>
+          <div class="theme-title">Neural Operators &amp; GNNs</div>
+          <p class="theme-desc">Fourier Neural Operators, MeshGraphNets, and transformer-based operator learning for mesh-dependent PDE surrogates. Differentiable simulation pipelines in JAX and PyTorch for Physical AI.</p>
+        </div>
+        <div class="theme-card">
+          <span class="theme-icon">∂</span>
+          <div class="theme-title">Computational Mechanics</div>
+          <p class="theme-desc">FEniCSx, JAX-FEM, and custom finite element codes for hyperelasticity, phase-field fracture, and swelling. End-to-end differentiable simulation targeting real-time physical AI applications.</p>
+        </div>
+        <div class="theme-card">
+          <span class="theme-icon">Σ</span>
+          <div class="theme-title">Agentic Scientific Computing</div>
+          <p class="theme-desc">Closed-loop agentic pipelines (LangGraph) for constitutive model discovery. Bridging symbolic reasoning, PDE solving, and data-driven learning in automated scientific workflows.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JOURNEY -->
+  <div style="position:relative;z-index:1;">
+    <div class="section" id="journey">
+      <p class="section-label">Academic Journey</p>
+      <h2 class="section-title">From Isfahan<br /><em>to Yale</em></h2>
+      <div class="ornament">— ✦ —</div>
+
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2010 – 2013</div>
+          <div class="tl-title">MSc · Isfahan University of Technology</div>
+          <p class="tl-sub">Constitutive modeling of shape memory alloys and magnetic shape memory alloys. 8 publications, Best Thesis Award. Combined experiment, theory, and numerical validation.</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2014 – 2016</div>
+          <div class="tl-title">Penn State University</div>
+          <p class="tl-sub">Experimental characterization of shape memory alloys. Transitioned to UC Berkeley to pursue research in theoretical mechanics.</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2016 – 2023</div>
+          <div class="tl-title">PhD · UC Berkeley · Dept. of Mechanical Engineering</div>
+          <p class="tl-sub">Advisor: Prof. David Steigmann. Minors in Mathematics and Dynamics. Co-authored two graduate textbooks on continuum mechanics and theories of plates &amp; shells. 21 journal papers and 5 book chapters. Derived stability conditions (Legendre–Hadamard, rank-one convexity, quasiconvexity) for Cosserat media, fibrous materials, and liquid crystal elastomers.</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2023 – Present</div>
+          <div class="tl-title">Postdoctoral Associate · Yale University</div>
+          <p class="tl-sub">Advisor: Prof. Jay D. Humphrey. Biomedical Engineering. 3 publications. Research on fibrous tissues, thermodynamically consistent chemotaxis, phase-field fracture, and physics-informed neural networks for soft matter.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2025 Milad Shirani · Yale University</span>
+    <div class="footer-links">
+      <a href="mailto:milad.shirani@yale.edu">Email</a>
+      <a href="https://scholar.google.com" target="_blank">Google Scholar</a>
+      <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+      <a href="https://github.com" target="_blank">GitHub</a>
+    </div>
+  </footer>
+
+  <script>
+    // Intersection Observer for timeline items
+    const items = document.querySelectorAll('.tl-item');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 120);
+        }
+      });
+    }, { threshold: 0.15 });
+    items.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Research — Milad Shirani</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=Outfit:wght@200;300;400&display=swap" rel="stylesheet" />
+
+  <!-- MathJax for inline equations -->
+  <script>
+    MathJax = {
+      tex: { inlineMath: [['\\(','\\)']] },
+      options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+
+  <style>
+    :root {
+      --ink:      #0e0d0b;
+      --paper:    #f5f0e8;
+      --sienna:   #8b4513;
+      --gold:     #b8860b;
+      --muted:    #6b6355;
+      --rule:     rgba(139,69,19,0.18);
+      --grid:     rgba(139,69,19,0.06);
+      --light-bg: rgba(255,255,255,0.5);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 28px, var(--grid) 28px, var(--grid) 29px),
+        repeating-linear-gradient(90deg, transparent, transparent 28px, var(--grid) 28px, var(--grid) 29px);
+      pointer-events: none; z-index: 0; opacity: 0.5;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(245,240,232,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; font-weight: 400; letter-spacing: 0.08em;
+      color: var(--sienna); text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2.4rem; list-style: none; }
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem; font-weight: 300; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--sienna); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      position: relative; z-index: 1;
+      padding: 8rem 4rem 3rem;
+      max-width: 860px; margin: 0 auto;
+    }
+    .page-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--sienna); margin-bottom: 0.8rem;
+      opacity: 0; animation: fadeUp 0.7s ease 0.1s forwards;
+    }
+    .page-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.6rem, 4.5vw, 4rem); font-weight: 300; line-height: 1.05;
+      margin-bottom: 1rem;
+      opacity: 0; animation: fadeUp 0.8s ease 0.2s forwards;
+    }
+    .page-title em { font-style: italic; color: var(--sienna); }
+    .page-rule {
+      width: 64px; height: 1px; background: var(--gold);
+      margin-bottom: 2rem;
+      opacity: 0; animation: expandW 0.7s ease 0.4s forwards; transform-origin: left;
+    }
+    .page-intro {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem; font-weight: 300; line-height: 1.75;
+      color: #3a3530;
+      opacity: 0; animation: fadeUp 0.8s ease 0.5s forwards;
+    }
+
+    /* ── MAIN CONTENT ── */
+    .research-content {
+      position: relative; z-index: 1;
+      max-width: 860px; margin: 0 auto;
+      padding: 0 4rem 2rem;
+    }
+
+    /* ── DIVIDER ── */
+    .ornament {
+      text-align: center; color: var(--gold);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; margin: 3rem 0;
+      letter-spacing: 0.6em; opacity: 0.6;
+    }
+
+    /* ── THEME BLOCKS ── */
+    .theme-block {
+      margin-bottom: 4rem;
+      padding-bottom: 4rem;
+      border-bottom: 1px solid var(--rule);
+      opacity: 0; transform: translateY(16px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .theme-block.visible { opacity: 1; transform: translateY(0); }
+    .theme-block:last-of-type { border-bottom: none; }
+
+    .theme-header {
+      display: flex; align-items: baseline; gap: 1rem;
+      margin-bottom: 1.4rem;
+    }
+    .theme-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem; font-weight: 300; font-style: italic;
+      color: var(--gold); line-height: 1; flex-shrink: 0;
+    }
+    .theme-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem; font-weight: 600; line-height: 1.15;
+    }
+
+    .theme-body p {
+      font-size: 0.95rem; line-height: 1.85; color: #2a2520;
+      margin-bottom: 1rem;
+    }
+    .theme-body p:last-child { margin-bottom: 0; }
+
+    /* inline equation styling inherits from MathJax */
+
+    /* ── KEY RESULTS ── */
+    .key-results {
+      margin-top: 1.4rem;
+      background: var(--light-bg);
+      border-left: 2px solid var(--gold);
+      padding: 1.1rem 1.4rem;
+      backdrop-filter: blur(4px);
+    }
+    .key-results-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--sienna); margin-bottom: 0.7rem;
+    }
+    .key-results ul { list-style: none; }
+    .key-results ul li {
+      font-size: 0.88rem; line-height: 1.7; color: #3a3530;
+      padding: 0.25rem 0;
+      padding-left: 1.1rem;
+      position: relative;
+    }
+    .key-results ul li::before {
+      content: '◆';
+      position: absolute; left: 0;
+      font-size: 0.4rem; color: var(--gold);
+      top: 0.55rem;
+    }
+
+    /* ── ARTICLE LINKS ── */
+    .article-links {
+      margin-top: 1.4rem;
+      display: flex; flex-wrap: wrap; gap: 0.7rem;
+    }
+    .article-link {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--sienna); text-decoration: none;
+      border: 1px solid var(--sienna);
+      padding: 0.45rem 1rem;
+      transition: background 0.2s, color 0.2s;
+    }
+    .article-link:hover { background: var(--sienna); color: var(--paper); }
+    .article-link.coming-soon {
+      color: var(--muted); border-color: var(--rule); cursor: default;
+      pointer-events: none;
+    }
+    .article-link svg {
+      width: 10px; height: 10px; fill: none;
+      stroke: currentColor; stroke-width: 1.8; flex-shrink: 0;
+    }
+
+    /* ── PHILOSOPHY SECTION ── */
+    .philosophy {
+      position: relative; z-index: 1;
+      background: rgba(255,255,255,0.35);
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      padding: 4rem;
+      margin-bottom: 0;
+    }
+    .philosophy-inner { max-width: 860px; margin: 0 auto; }
+    .philosophy-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+      font-weight: 300; font-style: italic;
+      line-height: 1.6; color: #3a3530;
+      text-align: center;
+      padding: 0 2rem;
+    }
+    .philosophy-quote em { color: var(--sienna); font-style: normal; }
+    .philosophy-attr {
+      text-align: center; margin-top: 1.4rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--muted);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative; z-index: 1;
+      border-top: 1px solid var(--rule);
+      padding: 2rem 4rem;
+      display: flex; justify-content: space-between; align-items: center;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem; letter-spacing: 0.1em; color: var(--muted);
+    }
+    .footer-links { display: flex; gap: 1.6rem; }
+    .footer-links a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--sienna); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes expandW {
+      from { opacity: 0; transform: scaleX(0); }
+      to   { opacity: 1; transform: scaleX(1); }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1rem; }
+      .page-header, .research-content { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .philosophy { padding: 2.5rem 1.5rem; }
+      footer { flex-direction: column; gap: 1rem; padding: 1.5rem; }
+      .theme-num { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">M. Shirani</a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="research.html" class="active">Research</a></li>
+    <li><a href="publications.html">Publications</a></li>
+    <li><a href="honors.html">Honors</a></li>
+    <li><a href="mailto:milad.shirani@yale.edu">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <p class="page-label">Overview</p>
+  <h1 class="page-title">Research &amp;<br /><em>Background</em></h1>
+  <div class="page-rule"></div>
+  <p class="page-intro">
+    My research is driven by a single conviction: that a deep understanding of physical systems
+    demands mathematical rigor, experimental honesty, and computational power working together.
+    From the thermodynamics of a swelling hydrogel to the stability conditions of a fiber-reinforced
+    elastic solid, from the migration of cells on a soft substrate to the design of neural networks
+    that provably satisfy the laws of mechanics — each project begins with the same question:
+    <em>what does the physics actually require?</em>
+  </p>
+</div>
+
+<!-- PHILOSOPHY BANNER -->
+<div class="philosophy">
+  <div class="philosophy-inner">
+    <p class="philosophy-quote">
+      "The goal is not to fit data — it is to build models that are
+      <em>thermodynamically consistent</em>, <em>mathematically sound</em>,
+      and <em>physically predictive</em> beyond the regime where the data was collected."
+    </p>
+    <p class="philosophy-attr">Research Philosophy · M. Shirani</p>
+  </div>
+</div>
+
+<!-- RESEARCH THEMES -->
+<div class="research-content">
+
+  <div class="ornament">— ✦ —</div>
+
+  <!-- THEME 1 -->
+  <div class="theme-block">
+    <div class="theme-header">
+      <span class="theme-num">I</span>
+      <h2 class="theme-title">Nonlinear Continuum Mechanics &amp; Stability Theory</h2>
+    </div>
+    <div class="theme-body">
+      <p>
+        My doctoral work, carried out under Prof. David Steigmann at UC Berkeley, established a
+        systematic framework for stability analysis in generalized continua. The central objects
+        of study were the Legendre-Hadamard condition, rank-one convexity, and quasiconvexity —
+        necessary conditions for energy minimizers that govern whether a body can sustain
+        localized failure modes such as shear bands or surface instabilities.
+      </p>
+      <p>
+        In classical elasticity these conditions are well understood, but for <em>Cosserat media</em>
+        — where material points carry both position and orientation — the analysis is fundamentally
+        richer. The acoustic tensor acquires a block structure, coupling the translational and
+        rotational degrees of freedom, and the admissible wave speeds depend on both the elastic
+        and couple-stress moduli. I derived these conditions analytically for Cosserat solids,
+        lattice structures, fiber-reinforced materials with one, two, and three fiber families,
+        liquid crystal elastomers, and elastic shells with intrinsic fiber bending and twist
+        stiffness. A key contribution was proving the <em>coupled</em> Legendre-Hadamard inequality
+        for fiber-reinforced shells, where the fiber's own Kirchhoff-rod energy interacts with
+        the shell's membrane-bending response.
+      </p>
+      <p>
+        More recently, I showed that fibrous biological tissues simultaneously exhibit
+        <em>strain-gradient</em> and <em>Cosserat</em> effects — a consequence of the finite
+        thickness and curvature of individual fibers — and that this dual nonlocality can
+        produce macroscopic Poynting effects with no classical analogue.
+      </p>
+      <div class="key-results">
+        <div class="key-results-label">Key Contributions</div>
+        <ul>
+          <li>Analytical Legendre-Hadamard conditions for Cosserat elasticity, fiber-reinforced solids, and elastic shells</li>
+          <li>Quasiconvexity and rank-one convexity in Cosserat models for lattice and fiber-reinforced materials</li>
+          <li>Maxwell-Eshelby relation and its generalization in Cosserat and 6-parameter shell theories</li>
+          <li>Mixed Cosserat/strain-gradient formulation for fibrous tissues; prediction of Poynting effects</li>
+          <li>Elastic-plastic response of hemitropic Cosserat solids</li>
+        </ul>
+      </div>
+      <div class="article-links">
+        <a class="article-link coming-soon" href="#">
+          <svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg>
+          Article · Coming Soon
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- THEME 2 -->
+  <div class="theme-block">
+    <div class="theme-header">
+      <span class="theme-num">II</span>
+      <h2 class="theme-title">Soft Matter: Hydrogels, Polymers &amp; Liquid Crystal Elastomers</h2>
+    </div>
+    <div class="theme-body">
+      <p>
+        Soft materials present a distinct class of challenges: they undergo large, geometrically
+        nonlinear deformations; they often couple mechanical response to chemical, thermal, or
+        electromagnetic fields; and their constitutive behavior is governed by entropy as much as
+        by internal energy. My work in this area addresses both the mathematical structure of
+        such coupled theories and their computational implementation.
+      </p>
+      <p>
+        For hydrogels, I developed a thermodynamically consistent continuum model for swelling
+        driven by water absorption, grounding the Flory-Huggins mixing energy within a
+        variational framework and deriving the coupled mechanical and chemical balance laws
+        via the principle of virtual power. The Coleman-Noll procedure shows that the reduced
+        dissipation inequality constrains the water-flux mobility tensor to be positive
+        semi-definite — a result that is both physically necessary and computationally actionable.
+        The model is currently being extended to biological tissues and to delamination problems
+        in layered hydrogel systems.
+      </p>
+      <p>
+        For <em>nematic liquid crystal elastomers</em> (LCEs), where a rubber-like polymer
+        network is coupled to an orientational order parameter \(\boldsymbol{n}\), I derived
+        the Legendre-Hadamard inequalities governing stability with respect to both deformation
+        and director-field perturbations. I then used these as validation criteria — rather
+        than loss-function penalties — when training physics-consistent neural networks to
+        predict the deformation and director fields. This distinction matters: a loss penalty
+        can be violated during inference, while an architectural constraint cannot.
+      </p>
+      <div class="key-results">
+        <div class="key-results-label">Key Contributions</div>
+        <ul>
+          <li>Variational continuum model for hydrogel swelling; thermodynamic restrictions on the water flux</li>
+          <li>Stability conditions for nematic LCEs under coupled mechanical-orientational perturbations</li>
+          <li>Deep Energy Method for LCEs: two coupled MLPs for deformation and director fields, validated against FEA</li>
+          <li>Variational and data-driven DeepONets for nematic materials</li>
+          <li>Wrinkling of incompressible anisotropic sheets with wavy fibers</li>
+        </ul>
+      </div>
+      <div class="article-links">
+        <a class="article-link" href="research-hydrogel-swelling.html">
+          Read · Hydrogel Swelling Model
+          <svg viewBox="0 0 12 12"><path d="M5 2H2a1 1 0 00-1 1v7a1 1 0 001 1h7a1 1 0 001-1V7M7 1h4m0 0v4m0-4L5 7"/></svg>
+        </a>
+        <a class="article-link coming-soon" href="#">
+          <svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg>
+          Article · LCE Stability &amp; Neural Networks — Coming Soon
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- THEME 3 -->
+  <div class="theme-block">
+    <div class="theme-header">
+      <span class="theme-num">III</span>
+      <h2 class="theme-title">Biomechanics: Cell Migration, Tissues &amp; Membranes</h2>
+    </div>
+    <div class="theme-body">
+      <p>
+        At Yale, working with Prof. Jay D. Humphrey, my research has focused on the mechanics of
+        living soft matter — fibrous biological tissues, cell monolayers, lipid bilayers, and
+        hydrogel scaffolds. These systems are distinguished by their capacity for active response,
+        growth, remodeling, and self-organization, phenomena that classical passive elasticity
+        cannot capture.
+      </p>
+      <p>
+        I developed a continuum model for collective cell migration driven by
+        <em>chemotaxis</em> (response to chemical gradients), <em>durotaxis</em>
+        (response to substrate stiffness), and <em>taxis</em> toward tension, unifying
+        these into a single thermodynamically consistent framework applicable to multiple
+        cell families and chemoattractants simultaneously. A significant theoretical finding
+        was demonstrating that the Keller-Segel chemotaxis model — widely used in mathematical
+        biology — violates thermodynamic consistency, and providing a corrected formulation.
+      </p>
+      <p>
+        A separate line of work concerned the geometry of cell polarization near free boundaries.
+        I proved that in any polarized cell monolayer, the polarity vector must remain
+        tangential to free boundaries — a result that is <em>universal</em> in the sense that
+        it depends only on the boundary geometry and the continuity of the polarity field,
+        not on the specific constitutive model for polarization dynamics.
+      </p>
+      <p>
+        Earlier work at Berkeley addressed the equilibrium mechanics of lipid bilayers,
+        including asymmetric and tilted bilayers and bilayers with a conforming cytoskeletal
+        membrane, where the coupling between membrane curvature and cytoskeletal tension
+        produces nontrivial shape transitions.
+      </p>
+      <div class="key-results">
+        <div class="key-results-label">Key Contributions</div>
+        <ul>
+          <li>Thermodynamically consistent model for collective cell migration under chemo-mechanical stimuli</li>
+          <li>Proof of thermodynamic inconsistency in the Keller-Segel model; corrected continuum formulation</li>
+          <li>Universal tangentiality of cell polarity at free boundaries of cell monolayers</li>
+          <li>Equilibrium theory for asymmetric tilted lipid bilayers and bilayers with cytoskeletal coupling</li>
+          <li>Finite elastic deformations of incompressible fiber-reinforced biological plates</li>
+        </ul>
+      </div>
+      <div class="article-links">
+        <a class="article-link coming-soon" href="#">
+          <svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg>
+          Article · Cell Migration Model — Coming Soon
+        </a>
+        <a class="article-link coming-soon" href="#">
+          <svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg>
+          Article · Cell Polarity at Boundaries — Coming Soon
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- THEME 4 -->
+  <div class="theme-block">
+    <div class="theme-header">
+      <span class="theme-num">IV</span>
+      <h2 class="theme-title">Physics-Informed Machine Learning &amp; Neural Constitutive Models</h2>
+    </div>
+    <div class="theme-body">
+      <p>
+        The convergence of mechanics and machine learning opens a genuinely new frontier — not
+        merely fitting data faster, but building computational models that are constrained by
+        physical law from the ground up. My work in this area is grounded in the conviction
+        that the laws of mechanics are not soft regularizers to be traded against data fit;
+        they are hard constraints that any admissible model must satisfy exactly.
+      </p>
+      <p>
+        For hyperelastic constitutive modeling, I develop neural networks whose outputs are
+        guaranteed to satisfy <em>frame indifference</em>, <em>material symmetry</em>, and the
+        <em>Legendre-Hadamard condition</em> — not by penalizing violations during training,
+        but by architectural design. Input Convex Neural Networks (ICNNs) provide polyconvex
+        energy densities by construction. For fibrous biological tissues with two fiber families,
+        I have proved analytically the polyconvexity conditions that existing approaches verify
+        only numerically — a distinction that matters for guaranteeing stability at
+        <em>any</em> deformation state, not just those seen during training.
+      </p>
+      <p>
+        For operator learning — mapping loading conditions to full displacement or director
+        fields — I work with Deep Operator Networks (DeepONets) and Physics-Informed Neural
+        Networks (PINNs), enforcing the governing PDEs either through the loss function or
+        directly in the architecture. Most recently, in work currently under review, I trained
+        physics-consistent neural networks for microstructured media (Cosserat continua) where
+        both the deformation gradient \(\boldsymbol{F}\) and the director field
+        \(\boldsymbol{d}\) are learned simultaneously, with the Legendre-Hadamard tensor
+        retained in the computational graph for post-training stability verification.
+      </p>
+      <p>
+        Looking forward, I am building end-to-end differentiable simulation pipelines in JAX
+        and PyTorch — combining custom finite element solvers, neural constitutive models,
+        and MeshGraphNet-based surrogates — as the foundation for Physical AI applications
+        in soft robotics, surgical simulation, and materials design.
+      </p>
+      <div class="key-results">
+        <div class="key-results-label">Key Contributions</div>
+        <ul>
+          <li>Deep Energy Method for nematic LCEs with LH conditions as architectural constraints</li>
+          <li>Physics-consistent neural networks for Cosserat media; LH verification in the computational graph</li>
+          <li>Analytical proof of polyconvexity conditions for fibrous tissues with two fiber families</li>
+          <li>Variational and data-driven DeepONets for nematic materials</li>
+          <li>Differentiable FEA in JAX: T3/Q9 elements, Neo-Hookean and SVK materials, autodiff tangent stiffness</li>
+          <li>Agentic constitutive model discovery pipelines using LangGraph with JAX and PyTorch backends</li>
+        </ul>
+      </div>
+      <div class="article-links">
+        <a class="article-link coming-soon" href="#">
+          <svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg>
+          Article · ICNN Constitutive Models — Coming Soon
+        </a>
+        <a class="article-link coming-soon" href="#">
+          <svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg>
+          Article · Differentiable Simulation — Coming Soon
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- THEME 5 -->
+  <div class="theme-block">
+    <div class="theme-header">
+      <span class="theme-num">V</span>
+      <h2 class="theme-title">Shape Memory Alloys &amp; Smart Materials</h2>
+    </div>
+    <div class="theme-body">
+      <p>
+        My earliest research, carried out during my MSc at Isfahan University of Technology
+        under Prof. Mahmoud Kadkhodaei, focused on the constitutive modeling of shape memory
+        alloys (SMAs) and ferromagnetic shape memory alloys (FSMAs). These materials undergo
+        reversible martensitic phase transformations — either thermally or magnetically driven —
+        and exhibit complex history-dependent behavior including pseudoelasticity, the
+        shape memory effect, and magnetically induced reorientation of martensitic variants.
+      </p>
+      <p>
+        A central challenge in SMA modeling is capturing the effect of <em>loading history</em>
+        on the transformation surfaces. I developed a one-dimensional constitutive model with
+        evolving transformation surfaces that accounts for the accumulation of residual martensite
+        under cyclic loading — a phenomenon that existing models at the time either ignored or
+        handled phenomenologically without thermodynamic grounding. The model was validated
+        experimentally against tension-compression cycles and biaxial compression tests on
+        Ni-Mn-Ga FSMAs, demonstrating superior agreement compared to prior approaches.
+      </p>
+      <p>
+        For FSMAs specifically, I introduced a geometrical approach to determine reorientation
+        start and continuation conditions in stress-field space, clarifying the physical
+        mechanism by which an applied stress biases the magnetic-field-driven variant
+        rearrangement. This work was recognized with the Best Graduate Thesis Award at
+        Isfahan University of Technology.
+      </p>
+      <div class="key-results">
+        <div class="key-results-label">Key Contributions</div>
+        <ul>
+          <li>1D constitutive model with evolving transformation surfaces capturing loading-history effects in SMAs</li>
+          <li>Geometrical reorientation criterion for ferromagnetic SMAs; validated against biaxial experiments</li>
+          <li>Constitutive modeling of Ni-Mn-Ga FSMAs under biaxial compression</li>
+          <li>Cyclic behavior and residual martensite accumulation in polycrystalline SMAs</li>
+        </ul>
+      </div>
+      <div class="article-links">
+        <a class="article-link coming-soon" href="#">
+          <svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg>
+          Article · SMA Constitutive Modeling — Coming Soon
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end research-content -->
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 Milad Shirani · Yale University</span>
+  <div class="footer-links">
+    <a href="mailto:milad.shirani@yale.edu">Email</a>
+    <a href="https://scholar.google.com" target="_blank">Google Scholar</a>
+    <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+    <a href="https://github.com/miladshirani" target="_blank">GitHub</a>
+  </div>
+</footer>
+
+<script>
+  const blocks = document.querySelectorAll('.theme-block');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.08 });
+  blocks.forEach(b => observer.observe(b));
+</script>
+</body>
+</html>

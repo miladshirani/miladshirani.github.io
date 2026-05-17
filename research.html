@@ -202,6 +202,40 @@
       stroke: currentColor; stroke-width: 1.8; flex-shrink: 0;
     }
 
+    /* ── RESULTS TABLE ── */
+    .results-table-wrap {
+      margin-top: 1.4rem;
+      overflow-x: auto;
+    }
+    .results-table-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--sienna); margin-bottom: 0.6rem;
+    }
+    .results-table {
+      width: 100%; border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+    .results-table thead tr {
+      border-bottom: 2px solid var(--rule);
+    }
+    .results-table th {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--sienna); font-weight: 400;
+      padding: 0.5rem 1rem 0.5rem 0; text-align: left;
+    }
+    .results-table td {
+      padding: 0.6rem 1rem 0.6rem 0;
+      border-bottom: 1px dashed rgba(139,69,19,0.1);
+      color: #2a2520; line-height: 1.5;
+    }
+    .results-table td strong { font-weight: 500; color: var(--sienna); }
+    .results-table .highlight-row td {
+      background: rgba(184,134,11,0.05);
+      font-weight: 400;
+    }
+
     /* ── PHILOSOPHY SECTION ── */
     .philosophy {
       position: relative; z-index: 1;
@@ -580,6 +614,118 @@
         <a class="article-link coming-soon" href="#">
           <svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg>
           Article · SMA Constitutive Modeling — Coming Soon
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- THEME 6 -->
+  <div class="theme-block">
+    <div class="theme-header">
+      <span class="theme-num">VI</span>
+      <h2 class="theme-title">PI-FNO: Physics-Informed Neural Operators for Cardiac Acoustics</h2>
+    </div>
+    <div class="theme-body">
+      <p>
+        The same design principles that govern physics-consistent constitutive modeling in continuum
+        mechanics — encoding known structure as inductive biases, enforcing inequalities as hard or
+        hinge constraints, and using interpretable learned parameters — transfer naturally to
+        biomedical signal classification. This project applies that philosophy to the automated
+        diagnosis of valvular heart disease from raw phonocardiogram (PCG) recordings.
+      </p>
+      <p>
+        The primary model is a <em>Fourier Neural Operator (FNO)</em> operating directly on raw
+        waveforms, with physiological structure encoded at three levels. First, a learnable
+        <em>physiological frequency mask</em> is initialized from known S1 (25–45 Hz) and S2
+        (50–70 Hz) cardiac sound bands and parameterized in logit space to keep weights in
+        \((0,1)\):
+        \[
+          m_k = \sigma(\theta_k), \qquad
+          m_k^{(0)} = \begin{cases} 1.0 & f_k \in [25,45] \cup [50,70]\,\text{Hz} \\ 0.1 & \text{otherwise} \end{cases}
+        \]
+        Second, spectral convolutions retain only the \(M = 20\) lowest Fourier modes — a
+        band-limited inductive bias matching the sub-1 kHz frequency content of cardiac acoustics.
+        Third, the training loss augments cross-entropy with two physiologically motivated terms:
+        \[
+          \mathcal{L}_{\text{total}} = \mathcal{L}_{\text{CE}}
+          + \lambda_1 \mathcal{L}_{\text{periodicity}}
+          + \lambda_2 \mathcal{L}_{\text{freq.\,hierarchy}},
+          \qquad \lambda_1 = \lambda_2 = 0.1
+        \]
+        The <em>periodicity loss</em> penalizes energy dispersed away from heart-rate harmonics
+        (1–5.3 Hz); the <em>frequency hierarchy loss</em> enforces the physiological inequality
+        \(E_{S1} \geq E_{S2}\) via a hinge penalty — applying zero gradient when the constraint
+        is satisfied and a linear penalty otherwise. This is directly analogous to
+        Legendre-Hadamard or polyconvexity enforcement in hyperelastic constitutive modeling.
+      </p>
+      <p>
+        The model classifies five clinically distinct conditions — Aortic Stenosis, Mitral
+        Regurgitation, Mitral Stenosis, Mitral Valve Prolapse, and Normal — from a dataset of
+        1,000 PCG recordings (70/15/15 split). The FNO achieves <strong>97.3% test accuracy</strong>
+        with perfect classification of Mitral Stenosis (F1 = 1.00). Crucially, after training,
+        the learned mask weights autonomously recover the S1/S2 initialization bands while also
+        discovering additional murmur-frequency modes beyond the prior — providing direct clinical
+        interpretability with no post-hoc attribution required. A CNN baseline using a
+        differentiable log-Mel spectrogram front-end reaches the same test accuracy, confirming
+        that the FNO's physiological grounding does not come at a cost in performance.
+      </p>
+      <p>
+        The connection to my mechanics work is explicit: the frequency hierarchy hinge loss is
+        the signal-processing analogue of a stability inequality; the physiological mask is the
+        analogue of a physics-guided initialization near a known analytical solution; and the
+        spectral convolution's band-limitation is the analogue of an architectural constraint that
+        cannot be violated at inference time, unlike a soft loss penalty.
+      </p>
+
+      <div class="key-results">
+        <div class="key-results-label">Key Results</div>
+        <ul>
+          <li>97.3% five-class test accuracy on 1,000 PCG recordings (AS / MR / MS / MVP / Normal)</li>
+          <li>Perfect Mitral Stenosis classification (F1 = 1.00); hardest class MR at F1 = 0.92, consistent with clinical inter-rater difficulty</li>
+          <li>Learnable physiological frequency mask autonomously recovers S1 and S2 bands post-training</li>
+          <li>Hinge-form frequency hierarchy loss enforces \(E_{S1} \geq E_{S2}\) with zero gradient when satisfied — exact analogue of inequality constraint enforcement in mechanics</li>
+          <li>Well-separated t-SNE clusters for all five classes; Normal class fully isolated from all pathologies</li>
+          <li>Full PyTorch implementation with Google Colab notebook, GPU training, and reproducible fixed-seed data splits</li>
+        </ul>
+      </div>
+
+      <!-- RESULTS TABLE -->
+      <div class="results-table-wrap">
+        <div class="results-table-label">Performance Summary</div>
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Val Acc</th>
+              <th>Test Acc</th>
+              <th>Convergence</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="highlight-row">
+              <td>FNO (physio-constrained)</td>
+              <td>98.00%</td>
+              <td><strong>97.33%</strong></td>
+              <td>Epoch 30</td>
+            </tr>
+            <tr>
+              <td>CNN Baseline (Mel spectrogram)</td>
+              <td>98.67%</td>
+              <td><strong>97.33%</strong></td>
+              <td>Epoch 20</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="article-links">
+        <a class="article-link" href="https://github.com/miladshirani/PI-FNO" target="_blank">
+          GitHub · PI-FNO Repository
+          <svg viewBox="0 0 12 12"><path d="M5 2H2a1 1 0 00-1 1v7a1 1 0 001 1h7a1 1 0 001-1V7M7 1h4m0 0v4m0-4L5 7"/></svg>
+        </a>
+        <a class="article-link coming-soon" href="#">
+          <svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg>
+          Article · Coming Soon
         </a>
       </div>
     </div>

@@ -106,36 +106,83 @@
     /* ── MAIN CONTENT ── */
     .research-content {
       position: relative; z-index: 1;
-      max-width: 860px; margin: 0 auto;
-      padding: 0 4rem 2rem;
+      max-width: 960px; margin: 0 auto;
+      padding: 0 4rem 4rem;
     }
 
-    /* ── DIVIDER ── */
-    .ornament {
-      text-align: center; color: var(--gold);
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem; margin: 3rem 0;
-      letter-spacing: 0.6em; opacity: 0.6;
-    }
+    /* ── TAB SYSTEM ── */
+    .tabs-wrapper { margin-top: 2.5rem; }
 
-    /* ── THEME BLOCKS ── */
-    .theme-block {
-      margin-bottom: 4rem;
-      padding-bottom: 4rem;
+    .tab-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
       border-bottom: 1px solid var(--rule);
-      opacity: 0; transform: translateY(16px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
+      margin-bottom: 0;
     }
-    .theme-block.visible { opacity: 1; transform: translateY(0); }
-    .theme-block:last-of-type { border-bottom: none; }
 
+    .tab-btn {
+      position: relative;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      padding: 0.85rem 1.3rem;
+      cursor: pointer;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s, border-color 0.2s;
+      text-align: left;
+      line-height: 1.4;
+    }
+
+    .tab-btn .tab-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--gold);
+      margin-right: 0.35rem;
+      font-weight: 300;
+    }
+
+    .tab-btn:hover { color: var(--sienna); }
+    .tab-btn.active { color: var(--sienna); border-bottom-color: var(--sienna); }
+    .tab-btn.active .tab-num { color: var(--sienna); }
+
+    /* ── TAB PANELS ── */
+    .tab-panels {
+      border: 1px solid var(--rule);
+      border-top: none;
+      background: rgba(255,255,255,0.28);
+      backdrop-filter: blur(4px);
+      padding: 3rem 3rem 2.5rem;
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active {
+      display: block;
+      animation: panelIn 0.35s ease forwards;
+    }
+
+    @keyframes panelIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── PANEL HEADER ── */
     .theme-header {
       display: flex; align-items: baseline; gap: 1rem;
-      margin-bottom: 1.4rem;
+      margin-bottom: 1.6rem;
+      padding-bottom: 1.2rem;
+      border-bottom: 1px solid var(--rule);
     }
     .theme-num {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 3rem; font-weight: 300; font-style: italic;
+      font-size: 3.2rem; font-weight: 300; font-style: italic;
       color: var(--gold); line-height: 1; flex-shrink: 0;
     }
     .theme-title {
@@ -291,6 +338,8 @@
       .philosophy { padding: 2.5rem 1.5rem; }
       footer { flex-direction: column; gap: 1rem; padding: 1.5rem; }
       .theme-num { font-size: 2rem; }
+      .tab-btn { padding: 0.7rem 0.8rem; font-size: 0.55rem; }
+      .tab-panels { padding: 1.8rem 1.5rem; }
     }
   </style>
 </head>
@@ -337,445 +386,316 @@
 
 <!-- RESEARCH THEMES -->
 <div class="research-content">
+  <div class="tabs-wrapper">
 
-  <div class="ornament">— ✦ —</div>
+    <nav class="tab-nav" role="tablist">
+      <button class="tab-btn active" role="tab" data-tab="t1"><span class="tab-num">I</span> Continuum Mechanics<br>&amp; Stability</button>
+      <button class="tab-btn" role="tab" data-tab="t2"><span class="tab-num">II</span> Soft Matter:<br>Hydrogels &amp; LCEs</button>
+      <button class="tab-btn" role="tab" data-tab="t3"><span class="tab-num">III</span> Biomechanics:<br>Cells &amp; Tissues</button>
+      <button class="tab-btn" role="tab" data-tab="t4"><span class="tab-num">IV</span> Physics-Informed<br>Machine Learning</button>
+      <button class="tab-btn" role="tab" data-tab="t5"><span class="tab-num">V</span> Shape Memory<br>Alloys &amp; FSMAs</button>
+      <button class="tab-btn" role="tab" data-tab="t6"><span class="tab-num">VI</span> PI-FNO: Cardiac<br>Acoustics</button>
+      <button class="tab-btn" role="tab" data-tab="t7"><span class="tab-num">VII</span> Experimental<br>Mechanics</button>
+      <button class="tab-btn" role="tab" data-tab="t8"><span class="tab-num">VIII</span> Cardiovascular<br>AI Startup</button>
+    </nav>
 
-  <!-- THEME 1 -->
-  <div class="theme-block">
-    <div class="theme-header">
-      <span class="theme-num">I</span>
-      <h2 class="theme-title">Nonlinear Continuum Mechanics &amp; Stability Theory</h2>
-    </div>
-    <div class="theme-body">
-      <p>
-        My doctoral work, carried out under Prof. David Steigmann at UC Berkeley, established a
-        systematic framework for stability analysis in generalized continua. The central objects
-        of study were the Legendre-Hadamard condition, rank-one convexity, and quasiconvexity —
-        necessary conditions for energy minimizers that govern whether a body can sustain
-        localized failure modes such as shear bands or surface instabilities.
-      </p>
-      <p>
-        In classical elasticity these conditions are well understood, but for <em>Cosserat media</em>
-        — where material points carry both position and orientation — the analysis is fundamentally
-        richer. The acoustic tensor acquires a block structure, coupling the translational and
-        rotational degrees of freedom, and the admissible wave speeds depend on both the elastic
-        and couple-stress moduli. I derived these conditions analytically for Cosserat solids,
-        lattice structures, fiber-reinforced materials with one, two, and three fiber families,
-        liquid crystal elastomers, and elastic shells with intrinsic fiber bending and twist
-        stiffness. A key contribution was proving the <em>coupled</em> Legendre-Hadamard inequality
-        for fiber-reinforced shells, where the fiber's own Kirchhoff-rod energy interacts with
-        the shell's membrane-bending response.
-      </p>
-      <p>
-        More recently, I showed that fibrous biological tissues simultaneously exhibit
-        <em>strain-gradient</em> and <em>Cosserat</em> effects — a consequence of the finite
-        thickness and curvature of individual fibers — and that this dual nonlocality can
-        produce macroscopic Poynting effects with no classical analogue.
-      </p>
-      <div class="key-results">
-        <div class="key-results-label">Key Contributions</div>
-        <ul>
-          <li>Analytical Legendre-Hadamard conditions for Cosserat elasticity, fiber-reinforced solids, and elastic shells</li>
-          <li>Quasiconvexity and rank-one convexity in Cosserat models for lattice and fiber-reinforced materials</li>
-          <li>Maxwell-Eshelby relation and its generalization in Cosserat and 6-parameter shell theories</li>
-          <li>Mixed Cosserat/strain-gradient formulation for fibrous tissues; prediction of Poynting effects</li>
-          <li>Elastic-plastic response of hemitropic Cosserat solids</li>
-        </ul>
+    <div class="tab-panels">
+
+      <div class="tab-panel active" id="t1">
+        <div class="theme-header">
+          <span class="theme-num">I</span>
+          <h2 class="theme-title">Nonlinear Continuum Mechanics &amp; Stability Theory</h2>
+        </div>
+        <div class="theme-body">
+          <p>My doctoral work, carried out under Prof. David Steigmann at UC Berkeley, established a systematic framework for stability analysis in generalized continua. The central objects of study were the Legendre-Hadamard condition, rank-one convexity, and quasiconvexity — necessary conditions for energy minimizers that govern whether a body can sustain localized failure modes such as shear bands or surface instabilities.</p>
+          <p>In classical elasticity these conditions are well understood, but for <em>Cosserat media</em> — where material points carry both position and orientation — the analysis is fundamentally richer. The acoustic tensor acquires a block structure, coupling the translational and rotational degrees of freedom, and the admissible wave speeds depend on both the elastic and couple-stress moduli. I derived these conditions analytically for Cosserat solids, lattice structures, fiber-reinforced materials with one, two, and three fiber families, liquid crystal elastomers, and elastic shells with intrinsic fiber bending and twist stiffness. A key contribution was proving the <em>coupled</em> Legendre-Hadamard inequality for fiber-reinforced shells, where the fiber's own Kirchhoff-rod energy interacts with the shell's membrane-bending response.</p>
+          <p>More recently, I showed that fibrous biological tissues simultaneously exhibit <em>strain-gradient</em> and <em>Cosserat</em> effects — a consequence of the finite thickness and curvature of individual fibers — and that this dual nonlocality can produce macroscopic Poynting effects with no classical analogue.</p>
+          <div class="key-results">
+            <div class="key-results-label">Key Contributions</div>
+            <ul>
+              <li>Analytical Legendre-Hadamard conditions for Cosserat elasticity, fiber-reinforced solids, and elastic shells</li>
+              <li>Quasiconvexity and rank-one convexity in Cosserat models for lattice and fiber-reinforced materials</li>
+              <li>Maxwell-Eshelby relation and its generalization in Cosserat and 6-parameter shell theories</li>
+              <li>Mixed Cosserat/strain-gradient formulation for fibrous tissues; prediction of Poynting effects</li>
+              <li>Elastic-plastic response of hemitropic Cosserat solids</li>
+            </ul>
+          </div>
+          <div class="article-links">
+            <a class="article-link coming-soon" href="#"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg> Article · Coming Soon</a>
+          </div>
+        </div>
       </div>
-      <div class="article-links">
-        <a class="article-link coming-soon" href="#">
-          <svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg>
-          Article · Coming Soon
-        </a>
-      </div>
-    </div>
-  </div>
 
-  <!-- THEME 2 -->
-  <div class="theme-block">
-    <div class="theme-header">
-      <span class="theme-num">II</span>
-      <h2 class="theme-title">Soft Matter: Hydrogels, Polymers &amp; Liquid Crystal Elastomers</h2>
-    </div>
-    <div class="theme-body">
-      <p>
-        Soft materials present a distinct class of challenges: they undergo large, geometrically
-        nonlinear deformations; they often couple mechanical response to chemical, thermal, or
-        electromagnetic fields; and their constitutive behavior is governed by entropy as much as
-        by internal energy. My work in this area addresses both the mathematical structure of
-        such coupled theories and their computational implementation.
-      </p>
-      <p>
-        For hydrogels, I developed a thermodynamically consistent continuum model for swelling
-        driven by water absorption, grounding the Flory-Huggins mixing energy within a
-        variational framework and deriving the coupled mechanical and chemical balance laws
-        via the principle of virtual power. The Coleman-Noll procedure shows that the reduced
-        dissipation inequality constrains the water-flux mobility tensor to be positive
-        semi-definite — a result that is both physically necessary and computationally actionable.
-        The model is currently being extended to biological tissues and to delamination problems
-        in layered hydrogel systems.
-      </p>
-      <p>
-        For <em>nematic liquid crystal elastomers</em> (LCEs), where a rubber-like polymer
-        network is coupled to an orientational order parameter \(\boldsymbol{n}\), I derived
-        the Legendre-Hadamard inequalities governing stability with respect to both deformation
-        and director-field perturbations. I then used these as validation criteria — rather
-        than loss-function penalties — when training physics-consistent neural networks to
-        predict the deformation and director fields. This distinction matters: a loss penalty
-        can be violated during inference, while an architectural constraint cannot.
-      </p>
-      <div class="key-results">
-        <div class="key-results-label">Key Contributions</div>
-        <ul>
-          <li>Variational continuum model for hydrogel swelling; thermodynamic restrictions on the water flux</li>
-          <li>Stability conditions for nematic LCEs under coupled mechanical-orientational perturbations</li>
-          <li>Deep Energy Method for LCEs: two coupled MLPs for deformation and director fields, validated against FEA</li>
-          <li>Variational and data-driven DeepONets for nematic materials</li>
-          <li>Wrinkling of incompressible anisotropic sheets with wavy fibers</li>
-        </ul>
+      <div class="tab-panel" id="t2">
+        <div class="theme-header">
+          <span class="theme-num">II</span>
+          <h2 class="theme-title">Soft Matter: Hydrogels, Polymers &amp; Liquid Crystal Elastomers</h2>
+        </div>
+        <div class="theme-body">
+          <p>Soft materials present a distinct class of challenges: they undergo large, geometrically nonlinear deformations; they often couple mechanical response to chemical, thermal, or electromagnetic fields; and their constitutive behavior is governed by entropy as much as by internal energy. My work in this area addresses both the mathematical structure of such coupled theories and their computational implementation.</p>
+          <p>For hydrogels, I developed a thermodynamically consistent continuum model for swelling driven by water absorption, grounding the Flory-Huggins mixing energy within a variational framework and deriving the coupled mechanical and chemical balance laws via the principle of virtual power. The Coleman-Noll procedure shows that the reduced dissipation inequality constrains the water-flux mobility tensor to be positive semi-definite — a result that is both physically necessary and computationally actionable. The model is currently being extended to biological tissues and to delamination problems in layered hydrogel systems.</p>
+          <p>For <em>nematic liquid crystal elastomers</em> (LCEs), where a rubber-like polymer network is coupled to an orientational order parameter \(oldsymbol{n}\), I derived the Legendre-Hadamard inequalities governing stability with respect to both deformation and director-field perturbations. I then used these as validation criteria — rather than loss-function penalties — when training physics-consistent neural networks to predict the deformation and director fields. This distinction matters: a loss penalty can be violated during inference, while an architectural constraint cannot.</p>
+          <div class="key-results">
+            <div class="key-results-label">Key Contributions</div>
+            <ul>
+              <li>Variational continuum model for hydrogel swelling; thermodynamic restrictions on the water flux</li>
+              <li>Stability conditions for nematic LCEs under coupled mechanical-orientational perturbations</li>
+              <li>Deep Energy Method for LCEs: two coupled MLPs for deformation and director fields, validated against FEA</li>
+              <li>Variational and data-driven DeepONets for nematic materials</li>
+              <li>Wrinkling of incompressible anisotropic sheets with wavy fibers</li>
+            </ul>
+          </div>
+          <div class="article-links">
+            <a class="article-link" href="research-hydrogel-swelling.html">Read · Hydrogel Swelling Model <svg viewBox="0 0 12 12"><path d="M5 2H2a1 1 0 00-1 1v7a1 1 0 001 1h7a1 1 0 001-1V7M7 1h4m0 0v4m0-4L5 7"/></svg></a>
+            <a class="article-link coming-soon" href="#"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg> Article · LCE Stability &amp; Neural Networks — Coming Soon</a>
+          </div>
+        </div>
       </div>
-      <div class="article-links">
-        <a class="article-link" href="research-hydrogel-swelling.html">
-          Read · Hydrogel Swelling Model
-          <svg viewBox="0 0 12 12"><path d="M5 2H2a1 1 0 00-1 1v7a1 1 0 001 1h7a1 1 0 001-1V7M7 1h4m0 0v4m0-4L5 7"/></svg>
-        </a>
-        <a class="article-link coming-soon" href="#">
-          <svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg>
-          Article · LCE Stability &amp; Neural Networks — Coming Soon
-        </a>
+
+      <div class="tab-panel" id="t3">
+        <div class="theme-header">
+          <span class="theme-num">III</span>
+          <h2 class="theme-title">Biomechanics: Cell Migration, Tissues &amp; Membranes</h2>
+        </div>
+        <div class="theme-body">
+          <p>At Yale, working with Prof. Jay D. Humphrey, my research has focused on the mechanics of living soft matter — fibrous biological tissues, cell monolayers, lipid bilayers, and hydrogel scaffolds. These systems are distinguished by their capacity for active response, growth, remodeling, and self-organization, phenomena that classical passive elasticity cannot capture.</p>
+          <p>I developed a continuum model for collective cell migration driven by <em>chemotaxis</em> (response to chemical gradients), <em>durotaxis</em> (response to substrate stiffness), and <em>taxis</em> toward tension, unifying these into a single thermodynamically consistent framework applicable to multiple cell families and chemoattractants simultaneously. A significant theoretical finding was demonstrating that the Keller-Segel chemotaxis model — widely used in mathematical biology — violates thermodynamic consistency, and providing a corrected formulation.</p>
+          <p>A separate line of work concerned the geometry of cell polarization near free boundaries. I proved that in any polarized cell monolayer, the polarity vector must remain tangential to free boundaries — a result that is <em>universal</em> in the sense that it depends only on the boundary geometry and the continuity of the polarity field, not on the specific constitutive model for polarization dynamics.</p>
+          <p>Earlier work at Berkeley addressed the equilibrium mechanics of lipid bilayers, including asymmetric and tilted bilayers and bilayers with a conforming cytoskeletal membrane, where the coupling between membrane curvature and cytoskeletal tension produces nontrivial shape transitions.</p>
+          <div class="key-results">
+            <div class="key-results-label">Key Contributions</div>
+            <ul>
+              <li>Thermodynamically consistent model for collective cell migration under chemo-mechanical stimuli</li>
+              <li>Proof of thermodynamic inconsistency in the Keller-Segel model; corrected continuum formulation</li>
+              <li>Universal tangentiality of cell polarity at free boundaries of cell monolayers</li>
+              <li>Equilibrium theory for asymmetric tilted lipid bilayers and bilayers with cytoskeletal coupling</li>
+              <li>Finite elastic deformations of incompressible fiber-reinforced biological plates</li>
+            </ul>
+          </div>
+          <div class="article-links">
+            <a class="article-link coming-soon" href="#"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg> Article · Cell Migration Model — Coming Soon</a>
+            <a class="article-link coming-soon" href="#"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg> Article · Cell Polarity at Boundaries — Coming Soon</a>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <!-- THEME 3 -->
-  <div class="theme-block">
-    <div class="theme-header">
-      <span class="theme-num">III</span>
-      <h2 class="theme-title">Biomechanics: Cell Migration, Tissues &amp; Membranes</h2>
-    </div>
-    <div class="theme-body">
-      <p>
-        At Yale, working with Prof. Jay D. Humphrey, my research has focused on the mechanics of
-        living soft matter — fibrous biological tissues, cell monolayers, lipid bilayers, and
-        hydrogel scaffolds. These systems are distinguished by their capacity for active response,
-        growth, remodeling, and self-organization, phenomena that classical passive elasticity
-        cannot capture.
-      </p>
-      <p>
-        I developed a continuum model for collective cell migration driven by
-        <em>chemotaxis</em> (response to chemical gradients), <em>durotaxis</em>
-        (response to substrate stiffness), and <em>taxis</em> toward tension, unifying
-        these into a single thermodynamically consistent framework applicable to multiple
-        cell families and chemoattractants simultaneously. A significant theoretical finding
-        was demonstrating that the Keller-Segel chemotaxis model — widely used in mathematical
-        biology — violates thermodynamic consistency, and providing a corrected formulation.
-      </p>
-      <p>
-        A separate line of work concerned the geometry of cell polarization near free boundaries.
-        I proved that in any polarized cell monolayer, the polarity vector must remain
-        tangential to free boundaries — a result that is <em>universal</em> in the sense that
-        it depends only on the boundary geometry and the continuity of the polarity field,
-        not on the specific constitutive model for polarization dynamics.
-      </p>
-      <p>
-        Earlier work at Berkeley addressed the equilibrium mechanics of lipid bilayers,
-        including asymmetric and tilted bilayers and bilayers with a conforming cytoskeletal
-        membrane, where the coupling between membrane curvature and cytoskeletal tension
-        produces nontrivial shape transitions.
-      </p>
-      <div class="key-results">
-        <div class="key-results-label">Key Contributions</div>
-        <ul>
-          <li>Thermodynamically consistent model for collective cell migration under chemo-mechanical stimuli</li>
-          <li>Proof of thermodynamic inconsistency in the Keller-Segel model; corrected continuum formulation</li>
-          <li>Universal tangentiality of cell polarity at free boundaries of cell monolayers</li>
-          <li>Equilibrium theory for asymmetric tilted lipid bilayers and bilayers with cytoskeletal coupling</li>
-          <li>Finite elastic deformations of incompressible fiber-reinforced biological plates</li>
-        </ul>
+      <div class="tab-panel" id="t4">
+        <div class="theme-header">
+          <span class="theme-num">IV</span>
+          <h2 class="theme-title">Physics-Informed Machine Learning &amp; Neural Constitutive Models</h2>
+        </div>
+        <div class="theme-body">
+          <p>The convergence of mechanics and machine learning opens a genuinely new frontier — not merely fitting data faster, but building computational models that are constrained by physical law from the ground up. My work in this area is grounded in the conviction that the laws of mechanics are not soft regularizers to be traded against data fit; they are hard constraints that any admissible model must satisfy exactly.</p>
+          <p>For hyperelastic constitutive modeling, I develop neural networks whose outputs are guaranteed to satisfy <em>frame indifference</em>, <em>material symmetry</em>, and the <em>Legendre-Hadamard condition</em> — not by penalizing violations during training, but by architectural design. Input Convex Neural Networks (ICNNs) provide polyconvex energy densities by construction. For fibrous biological tissues with two fiber families, I have proved analytically the polyconvexity conditions that existing approaches verify only numerically — a distinction that matters for guaranteeing stability at <em>any</em> deformation state, not just those seen during training.</p>
+          <p>For operator learning — mapping loading conditions to full displacement or director fields — I work with Deep Operator Networks (DeepONets) and Physics-Informed Neural Networks (PINNs), enforcing the governing PDEs either through the loss function or directly in the architecture. Most recently, in work currently under review, I trained physics-consistent neural networks for microstructured media (Cosserat continua) where both the deformation gradient \(oldsymbol{F}\) and the director field \(oldsymbol{d}\) are learned simultaneously, with the Legendre-Hadamard tensor retained in the computational graph for post-training stability verification.</p>
+          <p>Looking forward, I am building end-to-end differentiable simulation pipelines in JAX and PyTorch — combining custom finite element solvers, neural constitutive models, and MeshGraphNet-based surrogates — as the foundation for Physical AI applications in soft robotics, surgical simulation, and materials design.</p>
+          <div class="key-results">
+            <div class="key-results-label">Key Contributions</div>
+            <ul>
+              <li>Deep Energy Method for nematic LCEs with LH conditions as architectural constraints</li>
+              <li>Physics-consistent neural networks for Cosserat media; LH verification in the computational graph</li>
+              <li>Analytical proof of polyconvexity conditions for fibrous tissues with two fiber families</li>
+              <li>Variational and data-driven DeepONets for nematic materials</li>
+              <li>Differentiable FEA in JAX: T3/Q9 elements, Neo-Hookean and SVK materials, autodiff tangent stiffness</li>
+              <li>Agentic constitutive model discovery pipelines using LangGraph with JAX and PyTorch backends</li>
+            </ul>
+          </div>
+          <div class="article-links">
+            <a class="article-link coming-soon" href="#"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg> Article · ICNN Constitutive Models — Coming Soon</a>
+            <a class="article-link coming-soon" href="#"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg> Article · Differentiable Simulation — Coming Soon</a>
+          </div>
+        </div>
       </div>
-      <div class="article-links">
-        <a class="article-link coming-soon" href="#">
-          <svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg>
-          Article · Cell Migration Model — Coming Soon
-        </a>
-        <a class="article-link coming-soon" href="#">
-          <svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg>
-          Article · Cell Polarity at Boundaries — Coming Soon
-        </a>
+
+      <div class="tab-panel" id="t5">
+        <div class="theme-header">
+          <span class="theme-num">V</span>
+          <h2 class="theme-title">Shape Memory Alloys &amp; Ferromagnetic Smart Materials</h2>
+        </div>
+        <div class="theme-body">
+          <p>My earliest research, carried out during my MSc at Isfahan University of Technology, focused on the constitutive modeling of shape memory alloys (SMAs) and ferromagnetic shape memory alloys (FSMAs), also referred to as magnetic shape memory alloys (MSMAs). SMAs such as NiTi memorize a reference shape and recover it upon heating through a reversible martensitic phase transition between austenite and martensite. Their applications range from medical devices and aerospace actuators to shock absorbers. FSMAs extend this behavior: in the martensitic phase, an applied magnetic field drives <em>martensite variant reorientation</em>, producing large inelastic strains without thermal cycling.</p>
+          <p><strong>Thermodynamic consistency of SMA phase diagrams.</strong> The dominant modeling paradigm at the time relied on phase diagrams in stress-temperature space to determine when transformation initiates and completes. I showed that this class of models — including the widely used Brinson (1993) model — violates the second law of thermodynamics. The argument was constructive: I designed a thought experiment involving a sequence of <em>interrupted phase transformations</em> and showed that, in the limit as the number of interruptions tends to infinity, phase-diagram-based models predict that transformation ends without the phase fraction satisfying the completion condition. This paradox arises because such models exclude loading history from the transformation initiation criterion, which is thermodynamically inadmissible. I designed and carried out multiple thermomechanical experiments to confirm the discrepancy between model predictions and physical behavior.</p>
+          <p><strong>Corrected 3-D transformation surfaces and continuation conditions.</strong> Enforcing the second law of thermodynamics, I generalized the conventional 2-D phase diagrams in stress-temperature space to 3-D <em>transformation surfaces</em> in stress-temperature-loading history space. On these surfaces the loading history is encoded in the surface's evolution, so the transformation-start criterion properly depends on the accumulated thermomechanical path. I further exploited the geometric fact that the gradient of a surface is normal to it: this constraint yields explicit <em>transformation continuation conditions</em> — inequalities that must hold throughout an ongoing transformation. Their violation signals an elastic regime in which the inelastic contribution of phase transformation is inactive.</p>
+          <p><strong>Ferromagnetic SMAs: unique parameter calibration.</strong> A critical shortcoming of existing FSMA models was that their parameters could not be determined uniquely without curve-fitting to each individual experiment — making predictions for new loading protocols unreliable. I proposed a systematic calibration procedure that extracts all model parameters from a single reference experiment. To demonstrate generality, I calibrated the model once and reproduced 12 independent experimental datasets without recalibration. Enforcing the second law, I then derived a constitutive relation for the coupled magneto-mechanical response of these alloys under general magnetomechanical loading, and, mirroring the SMA approach, introduced both 2-D reorientation diagrams and their 3-D generalizations — together with the corresponding <em>reorientation start and continuation conditions</em>. All predictions were validated against purpose-designed magnetomechanical tests.</p>
+          <p><strong>Biaxial compression and theoretically predicted pseudoelasticity.</strong> Using thermodynamic arguments alone, I predicted that FSMAs subjected to biaxial compressive stress should exhibit inelastic behavior from variant reorientation, with hysteresis and pseudoelasticity whose character depends on the magnitude of the transverse stress component. At the time, no experimental data existed to validate this prediction, and I was unable to publish the result. Eighteen months later, an independent experimental paper appeared observing precisely the behavior I had forecast — enabling publication and providing post-hoc validation of the thermodynamic approach.</p>
+          <div class="key-results">
+            <div class="key-results-label">Key Contributions</div>
+            <ul>
+              <li>Proved thermodynamic inconsistency of phase-diagram-based SMA models via an interrupted-transformation thought experiment; validated with thermomechanical experiments</li>
+              <li>Generalized 2-D phase diagrams in stress-temperature space to 3-D transformation surfaces in stress-temperature-loading history space; derived continuation conditions from surface-gradient geometry</li>
+              <li>Unique parameter calibration for FSMA constitutive models; single calibration reproduces 12 experimental datasets</li>
+              <li>3-D reorientation surfaces and continuation conditions for magnetically driven martensite variant reorientation in FSMAs</li>
+              <li>Theoretical prediction — confirmed experimentally 18 months later — of hysteresis and pseudoelasticity in Ni-Mn-Ga FSMAs under biaxial compression</li>
+              <li>Designed and executed thermomechanical and magnetomechanical experiments for model validation</li>
+              <li>8 publications (7 journals + 1 conference); Best Graduate Thesis Award, Isfahan University of Technology (2014)</li>
+            </ul>
+          </div>
+          <div class="article-links">
+            <a class="article-link coming-soon" href="#"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg> Articles · SMA &amp; FSMA Constitutive Modeling — See Publications</a>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <!-- THEME 4 -->
-  <div class="theme-block">
-    <div class="theme-header">
-      <span class="theme-num">IV</span>
-      <h2 class="theme-title">Physics-Informed Machine Learning &amp; Neural Constitutive Models</h2>
-    </div>
-    <div class="theme-body">
-      <p>
-        The convergence of mechanics and machine learning opens a genuinely new frontier — not
-        merely fitting data faster, but building computational models that are constrained by
-        physical law from the ground up. My work in this area is grounded in the conviction
-        that the laws of mechanics are not soft regularizers to be traded against data fit;
-        they are hard constraints that any admissible model must satisfy exactly.
-      </p>
-      <p>
-        For hyperelastic constitutive modeling, I develop neural networks whose outputs are
-        guaranteed to satisfy <em>frame indifference</em>, <em>material symmetry</em>, and the
-        <em>Legendre-Hadamard condition</em> — not by penalizing violations during training,
-        but by architectural design. Input Convex Neural Networks (ICNNs) provide polyconvex
-        energy densities by construction. For fibrous biological tissues with two fiber families,
-        I have proved analytically the polyconvexity conditions that existing approaches verify
-        only numerically — a distinction that matters for guaranteeing stability at
-        <em>any</em> deformation state, not just those seen during training.
-      </p>
-      <p>
-        For operator learning — mapping loading conditions to full displacement or director
-        fields — I work with Deep Operator Networks (DeepONets) and Physics-Informed Neural
-        Networks (PINNs), enforcing the governing PDEs either through the loss function or
-        directly in the architecture. Most recently, in work currently under review, I trained
-        physics-consistent neural networks for microstructured media (Cosserat continua) where
-        both the deformation gradient \(\boldsymbol{F}\) and the director field
-        \(\boldsymbol{d}\) are learned simultaneously, with the Legendre-Hadamard tensor
-        retained in the computational graph for post-training stability verification.
-      </p>
-      <p>
-        Looking forward, I am building end-to-end differentiable simulation pipelines in JAX
-        and PyTorch — combining custom finite element solvers, neural constitutive models,
-        and MeshGraphNet-based surrogates — as the foundation for Physical AI applications
-        in soft robotics, surgical simulation, and materials design.
-      </p>
-      <div class="key-results">
-        <div class="key-results-label">Key Contributions</div>
-        <ul>
-          <li>Deep Energy Method for nematic LCEs with LH conditions as architectural constraints</li>
-          <li>Physics-consistent neural networks for Cosserat media; LH verification in the computational graph</li>
-          <li>Analytical proof of polyconvexity conditions for fibrous tissues with two fiber families</li>
-          <li>Variational and data-driven DeepONets for nematic materials</li>
-          <li>Differentiable FEA in JAX: T3/Q9 elements, Neo-Hookean and SVK materials, autodiff tangent stiffness</li>
-          <li>Agentic constitutive model discovery pipelines using LangGraph with JAX and PyTorch backends</li>
-        </ul>
+      <div class="tab-panel" id="t6">
+        <div class="theme-header">
+          <span class="theme-num">VI</span>
+          <h2 class="theme-title">PI-FNO: Physics-Informed Neural Operators for Cardiac Acoustics</h2>
+        </div>
+        <div class="theme-body">
+          <p>The same design principles that govern physics-consistent constitutive modeling in continuum mechanics — encoding known structure as inductive biases, enforcing inequalities as hard or hinge constraints, and using interpretable learned parameters — transfer naturally to biomedical signal classification. This project applies that philosophy to the automated diagnosis of valvular heart disease from raw phonocardiogram (PCG) recordings.</p>
+          <p>The primary model is a <em>Fourier Neural Operator (FNO)</em> operating directly on raw waveforms, with physiological structure encoded at three levels. First, a learnable <em>physiological frequency mask</em> is initialized from known S1 (25-45 Hz) and S2 (50-70 Hz) cardiac sound bands and parameterized in logit space to keep weights in \((0,1)\). Second, spectral convolutions retain only the \(M = 20\) lowest Fourier modes — a band-limited inductive bias matching the sub-1 kHz frequency content of cardiac acoustics. Third, the training loss augments cross-entropy with two physiologically motivated terms: a <em>periodicity loss</em> penalizing energy away from heart-rate harmonics, and a <em>frequency hierarchy loss</em> enforcing \(E_{S1} \geq E_{S2}\) via a hinge penalty — directly analogous to Legendre-Hadamard enforcement in hyperelastic constitutive modeling.</p>
+          <p>The model classifies five clinically distinct conditions — Aortic Stenosis, Mitral Regurgitation, Mitral Stenosis, Mitral Valve Prolapse, and Normal — from 1,000 PCG recordings. The FNO achieves <strong>97.3% test accuracy</strong> with perfect classification of Mitral Stenosis (F1 = 1.00). After training, the learned mask weights autonomously recover the S1/S2 bands while also discovering additional murmur-frequency modes — providing direct clinical interpretability with no post-hoc attribution required.</p>
+          <div class="key-results">
+            <div class="key-results-label">Key Results</div>
+            <ul>
+              <li>97.3% five-class test accuracy on 1,000 PCG recordings (AS / MR / MS / MVP / Normal)</li>
+              <li>Perfect Mitral Stenosis classification (F1 = 1.00); hardest class MR at F1 = 0.92</li>
+              <li>Learnable physiological frequency mask autonomously recovers S1 and S2 bands post-training</li>
+              <li>Hinge-form frequency hierarchy loss enforces \(E_{S1} \geq E_{S2}\) — exact analogue of LH inequality enforcement in mechanics</li>
+              <li>Well-separated t-SNE clusters for all five classes; Normal class fully isolated from all pathologies</li>
+            </ul>
+          </div>
+          <div class="results-table-wrap">
+            <div class="results-table-label">Performance Summary</div>
+            <table class="results-table">
+              <thead><tr><th>Model</th><th>Val Acc</th><th>Test Acc</th><th>Convergence</th></tr></thead>
+              <tbody>
+                <tr class="highlight-row"><td>FNO (physio-constrained)</td><td>98.00%</td><td><strong>97.33%</strong></td><td>Epoch 30</td></tr>
+                <tr><td>CNN Baseline (Mel spectrogram)</td><td>98.67%</td><td><strong>97.33%</strong></td><td>Epoch 20</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="article-links">
+            <a class="article-link" href="https://github.com/miladshirani/PI-FNO" target="_blank">GitHub · PI-FNO Repository <svg viewBox="0 0 12 12"><path d="M5 2H2a1 1 0 00-1 1v7a1 1 0 001 1h7a1 1 0 001-1V7M7 1h4m0 0v4m0-4L5 7"/></svg></a>
+            <a class="article-link coming-soon" href="#"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg> Article · Coming Soon</a>
+          </div>
+        </div>
       </div>
-      <div class="article-links">
-        <a class="article-link coming-soon" href="#">
-          <svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg>
-          Article · ICNN Constitutive Models — Coming Soon
-        </a>
-        <a class="article-link coming-soon" href="#">
-          <svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg>
-          Article · Differentiable Simulation — Coming Soon
-        </a>
+
+      <!-- PANEL 7 -->
+      <div class="tab-panel" id="t7">
+        <div class="theme-header">
+          <span class="theme-num">VII</span>
+          <h2 class="theme-title">Experimental Mechanics</h2>
+        </div>
+        <div class="theme-body">
+          <p>
+            Alongside my theoretical and computational work, I have designed and executed
+            experimental programs in structural mechanics, smart materials, and composite
+            failure — grounding analytical predictions in physical measurement and providing
+            the experimental baselines against which models are validated.
+          </p>
+          <p>
+            <strong>Composites — strain gauges and Digital Image Correlation (DIC).</strong>
+            Tensile failure in carbon fiber and fiberglass composites involves localized strain
+            concentrations that coupon-average measurements cannot resolve. To characterize
+            failure initiation sites and tensile strength under combined loading with full-field
+            ground truth, I designed and executed tensile failure tests on composite specimens,
+            instrumented with strain gauges for local strain measurement at anticipated failure
+            sites, and deployed DIC for simultaneous full-field strain mapping. I designed
+            acceptance criteria and loading protocols to isolate failure modes and avoid
+            confounding effects. The result was full-field strain maps resolving failure
+            initiation sites and tensile strength bounds under combined loading, with model
+            predictions validated directly against experimental ground truth.
+          </p>
+          <p>
+            <strong>Shape memory alloys — thermomechanical and magnetomechanical testing.</strong>
+            During my MSc at Isfahan University of Technology, I designed and executed
+            thermomechanical experiments to characterize phase transformation behavior in NiTi
+            SMAs — including interrupted transformation sequences that exposed the thermodynamic
+            inconsistency of existing phase-diagram-based models — and magnetomechanical tests
+            on Ni-Mn-Ga FSMAs to validate constitutive models for magnetically driven martensite
+            variant reorientation. I also performed DSC thermal characterization to measure
+            phase transformation temperatures and stresses under varying thermal histories, and
+            tensile testing on iron-based SMA specimens.
+          </p>
+          <p>
+            <strong>Photoelastic stress analysis.</strong>
+            I conducted photoelastic experiments for full-field stress distributions in
+            complex-geometry specimens, obtaining fringe patterns validated against analytical
+            and numerical model predictions under small-strain deformation — reinforcing the
+            complementarity between experimental observation and theoretical modeling.
+          </p>
+          <div class="key-results">
+            <div class="key-results-label">Key Contributions</div>
+            <ul>
+              <li>Tensile failure characterization of carbon fiber and fiberglass composites via strain gauges and DIC; full-field strain maps resolving failure initiation sites and tensile strength bounds</li>
+              <li>Thermomechanical experiments on NiTi SMAs exposing thermodynamic inconsistency of phase-diagram models</li>
+              <li>Magnetomechanical testing of Ni-Mn-Ga FSMAs; validated reorientation constitutive models including biaxial compression predictions</li>
+              <li>DSC thermal characterization and tensile testing of iron-based SMA specimens</li>
+              <li>Photoelastic full-field stress mapping in complex geometries; validated against small-strain model predictions</li>
+            </ul>
+          </div>
+          <div class="article-links">
+            <a class="article-link coming-soon" href="#"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg> Publications — See SMA &amp; FSMA Tab</a>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <!-- THEME 5 -->
-  <div class="theme-block">
-    <div class="theme-header">
-      <span class="theme-num">V</span>
-      <h2 class="theme-title">Shape Memory Alloys &amp; Ferromagnetic Smart Materials</h2>
-    </div>
-    <div class="theme-body">
-      <p>
-        My earliest research, carried out during my MSc at Isfahan University of Technology,
-        focused on the constitutive modeling of shape memory alloys (SMAs) and ferromagnetic
-        shape memory alloys (FSMAs), also referred to as magnetic shape memory alloys (MSMAs).
-        SMAs such as NiTi memorize a reference shape and recover it upon heating through a
-        reversible martensitic phase transition between austenite and martensite. Their
-        applications range from medical devices and aerospace actuators to shock absorbers.
-        FSMAs extend this behavior: in the martensitic phase, an applied magnetic field drives
-        <em>martensite variant reorientation</em>, producing large inelastic strains without
-        thermal cycling.
-      </p>
-
-      <p>
-        <strong>Thermodynamic consistency of SMA phase diagrams.</strong>
-        The dominant modeling paradigm at the time relied on phase diagrams in stress–temperature
-        space to determine when transformation initiates and completes. I showed that this class
-        of models — including the widely used Brinson (1993) model — violates the second law of
-        thermodynamics. The argument was constructive: I designed a thought experiment involving
-        a sequence of <em>interrupted phase transformations</em> and showed that, in the limit
-        as the number of interruptions tends to infinity, phase-diagram-based models predict
-        that transformation ends without the phase fraction satisfying the completion condition.
-        This paradox arises because such models exclude loading history from the transformation
-        initiation criterion, which is thermodynamically inadmissible. Multiple thermomechanical
-        experiments confirmed the discrepancy between model predictions and physical behavior.
-      </p>
-
-      <p>
-        <strong>Corrected 3-D transformation surfaces and continuation conditions.</strong>
-        Enforcing the second law of thermodynamics, I generalized the conventional 2-D phase
-        diagrams to 3-D <em>transformation surfaces</em> in stress space. On these surfaces the
-        loading history is encoded in the surface's evolution, so the transformation-start
-        criterion properly depends on the accumulated thermomechanical path. I further exploited
-        the geometric fact that the gradient of a surface is normal to it: this constraint
-        yields explicit <em>transformation continuation conditions</em> — inequalities that must
-        hold throughout an ongoing transformation. Their violation signals an elastic regime in
-        which the inelastic contribution of phase transformation is inactive.
-      </p>
-
-      <p>
-        <strong>Ferromagnetic SMAs: unique parameter calibration.</strong>
-        A critical shortcoming of existing FSMA models was that their parameters could not be
-        determined uniquely without curve-fitting to each individual experiment — making
-        predictions for new loading protocols unreliable. I proposed a systematic calibration
-        procedure that extracts all model parameters from a single reference experiment. To
-        demonstrate generality, I calibrated the model once and reproduced 12 independent
-        experimental datasets without recalibration. Enforcing the second law, I then derived
-        a constitutive relation for the coupled magneto-mechanical response of these alloys
-        under general magnetomechanical loading, and, mirroring the SMA approach, introduced
-        both 2-D reorientation diagrams and their 3-D generalizations — together with the
-        corresponding <em>reorientation start and continuation conditions</em>.
-        All predictions were validated against purpose-designed magnetomechanical tests.
-      </p>
-
-      <p>
-        <strong>Biaxial compression and theoretically predicted pseudoelasticity.</strong>
-        Using thermodynamic arguments alone, I predicted that FSMAs subjected to biaxial
-        compressive stress should exhibit inelastic behavior from variant reorientation, with
-        hysteresis and pseudoelasticity whose character depends on the magnitude of the
-        transverse stress component. At the time, no experimental data existed to validate
-        this prediction, and I was unable to publish the result. Eighteen months later, an
-        independent experimental paper appeared observing precisely the behavior I had
-        forecast — enabling publication and providing post-hoc validation of the thermodynamic
-        approach.
-      </p>
-
-      <div class="key-results">
-        <div class="key-results-label">Key Contributions</div>
-        <ul>
-          <li>Proved thermodynamic inconsistency of phase-diagram-based SMA models via an interrupted-transformation thought experiment; validated with thermomechanical experiments</li>
-          <li>Generalized 2-D phase diagrams to 3-D transformation surfaces encoding loading history; derived transformation continuation conditions from surface-gradient geometry</li>
-          <li>Unique parameter calibration for FSMA constitutive models; single calibration reproduces 12 experimental datasets</li>
-          <li>3-D reorientation surfaces and continuation conditions for magnetically driven martensite variant reorientation in FSMAs</li>
-          <li>Theoretical prediction — confirmed experimentally 18 months later — of hysteresis and pseudoelasticity in Ni-Mn-Ga FSMAs under biaxial compression</li>
-          <li>Designed and executed thermomechanical and magnetomechanical experiments for model validation</li>
-          <li>8 publications (7 journals + 1 conference); Best Graduate Thesis Award, Isfahan University of Technology (2014)</li>
-        </ul>
+      <!-- PANEL 8 -->
+      <div class="tab-panel" id="t8">
+        <div class="theme-header">
+          <span class="theme-num">VIII</span>
+          <h2 class="theme-title">Cardiovascular AI Startup — UC Berkeley</h2>
+        </div>
+        <div class="theme-body">
+          <p>
+            During the final year of my PhD at UC Berkeley, I co-founded an AI startup focused
+            on the automated detection of cardiovascular disease from phonocardiogram (PCG)
+            recordings. The startup was accepted into two competitive Berkeley incubator
+            programs: <strong>UC Berkeley SkyDeck Pad-13</strong> and the
+            <strong>CITRIS Foundry 2023</strong> cohort, providing mentorship, infrastructure,
+            and a translational development environment.
+          </p>
+          <p>
+            <strong>Model development.</strong>
+            Operating under startup timelines and constraints, I developed, benchmarked,
+            and delivered a convolutional neural network (CNN) with transfer learning for
+            multi-class heart sound classification — distinguishing normal cardiac function
+            from pathological conditions including aortic stenosis, mitral regurgitation,
+            mitral stenosis, and mitral valve prolapse. The pipeline covered the full model
+            lifecycle: raw PCG data ingestion, preprocessing and segmentation, feature
+            extraction, model training and cross-validation, and evaluation on held-out test
+            sets. The final model achieved <strong>95% accuracy</strong> on held-out data,
+            meeting the startup's clinical deployment target.
+          </p>
+          <p>
+            <strong>Hardware integration.</strong>
+            I mentored an undergraduate student in designing and building a hardware digital
+            stethoscope — a custom data acquisition device that interfaces with the deployed
+            classification model, enabling point-of-care cardiac screening without specialized
+            clinical equipment. This hardware-software integration bridged the gap between
+            research prototype and deployable medical instrument.
+          </p>
+          <p>
+            <strong>Connection to PI-FNO.</strong>
+            The startup provided the clinical motivation and domain expertise that later
+            informed the PI-FNO project (Tab VI), where I revisited the same five-class cardiac
+            classification problem using a Fourier Neural Operator with explicit physiological
+            constraints — moving from an engineering-driven CNN baseline to a physics-principled
+            architecture grounded in the known frequency structure of cardiac acoustics.
+          </p>
+          <div class="key-results">
+            <div class="key-results-label">Key Contributions</div>
+            <ul>
+              <li>Co-founded cardiovascular AI startup; accepted into UC Berkeley SkyDeck Pad-13 and CITRIS Foundry 2023</li>
+              <li>Developed CNN + transfer learning pipeline for multi-class heart sound classification; 95% accuracy on held-out test sets</li>
+              <li>Managed full model lifecycle: data pipeline, preprocessing, training, cross-validation, and evaluation on a startup timeline</li>
+              <li>Mentored undergraduate student in building a hardware digital stethoscope paired with the deployed model</li>
+              <li>Startup work directly motivated the subsequent PI-FNO physics-constrained approach (Tab VI)</li>
+            </ul>
+          </div>
+          <div class="article-links">
+            <a class="article-link coming-soon" href="#"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg> Related Work · PI-FNO (Tab VI)</a>
+          </div>
+        </div>
       </div>
-      <div class="article-links">
-        <a class="article-link coming-soon" href="#">
-          <svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg>
-          Articles · SMA &amp; FSMA Constitutive Modeling — See Publications
-        </a>
-      </div>
+
     </div>
   </div>
-
-  <!-- THEME 6 -->
-  <div class="theme-block">
-    <div class="theme-header">
-      <span class="theme-num">VI</span>
-      <h2 class="theme-title">PI-FNO: Physics-Informed Neural Operators for Cardiac Acoustics</h2>
-    </div>
-    <div class="theme-body">
-      <p>
-        The same design principles that govern physics-consistent constitutive modeling in continuum
-        mechanics — encoding known structure as inductive biases, enforcing inequalities as hard or
-        hinge constraints, and using interpretable learned parameters — transfer naturally to
-        biomedical signal classification. This project applies that philosophy to the automated
-        diagnosis of valvular heart disease from raw phonocardiogram (PCG) recordings.
-      </p>
-      <p>
-        The primary model is a <em>Fourier Neural Operator (FNO)</em> operating directly on raw
-        waveforms, with physiological structure encoded at three levels. First, a learnable
-        <em>physiological frequency mask</em> is initialized from known S1 (25–45 Hz) and S2
-        (50–70 Hz) cardiac sound bands and parameterized in logit space to keep weights in
-        \((0,1)\):
-        \[
-          m_k = \sigma(\theta_k), \qquad
-          m_k^{(0)} = \begin{cases} 1.0 & f_k \in [25,45] \cup [50,70]\,\text{Hz} \\ 0.1 & \text{otherwise} \end{cases}
-        \]
-        Second, spectral convolutions retain only the \(M = 20\) lowest Fourier modes — a
-        band-limited inductive bias matching the sub-1 kHz frequency content of cardiac acoustics.
-        Third, the training loss augments cross-entropy with two physiologically motivated terms:
-        \[
-          \mathcal{L}_{\text{total}} = \mathcal{L}_{\text{CE}}
-          + \lambda_1 \mathcal{L}_{\text{periodicity}}
-          + \lambda_2 \mathcal{L}_{\text{freq.\,hierarchy}},
-          \qquad \lambda_1 = \lambda_2 = 0.1
-        \]
-        The <em>periodicity loss</em> penalizes energy dispersed away from heart-rate harmonics
-        (1–5.3 Hz); the <em>frequency hierarchy loss</em> enforces the physiological inequality
-        \(E_{S1} \geq E_{S2}\) via a hinge penalty — applying zero gradient when the constraint
-        is satisfied and a linear penalty otherwise. This is directly analogous to
-        Legendre-Hadamard or polyconvexity enforcement in hyperelastic constitutive modeling.
-      </p>
-      <p>
-        The model classifies five clinically distinct conditions — Aortic Stenosis, Mitral
-        Regurgitation, Mitral Stenosis, Mitral Valve Prolapse, and Normal — from a dataset of
-        1,000 PCG recordings (70/15/15 split). The FNO achieves <strong>97.3% test accuracy</strong>
-        with perfect classification of Mitral Stenosis (F1 = 1.00). Crucially, after training,
-        the learned mask weights autonomously recover the S1/S2 initialization bands while also
-        discovering additional murmur-frequency modes beyond the prior — providing direct clinical
-        interpretability with no post-hoc attribution required. A CNN baseline using a
-        differentiable log-Mel spectrogram front-end reaches the same test accuracy, confirming
-        that the FNO's physiological grounding does not come at a cost in performance.
-      </p>
-      <p>
-        The connection to my mechanics work is explicit: the frequency hierarchy hinge loss is
-        the signal-processing analogue of a stability inequality; the physiological mask is the
-        analogue of a physics-guided initialization near a known analytical solution; and the
-        spectral convolution's band-limitation is the analogue of an architectural constraint that
-        cannot be violated at inference time, unlike a soft loss penalty.
-      </p>
-
-      <div class="key-results">
-        <div class="key-results-label">Key Results</div>
-        <ul>
-          <li>97.3% five-class test accuracy on 1,000 PCG recordings (AS / MR / MS / MVP / Normal)</li>
-          <li>Perfect Mitral Stenosis classification (F1 = 1.00); hardest class MR at F1 = 0.92, consistent with clinical inter-rater difficulty</li>
-          <li>Learnable physiological frequency mask autonomously recovers S1 and S2 bands post-training</li>
-          <li>Hinge-form frequency hierarchy loss enforces \(E_{S1} \geq E_{S2}\) with zero gradient when satisfied — exact analogue of inequality constraint enforcement in mechanics</li>
-          <li>Well-separated t-SNE clusters for all five classes; Normal class fully isolated from all pathologies</li>
-          <li>Full PyTorch implementation with Google Colab notebook, GPU training, and reproducible fixed-seed data splits</li>
-        </ul>
-      </div>
-
-      <!-- RESULTS TABLE -->
-      <div class="results-table-wrap">
-        <div class="results-table-label">Performance Summary</div>
-        <table class="results-table">
-          <thead>
-            <tr>
-              <th>Model</th>
-              <th>Val Acc</th>
-              <th>Test Acc</th>
-              <th>Convergence</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="highlight-row">
-              <td>FNO (physio-constrained)</td>
-              <td>98.00%</td>
-              <td><strong>97.33%</strong></td>
-              <td>Epoch 30</td>
-            </tr>
-            <tr>
-              <td>CNN Baseline (Mel spectrogram)</td>
-              <td>98.67%</td>
-              <td><strong>97.33%</strong></td>
-              <td>Epoch 20</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="article-links">
-        <a class="article-link" href="https://github.com/miladshirani/PI-FNO" target="_blank">
-          GitHub · PI-FNO Repository
-          <svg viewBox="0 0 12 12"><path d="M5 2H2a1 1 0 00-1 1v7a1 1 0 001 1h7a1 1 0 001-1V7M7 1h4m0 0v4m0-4L5 7"/></svg>
-        </a>
-        <a class="article-link coming-soon" href="#">
-          <svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg>
-          Article · Coming Soon
-        </a>
-      </div>
-    </div>
-  </div>
-
 </div><!-- end research-content -->
+
+
 
 <!-- FOOTER -->
 <footer>
@@ -789,13 +709,22 @@
 </footer>
 
 <script>
-  const blocks = document.querySelectorAll('.theme-block');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) e.target.classList.add('visible');
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabPanels = document.querySelectorAll('.tab-panel');
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.tab;
+      tabBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+      tabPanels.forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected','true');
+      const panel = document.getElementById(target);
+      panel.classList.add('active');
+      if (window.MathJax) MathJax.typesetPromise([panel]);
     });
-  }, { threshold: 0.08 });
-  blocks.forEach(b => observer.observe(b));
+  });
+  window.addEventListener('load', () => { if (window.MathJax) MathJax.typesetPromise(); });
 </script>
 </body>
 </html>

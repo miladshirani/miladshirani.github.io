@@ -107,11 +107,14 @@
     .research-content {
       position: relative; z-index: 1;
       max-width: 960px; margin: 0 auto;
-      padding: 0 4rem 4rem;
+      padding: 2.5rem 4rem 4rem;
     }
 
     /* ── TAB SYSTEM ── */
-    .tabs-wrapper { margin-top: 2.5rem; }
+    .tabs-wrapper {
+      margin-top: 0;
+      scroll-margin-top: 80px;
+    }
 
     .tab-nav {
       display: flex;
@@ -119,6 +122,11 @@
       gap: 0;
       border-bottom: 1px solid var(--rule);
       margin-bottom: 0;
+      position: sticky;
+      top: 57px;         /* height of fixed nav */
+      z-index: 50;
+      background: rgba(245,240,232,0.96);
+      backdrop-filter: blur(12px);
     }
 
     .tab-btn {
@@ -376,9 +384,7 @@
 <div class="philosophy">
   <div class="philosophy-inner">
     <p class="philosophy-quote">
-      "The goal is not to fit data — it is to build models that are
-      <em>thermodynamically consistent</em>, <em>mathematically sound</em>,
-      and <em>physically predictive</em> beyond the regime where the data was collected."
+      "Nature does not negotiate its laws — it conceals them. My work is the art of unraveling those concealments: finding the <em>mathematical necessities</em> hidden in physical phenomena, and building models <em>rigorous enough to outlast</em> the data they were never meant to merely fit."
     </p>
     <p class="philosophy-attr">Research Philosophy · M. Shirani</p>
   </div>

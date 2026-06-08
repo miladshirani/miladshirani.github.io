@@ -574,46 +574,90 @@
   <div class="theme-block">
     <div class="theme-header">
       <span class="theme-num">V</span>
-      <h2 class="theme-title">Shape Memory Alloys &amp; Smart Materials</h2>
+      <h2 class="theme-title">Shape Memory Alloys &amp; Ferromagnetic Smart Materials</h2>
     </div>
     <div class="theme-body">
       <p>
-        My earliest research, carried out during my MSc at Isfahan University of Technology
-        under Prof. Mahmoud Kadkhodaei, focused on the constitutive modeling of shape memory
-        alloys (SMAs) and ferromagnetic shape memory alloys (FSMAs). These materials undergo
-        reversible martensitic phase transformations — either thermally or magnetically driven —
-        and exhibit complex history-dependent behavior including pseudoelasticity, the
-        shape memory effect, and magnetically induced reorientation of martensitic variants.
+        My earliest research, carried out during my MSc at Isfahan University of Technology,
+        focused on the constitutive modeling of shape memory alloys (SMAs) and ferromagnetic
+        shape memory alloys (FSMAs), also referred to as magnetic shape memory alloys (MSMAs).
+        SMAs such as NiTi memorize a reference shape and recover it upon heating through a
+        reversible martensitic phase transition between austenite and martensite. Their
+        applications range from medical devices and aerospace actuators to shock absorbers.
+        FSMAs extend this behavior: in the martensitic phase, an applied magnetic field drives
+        <em>martensite variant reorientation</em>, producing large inelastic strains without
+        thermal cycling.
       </p>
+
       <p>
-        A central challenge in SMA modeling is capturing the effect of <em>loading history</em>
-        on the transformation surfaces. I developed a one-dimensional constitutive model with
-        evolving transformation surfaces that accounts for the accumulation of residual martensite
-        under cyclic loading — a phenomenon that existing models at the time either ignored or
-        handled phenomenologically without thermodynamic grounding. The model was validated
-        experimentally against tension-compression cycles and biaxial compression tests on
-        Ni-Mn-Ga FSMAs, demonstrating superior agreement compared to prior approaches.
+        <strong>Thermodynamic consistency of SMA phase diagrams.</strong>
+        The dominant modeling paradigm at the time relied on phase diagrams in stress–temperature
+        space to determine when transformation initiates and completes. I showed that this class
+        of models — including the widely used Brinson (1993) model — violates the second law of
+        thermodynamics. The argument was constructive: I designed a thought experiment involving
+        a sequence of <em>interrupted phase transformations</em> and showed that, in the limit
+        as the number of interruptions tends to infinity, phase-diagram-based models predict
+        that transformation ends without the phase fraction satisfying the completion condition.
+        This paradox arises because such models exclude loading history from the transformation
+        initiation criterion, which is thermodynamically inadmissible. Multiple thermomechanical
+        experiments confirmed the discrepancy between model predictions and physical behavior.
       </p>
+
       <p>
-        For FSMAs specifically, I introduced a geometrical approach to determine reorientation
-        start and continuation conditions in stress-field space, clarifying the physical
-        mechanism by which an applied stress biases the magnetic-field-driven variant
-        rearrangement. This work was recognized with the Best Graduate Thesis Award at
-        Isfahan University of Technology.
+        <strong>Corrected 3-D transformation surfaces and continuation conditions.</strong>
+        Enforcing the second law of thermodynamics, I generalized the conventional 2-D phase
+        diagrams to 3-D <em>transformation surfaces</em> in stress space. On these surfaces the
+        loading history is encoded in the surface's evolution, so the transformation-start
+        criterion properly depends on the accumulated thermomechanical path. I further exploited
+        the geometric fact that the gradient of a surface is normal to it: this constraint
+        yields explicit <em>transformation continuation conditions</em> — inequalities that must
+        hold throughout an ongoing transformation. Their violation signals an elastic regime in
+        which the inelastic contribution of phase transformation is inactive.
       </p>
+
+      <p>
+        <strong>Ferromagnetic SMAs: unique parameter calibration.</strong>
+        A critical shortcoming of existing FSMA models was that their parameters could not be
+        determined uniquely without curve-fitting to each individual experiment — making
+        predictions for new loading protocols unreliable. I proposed a systematic calibration
+        procedure that extracts all model parameters from a single reference experiment. To
+        demonstrate generality, I calibrated the model once and reproduced 12 independent
+        experimental datasets without recalibration. Enforcing the second law, I then derived
+        a constitutive relation for the coupled magneto-mechanical response of these alloys
+        under general magnetomechanical loading, and, mirroring the SMA approach, introduced
+        both 2-D reorientation diagrams and their 3-D generalizations — together with the
+        corresponding <em>reorientation start and continuation conditions</em>.
+        All predictions were validated against purpose-designed magnetomechanical tests.
+      </p>
+
+      <p>
+        <strong>Biaxial compression and theoretically predicted pseudoelasticity.</strong>
+        Using thermodynamic arguments alone, I predicted that FSMAs subjected to biaxial
+        compressive stress should exhibit inelastic behavior from variant reorientation, with
+        hysteresis and pseudoelasticity whose character depends on the magnitude of the
+        transverse stress component. At the time, no experimental data existed to validate
+        this prediction, and I was unable to publish the result. Eighteen months later, an
+        independent experimental paper appeared observing precisely the behavior I had
+        forecast — enabling publication and providing post-hoc validation of the thermodynamic
+        approach.
+      </p>
+
       <div class="key-results">
         <div class="key-results-label">Key Contributions</div>
         <ul>
-          <li>1D constitutive model with evolving transformation surfaces capturing loading-history effects in SMAs</li>
-          <li>Geometrical reorientation criterion for ferromagnetic SMAs; validated against biaxial experiments</li>
-          <li>Constitutive modeling of Ni-Mn-Ga FSMAs under biaxial compression</li>
-          <li>Cyclic behavior and residual martensite accumulation in polycrystalline SMAs</li>
+          <li>Proved thermodynamic inconsistency of phase-diagram-based SMA models via an interrupted-transformation thought experiment; validated with thermomechanical experiments</li>
+          <li>Generalized 2-D phase diagrams to 3-D transformation surfaces encoding loading history; derived transformation continuation conditions from surface-gradient geometry</li>
+          <li>Unique parameter calibration for FSMA constitutive models; single calibration reproduces 12 experimental datasets</li>
+          <li>3-D reorientation surfaces and continuation conditions for magnetically driven martensite variant reorientation in FSMAs</li>
+          <li>Theoretical prediction — confirmed experimentally 18 months later — of hysteresis and pseudoelasticity in Ni-Mn-Ga FSMAs under biaxial compression</li>
+          <li>Designed and executed thermomechanical and magnetomechanical experiments for model validation</li>
+          <li>8 publications (7 journals + 1 conference); Best Graduate Thesis Award, Isfahan University of Technology (2014)</li>
         </ul>
       </div>
       <div class="article-links">
         <a class="article-link coming-soon" href="#">
           <svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg>
-          Article · SMA Constitutive Modeling — Coming Soon
+          Articles · SMA &amp; FSMA Constitutive Modeling — See Publications
         </a>
       </div>
     </div>

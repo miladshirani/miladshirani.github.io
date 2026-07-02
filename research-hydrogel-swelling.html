@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hydrogel Swelling Model — Milad Shirani</title>
+  <meta name="description" content="A thermodynamically consistent continuum model for hydrogel swelling driven by water absorption, with finite-element simulations of the coupled mechanical–chemical response." />
+  <meta name="author" content="Milad Shirani" />
+  <link rel="canonical" href="https://miladshirani.github.io/research-hydrogel-swelling.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232b3cf0'/%3E%3Ctext x='32' y='42' font-family='Menlo,monospace' font-size='26' font-weight='700' text-anchor='middle' fill='%23ffffff'%3EMS%3C/text%3E%3C/svg%3E" type="image/svg+xml" />
+  <meta name="theme-color" content="#f2f2ed" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0d0e12" media="(prefers-color-scheme: dark)" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Hydrogel Swelling Model — Milad Shirani" />
+  <meta property="og:description" content="A thermodynamically consistent continuum model for hydrogel swelling and its finite-element simulation." />
+  <meta property="og:url" content="https://miladshirani.github.io/research-hydrogel-swelling.html" />
+  <meta property="og:image" content="https://github.com/miladshirani.png" />
+  <meta name="twitter:card" content="summary" />
+
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("theme") ||
+          (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    })();
+  </script>
+
+  <script>
+    MathJax = {
+      tex: { inlineMath: [['\\(', '\\)']] },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'] }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400;1,8..60,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body data-page="research">
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <nav class="site-nav" id="site-nav" aria-label="Site"><!-- injected --></nav>
+
+  <main id="main">
+
+    <header class="page-head wrap">
+      <a class="back-link" href="research.html" data-reveal>← Back to research</a>
+      <p class="kicker" data-reveal>Soft Matter · Article</p>
+      <h1 class="page-title" data-reveal style="--d:.08s">Hydrogel<br /><em>swelling</em>.</h1>
+      <p class="page-intro" data-reveal style="--d:.16s">A thermodynamically consistent continuum model for swelling driven by water absorption — grounding the Flory–Huggins mixing energy in a variational framework and deriving the coupled mechanical and chemical balance laws via the principle of virtual power.</p>
+    </header>
+
+    <section class="section">
+      <div class="wrap article">
+
+        <p data-reveal>Hydrogels are crosslinked polymer networks that imbibe large amounts of solvent, swelling to many times their dry volume while remaining elastic. Modeling this behavior requires coupling <em>finite elastic deformation</em> to <em>solvent transport</em>, with the two governed by a single free energy. I build the model from a mixing energy of Flory–Huggins type together with an elastic strain energy for the network, and derive the governing equations directly from a variational principle rather than postulating balance laws.</p>
+
+        <h2 data-reveal>Thermodynamic structure</h2>
+        <p data-reveal>Applying the principle of virtual power yields the coupled mechanical equilibrium and solvent mass-balance equations. Enforcing the second law through the Coleman–Noll procedure, the reduced dissipation inequality constrains the water-flux mobility tensor \( \boldsymbol{M} \) to be positive semi-definite — a restriction that is both physically necessary and directly actionable in a finite-element implementation. The chemical potential of the solvent then acts as the driving force for transport, and equilibrium swelling is reached when it equilibrates across the body and with the surrounding bath.</p>
+
+        <h2 data-reveal>Finite-element simulation</h2>
+        <p data-reveal>The coupled problem is discretized and solved numerically. The animations below show a swelling specimen from three viewpoints, colored by displacement magnitude as solvent is absorbed and the network deforms toward its equilibrium swollen state.</p>
+
+        <div class="fig-grid" data-reveal>
+          <figure class="fig-card"><img src="Figures/Hydrogel/displacement_iso.gif" alt="Isometric view of hydrogel swelling, colored by displacement magnitude" loading="lazy" /><figcaption>Isometric view · displacement magnitude</figcaption></figure>
+          <figure class="fig-card"><img src="Figures/Hydrogel/displacement_side.gif" alt="Side view of hydrogel swelling, colored by displacement magnitude" loading="lazy" /><figcaption>Side view · displacement magnitude</figcaption></figure>
+          <figure class="fig-card"><img src="Figures/Hydrogel/displacement_top.gif" alt="Top view of hydrogel swelling, colored by displacement magnitude" loading="lazy" /><figcaption>Top view · displacement magnitude</figcaption></figure>
+        </div>
+
+        <h2 data-reveal>Extensions in progress</h2>
+        <p data-reveal>The model is currently being extended to biological tissues and to <em>delamination</em> problems in layered hydrogel systems, where mismatch in swelling between adjacent layers drives interfacial failure. This connects the swelling framework to my broader work on phase-field fracture and on the mechanics of living soft matter.</p>
+
+        <div class="tab-links" data-reveal>
+          <a href="research.html">← All research themes</a>
+          <a href="publications.html">Publications ↗</a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer" id="site-footer"><!-- injected --></footer>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/site.js"></script>
+</body>
+</html>

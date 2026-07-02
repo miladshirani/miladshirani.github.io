@@ -3,455 +3,1790 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Honors & Awards — Milad Shirani</title>
+  <title>Honors &amp; Awards — Milad Shirani</title>
+  <meta name="description" content="Honors and awards received by Milad Shirani, including fellowships, travel grants, and scholarships from 2014 to 2026." />
+  <meta name="author" content="Milad Shirani" />
+  <link rel="canonical" href="https://miladshirani.github.io/honors.html" />
+  <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTIiIGZpbGw9IiNmOWY0ZWMiLz4KICA8cmVjdCB4PSIzIiB5PSIzIiB3aWR0aD0iNTgiIGhlaWdodD0iNTgiIHJ4PSIxMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjY2Y5NjM2IiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDx0ZXh0IHg9IjMyIiB5PSI0MyIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsICdDb3Jtb3JhbnQgR2FyYW1vbmQnLCBzZXJpZiIgZm9udC1zaXplPSIzNCIgZm9udC1zdHlsZT0iaXRhbGljIgogICAgICAgIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNiNTUzMmYiPk1TPC90ZXh0Pgo8L3N2Zz4K" type="image/svg+xml" />
+  <meta name="theme-color" content="#b5532f" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#1c1613" media="(prefers-color-scheme: dark)" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Honors & Awards — Milad Shirani" />
+  <meta property="og:description" content="Fellowships, travel grants, and scholarships from 2014 to 2026." />
+  <meta property="og:url" content="https://miladshirani.github.io/honors.html" />
+  <meta property="og:image" content="https://github.com/miladshirani.png" />
+  <meta name="twitter:card" content="summary" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=Outfit:wght@200;300;400&display=swap" rel="stylesheet" />
-
   <style>
-    :root {
-      --ink: #0e0d0b;
-      --paper: #f5f0e8;
-      --sienna: #8b4513;
-      --gold: #b8860b;
-      --muted: #6b6355;
-      --rule: rgba(139,69,19,0.18);
-      --grid: rgba(139,69,19,0.06);
-    }
+/* =============================================================
+   Milad Shirani — site stylesheet (single source of truth)
+   Edit design tokens in :root below. Everything inherits them.
+   Sections:
+     1. Design tokens (light + dark)
+     2. Base + texture
+     3. Navigation (+ mobile menu)
+     4. Shared page header
+     5. Buttons + links
+     6. Home: hero, panel, themes, timeline
+     7. Research: tabs, panels, key results, tables
+     8. Publications: filters, items, stats
+     9. Honors: award cards
+    10. Philosophy banner
+    11. Footer
+    12. Motion, accessibility, print, responsive
+   ============================================================= */
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+/* 1. DESIGN TOKENS ------------------------------------------------ */
+/* PALETTE — the whole site's colour comes from these lines.
+   To recolour everything, change the values here (light + dark).
+   Current scheme: indigo (primary) + amber (accent) on cool paper. */
+:root {
+  --ink:        #2a211b;   /* warm espresso — headings & text            */
+  --paper:      #f9f4ec;   /* warm ivory — page background               */
+  --paper-card: rgba(255, 253, 248, 0.66);
+  --paper-soft: rgba(255, 253, 248, 0.38);
+  --sienna:     #b5532f;   /* PRIMARY: warm terracotta — links, buttons, italics */
+  --sienna-hi:  #8f3d1f;   /* primary hover (deeper clay)                */
+  --gold:       #cf9636;   /* ACCENT: warm ochre — rules, numbers, flourishes */
+  --gold-light: #e2b25c;
+  --muted:      #7a6c5d;   /* warm taupe — secondary text                */
+  --body-text:  #3f342b;   /* warm dark brown — body copy                */
+  --rule:       rgba(181, 83, 47, 0.20);   /* terracotta hairlines       */
+  --grid:       rgba(181, 83, 47, 0.05);   /* faint warm grid            */
 
-    body {
-      background: var(--paper);
-      color: var(--ink);
-      font-family: 'Outfit', sans-serif;
-      font-weight: 300;
-      overflow-x: hidden;
-    }
+  --green:      #2e8b63;   /* travel-grant tag  */
+  --blue:       #3f6fa3;   /* scholarship tag   */
 
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        repeating-linear-gradient(0deg, transparent, transparent 28px, var(--grid) 28px, var(--grid) 29px),
-        repeating-linear-gradient(90deg, transparent, transparent 28px, var(--grid) 28px, var(--grid) 29px);
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.6;
-    }
+  --shadow:     rgba(90, 46, 22, 0.14);    /* warm hover shadow          */
 
-    /* NAV */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.2rem 4rem;
-      background: rgba(245,240,232,0.88);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--rule);
-    }
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'Outfit', system-ui, sans-serif;
+  --font-mono:    'DM Mono', ui-monospace, monospace;
 
-    .nav-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
-      font-weight: 400;
-      letter-spacing: 0.08em;
-      color: var(--sienna);
-      text-decoration: none;
-    }
+  --maxw:      1100px;
+  --maxw-text: 900px;
+  --nav-h:     57px;
+}
 
-    .nav-links {
-      display: flex;
-      gap: 2.4rem;
-      list-style: none;
-    }
+/* Dark theme: warm night — deep umber, same identity for night reading. */
+[data-theme="dark"] {
+  --ink:        #f3e9dc;
+  --paper:      #1c1613;
+  --paper-card: rgba(58, 44, 34, 0.55);
+  --paper-soft: rgba(58, 44, 34, 0.32);
+  --sienna:     #e28259;   /* warm light terracotta */
+  --sienna-hi:  #f0a081;
+  --gold:       #e2b25c;   /* warm ochre            */
+  --gold-light: #f0cb86;
+  --muted:      #b3a08c;
+  --body-text:  #e4d7c6;
+  --rule:       rgba(226, 130, 89, 0.24);
+  --grid:       rgba(226, 130, 89, 0.06);
+  --green:      #74c898;
+  --blue:       #86a9d6;
+  --shadow:     rgba(0, 0, 0, 0.45);
+}
 
-    .nav-links a {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.7rem;
-      font-weight: 300;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
+/* 2. BASE + TEXTURE ---------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
 
-    .nav-links a:hover,
-    .nav-links a.active { color: var(--sienna); }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-weight: 300;
+  overflow-x: hidden;
+  position: relative;
+  transition: background 0.4s ease, color 0.4s ease;
+}
 
-    /* PAGE HEADER */
-    .page-header {
-      position: relative;
-      z-index: 1;
-      padding: 8rem 4rem 3rem;
-      max-width: 900px;
-      margin: 0 auto;
-    }
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg,  transparent, transparent 28px, var(--grid) 28px, var(--grid) 29px),
+    repeating-linear-gradient(90deg, transparent, transparent 28px, var(--grid) 28px, var(--grid) 29px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
 
-    .page-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--sienna);
-      margin-bottom: 0.8rem;
-      opacity: 0;
-      animation: fadeUp 0.7s ease 0.1s forwards;
-    }
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  z-index: 200;
+  background: var(--sienna);
+  color: var(--paper);
+  padding: 0.6rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+}
+.skip-link:focus { left: 0.5rem; top: 0.5rem; }
 
-    .page-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.4rem, 4vw, 3.8rem);
-      font-weight: 300;
-      line-height: 1.05;
-      margin-bottom: 1rem;
-      opacity: 0;
-      animation: fadeUp 0.8s ease 0.2s forwards;
-    }
+/* 3. NAV --------------------------------------------------------- */
+nav.site-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 4rem;
+  background: color-mix(in srgb, var(--paper) 86%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--rule);
+}
 
-    .page-title em { font-style: italic; color: var(--sienna); }
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--sienna);
+  text-decoration: none;
+}
 
-    .page-rule {
-      width: 64px; height: 1px;
-      background: var(--gold);
-      margin-bottom: 1.2rem;
-      opacity: 0;
-      animation: expandW 0.7s ease 0.4s forwards;
-      transform-origin: left;
-    }
+.nav-right { display: flex; align-items: center; gap: 1.6rem; }
 
-    .page-summary {
-      font-size: 0.9rem;
-      color: var(--muted);
-      font-family: 'DM Mono', monospace;
-      letter-spacing: 0.06em;
-      opacity: 0;
-      animation: fadeUp 0.7s ease 0.5s forwards;
-    }
+.nav-links { display: flex; gap: 2.4rem; list-style: none; }
 
-    /* MAIN */
-    .honors-content {
-      position: relative;
-      z-index: 1;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 2rem 4rem 6rem;
-    }
+.nav-links a {
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -4px;
+  width: 100%; height: 1.5px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.28s ease;
+}
+.nav-links a:hover::after,
+.nav-links a.active::after,
+.nav-links a[aria-current="page"]::after { transform: scaleX(1); transform-origin: left; }
+.nav-links a:hover,
+.nav-links a.active,
+.nav-links a[aria-current="page"] { color: var(--sienna); }
 
-    /* AWARD CARD */
-    .award-card {
-      display: grid;
-      grid-template-columns: 4.5rem 1fr;
-      gap: 0 1.6rem;
-      padding: 2rem 0;
-      border-bottom: 1px solid var(--rule);
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 0.5s, transform 0.5s;
-      position: relative;
-    }
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--rule);
+  color: var(--muted);
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s, border-color 0.2s;
+  flex-shrink: 0;
+}
+.theme-toggle:hover { color: var(--sienna); border-color: var(--sienna); }
+.theme-toggle svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.6; }
+.theme-toggle .icon-sun  { display: none; }
+[data-theme="dark"] .theme-toggle .icon-sun  { display: block; }
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
 
-    .award-card.visible { opacity: 1; transform: translateY(0); }
+.nav-burger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.3rem;
+  flex-direction: column;
+  gap: 4px;
+}
+.nav-burger span {
+  display: block;
+  width: 22px; height: 1.5px;
+  background: var(--sienna);
+  transition: transform 0.25s, opacity 0.25s;
+}
+body.menu-open .nav-burger span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+body.menu-open .nav-burger span:nth-child(2) { opacity: 0; }
+body.menu-open .nav-burger span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
 
-    .award-card:first-child { border-top: 1px solid var(--rule); }
+/* 4. PAGE HEADER ------------------------------------------------- */
+.page-header {
+  position: relative;
+  z-index: 1;
+  padding: 8rem 4rem 3rem;
+  max-width: var(--maxw-text);
+  margin: 0 auto;
+}
+.page-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--sienna);
+  margin-bottom: 0.8rem;
+  opacity: 0; animation: fadeUp 0.7s ease 0.1s forwards;
+}
+.page-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 4vw, 3.8rem);
+  font-weight: 300;
+  line-height: 1.05;
+  margin-bottom: 1rem;
+  opacity: 0; animation: fadeUp 0.8s ease 0.2s forwards;
+}
+.page-title em { font-style: italic; color: var(--sienna); }
+.page-rule {
+  width: 64px; height: 1px;
+  background: var(--gold);
+  margin-bottom: 1.2rem;
+  opacity: 0; animation: expandW 0.7s ease 0.4s forwards; transform-origin: left;
+}
+.page-summary {
+  font-size: 0.9rem;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  letter-spacing: 0.06em;
+  opacity: 0; animation: fadeUp 0.7s ease 0.5s forwards;
+}
+.page-intro {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1.75;
+  color: var(--body-text);
+  max-width: 860px;
+  opacity: 0; animation: fadeUp 0.8s ease 0.5s forwards;
+}
+.page-intro em { font-style: italic; color: var(--sienna); }
 
-    .award-year-col {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      padding-top: 0.2rem;
-      gap: 0.3rem;
-    }
+/* 5. BUTTONS + LINKS -------------------------------------------- */
+.btn-primary, .btn-ghost {
+  display: inline-block;
+  padding: 0.7rem 1.8rem;
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.15s;
+}
+.btn-primary { background: var(--sienna); color: var(--paper); border: 1px solid var(--sienna); }
+.btn-primary:hover { background: var(--sienna-hi); border-color: var(--sienna-hi); transform: translateY(-1px); }
+.btn-ghost { border: 1px solid var(--sienna); color: var(--sienna); background: transparent; }
+.btn-ghost:hover { background: var(--sienna); color: var(--paper); }
 
-    .award-year {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
-      font-weight: 300;
-      color: var(--gold);
-      line-height: 1;
-    }
+/* 6. HOME -------------------------------------------------------- */
+.hero {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 8rem 4rem 4rem;
+  gap: 4rem;
+}
+.hero-text { max-width: 580px; }
+.hero-photo {
+  width: auto; height: auto;
+  max-width: 210px; max-height: 300px;   /* whole photo scaled to fit — never cropped */
+  border-radius: 14px;
+  border: 2px solid var(--gold);
+  display: block; margin-bottom: 1.6rem;
+  object-fit: contain;
+  box-shadow: 0 14px 30px -16px var(--shadow);
+  opacity: 0; animation: fadeIn 1s ease 0.1s forwards;
+}
+/* If the local photo is missing, the web avatar is square — frame it as a circle. */
+.hero-photo.is-fallback {
+  width: 110px; height: 110px; max-width: none; max-height: none;
+  border-radius: 50%; object-fit: cover;
+}
+.hero-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem; font-weight: 400;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--sienna); margin-bottom: 1.4rem;
+  opacity: 0; animation: fadeUp 0.8s ease 0.1s forwards;
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(3.2rem, 5.5vw, 5.2rem);
+  line-height: 1.05; letter-spacing: -0.01em;
+  margin-bottom: 0.3rem;
+  opacity: 0; animation: fadeUp 0.9s ease 0.2s forwards;
+}
+.hero h1 em { font-style: italic; color: var(--sienna); }
+.title-rule {
+  width: 64px; height: 1px; background: var(--gold);
+  margin: 1.6rem 0;
+  opacity: 0; animation: expandW 0.8s ease 0.5s forwards; transform-origin: left;
+}
+.hero-role {
+  font-family: var(--font-display);
+  font-size: 1.15rem; font-weight: 400; font-style: italic;
+  color: var(--muted); margin-bottom: 1.6rem; line-height: 1.5;
+  opacity: 0; animation: fadeUp 0.9s ease 0.6s forwards;
+}
+.hero-desc {
+  font-size: 0.95rem; line-height: 1.8;
+  color: var(--body-text); max-width: 480px;
+  opacity: 0; animation: fadeUp 0.9s ease 0.75s forwards;
+}
+.hero-cta {
+  display: flex; gap: 1.2rem; margin-top: 2.4rem; flex-wrap: wrap;
+  opacity: 0; animation: fadeUp 0.9s ease 0.9s forwards;
+}
 
-    .award-star {
-      font-size: 0.6rem;
-      color: var(--gold);
-      letter-spacing: 0.1em;
-    }
+.hero-panel { position: relative; opacity: 0; animation: fadeIn 1.2s ease 0.4s forwards; }
+.panel-card {
+  background: var(--paper-card);
+  border: 1px solid var(--rule);
+  padding: 2.4rem; position: relative;
+  backdrop-filter: blur(4px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.panel-card:hover { transform: translateY(-3px); box-shadow: 0 16px 36px -16px var(--shadow); }
+.panel-card::before {
+  content: '';
+  position: absolute; top: -6px; left: -6px; right: 6px; bottom: 6px;
+  border: 1px solid var(--gold); pointer-events: none; z-index: -1;
+}
+.panel-heading {
+  font-family: var(--font-mono);
+  font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--sienna); margin-bottom: 1.4rem;
+}
+.stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 2rem; }
+.stat { border-left: 2px solid var(--gold); padding-left: 0.9rem; }
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 2rem; font-weight: 300; line-height: 1; color: var(--ink);
+}
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem; letter-spacing: 0.1em; color: var(--muted);
+  margin-top: 0.25rem; text-transform: uppercase;
+}
+.affiliation-list { list-style: none; border-top: 1px solid var(--rule); padding-top: 1.4rem; }
+.affiliation-list li {
+  display: flex; align-items: baseline; gap: 0.7rem;
+  padding: 0.45rem 0; border-bottom: 1px dashed var(--grid);
+}
+.aff-bullet { font-family: var(--font-display); font-size: 1rem; color: var(--gold); }
+.aff-text { font-size: 0.82rem; line-height: 1.45; color: var(--body-text); }
+.aff-text strong { font-weight: 400; color: var(--ink); }
 
-    .award-body { display: flex; flex-direction: column; gap: 0.3rem; }
+.section {
+  position: relative; z-index: 1;
+  padding: 6rem 4rem; max-width: 1200px; margin: 0 auto;
+}
+.section-band {
+  position: relative; z-index: 1;
+  background: var(--paper-soft);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--sienna); margin-bottom: 0.7rem;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3vw, 2.8rem); font-weight: 300; line-height: 1.1;
+  margin-bottom: 3rem;
+}
+.section-title em { font-style: italic; color: var(--sienna); }
 
-    .award-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.25rem;
-      font-weight: 600;
-      line-height: 1.3;
-      color: var(--ink);
-    }
+.themes-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.5px; background: var(--rule); border: 1px solid var(--rule);
+}
+.theme-card {
+  background: var(--paper);
+  padding: 2rem 1.8rem;
+  transition: background 0.2s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+.theme-card:hover {
+  background: var(--paper-card);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px -12px var(--shadow);
+}
+.theme-card:hover .theme-icon { transform: scale(1.12) rotate(-4deg); }
+.theme-icon { transition: transform 0.3s ease; }
+.theme-icon {
+  font-family: var(--font-display);
+  font-size: 2rem; font-style: italic; color: var(--gold);
+  margin-bottom: 0.8rem; display: block;
+}
+.theme-title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; margin-bottom: 0.6rem; }
+.theme-desc { font-size: 0.82rem; line-height: 1.7; color: var(--muted); }
 
-    .award-inst {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.08em;
-      color: var(--sienna);
-    }
+.timeline { position: relative; padding-left: 2rem; }
+.timeline::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 1px; background: linear-gradient(to bottom, var(--gold), transparent);
+}
+.tl-item {
+  position: relative; padding: 0 0 2.4rem 2rem;
+  opacity: 0; transform: translateX(-10px);
+  transition: opacity 0.6s, transform 0.6s;
+}
+.tl-item.visible { opacity: 1; transform: translateX(0); }
+.tl-dot {
+  position: absolute; left: -2rem; top: 0.25rem;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--gold); border: 2px solid var(--paper);
+  box-shadow: 0 0 0 1px var(--gold);
+}
+.tl-year { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em; color: var(--sienna); margin-bottom: 0.25rem; }
+.tl-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 600; margin-bottom: 0.3rem; }
+.tl-sub { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
 
-    .award-loc {
-      font-size: 0.82rem;
-      color: var(--muted);
-      line-height: 1.5;
-    }
+.ornament {
+  text-align: center; color: var(--gold);
+  font-family: var(--font-display); font-size: 1.4rem;
+  margin: 1rem 0 3rem; letter-spacing: 0.5em;
+}
 
-    .award-tag {
-      display: inline-block;
-      margin-top: 0.4rem;
-      font-family: 'DM Mono', monospace;
-      font-size: 0.55rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 0.15rem 0.6rem;
-      border: 1px solid var(--gold);
-      color: var(--gold);
-      width: fit-content;
-    }
+/* 7. RESEARCH ---------------------------------------------------- */
+.research-content {
+  position: relative; z-index: 1;
+  max-width: 960px; margin: 0 auto; padding: 2.5rem 4rem 4rem;
+}
+.tabs-wrapper { margin-top: 0; scroll-margin-top: 80px; }
+.tab-nav {
+  display: flex; flex-wrap: wrap; gap: 0;
+  border-bottom: 1px solid var(--rule);
+  position: sticky; top: var(--nav-h); z-index: 50;
+  background: color-mix(in srgb, var(--paper) 96%, transparent);
+  backdrop-filter: blur(12px);
+}
+.tab-btn {
+  position: relative; background: none; border: none;
+  border-bottom: 2px solid transparent; margin-bottom: -1px;
+  padding: 0.85rem 1.3rem; cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.6rem; font-weight: 300; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted);
+  transition: color 0.2s, border-color 0.2s;
+  text-align: left; line-height: 1.4;
+}
+.tab-btn .tab-num {
+  font-family: var(--font-display);
+  font-size: 0.95rem; font-style: italic; color: var(--gold);
+  margin-right: 0.35rem; font-weight: 300;
+}
+.tab-btn:hover { color: var(--sienna); }
+.tab-btn.active { color: var(--sienna); border-bottom-color: var(--sienna); }
+.tab-btn.active .tab-num { color: var(--sienna); }
 
-    .award-tag.fellowship { border-color: var(--sienna); color: var(--sienna); }
-    .award-tag.travel { border-color: #4a7c59; color: #4a7c59; }
-    .award-tag.scholarship { border-color: #4a5d7c; color: #4a5d7c; }
+.tab-panels {
+  border: 1px solid var(--rule); border-top: none;
+  background: var(--paper-soft); backdrop-filter: blur(4px);
+  padding: 3rem 3rem 2.5rem;
+}
+.tab-panel { display: none; }
+.tab-panel.active { display: block; animation: panelIn 0.35s ease forwards; }
 
-    /* DECORATIVE SIDE ACCENT */
-    .award-card::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 2rem; bottom: 2rem;
-      width: 2px;
-      background: transparent;
-      transition: background 0.2s;
-    }
+.theme-header {
+  display: flex; align-items: baseline; gap: 1rem;
+  margin-bottom: 1.6rem; padding-bottom: 1.2rem; border-bottom: 1px solid var(--rule);
+}
+.theme-num {
+  font-family: var(--font-display);
+  font-size: 3.2rem; font-weight: 300; font-style: italic;
+  color: var(--gold); line-height: 1; flex-shrink: 0;
+}
+.theme-body h2.theme-title { font-family: var(--font-display); font-size: 1.7rem; font-weight: 600; line-height: 1.15; }
+.theme-body p { font-size: 0.95rem; line-height: 1.85; color: var(--body-text); margin-bottom: 1rem; }
+.theme-body p:last-child { margin-bottom: 0; }
+.theme-body em { font-style: italic; color: var(--sienna); }
 
-    .award-card:hover::before { background: var(--gold); }
-    .award-card:hover { padding-left: 1rem; margin-left: -1rem; }
+.key-results {
+  margin-top: 1.4rem; background: var(--paper-card);
+  border-left: 2px solid var(--gold); padding: 1.1rem 1.4rem; backdrop-filter: blur(4px);
+}
+.key-results-label {
+  font-family: var(--font-mono);
+  font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--sienna); margin-bottom: 0.7rem;
+}
+.key-results ul { list-style: none; }
+.key-results ul li {
+  font-size: 0.88rem; line-height: 1.7; color: var(--body-text);
+  padding: 0.25rem 0 0.25rem 1.1rem; position: relative;
+}
+.key-results ul li::before { content: '◆'; position: absolute; left: 0; font-size: 0.4rem; color: var(--gold); top: 0.55rem; }
 
-    /* FOOTER */
-    footer {
-      position: relative;
-      z-index: 1;
-      border-top: 1px solid var(--rule);
-      padding: 2rem 4rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-family: 'DM Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.1em;
-      color: var(--muted);
-    }
+.article-links { margin-top: 1.4rem; display: flex; flex-wrap: wrap; gap: 0.7rem; }
+.article-link {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--sienna); text-decoration: none;
+  border: 1px solid var(--sienna); padding: 0.45rem 1rem;
+  transition: background 0.2s, color 0.2s;
+}
+.article-link:hover { background: var(--sienna); color: var(--paper); }
+.article-link.coming-soon { color: var(--muted); border-color: var(--rule); cursor: default; pointer-events: none; }
+.article-link svg { width: 10px; height: 10px; fill: none; stroke: currentColor; stroke-width: 1.8; flex-shrink: 0; }
 
-    .footer-links { display: flex; gap: 1.6rem; }
-    .footer-links a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
-    .footer-links a:hover { color: var(--sienna); }
+.results-table-wrap { margin-top: 1.4rem; overflow-x: auto; }
+.results-table-label {
+  font-family: var(--font-mono);
+  font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--sienna); margin-bottom: 0.6rem;
+}
+.results-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.results-table thead tr { border-bottom: 2px solid var(--rule); }
+.results-table th {
+  font-family: var(--font-mono);
+  font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--sienna); font-weight: 400;
+  padding: 0.5rem 1rem 0.5rem 0; text-align: left;
+}
+.results-table td {
+  padding: 0.6rem 1rem 0.6rem 0;
+  border-bottom: 1px dashed var(--grid);
+  color: var(--body-text); line-height: 1.5;
+}
+.results-table td strong { font-weight: 500; color: var(--sienna); }
+.results-table .highlight-row td { background: color-mix(in srgb, var(--gold) 8%, transparent); }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(14px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes expandW {
-      from { opacity: 0; transform: scaleX(0); }
-      to   { opacity: 1; transform: scaleX(1); }
-    }
+/* 8. PUBLICATIONS ----------------------------------------------- */
+.filter-bar {
+  position: relative; z-index: 1;
+  max-width: var(--maxw); margin: 0 auto; padding: 0 4rem 2rem;
+  display: flex; gap: 0.5rem; flex-wrap: wrap;
+  opacity: 0; animation: fadeUp 0.7s ease 0.6s forwards;
+}
+.filter-btn {
+  font-family: var(--font-mono);
+  font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 0.45rem 1rem; border: 1px solid var(--rule);
+  background: transparent; color: var(--muted); cursor: pointer;
+  transition: all 0.2s;
+}
+.filter-btn:hover { border-color: var(--sienna); color: var(--sienna); }
+.filter-btn.active { background: var(--sienna); color: var(--paper); border-color: var(--sienna); }
 
-    @media (max-width: 768px) {
-      nav { padding: 1rem 1.5rem; }
-      .nav-links { gap: 1rem; }
-      .page-header, .honors-content { padding-left: 1.5rem; padding-right: 1.5rem; }
-      .award-card { grid-template-columns: 3.5rem 1fr; gap: 0 1rem; }
-      footer { flex-direction: column; gap: 1rem; padding: 1.5rem; }
-    }
-  </style>
+.pub-content { position: relative; z-index: 1; max-width: var(--maxw); margin: 0 auto; padding: 0 4rem 6rem; }
+.pub-section { margin-bottom: 3.5rem; }
+.pub-section-header {
+  display: flex; align-items: center; gap: 1rem;
+  margin-bottom: 1.5rem; padding-bottom: 0.7rem; border-bottom: 1px solid var(--rule);
+}
+.pub-section-icon { font-family: var(--font-display); font-size: 1.6rem; font-style: italic; color: var(--gold); line-height: 1; }
+.pub-section-title { font-family: var(--font-display); font-size: 1.4rem; font-weight: 600; }
+.pub-section-count { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.1em; color: var(--muted); margin-left: auto; }
+
+.pub-item {
+  display: grid; grid-template-columns: 3rem 1fr; gap: 0 1.2rem;
+  padding: 1.1rem 0; border-bottom: 1px dashed var(--grid);
+  opacity: 0; transform: translateY(8px);
+  transition: opacity 0.5s, transform 0.5s, background 0.15s;
+}
+.pub-item.visible { opacity: 1; transform: translateY(0); }
+.pub-item {
+  border-left: 2px solid transparent;
+  transition: opacity 0.5s, transform 0.5s, background 0.18s, border-color 0.18s, padding 0.18s, margin 0.18s;
+}
+.pub-item:hover {
+  background: var(--paper-soft);
+  border-left-color: var(--sienna);
+  margin: 0 -1rem; padding-left: 1.2rem; padding-right: 1rem;
+}
+.pub-num { font-family: var(--font-display); font-size: 1rem; font-style: italic; color: var(--gold); text-align: right; padding-top: 0.1rem; line-height: 1.6; }
+.pub-body { display: flex; flex-direction: column; gap: 0.25rem; }
+.pub-authors { font-family: var(--font-body); font-size: 0.82rem; font-weight: 300; color: var(--muted); line-height: 1.5; }
+.pub-authors strong { font-family: var(--font-body); font-weight: 500; color: var(--ink); }
+.pub-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 400; line-height: 1.4; color: var(--ink); }
+.pub-meta { display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; margin-top: 0.1rem; }
+.pub-journal { font-family: var(--font-display); font-style: italic; font-size: 0.9rem; color: var(--sienna); }
+.pub-details { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.06em; color: var(--muted); }
+.pub-tag {
+  font-family: var(--font-mono);
+  font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 0.15rem 0.5rem; border: 1px solid var(--gold); color: var(--gold);
+}
+.pub-tag.under-review { border-color: var(--sienna); color: var(--sienna); }
+.pub-link {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--sienna); text-decoration: none;
+  border-bottom: 1px solid transparent; transition: border-color 0.2s; margin-left: auto;
+}
+.pub-link:hover { border-color: var(--sienna); }
+.pub-link svg { width: 10px; height: 10px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+
+.stats-bar {
+  position: relative; z-index: 1;
+  background: var(--paper-soft);
+  border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+  padding: 2rem 4rem; display: flex; justify-content: center; gap: 4rem;
+  margin-bottom: 3rem; flex-wrap: wrap;
+  opacity: 0; animation: fadeUp 0.7s ease 0.7s forwards;
+}
+.stats-bar .stat-item { text-align: center; }
+.stats-bar .stat-num { font-family: var(--font-display); font-size: 2.2rem; font-weight: 300; line-height: 1; color: var(--ink); display: block; }
+.stats-bar .stat-label { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem; }
+
+/* 9. HONORS ------------------------------------------------------ */
+.honors-content { position: relative; z-index: 1; max-width: var(--maxw-text); margin: 0 auto; padding: 2rem 4rem 6rem; }
+.award-card {
+  display: grid; grid-template-columns: 4.5rem 1fr; gap: 0 1.6rem;
+  padding: 2rem 0; border-bottom: 1px solid var(--rule);
+  opacity: 0; transform: translateY(10px);
+  transition: opacity 0.5s, transform 0.5s, padding 0.2s, margin 0.2s;
+  position: relative;
+}
+.award-card.visible { opacity: 1; transform: translateY(0); }
+.award-card:first-child { border-top: 1px solid var(--rule); }
+.award-card::before {
+  content: ''; position: absolute; left: 0; top: 2rem; bottom: 2rem;
+  width: 2px; background: transparent; transition: background 0.2s;
+}
+.award-card:hover::before { background: var(--gold); }
+.award-card:hover {
+  padding-left: 1rem; margin-left: -1rem;
+  background: var(--paper-soft);
+  box-shadow: 0 10px 24px -16px var(--shadow);
+}
+.award-year-col { display: flex; flex-direction: column; align-items: flex-end; padding-top: 0.2rem; gap: 0.3rem; }
+.award-year { font-family: var(--font-display); font-size: 1.5rem; font-weight: 300; color: var(--gold); line-height: 1; }
+.award-star { font-size: 0.6rem; color: var(--gold); letter-spacing: 0.1em; }
+.award-body { display: flex; flex-direction: column; gap: 0.3rem; }
+.award-name { font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; line-height: 1.3; color: var(--ink); }
+.award-inst { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.08em; color: var(--sienna); }
+.award-loc { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+.award-tag {
+  display: inline-block; margin-top: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 0.15rem 0.6rem; border: 1px solid var(--gold); color: var(--gold); width: fit-content;
+}
+.award-tag.fellowship  { border-color: var(--sienna); color: var(--sienna); }
+.award-tag.travel      { border-color: var(--green);  color: var(--green); }
+.award-tag.scholarship { border-color: var(--blue);   color: var(--blue); }
+
+/* 10. PHILOSOPHY ------------------------------------------------- */
+.philosophy {
+  position: relative; z-index: 1;
+  background: var(--paper-soft);
+  border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+  padding: 4rem;
+}
+.philosophy-inner { max-width: 860px; margin: 0 auto; }
+.philosophy-quote {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+  font-weight: 300; font-style: italic; line-height: 1.6;
+  color: var(--body-text); text-align: center; padding: 0 2rem;
+}
+.philosophy-quote em { color: var(--sienna); font-style: normal; }
+.philosophy-attr {
+  text-align: center; margin-top: 1.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted);
+}
+
+/* 11. FOOTER ----------------------------------------------------- */
+footer.site-footer {
+  position: relative; z-index: 1;
+  border-top: 1px solid var(--rule);
+  padding: 2rem 4rem;
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.65rem; letter-spacing: 0.1em; color: var(--muted);
+}
+.footer-links { display: flex; gap: 1.6rem; }
+.footer-links a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--sienna); }
+
+/* 12. MOTION / A11Y / PRINT / RESPONSIVE ------------------------- */
+@keyframes fadeUp  { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes expandW { from { opacity: 0; transform: scaleX(0); } to { opacity: 1; transform: scaleX(1); } }
+@keyframes panelIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 2px; }
+
+/* Scroll progress bar — thin warm gradient across the very top */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; z-index: 200;
+  height: 3px; width: 0%;
+  background: linear-gradient(90deg, var(--sienna), var(--gold));
+  transition: width 0.08s linear;
+  pointer-events: none;
+}
+
+/* Back-to-top button — appears after scrolling */
+.to-top {
+  position: fixed; bottom: 1.6rem; right: 1.6rem; z-index: 150;
+  width: 42px; height: 42px; border-radius: 50%;
+  border: 1px solid var(--rule);
+  background: var(--paper-card);
+  backdrop-filter: blur(6px);
+  color: var(--sienna);
+  cursor: pointer;
+  display: grid; place-items: center;
+  opacity: 0; transform: translateY(12px); pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 6px 18px -8px var(--shadow);
+}
+.to-top.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.to-top:hover { background: var(--sienna); color: var(--paper); transform: translateY(-2px); }
+.to-top svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .tl-item, .pub-item, .award-card { opacity: 1 !important; transform: none !important; }
+  .scroll-progress { display: none; }
+  .theme-card:hover, .panel-card:hover, .award-card:hover, .pub-item:hover { transform: none; }
+}
+
+@media (max-width: 900px) {
+  nav.site-nav { padding: 1rem 1.5rem; }
+  .nav-burger { display: flex; }
+  .nav-links {
+    position: fixed; inset: var(--nav-h) 0 auto 0;
+    flex-direction: column; gap: 0;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.5rem 1.5rem 1.5rem;
+    transform: translateY(-120%);
+    transition: transform 0.3s ease;
+  }
+  body.menu-open .nav-links { transform: translateY(0); }
+  .nav-links a { padding: 0.9rem 0; border-bottom: 1px dashed var(--grid); font-size: 0.8rem; }
+
+  .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; }
+  .hero-panel { display: none; }
+  .themes-grid { grid-template-columns: 1fr 1fr; }
+  .section { padding: 4rem 1.5rem; }
+  .page-header, .research-content, .honors-content,
+  .filter-bar, .pub-content { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .philosophy { padding: 2.5rem 1.5rem; }
+  .theme-num { font-size: 2rem; }
+  .tab-btn { padding: 0.7rem 0.8rem; font-size: 0.55rem; }
+  .tab-panels { padding: 1.8rem 1.5rem; }
+  .stats-bar { padding: 1.5rem; gap: 2rem; }
+  footer.site-footer { flex-direction: column; gap: 1rem; padding: 1.5rem; text-align: center; }
+}
+@media (max-width: 600px) {
+  .themes-grid { grid-template-columns: 1fr; }
+  .award-card { grid-template-columns: 3.5rem 1fr; gap: 0 1rem; }
+}
+
+@media print {
+  nav.site-nav, .nav-burger, .theme-toggle, .hero-cta, .filter-bar, footer.site-footer, body::before,
+  .scroll-progress, .to-top { display: none !important; }
+  body { background: #fff; color: #000; }
+  a { color: #000; text-decoration: underline; }
+  .tab-panel { display: block !important; }
+  .pub-item, .award-card, .tl-item { opacity: 1 !important; transform: none !important; break-inside: avoid; }
+  .page-header { padding-top: 1rem; }
+}
+
+</style>
 </head>
-<body>
+<body data-page="honors">
+  <a href="#main" class="skip-link">Skip to content</a>
 
-  <!-- NAV -->
-  <nav>
-    <a href="index.html" class="nav-logo">M. Shirani</a>
-    <ul class="nav-links">
-      <li><a href="index.html#about">About</a></li>
-      <li><a href="research.html">Research</a></li>
-      <li><a href="index.html#journey">Journey</a></li>
-      <li><a href="publications.html">Publications</a></li>
-      <li><a href="honors.html" class="active">Honors</a></li>
-      <li><a href="mailto:milad.shirani@yale.edu">Contact</a></li>
-    </ul>
-  </nav>
+  <nav class="site-nav"><!-- injected --></nav>
 
-  <!-- PAGE HEADER -->
-  <div class="page-header">
-    <p class="page-label">Recognition</p>
-    <h1 class="page-title">Honors &amp;<br /><em>Awards</em></h1>
-    <div class="page-rule"></div>
-    <p class="page-summary">10 awards &nbsp;·&nbsp; fellowships, travel grants &amp; scholarships &nbsp;·&nbsp; 2014 – 2026</p>
-  </div>
-
-  <!-- CONTENT -->
-  <div class="honors-content">
-
-    <div class="award-card">
-      <div class="award-year-col">
-        <div class="award-year">2026</div>
-        <div class="award-star">✦</div>
-      </div>
-      <div class="award-body">
-        <div class="award-name">ICERM Hot Topics Workshop Travel Grant — Agentic Scientific Computing &amp; Scientific Machine Learning</div>
-        <div class="award-inst">Institute for Computational and Experimental Research in Mathematics (ICERM)</div>
-        <div class="award-loc">Providence, RI</div>
-        <span class="award-tag travel">Travel Grant</span>
-      </div>
+  <main id="main">
+    <div class="page-header">
+      <p class="page-label">Recognition</p>
+      <h1 class="page-title">Honors &amp;<br /><em>Awards</em></h1>
+      <div class="page-rule"></div>
+      <p class="page-summary" id="honors-summary"></p>
     </div>
 
-    <div class="award-card">
-      <div class="award-year-col">
-        <div class="award-year">2025</div>
-        <div class="award-star">✦</div>
-      </div>
-      <div class="award-body">
-        <div class="award-name">Society of Engineering Science (SES) Postdoc Travel Award</div>
-        <div class="award-inst">Society of Engineering Science</div>
-        <div class="award-loc">Georgia, USA</div>
-        <span class="award-tag travel">Travel Award</span>
-      </div>
-    </div>
+    <div class="honors-content" id="honors-cards"></div>
+  </main>
 
-    <div class="award-card">
-      <div class="award-year-col">
-        <div class="award-year">2023</div>
-        <div class="award-star">✦</div>
-      </div>
-      <div class="award-body">
-        <div class="award-name">Outstanding Graduate Student Instructor (OGSI) Award</div>
-        <div class="award-inst">University of California, Berkeley</div>
-        <div class="award-loc">Berkeley, CA · 2022–2023</div>
-        <span class="award-tag">Teaching Award</span>
-      </div>
-    </div>
-
-    <div class="award-card">
-      <div class="award-year-col">
-        <div class="award-year">2022</div>
-        <div class="award-star">✦</div>
-      </div>
-      <div class="award-body">
-        <div class="award-name">Graduate Division Block Grant Award</div>
-        <div class="award-inst">University of California, Berkeley</div>
-        <div class="award-loc">Berkeley, CA · Summer 2022 · Spring &amp; Summer 2021 · Spring &amp; Summer 2020 · Summer 2019 · Summer 2018</div>
-        <span class="award-tag fellowship">Research Grant</span>
-      </div>
-    </div>
-
-    <div class="award-card">
-      <div class="award-year-col">
-        <div class="award-year">2021</div>
-        <div class="award-star">✦</div>
-      </div>
-      <div class="award-body">
-        <div class="award-name">Bob Steidel Fellowship</div>
-        <div class="award-inst">University of California, Berkeley</div>
-        <div class="award-loc">Berkeley, CA</div>
-        <span class="award-tag fellowship">Fellowship</span>
-      </div>
-    </div>
-
-    <div class="award-card">
-      <div class="award-year-col">
-        <div class="award-year">2020</div>
-        <div class="award-star">✦</div>
-      </div>
-      <div class="award-body">
-        <div class="award-name">Paul M. Naghdi Fellowship</div>
-        <div class="award-inst">University of California, Berkeley</div>
-        <div class="award-loc">Berkeley, CA</div>
-        <span class="award-tag fellowship">Fellowship</span>
-      </div>
-    </div>
-
-    <div class="award-card">
-      <div class="award-year-col">
-        <div class="award-year">2019</div>
-        <div class="award-star">✦</div>
-      </div>
-      <div class="award-body">
-        <div class="award-name">Society for Natural Philosophy (SNP) Travel Grant</div>
-        <div class="award-inst">Society for Natural Philosophy</div>
-        <div class="award-loc">Illinois, USA</div>
-        <span class="award-tag travel">Travel Grant</span>
-      </div>
-    </div>
-
-    <div class="award-card">
-      <div class="award-year-col">
-        <div class="award-year">2015</div>
-        <div class="award-star">✦</div>
-      </div>
-      <div class="award-body">
-        <div class="award-name">Theodore Holden Thomas, Jr Memorial Scholarship</div>
-        <div class="award-inst">Engineering Science and Mechanics, Pennsylvania State University</div>
-        <div class="award-loc">University Park, PA</div>
-        <span class="award-tag scholarship">Scholarship</span>
-      </div>
-    </div>
-
-    <div class="award-card">
-      <div class="award-year-col">
-        <div class="award-year">2015</div>
-        <div class="award-star">✦</div>
-      </div>
-      <div class="award-body">
-        <div class="award-name">Dr. Richard E. Llorens Graduate Award</div>
-        <div class="award-inst">Engineering Science and Mechanics, Pennsylvania State University</div>
-        <div class="award-loc">University Park, PA</div>
-        <span class="award-tag scholarship">Graduate Award</span>
-      </div>
-    </div>
-
-    <div class="award-card">
-      <div class="award-year-col">
-        <div class="award-year">2014</div>
-        <div class="award-star">✦</div>
-      </div>
-      <div class="award-body">
-        <div class="award-name">Best Graduate Thesis Award</div>
-        <div class="award-inst">Isfahan University of Technology</div>
-        <div class="award-loc">Isfahan, Iran</div>
-        <span class="award-tag fellowship">Best Thesis</span>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- FOOTER -->
-  <footer>
-    <span>© 2025 Milad Shirani · Yale University</span>
-    <div class="footer-links">
-      <a href="mailto:milad.shirani@yale.edu">Email</a>
-      <a href="https://scholar.google.com" target="_blank">Google Scholar</a>
-      <a href="https://linkedin.com" target="_blank">LinkedIn</a>
-      <a href="https://github.com/miladshirani" target="_blank">GitHub</a>
-    </div>
-  </footer>
+  <footer class="site-footer"><!-- injected --></footer>
 
   <script>
-    const cards = document.querySelectorAll('.award-card');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((e, i) => {
+/* =============================================================
+   SITE CONTENT  —  edit THIS file to add or change anything.
+   Nothing here touches design or layout; it is pure content.
+
+   Quick guide:
+     • Add a publication  → add one entry to SITE.publications.*
+     • Add a research tab → add one object to SITE.researchTabs
+     • Add an award       → add one object to SITE.honors
+     • Add a nav link      → add one object to SITE.nav
+     • Change a social URL → edit SITE.profile.links ONCE (used everywhere)
+
+   MATH NOTE (research tabs only): write LaTeX with DOUBLE backslashes,
+   e.g.  "the gradient \\( \\boldsymbol{F} \\) is ..."  MathJax renders it.
+   ============================================================= */
+
+window.SITE = {
+
+  /* ---- PROFILE (used across every page) ---------------------- */
+  profile: {
+    name:      "Milad Shirani",
+    shortName: "M. Shirani",
+    role:      "Postdoctoral Associate · Yale University",
+    roleLine:  "Continuum Mechanics &amp; Physical AI<br />Biomedical Engineering, Yale University",
+    email:     "milad.shirani@yale.edu",
+    photo:     "Figures/profile.jpeg",              // your photo — place it in a "Figures" folder next to the .html files
+    photoFallback: "https://github.com/miladshirani.png", // shown if the local photo can't be found (e.g. in preview)
+    // Absolute site URL — used for SEO / structured data.
+    baseUrl:   "https://miladshirani.github.io",
+    // Edit these once; they populate every footer + structured data.
+    links: {
+      scholar:  "https://scholar.google.com",   // TODO: replace with your Scholar profile URL
+      linkedin: "https://linkedin.com",          // TODO: replace with your LinkedIn URL
+      github:   "https://github.com/miladshirani",
+      orcid:    "",                               // optional: e.g. https://orcid.org/0000-...
+      cv:       ""                                // optional: link to a CV PDF, e.g. "assets/cv.pdf"
+    }
+  },
+
+  /* ---- NAV (order = display order) --------------------------- */
+  // `key` matches the page's <body data-page="..."> to highlight the active link.
+  nav: [
+    { label: "About",        href: "index.html#home-hero", key: "home" },
+    { label: "Research",     href: "research.html",        key: "research" },
+    { label: "Publications", href: "publications.html",    key: "publications" },
+    { label: "Honors",       href: "honors.html",          key: "honors" },
+    { label: "Contact",      href: "mailto:milad.shirani@yale.edu", key: "contact" }
+  ],
+
+  /* ---- HOME: hero ------------------------------------------- */
+  hero: {
+    desc: "My research spans the boundary between rigorous continuum mechanics and physics-informed machine learning — from thermodynamically consistent models of soft biological tissues and nematic elastomers, to differentiable simulation and neural constitutive laws for Physical AI. I build models that are mathematically provable, computationally efficient, and physically meaningful.",
+    cta: [
+      { label: "Explore Research", href: "research.html", style: "primary" },
+      { label: "Get in Touch",     href: "mailto:milad.shirani@yale.edu", style: "ghost" }
+    ]
+  },
+
+  /* ---- HOME: research-profile panel -------------------------- */
+  // `stats` numbers left as-is; publication counts on the Publications
+  // page are computed automatically so they never drift.
+  stats: [
+    { num: "31", label: "Journal Papers" },
+    { num: "2",  label: "Co-authored Books" },
+    { num: "5",  label: "Book Chapters" },
+    { num: "3",  label: "Years at Yale" }
+  ],
+  // Set hidden:true to keep an entry in the record but off the page.
+  affiliations: [
+    { title: "Postdoctoral Associate", org: "Yale University",
+      sub: "Dept. of Biomedical Engineering · Advisor: Prof. Jay D. Humphrey" },
+    { title: "PhD, Mechanical Engineering", org: "UC Berkeley",
+      sub: "Advisor: Prof. David Steigmann · Minors: Mathematics &amp; Dynamics" },
+    { title: "PhD Studies", org: "Pennsylvania State University", hidden: true,
+      sub: "Experimental characterization of shape memory alloys · 2014–2016" },
+    { title: "MSc, Mechanical Engineering", org: "Isfahan University of Technology",
+      sub: "Best Thesis Award · Constitutive Modeling of Shape Memory Alloys" }
+  ],
+
+  /* ---- HOME: research theme cards ---------------------------- */
+  researchThemes: [
+    { icon: "∇", title: "Nonlinear Continuum Mechanics",
+      desc: "Cosserat, micropolar, and higher-gradient theories; Legendre–Hadamard and polyconvexity conditions for soft matter; variational methods for elastic rods, shells, and fibrous composites." },
+    { icon: "ψ", title: "Soft Matter &amp; Biomechanics",
+      desc: "Nematic liquid crystal elastomers, hydrogels, lipid bilayers, biological tissues. Thermodynamically consistent modeling of chemotaxis, durotaxis, and cell migration in fibrous substrates." },
+    { icon: "∫", title: "Physics-Informed Machine Learning",
+      desc: "PINNs, Deep Energy Methods, DeepONets, and ICNNs for constitutive modeling. Enforcing frame indifference, polyconvexity, and Legendre–Hadamard stability as hard constraints in neural architectures." },
+    { icon: "𝒢", title: "Neural Operators &amp; GNNs",
+      desc: "Fourier Neural Operators, MeshGraphNets, and transformer-based operator learning for mesh-dependent PDE surrogates. Differentiable simulation pipelines in JAX and PyTorch for Physical AI." },
+    { icon: "∂", title: "Computational Mechanics",
+      desc: "FEniCSx, JAX-FEM, and custom finite element codes for hyperelasticity, phase-field fracture, and swelling. End-to-end differentiable simulation targeting real-time physical AI applications." },
+    { icon: "Σ", title: "Agentic Scientific Computing",
+      desc: "Closed-loop agentic pipelines (LangGraph) for constitutive model discovery. Bridging symbolic reasoning, PDE solving, and data-driven learning in automated scientific workflows." },
+    { icon: "⌬", title: "Experimental Mechanics",
+      desc: "DIC and strain-gauge characterization of composites; photoelastic full-field stress mapping; DSC thermal analysis and tensile testing of shape memory alloys; magnetomechanical experiments on FSMAs." },
+    { icon: "♡", title: "Cardiovascular AI Startup",
+      desc: "Co-founded AI venture (UC Berkeley SkyDeck Pad-13, CITRIS Foundry 2023) for automated heart disease detection from phonocardiograms. CNN + transfer learning achieving 95% test accuracy." }
+  ],
+
+  /* ---- HOME: timeline ---------------------------------------- */
+  journey: [
+    { years: "2010 – 2013", title: "MSc · Isfahan University of Technology",
+      sub: "Constitutive modeling of shape memory alloys and magnetic shape memory alloys. 8 publications, Best Thesis Award. Combined experiment, theory, and numerical validation." },
+    { years: "2014 – 2016", title: "Penn State University", hidden: true,
+      sub: "Experimental characterization of shape memory alloys. Transitioned to UC Berkeley to pursue research in theoretical mechanics." },
+    { years: "2014 – 2023", title: "PhD · UC Berkeley · Dept. of Mechanical Engineering",
+      sub: "Advisor: Prof. David Steigmann. Minors in Mathematics and Dynamics. Co-authored two graduate textbooks on continuum mechanics and theories of plates &amp; shells. 21 journal papers and 5 book chapters. Derived stability conditions (Legendre–Hadamard, rank-one convexity, quasiconvexity) for Cosserat media, fibrous materials, and liquid crystal elastomers." },
+    { years: "2022 – 2023", title: "Co-Founder &amp; ML Engineer — Berkeley AI Startup",
+      sub: "Co-founded cardiovascular AI startup accepted into UC Berkeley SkyDeck Pad-13 and CITRIS Foundry 2023. Built CNN + transfer learning models for multi-class heart sound classification achieving 95% accuracy. Mentored undergraduate hardware development." },
+    { years: "2023 – Present", title: "Postdoctoral Associate · Yale University",
+      sub: "Advisor: Prof. Jay D. Humphrey. Biomedical Engineering. 3 publications. Research on fibrous tissues, thermodynamically consistent chemotaxis, phase-field fracture, and physics-informed neural networks for soft matter." }
+  ],
+
+  /* ---- RESEARCH: intro + philosophy -------------------------- */
+  researchIntro: "My research is driven by a single conviction: that a deep understanding of physical systems demands mathematical rigor, experimental honesty, and computational power working together. From the thermodynamics of a swelling hydrogel to the stability conditions of a fiber-reinforced elastic solid, from the migration of cells on a soft substrate to the design of neural networks that provably satisfy the laws of mechanics — each project begins with the same question: <em>what does the physics actually require?</em>",
+  philosophy: {
+    quote: "\"Nature does not negotiate its laws — it conceals them. My work is the art of unraveling those concealments: finding the <em>mathematical necessities</em> hidden in physical phenomena, and building models <em>rigorous enough to outlast</em> the data they were never meant to merely fit.\"",
+    attr:  "Research Philosophy · M. Shirani"
+  },
+
+  /* ---- RESEARCH TABS ----------------------------------------- */
+  // To add a tab: copy one block, give it a new id + roman numeral.
+  // Tab button + panel are generated together — no need to edit two places.
+  researchTabs: [
+    {
+      id: "t1", num: "I", label: "Continuum Mechanics<br>&amp; Stability",
+      title: "Nonlinear Continuum Mechanics &amp; Stability Theory",
+      body: [
+        "My doctoral work, carried out under Prof. David Steigmann at UC Berkeley, established a systematic framework for stability analysis in generalized continua. The central objects of study were the Legendre-Hadamard condition, rank-one convexity, and quasiconvexity — necessary conditions for energy minimizers that govern whether a body can sustain localized failure modes such as shear bands or surface instabilities.",
+        "In classical elasticity these conditions are well understood, but for <em>Cosserat media</em> — where material points carry both position and orientation — the analysis is fundamentally richer. The acoustic tensor acquires a block structure, coupling the translational and rotational degrees of freedom, and the admissible wave speeds depend on both the elastic and couple-stress moduli. I derived these conditions analytically for Cosserat solids, lattice structures, fiber-reinforced materials with one, two, and three fiber families, liquid crystal elastomers, and elastic shells with intrinsic fiber bending and twist stiffness. A key contribution was proving the <em>coupled</em> Legendre-Hadamard inequality for fiber-reinforced shells, where the fiber's own Kirchhoff-rod energy interacts with the shell's membrane-bending response.",
+        "More recently, I showed that fibrous biological tissues simultaneously exhibit <em>strain-gradient</em> and <em>Cosserat</em> effects — a consequence of the finite thickness and curvature of individual fibers — and that this dual nonlocality can produce macroscopic Poynting effects with no classical analogue."
+      ],
+      keyPoints: [
+        "Analytical Legendre-Hadamard conditions for Cosserat elasticity, fiber-reinforced solids, and elastic shells",
+        "Quasiconvexity and rank-one convexity in Cosserat models for lattice and fiber-reinforced materials",
+        "Maxwell-Eshelby relation and its generalization in Cosserat and 6-parameter shell theories",
+        "Mixed Cosserat/strain-gradient formulation for fibrous tissues; prediction of Poynting effects",
+        "Elastic-plastic response of hemitropic Cosserat solids"
+      ],
+      links: [ { text: "Article · Coming Soon", comingSoon: true } ]
+    },
+    {
+      id: "t2", num: "II", label: "Soft Matter:<br>Hydrogels &amp; LCEs",
+      title: "Soft Matter: Hydrogels, Polymers &amp; Liquid Crystal Elastomers",
+      body: [
+        "Soft materials present a distinct class of challenges: they undergo large, geometrically nonlinear deformations; they often couple mechanical response to chemical, thermal, or electromagnetic fields; and their constitutive behavior is governed by entropy as much as by internal energy. My work in this area addresses both the mathematical structure of such coupled theories and their computational implementation.",
+        "For hydrogels, I developed a thermodynamically consistent continuum model for swelling driven by water absorption, grounding the Flory-Huggins mixing energy within a variational framework and deriving the coupled mechanical and chemical balance laws via the principle of virtual power. The Coleman-Noll procedure shows that the reduced dissipation inequality constrains the water-flux mobility tensor to be positive semi-definite — a result that is both physically necessary and computationally actionable. The model is currently being extended to biological tissues and to delamination problems in layered hydrogel systems.",
+        "For <em>nematic liquid crystal elastomers</em> (LCEs), where a rubber-like polymer network is coupled to an orientational order parameter \\( \\boldsymbol{n} \\), I derived the Legendre-Hadamard inequalities governing stability with respect to both deformation and director-field perturbations. I then used these as validation criteria — rather than loss-function penalties — when training physics-consistent neural networks to predict the deformation and director fields. This distinction matters: a loss penalty can be violated during inference, while an architectural constraint cannot."
+      ],
+      keyPoints: [
+        "Variational continuum model for hydrogel swelling; thermodynamic restrictions on the water flux",
+        "Stability conditions for nematic LCEs under coupled mechanical-orientational perturbations",
+        "Deep Energy Method for LCEs: two coupled MLPs for deformation and director fields, validated against FEA",
+        "Variational and data-driven DeepONets for nematic materials",
+        "Wrinkling of incompressible anisotropic sheets with wavy fibers"
+      ],
+      links: [
+        { text: "Read · Hydrogel Swelling Model", href: "research-hydrogel-swelling.html" },
+        { text: "Article · LCE Stability &amp; Neural Networks — Coming Soon", comingSoon: true }
+      ]
+    },
+    {
+      id: "t3", num: "III", label: "Biomechanics:<br>Cells &amp; Tissues",
+      title: "Biomechanics: Cell Migration, Tissues &amp; Membranes",
+      body: [
+        "At Yale, working with Prof. Jay D. Humphrey, my research has focused on the mechanics of living soft matter — fibrous biological tissues, cell monolayers, lipid bilayers, and hydrogel scaffolds. These systems are distinguished by their capacity for active response, growth, remodeling, and self-organization, phenomena that classical passive elasticity cannot capture.",
+        "I developed a continuum model for collective cell migration driven by <em>chemotaxis</em> (response to chemical gradients), <em>durotaxis</em> (response to substrate stiffness), and <em>taxis</em> toward tension, unifying these into a single thermodynamically consistent framework applicable to multiple cell families and chemoattractants simultaneously. A significant theoretical finding was demonstrating that the Keller-Segel chemotaxis model — widely used in mathematical biology — violates thermodynamic consistency, and providing a corrected formulation.",
+        "A separate line of work concerned the geometry of cell polarization near free boundaries. I proved that in any polarized cell monolayer, the polarity vector must remain tangential to free boundaries — a result that is <em>universal</em> in the sense that it depends only on the boundary geometry and the continuity of the polarity field, not on the specific constitutive model for polarization dynamics.",
+        "Earlier work at Berkeley addressed the equilibrium mechanics of lipid bilayers, including asymmetric and tilted bilayers and bilayers with a conforming cytoskeletal membrane, where the coupling between membrane curvature and cytoskeletal tension produces nontrivial shape transitions."
+      ],
+      keyPoints: [
+        "Thermodynamically consistent model for collective cell migration under chemo-mechanical stimuli",
+        "Proof of thermodynamic inconsistency in the Keller-Segel model; corrected continuum formulation",
+        "Universal tangentiality of cell polarity at free boundaries of cell monolayers",
+        "Equilibrium theory for asymmetric tilted lipid bilayers and bilayers with cytoskeletal coupling",
+        "Finite elastic deformations of incompressible fiber-reinforced biological plates"
+      ],
+      links: [
+        { text: "Article · Cell Migration Model — Coming Soon", comingSoon: true },
+        { text: "Article · Cell Polarity at Boundaries — Coming Soon", comingSoon: true }
+      ]
+    },
+    {
+      id: "t4", num: "IV", label: "Physics-Informed<br>Machine Learning",
+      title: "Physics-Informed Machine Learning &amp; Neural Constitutive Models",
+      body: [
+        "The convergence of mechanics and machine learning opens a genuinely new frontier — not merely fitting data faster, but building computational models that are constrained by physical law from the ground up. My work in this area is grounded in the conviction that the laws of mechanics are not soft regularizers to be traded against data fit; they are hard constraints that any admissible model must satisfy exactly.",
+        "For hyperelastic constitutive modeling, I develop neural networks whose outputs are guaranteed to satisfy <em>frame indifference</em>, <em>material symmetry</em>, and the <em>Legendre-Hadamard condition</em> — not by penalizing violations during training, but by architectural design. Input Convex Neural Networks (ICNNs) provide polyconvex energy densities by construction. For fibrous biological tissues with two fiber families, I have proved analytically the polyconvexity conditions that existing approaches verify only numerically — a distinction that matters for guaranteeing stability at <em>any</em> deformation state, not just those seen during training.",
+        "For operator learning — mapping loading conditions to full displacement or director fields — I work with Deep Operator Networks (DeepONets) and Physics-Informed Neural Networks (PINNs), enforcing the governing PDEs either through the loss function or directly in the architecture. Most recently, in work currently under review, I trained physics-consistent neural networks for microstructured media (Cosserat continua) where both the deformation gradient \\( \\boldsymbol{F} \\) and the director field \\( \\boldsymbol{d} \\) are learned simultaneously, with the Legendre-Hadamard tensor retained in the computational graph for post-training stability verification.",
+        "Looking forward, I am building end-to-end differentiable simulation pipelines in JAX and PyTorch — combining custom finite element solvers, neural constitutive models, and MeshGraphNet-based surrogates — as the foundation for Physical AI applications in soft robotics, surgical simulation, and materials design."
+      ],
+      keyPoints: [
+        "Deep Energy Method for nematic LCEs with LH conditions as architectural constraints",
+        "Physics-consistent neural networks for Cosserat media; LH verification in the computational graph",
+        "Analytical proof of polyconvexity conditions for fibrous tissues with two fiber families",
+        "Variational and data-driven DeepONets for nematic materials",
+        "Differentiable FEA in JAX: T3/Q9 elements, Neo-Hookean and SVK materials, autodiff tangent stiffness",
+        "Agentic constitutive model discovery pipelines using LangGraph with JAX and PyTorch backends"
+      ],
+      links: [
+        { text: "Article · ICNN Constitutive Models — Coming Soon", comingSoon: true },
+        { text: "Article · Differentiable Simulation — Coming Soon", comingSoon: true }
+      ]
+    },
+    {
+      id: "t5", num: "V", label: "Shape Memory<br>Alloys &amp; FSMAs",
+      title: "Shape Memory Alloys &amp; Ferromagnetic Smart Materials",
+      body: [
+        "My earliest research, carried out during my MSc at Isfahan University of Technology, focused on the constitutive modeling of shape memory alloys (SMAs) and ferromagnetic shape memory alloys (FSMAs), also referred to as magnetic shape memory alloys (MSMAs). SMAs such as NiTi memorize a reference shape and recover it upon heating through a reversible martensitic phase transition between austenite and martensite. Their applications range from medical devices and aerospace actuators to shock absorbers. FSMAs extend this behavior: in the martensitic phase, an applied magnetic field drives <em>martensite variant reorientation</em>, producing large inelastic strains without thermal cycling.",
+        "<strong>Thermodynamic consistency of SMA phase diagrams.</strong> The dominant modeling paradigm at the time relied on phase diagrams in stress-temperature space to determine when transformation initiates and completes. I showed that this class of models — including the widely used Brinson (1993) model — violates the second law of thermodynamics. The argument was constructive: I designed a thought experiment involving a sequence of <em>interrupted phase transformations</em> and showed that, in the limit as the number of interruptions tends to infinity, phase-diagram-based models predict that transformation ends without the phase fraction satisfying the completion condition. This paradox arises because such models exclude loading history from the transformation initiation criterion, which is thermodynamically inadmissible. I designed and carried out multiple thermomechanical experiments to confirm the discrepancy between model predictions and physical behavior.",
+        "<strong>Corrected 3-D transformation surfaces and continuation conditions.</strong> Enforcing the second law of thermodynamics, I generalized the conventional 2-D phase diagrams in stress-temperature space to 3-D <em>transformation surfaces</em> in stress-temperature-loading history space. On these surfaces the loading history is encoded in the surface's evolution, so the transformation-start criterion properly depends on the accumulated thermomechanical path. I further exploited the geometric fact that the gradient of a surface is normal to it: this constraint yields explicit <em>transformation continuation conditions</em> — inequalities that must hold throughout an ongoing transformation. Their violation signals an elastic regime in which the inelastic contribution of phase transformation is inactive.",
+        "<strong>Ferromagnetic SMAs: unique parameter calibration.</strong> A critical shortcoming of existing FSMA models was that their parameters could not be determined uniquely without curve-fitting to each individual experiment — making predictions for new loading protocols unreliable. I proposed a systematic calibration procedure that extracts all model parameters from a single reference experiment. To demonstrate generality, I calibrated the model once and reproduced 12 independent experimental datasets without recalibration. Enforcing the second law, I then derived a constitutive relation for the coupled magneto-mechanical response of these alloys under general magnetomechanical loading, and, mirroring the SMA approach, introduced both 2-D reorientation diagrams and their 3-D generalizations — together with the corresponding <em>reorientation start and continuation conditions</em>. All predictions were validated against purpose-designed magnetomechanical tests.",
+        "<strong>Biaxial compression and theoretically predicted pseudoelasticity.</strong> Using thermodynamic arguments alone, I predicted that FSMAs subjected to biaxial compressive stress should exhibit inelastic behavior from variant reorientation, with hysteresis and pseudoelasticity whose character depends on the magnitude of the transverse stress component. At the time, no experimental data existed to validate this prediction, and I was unable to publish the result. Eighteen months later, an independent experimental paper appeared observing precisely the behavior I had forecast — enabling publication and providing post-hoc validation of the thermodynamic approach."
+      ],
+      keyPoints: [
+        "Proved thermodynamic inconsistency of phase-diagram-based SMA models via an interrupted-transformation thought experiment; validated with thermomechanical experiments",
+        "Generalized 2-D phase diagrams in stress-temperature space to 3-D transformation surfaces in stress-temperature-loading history space; derived continuation conditions from surface-gradient geometry",
+        "Unique parameter calibration for FSMA constitutive models; single calibration reproduces 12 experimental datasets",
+        "3-D reorientation surfaces and continuation conditions for magnetically driven martensite variant reorientation in FSMAs",
+        "Theoretical prediction — confirmed experimentally 18 months later — of hysteresis and pseudoelasticity in Ni-Mn-Ga FSMAs under biaxial compression",
+        "Designed and executed thermomechanical and magnetomechanical experiments for model validation",
+        "8 publications (7 journals + 1 conference); Best Graduate Thesis Award, Isfahan University of Technology (2014)"
+      ],
+      links: [ { text: "Articles · SMA &amp; FSMA Constitutive Modeling — See Publications", comingSoon: true } ]
+    },
+    {
+      id: "t6", num: "VI", label: "PI-FNO: Cardiac<br>Acoustics",
+      title: "PI-FNO: Physics-Informed Neural Operators for Cardiac Acoustics",
+      body: [
+        "The same design principles that govern physics-consistent constitutive modeling in continuum mechanics — encoding known structure as inductive biases, enforcing inequalities as hard or hinge constraints, and using interpretable learned parameters — transfer naturally to biomedical signal classification. This project applies that philosophy to the automated diagnosis of valvular heart disease from raw phonocardiogram (PCG) recordings.",
+        "The primary model is a <em>Fourier Neural Operator (FNO)</em> operating directly on raw waveforms, with physiological structure encoded at three levels. First, a learnable <em>physiological frequency mask</em> is initialized from known S1 (25-45 Hz) and S2 (50-70 Hz) cardiac sound bands and parameterized in logit space to keep weights in \\( (0,1) \\). Second, spectral convolutions retain only the \\( M = 20 \\) lowest Fourier modes — a band-limited inductive bias matching the sub-1 kHz frequency content of cardiac acoustics. Third, the training loss augments cross-entropy with two physiologically motivated terms: a <em>periodicity loss</em> penalizing energy away from heart-rate harmonics, and a <em>frequency hierarchy loss</em> enforcing \\( E_{S1} \\geq E_{S2} \\) via a hinge penalty — directly analogous to Legendre-Hadamard enforcement in hyperelastic constitutive modeling.",
+        "The model classifies five clinically distinct conditions — Aortic Stenosis, Mitral Regurgitation, Mitral Stenosis, Mitral Valve Prolapse, and Normal — from 1,000 PCG recordings. The FNO achieves <strong>97.3% test accuracy</strong> with perfect classification of Mitral Stenosis (F1 = 1.00). After training, the learned mask weights autonomously recover the S1/S2 bands while also discovering additional murmur-frequency modes — providing direct clinical interpretability with no post-hoc attribution required."
+      ],
+      keyLabel: "Key Results",
+      keyPoints: [
+        "97.3% five-class test accuracy on 1,000 PCG recordings (AS / MR / MS / MVP / Normal)",
+        "Perfect Mitral Stenosis classification (F1 = 1.00); hardest class MR at F1 = 0.92",
+        "Learnable physiological frequency mask autonomously recovers S1 and S2 bands post-training",
+        "Hinge-form frequency hierarchy loss enforces \\( E_{S1} \\geq E_{S2} \\) — exact analogue of LH inequality enforcement in mechanics",
+        "Well-separated t-SNE clusters for all five classes; Normal class fully isolated from all pathologies"
+      ],
+      table: {
+        label: "Performance Summary",
+        head: ["Model", "Val Acc", "Test Acc", "Convergence"],
+        rows: [
+          { cells: ["FNO (physio-constrained)", "98.00%", "<strong>97.33%</strong>", "Epoch 30"], highlight: true },
+          { cells: ["CNN Baseline (Mel spectrogram)", "98.67%", "<strong>97.33%</strong>", "Epoch 20"] }
+        ]
+      },
+      links: [
+        { text: "GitHub · PI-FNO Repository", href: "https://github.com/miladshirani/PI-FNO", external: true },
+        { text: "Article · Coming Soon", comingSoon: true }
+      ]
+    },
+    {
+      id: "t7", num: "VII", label: "Experimental<br>Mechanics",
+      title: "Experimental Mechanics",
+      body: [
+        "Alongside my theoretical and computational work, I have designed and executed experimental programs in structural mechanics, smart materials, and composite failure — grounding analytical predictions in physical measurement and providing the experimental baselines against which models are validated.",
+        "<strong>Composites — strain gauges and Digital Image Correlation (DIC).</strong> Tensile failure in carbon fiber and fiberglass composites involves localized strain concentrations that coupon-average measurements cannot resolve. To characterize failure initiation sites and tensile strength under combined loading with full-field ground truth, I designed and executed tensile failure tests on composite specimens, instrumented with strain gauges for local strain measurement at anticipated failure sites, and deployed DIC for simultaneous full-field strain mapping. I designed acceptance criteria and loading protocols to isolate failure modes and avoid confounding effects. The result was full-field strain maps resolving failure initiation sites and tensile strength bounds under combined loading, with model predictions validated directly against experimental ground truth.",
+        "<strong>Shape memory alloys — thermomechanical and magnetomechanical testing.</strong> During my MSc at Isfahan University of Technology, I designed and executed thermomechanical experiments to characterize phase transformation behavior in NiTi SMAs — including interrupted transformation sequences that exposed the thermodynamic inconsistency of existing phase-diagram-based models — and magnetomechanical tests on Ni-Mn-Ga FSMAs to validate constitutive models for magnetically driven martensite variant reorientation. I also performed DSC thermal characterization to measure phase transformation temperatures and stresses under varying thermal histories, and tensile testing on iron-based SMA specimens.",
+        "<strong>Photoelastic stress analysis.</strong> I conducted photoelastic experiments for full-field stress distributions in complex-geometry specimens, obtaining fringe patterns validated against analytical and numerical model predictions under small-strain deformation — reinforcing the complementarity between experimental observation and theoretical modeling."
+      ],
+      keyPoints: [
+        "Tensile failure characterization of carbon fiber and fiberglass composites via strain gauges and DIC; full-field strain maps resolving failure initiation sites and tensile strength bounds",
+        "Thermomechanical experiments on NiTi SMAs exposing thermodynamic inconsistency of phase-diagram models",
+        "Magnetomechanical testing of Ni-Mn-Ga FSMAs; validated reorientation constitutive models including biaxial compression predictions",
+        "DSC thermal characterization and tensile testing of iron-based SMA specimens",
+        "Photoelastic full-field stress mapping in complex geometries; validated against small-strain model predictions"
+      ],
+      links: [ { text: "Publications — See SMA &amp; FSMA Tab", comingSoon: true } ]
+    },
+    {
+      id: "t8", num: "VIII", label: "Cardiovascular<br>AI Startup",
+      title: "Cardiovascular AI Startup — UC Berkeley",
+      body: [
+        "During the final year of my PhD at UC Berkeley, I co-founded an AI startup focused on the automated detection of cardiovascular disease from phonocardiogram (PCG) recordings. The startup was accepted into two competitive Berkeley incubator programs: <strong>UC Berkeley SkyDeck Pad-13</strong> and the <strong>CITRIS Foundry 2023</strong> cohort, providing mentorship, infrastructure, and a translational development environment.",
+        "<strong>Model development.</strong> Operating under startup timelines and constraints, I developed, benchmarked, and delivered a convolutional neural network (CNN) with transfer learning for multi-class heart sound classification — distinguishing normal cardiac function from pathological conditions including aortic stenosis, mitral regurgitation, mitral stenosis, and mitral valve prolapse. The pipeline covered the full model lifecycle: raw PCG data ingestion, preprocessing and segmentation, feature extraction, model training and cross-validation, and evaluation on held-out test sets. The final model achieved <strong>95% accuracy</strong> on held-out data, meeting the startup's clinical deployment target.",
+        "<strong>Hardware integration.</strong> I mentored an undergraduate student in designing and building a hardware digital stethoscope — a custom data acquisition device that interfaces with the deployed classification model, enabling point-of-care cardiac screening without specialized clinical equipment. This hardware-software integration bridged the gap between research prototype and deployable medical instrument.",
+        "<strong>Connection to PI-FNO.</strong> The startup provided the clinical motivation and domain expertise that later informed the PI-FNO project (Tab VI), where I revisited the same five-class cardiac classification problem using a Fourier Neural Operator with explicit physiological constraints — moving from an engineering-driven CNN baseline to a physics-principled architecture grounded in the known frequency structure of cardiac acoustics."
+      ],
+      keyPoints: [
+        "Co-founded cardiovascular AI startup; accepted into UC Berkeley SkyDeck Pad-13 and CITRIS Foundry 2023",
+        "Developed CNN + transfer learning pipeline for multi-class heart sound classification; 95% accuracy on held-out test sets",
+        "Managed full model lifecycle: data pipeline, preprocessing, training, cross-validation, and evaluation on a startup timeline",
+        "Mentored undergraduate student in building a hardware digital stethoscope paired with the deployed model",
+        "Startup work directly motivated the subsequent PI-FNO physics-constrained approach (Tab VI)"
+      ],
+      links: [ { text: "Related Work · PI-FNO (Tab VI)", comingSoon: true } ]
+    }
+  ],
+
+  /* ---- PUBLICATIONS ------------------------------------------ */
+  // Order within each list = newest first (top of the printed list).
+  // Numbering is generated automatically. To add: paste a new object
+  // at the TOP of the relevant list.
+  //   authors : HTML string; wrap your own name in <strong>…</strong>
+  //   venue   : journal name / publisher / book title
+  //   details : year + volume/pages/id
+  //   href    : DOI or publisher link (optional)
+  //   tag / tagClass : optional badge, e.g. tag:"In Press" or tag:"Under Review", tagClass:"under-review"
+  publications: {
+    books: [
+      { authors: "Steigmann, D. J. &amp; <strong>Shirani, M.</strong>",
+        title: "Principles of Continuum Mechanics",
+        venue: "World Scientific", details: "2025",
+        href: "https://doi.org/10.1142/14150" },
+      { authors: "Steigmann, D. J., Bîrsan, M. &amp; <strong>Shirani, M.</strong>",
+        title: "Lecture Notes on the Theory of Plates and Shells. Classical and Modern Developments",
+        venue: "Springer", details: "2023",
+        href: "https://link.springer.com/book/9783031256738" }
+    ],
+    journals: [
+      { authors: "Bîrsan, M. &amp; <strong>Shirani, M.</strong>",
+        title: "Legendre-Hadamard inequalities for Cosserat elastic shells with a single deformable director",
+        venue: "Journal of Applied Mechanics", details: "2026 · accepted",
+        tag: "In Press" },
+      { authors: "<strong>Shirani, M.</strong> &amp; Humphrey, J. D.",
+        title: "A continuum model for collective cell migration in tissues and biomaterials in response to chemo-mechanical stimuli",
+        venue: "International Journal of Engineering Science", details: "2026 · 104502",
+        href: "https://www.sciencedirect.com/science/article/pii/S0020722526000406" },
+      { authors: "Steigmann, D. J., <strong>Shirani, M.</strong> &amp; Sigaroudi, M. J.",
+        title: "On the elastic-plastic response of hemitropic Cosserat solids",
+        venue: "Journal of Mathematics and Mechanics of Solids", details: "2026 · 10812865251397027",
+        href: "https://journals.sagepub.com/doi/abs/10.1177/10812865251397027" },
+      { authors: "<strong>Shirani, M.</strong>, Giorgio, I., Astori, D. &amp; Humphrey, J. D.",
+        title: "A mixed Cosserat and higher gradient formulation for fibrous tissues and biomaterials",
+        venue: "International Journal of Solids and Structures", details: "2025 · 113671",
+        href: "https://www.sciencedirect.com/science/article/abs/pii/S0020768325004573" },
+      { authors: "<strong>Shirani, M.</strong> &amp; Bîrsan, M.",
+        title: "Necessary conditions for stable equilibrium states of lattice solids based on the Cosserat elasticity theory",
+        venue: "Mechanics of Materials", details: "2025 · 105292",
+        href: "https://www.sciencedirect.com/science/article/pii/S0167663625000547" },
+      { authors: "Bîrsan, M. &amp; <strong>Shirani, M.</strong>",
+        title: "On the Maxwell–Eshelby relation in the theory of 6-parameter elastic shells",
+        venue: "Mechanics Research Communications", details: "2025 · 104451",
+        href: "https://www.sciencedirect.com/science/article/pii/S0093641325000849" },
+      { authors: "McAvoy, R. C. &amp; <strong>Shirani, M.</strong>",
+        title: "Asymptotic theory for thin nonlinear second-gradient elastic plates",
+        venue: "Mathematics and Mechanics of Complex Systems", details: "2025 · 13(4), 391–416",
+        href: "https://msp.org/memocs/2025/13-4/p01.xhtml" },
+      { authors: "Bîrsan, M., <strong>Shirani, M.</strong> &amp; Steigmann, D. J.",
+        title: "The coupled Legendre-Hadamard condition for fiber-reinforced materials: three-dimensional solids and two-dimensional shells",
+        venue: "Continuum Mechanics and Thermodynamics", details: "2025 · 37(2), 26",
+        href: "https://link.springer.com/article/10.1007/s00161-025-01357-0" },
+      { authors: "Bîrsan, M., <strong>Shirani, M.</strong> &amp; Steigmann, D. J.",
+        title: "Convexity conditions for fiber-reinforced elastic shells",
+        venue: "Journal of Mathematics and Mechanics of Solids", details: "2024",
+        href: "https://journals.sagepub.com/doi/abs/10.1177/10812865241261485" },
+      { authors: "<strong>Shirani, M.</strong>, Bîrsan, M. &amp; Steigmann, D. J.",
+        title: "Quasiconvexity in a Cosserat theory of fiber-reinforced elastic solids",
+        venue: "Journal of Mathematics and Mechanics of Solids", details: "2024",
+        href: "https://journals.sagepub.com/eprint/H7AUPXMG2FBDFJBUNFTM/full" },
+      { authors: "<strong>Shirani, M.</strong> &amp; Steigmann, D. J.",
+        title: "Asymptotic theory for the inextensional flexure and twist of plastically deformed thin rods",
+        venue: "Journal of Mathematics and Mechanics of Solids", details: "2024 · 29(6), 1053–1063",
+        href: "https://journals.sagepub.com/doi/full/10.1177/10812865221124524" },
+      { authors: "Steigmann, D. J., Bîrsan, M. &amp; <strong>Shirani, M.</strong>",
+        title: "Thin shells reinforced by fibers with intrinsic flexural and torsional elasticity",
+        venue: "International Journal of Solids and Structures", details: "2023 · 85, 112550",
+        href: "https://www.sciencedirect.com/science/article/abs/pii/S002076832300447X" },
+      { authors: "<strong>Shirani, M.</strong>, Steigmann, D. J. &amp; Bîrsan, M.",
+        title: "Legendre-Hadamard conditions for fiber-reinforced materials with one, two or three families of fibers",
+        venue: "Mechanics of Materials", details: "2023 · 104745",
+        href: "https://www.sciencedirect.com/science/article/pii/S0167663623001916" },
+      { authors: "Khozeimeh, F., Alizadehsani, R., <strong>Shirani, M.</strong>, Tartibi, M., et al.",
+        title: "ALEC: Active learning with ensemble of classifiers for clinical diagnosis of coronary artery disease",
+        venue: "Computers in Biology and Medicine", details: "2023 · 158, 106841",
+        href: "https://www.sciencedirect.com/science/article/pii/S0010482523003062" },
+      { authors: "<strong>Shirani, M.</strong> &amp; Steigmann, D. J.",
+        title: "Convexity and quasiconvexity in a Cosserat model for fiber-reinforced elastic solids",
+        venue: "Journal of Elasticity", details: "2022 · 1–13",
+        href: "https://link.springer.com/article/10.1007/s10659-022-09963-8" },
+      { authors: "<strong>Shirani, M.</strong>",
+        title: "Maxwell-Eshelby relation in Cosserat elasticity theory",
+        venue: "Journal of Mathematics and Mechanics of Solids", details: "2022 · 27(10), 2085–2098",
+        href: "https://journals.sagepub.com/doi/abs/10.1177/10812865221077456" },
+      { authors: "<strong>Shirani, M.</strong> &amp; Steigmann, D. J.",
+        title: "Cosserat elasticity of lattice solids",
+        venue: "Journal of Elasticity", details: "2021 · 1–16",
+        href: "https://link.springer.com/article/10.1007/s10659-021-09859-z" },
+      { authors: "Hendrickson, B., <strong>Shirani, M.</strong> &amp; Steigmann, D. J.",
+        title: "On the equations of equilibrium for asymmetric tilted lipid bilayers",
+        venue: "Mathematics and Mechanics of Complex Systems", details: "2021 · 9(2), 153–166",
+        href: "https://msp.org/memocs/2021/9-2/p04.xhtml" },
+      { authors: "<strong>Shirani, M.</strong>, Steigmann, D. J. &amp; Neff, P.",
+        title: "The Legendre-Hadamard condition in Cosserat elasticity theory",
+        venue: "The Quarterly Journal of Mechanics and Applied Mathematics", details: "2020 · 73(4), 293–303",
+        href: "https://academic.oup.com/qjmam/article-abstract/73/4/293/5934913" },
+      { authors: "Taylor, M. &amp; <strong>Shirani, M.</strong>",
+        title: "Simulation of wrinkling in incompressible anisotropic thin sheets with wavy fibers",
+        venue: "International Journal of Non-Linear Mechanics", details: "2020 · 127, 103610",
+        href: "https://www.sciencedirect.com/science/article/abs/pii/S0020746220302729" },
+      { authors: "<strong>Shirani, M.</strong> &amp; Steigmann, D. J.",
+        title: "A Cosserat model of elastic solids reinforced by a family of curved and twisted fibers",
+        venue: "Symmetry", details: "2020 · 12(7), 1133",
+        href: "https://www.mdpi.com/2073-8994/12/7/1133" },
+      { authors: "Hendrickson, B., <strong>Shirani, M.</strong> &amp; Steigmann, D. J.",
+        title: "Equilibrium theory for a lipid bilayer with a conforming cytoskeletal membrane",
+        venue: "Mathematics and Mechanics of Complex Systems", details: "2020 · 8(1), 69–99",
+        href: "https://msp.org/memocs/2020/8-1/p04.xhtml" },
+      { authors: "Taylor, M., <strong>Shirani, M.</strong>, Dabiri, Y., Guccione, J. &amp; Steigmann, D. J.",
+        title: "Finite elastic deformations of incompressible fiber-reinforced plates",
+        venue: "International Journal of Engineering Science", details: "2019 · 144, 103138",
+        href: "https://www.sciencedirect.com/science/article/abs/pii/S0020722519316039" },
+      { authors: "Jafarzadeh, S., <strong>Shirani, M.</strong>, Kadkhodaei, M. &amp; Gheibgholami, E.",
+        title: "Phenomenological constitutive modeling of ferromagnetic shape memory alloys considering the effects of loading history on reorientation start conditions",
+        venue: "Continuum Mechanics and Thermodynamics", details: "2018 · 31(4), 1065–1085",
+        href: "https://link.springer.com/article/10.1007/s00161-018-0704-0" },
+      { authors: "<strong>Shirani, M.</strong>, Luo, C. &amp; Steigmann, D. J.",
+        title: "Cosserat elasticity of lattice shells with kinematically independent flexure and twist",
+        venue: "Continuum Mechanics and Thermodynamics", details: "2018 · 31(4), 1087–1097",
+        href: "https://link.springer.com/article/10.1007/s00161-018-0679-x" },
+      { authors: "<strong>Shirani, M.</strong>, Andani, M. T., Kadkhodaei, M. &amp; Elahinia, M.",
+        title: "Effect of loading history on phase transition and martensitic detwinning in shape memory alloys: Limitations of current approaches and development of a 1D constitutive model",
+        venue: "Journal of Alloys and Compounds", details: "2017 · 729, 390–406",
+        href: "https://www.sciencedirect.com/science/article/abs/pii/S092583881733178X" },
+      { authors: "<strong>Shirani, M.</strong> &amp; Kadkhodaei, M.",
+        title: "One dimensional constitutive model with transformation surfaces for phase transition in shape memory alloys considering the effect of loading history",
+        venue: "International Journal of Solids and Structures", details: "2016 · 81, 117–129",
+        href: "https://www.sciencedirect.com/science/article/pii/S0020768315004813" },
+      { authors: "<strong>Shirani, M.</strong> &amp; Kadkhodaei, M.",
+        title: "Constitutive modeling of Ni–Mn–Ga ferromagnetic shape memory alloys under biaxial compression",
+        venue: "Journal of Intelligent Material Systems and Structures", details: "2016 · 27(11), 1547–1564",
+        href: "https://journals.sagepub.com/doi/abs/10.1177/1045389x15596850" },
+      { authors: "<strong>Shirani, M.</strong> &amp; Kadkhodaei, M.",
+        title: "A modified constitutive model with an enhanced phase diagram for ferromagnetic shape memory alloys",
+        venue: "Journal of Intelligent Material Systems and Structures", details: "2015 · 26(1), 56–68",
+        href: "https://journals.sagepub.com/doi/abs/10.1177/1045389X14521704" },
+      { authors: "Mehrabi, R., <strong>Shirani, M.</strong>, Kadkhodaei, M. &amp; Elahinia, M.",
+        title: "Constitutive modeling of cyclic behavior in shape memory alloys",
+        venue: "International Journal of Mechanical Sciences", details: "2015 · 103, 181–188",
+        href: "https://www.sciencedirect.com/science/article/abs/pii/S0020740315002829" },
+      { authors: "<strong>Shirani, M.</strong> &amp; Kadkhodaei, M.",
+        title: "A geometrical approach to determine reorientation start and continuation conditions in ferromagnetic shape memory alloys considering the effects of loading history",
+        venue: "Smart Materials and Structures", details: "2014 · 23(12), 125008",
+        href: "https://iopscience.iop.org/article/10.1088/0964-1726/23/12/125008/meta" }
+    ],
+    chapters: [
+      { authors: "Steigmann, D. J., Bîrsan, M. &amp; <strong>Shirani, M.</strong>",
+        title: "A Cosserat model for fiber-reinforced elastic plates",
+        venue: "Sixty Shades of Generalized Continua, Advanced Structured Materials vol. 170",
+        details: "Springer · 2023",
+        href: "https://link.springer.com/chapter/10.1007/978-3-031-26186-2_41" },
+      { authors: "<strong>Shirani, M.</strong> &amp; Steigmann, D. J.",
+        title: "Necessary conditions for energy minimizers in a Cosserat model of fiber-reinforced elastic solids",
+        venue: "Recent Approaches in the Theory of Plates and Plate-Like Structures, pp. 253–266",
+        details: "Springer · 2022",
+        href: "https://link.springer.com/chapter/10.1007/978-3-030-87185-7_19" },
+      { authors: "<strong>Shirani, M.</strong> &amp; Steigmann, D. J.",
+        title: "Quasiconvexity and rank-one convexity in Cosserat elasticity theory",
+        venue: "Theoretical Analyses, Computations, and Experiments of Multiscale Materials, pp. 273–283",
+        details: "Springer · 2022",
+        href: "https://link.springer.com/chapter/10.1007/978-3-031-04548-6_13" },
+      { authors: "<strong>Shirani, M.</strong> &amp; Steigmann, D. J.",
+        title: "Asymptotic estimate of the potential energy of a plastically deformed thin shell",
+        venue: "Analysis of Shells, Plates, and Beams, pp. 409–420",
+        details: "Springer · 2020",
+        href: "https://link.springer.com/chapter/10.1007/978-3-030-47491-1_22" },
+      { authors: "<strong>Shirani, M.</strong> &amp; Steigmann, D. J.",
+        title: "Asymptotic derivation of nonlinear plate models from three-dimensional elasticity theory",
+        venue: "Recent Developments in the Theory of Shells, Advanced Structured Materials, pp. 591–614",
+        details: "Springer · 2019",
+        href: "https://link.springer.com/chapter/10.1007/978-3-030-17747-8_30" }
+    ],
+    conference: [
+      { authors: "<strong>Shirani, M.</strong>, Mehrabi, R., Andani, M. T., Kadkhodaei, M. &amp; Elahinia, M.",
+        title: "A modified microplane model using transformation surfaces to consider loading history on phase transition in shape memory alloys",
+        venue: "Smart Materials, Adaptive Structures and Intelligent Systems",
+        details: "ASME · 2014 · Vol. 46148, V001T01A001",
+        href: "https://asmedigitalcollection.asme.org/SMASIS/proceedings-abstract/SMASIS2014/V001T01A001/286324" }
+    ],
+    review: [
+      { authors: "<strong>Shirani, M.</strong>, Gueldner, P. H., Khidoyatov, M., Warren, J. &amp; Ninno, F.",
+        title: "Physics-Consistent Neural Networks for Learning Deformation and Director Fields in Microstructured Media with Loss-Based Validation Criteria",
+        details: "2026", tag: "Under Review", tagClass: "under-review",
+        href: "https://arxiv.org/abs/2603.06939", linkLabel: "arXiv" },
+      { authors: "<strong>Shirani, M.</strong> &amp; Humphrey, J. D.",
+        title: "A universal behavior in polarized cell monolayers",
+        tag: "Under Review", tagClass: "under-review" }
+    ]
+  },
+
+  /* ---- HONORS ------------------------------------------------ */
+  // Newest first. tagClass options: "" (default gold) | "fellowship" | "travel" | "scholarship"
+  honors: [
+    { year: "2026", name: "ICERM Hot Topics Workshop Travel Grant — Agentic Scientific Computing &amp; Scientific Machine Learning",
+      inst: "Institute for Computational and Experimental Research in Mathematics (ICERM)",
+      loc: "Providence, RI", tag: "Travel Grant", tagClass: "travel" },
+    { year: "2025", name: "Society of Engineering Science (SES) Postdoc Travel Award",
+      inst: "Society of Engineering Science", loc: "Georgia, USA", tag: "Travel Award", tagClass: "travel" },
+    { year: "2023", name: "Outstanding Graduate Student Instructor (OGSI) Award",
+      inst: "University of California, Berkeley", loc: "Berkeley, CA · 2022–2023", tag: "Teaching Award", tagClass: "" },
+    { year: "2022", name: "Graduate Division Block Grant Award",
+      inst: "University of California, Berkeley",
+      loc: "Berkeley, CA · Summer 2022 · Spring &amp; Summer 2021 · Spring &amp; Summer 2020 · Summer 2019 · Summer 2018",
+      tag: "Research Grant", tagClass: "fellowship" },
+    { year: "2021", name: "Bob Steidel Fellowship",
+      inst: "University of California, Berkeley", loc: "Berkeley, CA", tag: "Fellowship", tagClass: "fellowship" },
+    { year: "2020", name: "Paul M. Naghdi Fellowship",
+      inst: "University of California, Berkeley", loc: "Berkeley, CA", tag: "Fellowship", tagClass: "fellowship" },
+    { year: "2019", name: "Society for Natural Philosophy (SNP) Travel Grant",
+      inst: "Society for Natural Philosophy", loc: "Illinois, USA", tag: "Travel Grant", tagClass: "travel" },
+    { year: "2015", name: "Theodore Holden Thomas, Jr Memorial Scholarship",
+      inst: "Engineering Science and Mechanics, Pennsylvania State University", loc: "University Park, PA", tag: "Scholarship", tagClass: "scholarship" },
+    { year: "2015", name: "Dr. Richard E. Llorens Graduate Award",
+      inst: "Engineering Science and Mechanics, Pennsylvania State University", loc: "University Park, PA", tag: "Graduate Award", tagClass: "scholarship" },
+    { year: "2014", name: "Best Graduate Thesis Award",
+      inst: "Isfahan University of Technology", loc: "Isfahan, Iran", tag: "Best Thesis", tagClass: "fellowship" }
+  ]
+};
+
+/* =============================================================
+   SITE ENGINE — builds each page from SITE (data.js).
+   You normally never need to edit this file; edit data.js instead.
+
+   How pages work: each HTML file sets <body data-page="home|research|
+   publications|honors"> and includes empty mount points. On load this
+   script injects the shared nav + footer, then renders the page.
+   ============================================================= */
+(function () {
+  "use strict";
+
+  var S = window.SITE;
+  if (!S) { console.error("data.js did not load before site.js"); return; }
+
+  /* ---------- small helpers ---------- */
+  function el(id) { return document.getElementById(id); }
+  function mount(id, html) { var n = el(id); if (n) n.innerHTML = html; }
+  function icon(path) {
+    return '<svg viewBox="0 0 12 12"><path d="' + path + '"/></svg>';
+  }
+  var EXTERNAL_ICON = "M5 2H2a1 1 0 00-1 1v7a1 1 0 001 1h7a1 1 0 001-1V7M7 1h4m0 0v4m0-4L5 7";
+  var PLUS_ICON = "M6 1v10M1 6h10";
+
+  /* ---------- shared chrome: nav + footer ---------- */
+  function buildNav(pageKey) {
+    var links = S.nav.map(function (l) {
+      var active = l.key && l.key === pageKey ? ' class="active" aria-current="page"' : "";
+      return '<li><a href="' + l.href + '"' + active + ">" + l.label + "</a></li>";
+    }).join("");
+
+    return '' +
+      '<a href="index.html" class="nav-logo">' + S.profile.shortName + "</a>" +
+      '<div class="nav-right">' +
+        '<ul class="nav-links" id="navLinks">' + links + "</ul>" +
+        '<button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode">' +
+          '<svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>' +
+          '<svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/></svg>' +
+        "</button>" +
+        '<button class="nav-burger" id="navBurger" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>' +
+      "</div>";
+  }
+
+  function buildFooter() {
+    var L = S.profile.links, out = [];
+    out.push('<a href="mailto:' + S.profile.email + '">Email</a>');
+    if (L.scholar)  out.push('<a href="' + L.scholar  + '" target="_blank" rel="noopener">Google Scholar</a>');
+    if (L.orcid)    out.push('<a href="' + L.orcid    + '" target="_blank" rel="noopener">ORCID</a>');
+    if (L.linkedin) out.push('<a href="' + L.linkedin + '" target="_blank" rel="noopener">LinkedIn</a>');
+    if (L.github)   out.push('<a href="' + L.github   + '" target="_blank" rel="noopener">GitHub</a>');
+    if (L.cv)       out.push('<a href="' + L.cv       + '" target="_blank" rel="noopener">CV</a>');
+    var year = new Date().getFullYear();
+    return '<span>© ' + year + " " + S.profile.name + " · Yale University</span>" +
+           '<div class="footer-links">' + out.join("") + "</div>";
+  }
+
+  function wireChrome() {
+    // Theme toggle (persisted; degrades gracefully where storage is blocked)
+    var root = document.documentElement;
+    function store(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+    function read(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+
+    var saved = read("theme");
+    if (saved) root.setAttribute("data-theme", saved);
+    else if (window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches)
+      root.setAttribute("data-theme", "dark");
+
+    var toggle = el("themeToggle");
+    if (toggle) toggle.addEventListener("click", function () {
+      var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      store("theme", next);
+    });
+
+    // Mobile menu
+    var burger = el("navBurger");
+    if (burger) burger.addEventListener("click", function () {
+      var open = document.body.classList.toggle("menu-open");
+      burger.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    var linksWrap = el("navLinks");
+    if (linksWrap) linksWrap.addEventListener("click", function (e) {
+      if (e.target.tagName === "A") {
+        document.body.classList.remove("menu-open");
+        if (burger) burger.setAttribute("aria-expanded", "false");
+      }
+    });
+  }
+
+  function injectStructuredData() {
+    var L = S.profile.links;
+    var sameAs = [L.scholar, L.linkedin, L.github, L.orcid].filter(Boolean);
+    var data = {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": S.profile.name,
+      "url": S.profile.baseUrl,
+      "image": S.profile.photoFallback || S.profile.photo,
+      "email": "mailto:" + S.profile.email,
+      "jobTitle": "Postdoctoral Associate",
+      "worksFor": { "@type": "Organization", "name": "Yale University" },
+      "alumniOf": [
+        { "@type": "CollegeOrUniversity", "name": "University of California, Berkeley" },
+        { "@type": "CollegeOrUniversity", "name": "Isfahan University of Technology" }
+      ],
+      "sameAs": sameAs
+    };
+    var s = document.createElement("script");
+    s.type = "application/ld+json";
+    s.textContent = JSON.stringify(data);
+    document.head.appendChild(s);
+  }
+
+  /* ---------- reveal-on-scroll ---------- */
+  function observeReveal(selector, stagger) {
+    var nodes = document.querySelectorAll(selector);
+    if (!("IntersectionObserver" in window)) {
+      nodes.forEach(function (n) { n.classList.add("visible"); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e, i) {
         if (e.isIntersecting) {
-          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          setTimeout(function () { e.target.classList.add("visible"); }, i * (stagger || 60));
+          io.unobserve(e.target);
         }
       });
     }, { threshold: 0.1 });
-    cards.forEach(el => observer.observe(el));
-  </script>
+    nodes.forEach(function (n) { io.observe(n); });
+  }
+
+  /* ---------- link renderer (research tabs) ---------- */
+  function renderArticleLink(lk) {
+    if (lk.comingSoon) {
+      return '<a class="article-link coming-soon" href="#">' + icon(PLUS_ICON) + " " + lk.text + "</a>";
+    }
+    var attrs = lk.external ? ' target="_blank" rel="noopener"' : "";
+    return '<a class="article-link" href="' + lk.href + '"' + attrs + ">" + lk.text + " " + icon(EXTERNAL_ICON) + "</a>";
+  }
+
+  /* ===================================================
+     PAGE: HOME
+     =================================================== */
+  function renderHome() {
+    var p = S.profile;
+
+    var stats = S.stats.map(function (s) {
+      return '<div class="stat"><div class="stat-num">' + s.num + '</div><div class="stat-label">' + s.label + "</div></div>";
+    }).join("");
+
+    var affs = S.affiliations.filter(function (a) { return !a.hidden; }).map(function (a) {
+      return '<li><span class="aff-bullet">◆</span><span class="aff-text"><strong>' +
+        a.title + "</strong> — " + a.org + "<br />" + a.sub + "</span></li>";
+    }).join("");
+
+    var cta = S.hero.cta.map(function (c) {
+      return '<a href="' + c.href + '" class="btn-' + (c.style === "ghost" ? "ghost" : "primary") + '">' + c.label + "</a>";
+    }).join("");
+
+    mount("home-hero",
+      '<div class="hero-text">' +
+        '<img class="hero-photo" src="' + p.photo + '" alt="' + p.name + '"' +
+          (p.photoFallback ? ' onerror="this.onerror=null;this.src=\'' + p.photoFallback + '\';this.classList.add(\'is-fallback\')"' : "") + ' />' +
+        '<p class="hero-label">' + p.role + "</p>" +
+        "<h1>" + p.name.split(" ")[0] + "<br /><em>" + p.name.split(" ").slice(1).join(" ") + "</em></h1>" +
+        '<div class="title-rule"></div>' +
+        '<p class="hero-role">' + p.roleLine + "</p>" +
+        '<p class="hero-desc">' + S.hero.desc + "</p>" +
+        '<div class="hero-cta">' + cta + "</div>" +
+      "</div>" +
+      '<div class="hero-panel"><div class="panel-card">' +
+        '<p class="panel-heading">Research Profile</p>' +
+        '<div class="stat-grid">' + stats + "</div>" +
+        '<ul class="affiliation-list">' + affs + "</ul>" +
+      "</div></div>");
+
+    var themes = S.researchThemes.map(function (t) {
+      return '<div class="theme-card"><span class="theme-icon">' + t.icon + "</span>" +
+        '<div class="theme-title">' + t.title + '</div><p class="theme-desc">' + t.desc + "</p></div>";
+    }).join("");
+    mount("home-themes", themes);
+
+    var tl = S.journey.filter(function (j) { return !j.hidden; }).map(function (j) {
+      return '<div class="tl-item"><div class="tl-dot"></div>' +
+        '<div class="tl-year">' + j.years + '</div><div class="tl-title">' + j.title + "</div>" +
+        '<p class="tl-sub">' + j.sub + "</p></div>";
+    }).join("");
+    mount("home-timeline", tl);
+
+    observeReveal(".tl-item", 120);
+  }
+
+  /* ===================================================
+     PAGE: RESEARCH
+     =================================================== */
+  function renderResearch() {
+    mount("research-intro", S.researchIntro);
+    mount("philosophy-quote", S.philosophy.quote);
+    mount("philosophy-attr", S.philosophy.attr);
+
+    var buttons = S.researchTabs.map(function (t, i) {
+      return '<button class="tab-btn' + (i === 0 ? " active" : "") + '" role="tab" aria-selected="' +
+        (i === 0 ? "true" : "false") + '" data-tab="' + t.id + '">' +
+        '<span class="tab-num">' + t.num + "</span> " + t.label + "</button>";
+    }).join("");
+    mount("research-tabnav", buttons);
+
+    var panels = S.researchTabs.map(function (t, i) {
+      var body = t.body.map(function (para) { return "<p>" + para + "</p>"; }).join("");
+      var keys = "";
+      if (t.keyPoints && t.keyPoints.length) {
+        keys = '<div class="key-results"><div class="key-results-label">' +
+          (t.keyLabel || "Key Contributions") + '</div><ul>' +
+          t.keyPoints.map(function (k) { return "<li>" + k + "</li>"; }).join("") + "</ul></div>";
+      }
+      var table = "";
+      if (t.table) {
+        var head = t.table.head.map(function (h) { return "<th>" + h + "</th>"; }).join("");
+        var rows = t.table.rows.map(function (r) {
+          var cls = r.highlight ? ' class="highlight-row"' : "";
+          return "<tr" + cls + ">" + r.cells.map(function (c) { return "<td>" + c + "</td>"; }).join("") + "</tr>";
+        }).join("");
+        table = '<div class="results-table-wrap"><div class="results-table-label">' + t.table.label +
+          '</div><table class="results-table"><thead><tr>' + head + "</tr></thead><tbody>" + rows + "</tbody></table></div>";
+      }
+      var links = t.links && t.links.length
+        ? '<div class="article-links">' + t.links.map(renderArticleLink).join("") + "</div>" : "";
+
+      return '<div class="tab-panel' + (i === 0 ? " active" : "") + '" id="' + t.id + '" role="tabpanel">' +
+        '<div class="theme-header"><span class="theme-num">' + t.num + '</span>' +
+        '<h2 class="theme-title">' + t.title + "</h2></div>" +
+        '<div class="theme-body">' + body + keys + table + links + "</div></div>";
+    }).join("");
+    mount("research-panels", panels);
+
+    // Tab switching
+    var btns = document.querySelectorAll(".tab-btn");
+    btns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        btns.forEach(function (b) { b.classList.remove("active"); b.setAttribute("aria-selected", "false"); });
+        document.querySelectorAll(".tab-panel").forEach(function (p) { p.classList.remove("active"); });
+        btn.classList.add("active");
+        btn.setAttribute("aria-selected", "true");
+        var panel = el(btn.dataset.tab);
+        if (panel) {
+          panel.classList.add("active");
+          if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([panel]);
+        }
+      });
+    });
+
+    if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise();
+  }
+
+  /* ===================================================
+     PAGE: PUBLICATIONS
+     =================================================== */
+  function pubItem(entry, number) {
+    var meta = [];
+    if (entry.venue)   meta.push('<span class="pub-journal">' + entry.venue + "</span>");
+    if (entry.details) meta.push('<span class="pub-details">' + entry.details + "</span>");
+    if (entry.tag)     meta.push('<span class="pub-tag ' + (entry.tagClass || "") + '">' + entry.tag + "</span>");
+    if (entry.href) {
+      var label = entry.linkLabel || "link";
+      meta.push('<a class="pub-link" href="' + entry.href + '" target="_blank" rel="noopener">' +
+        label + " " + icon(EXTERNAL_ICON) + "</a>");
+    }
+    return '<div class="pub-item" data-category="' + entry._cat + '">' +
+      '<div class="pub-num">' + number + '</div>' +
+      '<div class="pub-body">' +
+        '<div class="pub-authors">' + entry.authors + "</div>" +
+        '<div class="pub-title">' + entry.title + "</div>" +
+        '<div class="pub-meta">' + meta.join("") + "</div>" +
+      "</div></div>";
+  }
+
+  function pubSection(cat, iconChar, title, unit, list) {
+    if (!list.length) return "";
+    var n = list.length;
+    var items = list.map(function (entry, i) {
+      entry._cat = cat;
+      return pubItem(entry, n - i); // newest first → highest number on top
+    }).join("");
+    return '<div class="pub-section" data-category="' + cat + '">' +
+      '<div class="pub-section-header"><span class="pub-section-icon">' + iconChar + "</span>" +
+      '<h2 class="pub-section-title">' + title + '</h2>' +
+      '<span class="pub-section-count">' + n + " " + unit + "</span></div>" + items + "</div>";
+  }
+
+  function renderPublications() {
+    var P = S.publications;
+
+    // Stats computed from data so they never drift.
+    var counts = {
+      books: P.books.length, journals: P.journals.length,
+      chapters: P.chapters.length, conference: P.conference.length, review: P.review.length
+    };
+    mount("pub-summary",
+      counts.books + " books &nbsp;·&nbsp; " + counts.journals + " journal papers &nbsp;·&nbsp; " +
+      counts.chapters + " book chapters &nbsp;·&nbsp; " + counts.conference + " conference paper &nbsp;·&nbsp; " +
+      counts.review + " under review");
+    mount("pub-stats",
+      statItem(counts.books, "Books") + statItem(counts.journals, "Journal Papers") +
+      statItem(counts.chapters, "Book Chapters") + statItem(counts.review, "Under Review"));
+
+    mount("pub-sections",
+      pubSection("book", "§", "Books", counts.books === 1 ? "volume" : "volumes", P.books) +
+      pubSection("journal", "∂", "Refereed Journal Publications", "papers", P.journals) +
+      pubSection("chapter", "◈", "Refereed Book Chapters", "chapters", P.chapters) +
+      pubSection("conference", "◇", "Conference Paper", counts.conference === 1 ? "paper" : "papers", P.conference) +
+      pubSection("review", "⟳", "Under Review", counts.review === 1 ? "manuscript" : "manuscripts", P.review));
+
+    // Filter
+    document.querySelectorAll(".filter-btn").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        document.querySelectorAll(".filter-btn").forEach(function (b) { b.classList.remove("active"); });
+        btn.classList.add("active");
+        var f = btn.dataset.filter;
+        document.querySelectorAll(".pub-section").forEach(function (sec) {
+          sec.style.display = (f === "all" || f === sec.dataset.category) ? "" : "none";
+        });
+      });
+    });
+
+    observeReveal(".pub-item", 40);
+  }
+
+  function statItem(num, label) {
+    return '<div class="stat-item"><span class="stat-num">' + num + '</span><div class="stat-label">' + label + "</div></div>";
+  }
+
+  /* ===================================================
+     PAGE: HONORS
+     =================================================== */
+  function renderHonors() {
+    var years = S.honors.map(function (h) { return parseInt(h.year, 10); });
+    var span = Math.min.apply(null, years) + " – " + Math.max.apply(null, years);
+    mount("honors-summary",
+      S.honors.length + " awards &nbsp;·&nbsp; fellowships, travel grants &amp; scholarships &nbsp;·&nbsp; " + span);
+
+    var cards = S.honors.map(function (h) {
+      return '<div class="award-card"><div class="award-year-col">' +
+        '<div class="award-year">' + h.year + '</div><div class="award-star">✦</div></div>' +
+        '<div class="award-body">' +
+          '<div class="award-name">' + h.name + "</div>" +
+          '<div class="award-inst">' + h.inst + "</div>" +
+          '<div class="award-loc">' + h.loc + "</div>" +
+          '<span class="award-tag ' + (h.tagClass || "") + '">' + h.tag + "</span>" +
+        "</div></div>";
+    }).join("");
+    mount("honors-cards", cards);
+
+    observeReveal(".award-card", 80);
+  }
+
+  /* ---------- interactions: progress bar, back-to-top, count-up ---------- */
+  function reducedMotion() {
+    return window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }
+
+  function initInteractions() {
+    // Scroll progress bar
+    var bar = document.createElement("div");
+    bar.className = "scroll-progress";
+    document.body.appendChild(bar);
+
+    // Back-to-top button
+    var top = document.createElement("button");
+    top.className = "to-top";
+    top.type = "button";
+    top.setAttribute("aria-label", "Back to top");
+    top.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>';
+    document.body.appendChild(top);
+    top.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: reducedMotion() ? "auto" : "smooth" });
+    });
+
+    var ticking = false;
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        var h = document.documentElement;
+        var max = h.scrollHeight - h.clientHeight;
+        var pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+        bar.style.width = pct + "%";
+        top.classList.toggle("show", h.scrollTop > 400);
+        ticking = false;
+      });
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    // Count-up on stat numbers when they scroll into view
+    var nums = document.querySelectorAll(".stat-num");
+    if (!nums.length) return;
+    function animate(node) {
+      var raw = node.textContent.trim();
+      var m = raw.match(/^(\d+)(.*)$/);
+      if (!m) return;
+      var target = parseInt(m[1], 10), suffix = m[2] || "";
+      if (reducedMotion() || target === 0) { node.textContent = target + suffix; return; }
+      var start = null, dur = 1100;
+      function step(ts) {
+        if (start === null) start = ts;
+        var p = Math.min((ts - start) / dur, 1);
+        var eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
+        node.textContent = Math.round(eased * target) + suffix;
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    if (!("IntersectionObserver" in window)) { nums.forEach(animate); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { animate(e.target); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.4 });
+    nums.forEach(function (n) { io.observe(n); });
+  }
+
+  /* ---------- boot ---------- */
+  document.addEventListener("DOMContentLoaded", function () {
+    var nav = document.querySelector("nav.site-nav");
+    if (nav) nav.innerHTML = buildNav(document.body.dataset.page);
+    var footer = document.querySelector("footer.site-footer");
+    if (footer) footer.innerHTML = buildFooter();
+    wireChrome();
+    injectStructuredData();
+
+    switch (document.body.dataset.page) {
+      case "home":         renderHome(); break;
+      case "research":     renderResearch(); break;
+      case "publications": renderPublications(); break;
+      case "honors":       renderHonors(); break;
+    }
+
+    initInteractions();
+  });
+
+})();
+
+</script>
 </body>
 </html>

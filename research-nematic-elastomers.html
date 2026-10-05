@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nematic Elastomers &amp; Neural Surrogates — Milad Shirani</title>
+  <meta name="description" content="Physics-informed neural networks and DeepONets for nematic liquid crystal elastomers, compared against finite-element reference solutions." />
+  <meta name="author" content="Milad Shirani" />
+  <link rel="canonical" href="https://miladshirani.github.io/research-nematic-elastomers.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232b3cf0'/%3E%3Ctext x='32' y='42' font-family='Menlo,monospace' font-size='26' font-weight='700' text-anchor='middle' fill='%23ffffff'%3EMS%3C/text%3E%3C/svg%3E" type="image/svg+xml" />
+  <meta name="theme-color" content="#f2f2ed" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0d0e12" media="(prefers-color-scheme: dark)" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Nematic Elastomers &amp; Neural Surrogates — Milad Shirani" />
+  <meta property="og:description" content="Neural surrogates for nematic liquid crystal elastomers, visualized against finite-element references." />
+  <meta property="og:url" content="https://miladshirani.github.io/research-nematic-elastomers.html" />
+  <meta property="og:image" content="https://github.com/miladshirani.png" />
+  <meta name="twitter:card" content="summary" />
+
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("theme") ||
+          (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    })();
+  </script>
+
+  <script>
+    MathJax = {
+      tex: { inlineMath: [['\\(', '\\)']] },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'] }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400;1,8..60,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body data-page="research">
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <nav class="site-nav" id="site-nav" aria-label="Site"><!-- injected --></nav>
+
+  <main id="main">
+
+    <header class="page-head wrap">
+      <a class="back-link" href="research.html" data-reveal>← Back to research</a>
+      <p class="kicker" data-reveal>Soft Matter · Physical AI</p>
+      <h1 class="page-title" data-reveal style="--d:.08s">Nematic<br /><em>elastomers</em>.</h1>
+      <p class="page-intro" data-reveal style="--d:.16s">Neural surrogates for liquid crystal elastomers, whose deformation is coupled to an orientation (director) field. Here, two neural approaches are checked against finite-element reference solutions.</p>
+    </header>
+
+    <section class="section">
+      <div class="wrap article article-wide">
+
+        <p data-reveal>Nematic elastomers are rubber-like networks coupled to an orientational order, so the deformation and the director field must be found together. I am studying how well physics-informed neural networks and operator-learning (DeepONet) models can reproduce this coupled response, using finite-element solutions as the yardstick. Full details will be released with the accompanying papers.</p>
+
+        <h2 data-reveal>Physics-informed neural network</h2>
+        <p data-reveal>Each animation shows the load ramp for a thin strip, with the neural prediction, the finite-element reference and the pointwise error side by side: displacement magnitude on top, director angle below.</p>
+        <div class="fig-grid fig-grid-2" data-reveal>
+          <figure class="fig-card"><img src="Figures/Nematic-Elastomers/PINN/pinn_shear.gif" alt="Shear: neural surrogate, FEA reference and error fields" loading="lazy" /><figcaption>Shear</figcaption></figure>
+          <figure class="fig-card"><img src="Figures/Nematic-Elastomers/PINN/pinn_uniaxial.gif" alt="Uniaxial stretch: neural surrogate, FEA reference and error fields" loading="lazy" /><figcaption>Uniaxial stretch</figcaption></figure>
+          <figure class="fig-card"><img src="Figures/Nematic-Elastomers/PINN/pinn_shear-hole.gif" alt="Shear · with hole: neural surrogate, FEA reference and error fields" loading="lazy" /><figcaption>Shear · with hole</figcaption></figure>
+          <figure class="fig-card"><img src="Figures/Nematic-Elastomers/PINN/pinn_uniaxial-hole.gif" alt="Uniaxial · with hole: neural surrogate, FEA reference and error fields" loading="lazy" /><figcaption>Uniaxial · with hole</figcaption></figure>
+        </div>
+
+        <h2 data-reveal>DeepONet</h2>
+        <p data-reveal>The same four problems for the operator-learning model.</p>
+        <div class="fig-grid fig-grid-2" data-reveal>
+          <figure class="fig-card"><img src="Figures/Nematic-Elastomers/DeepONet/deeponet_shear.gif" alt="Shear: neural surrogate, FEA reference and error fields" loading="lazy" /><figcaption>Shear</figcaption></figure>
+          <figure class="fig-card"><img src="Figures/Nematic-Elastomers/DeepONet/deeponet_uniaxial.gif" alt="Uniaxial stretch: neural surrogate, FEA reference and error fields" loading="lazy" /><figcaption>Uniaxial stretch</figcaption></figure>
+          <figure class="fig-card"><img src="Figures/Nematic-Elastomers/DeepONet/deeponet_shear-hole.gif" alt="Shear · with hole: neural surrogate, FEA reference and error fields" loading="lazy" /><figcaption>Shear · with hole</figcaption></figure>
+          <figure class="fig-card"><img src="Figures/Nematic-Elastomers/DeepONet/deeponet_uniaxial-hole.gif" alt="Uniaxial · with hole: neural surrogate, FEA reference and error fields" loading="lazy" /><figcaption>Uniaxial · with hole</figcaption></figure>
+        </div>
+
+        <p class="fig-note" data-reveal>Animations are interpolated between the stored load steps for smooth playback. The reference in every panel is a finite-element solution of the same discretized problem. Work in progress; details forthcoming.</p>
+
+        <div class="tab-links" data-reveal>
+          <a href="research.html">← All research themes</a>
+          <a href="publications.html">Publications ↗</a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer" id="site-footer"><!-- injected --></footer>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/site.js"></script>
+</body>
+</html>

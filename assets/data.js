@@ -92,6 +92,8 @@ window.SITE = {
       desc: "Closed-loop agentic pipelines (LangGraph) for constitutive model discovery. Bridging symbolic reasoning, PDE solving, and data-driven learning in automated scientific workflows." },
     { icon: "⌬", title: "Experimental Mechanics",
       desc: "DIC and strain-gauge characterization of composites; photoelastic full-field stress mapping; DSC thermal analysis and tensile testing of shape memory alloys; magnetomechanical experiments on FSMAs." },
+    { icon: "↺", title: "Universal Behavior in Cell Monolayers", href: "research-cell-monolayers.html",
+      desc: "A mathematical proof that cell polarization stays tangential at free edges of a monolayer, independent of cell type, animal, and even for bacteria. Accepted in Proc. R. Soc. A (Rajagopal special issue)." },
     { icon: "♡", title: "Cardiovascular AI Startup",
       desc: "Co-founded AI venture (UC Berkeley SkyDeck Pad-13, CITRIS Foundry 2023) for automated heart disease detection from phonocardiograms. CNN + transfer learning achieving 95% test accuracy." }
   ],
@@ -154,7 +156,7 @@ window.SITE = {
         "Wrinkling of incompressible anisotropic sheets with wavy fibers"
       ],
       links: [
-        { text: "Read · Hydrogel Swelling Model", href: "research-hydrogel-swelling.html" },
+        { text: "Read · Dissipative Chemo-Elasticity", href: "research-dissipative-chemo-elasticity.html" },
         { text: "See · Nematic Elastomers &amp; Physics-Enforced Networks", href: "research-nematic-elastomers.html" }
       ]
     },

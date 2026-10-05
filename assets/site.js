@@ -136,9 +136,11 @@
     mount("home-themes",
       S.researchThemes.map(function (t, i) {
         var num = (i + 1 < 10 ? "0" : "") + (i + 1);
-        return '<article class="theme-card" data-reveal style="--d:' + ((i % 4) * 0.07) + 's">' +
+        var tag = t.href ? "a" : "article";
+        return "<" + tag + ' class="theme-card' + (t.href ? " theme-link" : "") + '"' + (t.href ? ' href="' + t.href + '"' : "") +
+          ' data-reveal style="--d:' + ((i % 4) * 0.07) + 's">' +
           '<span class="t-num">' + num + '</span><span class="t-icon">' + t.icon + "</span>" +
-          "<h3>" + t.title + "</h3><p>" + t.desc + "</p></article>";
+          "<h3>" + t.title + "</h3><p>" + t.desc + "</p>" + (t.href ? '<span class="t-more">Read →</span>' : "") + "</" + tag + ">";
       }).join(""));
 
     mount("home-timeline",

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dissipative Chemo-Elasticity — Milad Shirani</title>
+  <meta name="description" content="A thermodynamically consistent continuum theory of dissipative chemo-elasticity: swelling driven by water absorption, with coupled mechanical and chemical balance laws and a finite-element simulation." />
+  <meta name="author" content="Milad Shirani" />
+  <link rel="canonical" href="https://miladshirani.github.io/research-dissipative-chemo-elasticity.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232b3cf0'/%3E%3Ctext x='32' y='42' font-family='Menlo,monospace' font-size='26' font-weight='700' text-anchor='middle' fill='%23ffffff'%3EMS%3C/text%3E%3C/svg%3E" type="image/svg+xml" />
+  <meta name="theme-color" content="#f2f2ed" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0d0e12" media="(prefers-color-scheme: dark)" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Dissipative Chemo-Elasticity — Milad Shirani" />
+  <meta property="og:description" content="A thermodynamically consistent theory of dissipative chemo-elasticity and its finite-element simulation." />
+  <meta property="og:url" content="https://miladshirani.github.io/research-dissipative-chemo-elasticity.html" />
+  <meta property="og:image" content="https://github.com/miladshirani.png" />
+  <meta name="twitter:card" content="summary" />
+
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("theme") ||
+          (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    })();
+  </script>
+
+  <script>
+    MathJax = {
+      tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'] }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400;1,8..60,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body data-page="research">
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <nav class="site-nav" id="site-nav" aria-label="Site"><!-- injected --></nav>
+
+  <main id="main">
+
+    <header class="page-head wrap">
+      <a class="back-link" href="research.html" data-reveal>← Back to research</a>
+      <p class="kicker" data-reveal>Soft Matter · Article</p>
+      <h1 class="page-title" data-reveal style="--d:.08s">Dissipative<br /><em>chemo-elasticity</em>.</h1>
+      <p class="page-intro" data-reveal style="--d:.16s">A thermodynamically consistent continuum theory in which a chemical species diffuses into an elastic network and swells it: the mechanical and chemical balance laws are derived from one energy, and the second law restricts how the species can move.</p>
+    </header>
+
+    <section class="section">
+      <div class="wrap article">
+
+        <p data-reveal>Many soft materials absorb a solvent and swell to many times their dry volume while remaining elastic. Describing them requires coupling <em>finite elastic deformation</em> to <em>solvent transport</em>. I call the resulting class of models <strong>dissipative chemo-elasticity</strong>: <em>chemo-elastic</em> because the chemical potential of the solvent and the mechanical stress are derived from a single free energy and feed back on each other, and <em>dissipative</em> because the diffusion of the solvent is an irreversible process that the second law must constrain. Here the solvent is water. I assume quasi-static conditions and neglect viscoelastic effects.</p>
+        <h2 data-reveal>Kinematics and mass balance</h2>
+        <p data-reveal>The polymer network and the water are each incompressible, so the volume change of the body is due solely to absorbed water. The body goes from a dry reference configuration to a swollen current configuration through the motion \( \boldsymbol{x}=\boldsymbol{\chi}(\boldsymbol{X},t) \), with deformation gradient \( \boldsymbol{F}=\nabla\boldsymbol{x} \) and \( J=\det\boldsymbol{F}>0 \). Let \( C \) be the water concentration per unit dry volume and \( \boldsymbol{J}_w \) its flux. With no source or sink,</p>
+        <div class="eq" data-reveal>\[ \dot C+\mathrm{Div}\,\boldsymbol{J}_w=0 . \]</div>
+        <p data-reveal>Since the volume change comes only from water, with \( \Omega>0 \) the molar volume of water, the swelling constraint is</p>
+        <div class="eq" data-reveal>\[ J=1+\Omega\,C,\qquad \phi^p=\frac1J,\qquad \phi^w=\frac{\Omega C}{J},\qquad \phi^p+\phi^w=1 , \]</div>
+        <p data-reveal>where \( \phi^p \) and \( \phi^w \) are the volume fractions of network and water.</p>
+        <h2 data-reveal>Elastic and mixing energy</h2>
+        <p data-reveal>The energy per unit current volume is the sum of the elastic energy of the swollen network and a Flory–Huggins mixing energy:</p>
+        <div class="eq" data-reveal>\[ \bar W=\phi^p\,\bar W^p(\boldsymbol{F},C)+k(T)\big(\phi^p\ln\phi^p+\phi^w\ln\phi^w\big)+\chi\,\phi^p\phi^w . \]</div>
+        <p data-reveal>The logarithmic terms are the entropy of mixing and the last term, with Flory parameter \( \chi \), is the enthalpy of mixing. Pulled back to the reference configuration with \( dv=J\,dV \), the total energy is \( E=\int_\kappa \tilde W(\boldsymbol{F},C)\,dV \). Frame indifference requires</p>
+        <div class="eq" data-reveal>\[ \frac{\partial\tilde W}{\partial \boldsymbol{F}}\,\boldsymbol{F}^{T}\in\mathrm{Sym} . \]</div>
+        <h2 data-reveal>Balance laws from virtual power</h2>
+        <p data-reveal>Varying the deformation and the concentration, and enforcing the swelling constraint with a Lagrange multiplier \( p \) (the swelling pressure), gives the first Piola–Kirchhoff stress and the chemical potential</p>
+        <div class="eq" data-reveal>\[ \boldsymbol{P}=\Big(2\boldsymbol{F}\frac{\partial W}{\partial \boldsymbol{C}}\boldsymbol{F}^{T}-pJ\,\boldsymbol{I}\Big)\boldsymbol{F}^{-T},\qquad \mu=\frac{\partial W}{\partial C}+\Omega\,p , \]</div>
+        <p data-reveal>with \( \boldsymbol{C}=\boldsymbol{F}^{T}\boldsymbol{F} \) the right Cauchy–Green tensor. The principle of virtual power then gives mechanical and chemical equilibrium, with prescribed traction \( \boldsymbol{p}_0 \) and prescribed chemical potentials \( \mu_0 \), \( \mu_{\partial0} \):</p>
+        <div class="eq" data-reveal>\[ \mathrm{Div}\,\boldsymbol{P}=\boldsymbol{0}\ \text{in }\kappa,\quad \boldsymbol{P}\boldsymbol{\nu}=\boldsymbol{p}_0\ \text{on }\partial\kappa_p;\qquad \mu=\mu_0\ \text{in }\kappa,\quad \mu=\mu_{\partial 0}\ \text{on }\partial\kappa_\mu . \]</div>
+        <p data-reveal>The two equations are coupled through the stress and the chemical potential: water absorption drives deformation of the network and, conversely, mechanical stress changes the equilibrium water content.</p>
+        <h2 data-reveal>Thermodynamic restrictions</h2>
+        <p data-reveal>Diffusion is dissipative, so the flux must be consistent with the second law. Requiring non-negative global dissipation and using the Coleman–Noll procedure, the power flux through the boundary is \( \boldsymbol{q}=\mu\,\boldsymbol{J}_w \). Because of the swelling constraint, \( \dot{\boldsymbol{F}} \) and \( \dot C \) are not independent, so the constraint reaction has to be handled explicitly. After doing so, the stress and chemical-potential terms cancel and the dissipation inequality reduces to</p>
+        <div class="eq" data-reveal>\[ \nabla\mu\cdot\boldsymbol{J}_w\le 0 . \]</div>
+        <p data-reveal>The most general flux law satisfying this for every \( \nabla\mu \) is</p>
+        <div class="eq" data-reveal>\[ \boldsymbol{J}_w=-\boldsymbol{K}(\boldsymbol{C},\nabla\mu,C)\,\nabla\mu, \]</div>
+        <p data-reveal>where the mobility tensor \( \boldsymbol{K} \) must be <strong>positive semi-definite</strong>. This restriction is both physically necessary and directly usable in a finite-element implementation. Writing \( \boldsymbol{K}=\sum_i\sigma_i\,\boldsymbol{\tau}_i\otimes\boldsymbol{\tau}_i \) with \( \sigma_i>0 \) gives \( \boldsymbol{J}_w\cdot\nabla\mu=-\sum_i\sigma_i(\boldsymbol{\tau}_i\cdot\nabla\mu)^2\le0 \). If the dissipation vanishes the flux vanishes, and if \( \boldsymbol{K} \) is positive definite the chemical potential is uniform: this is thermodynamic equilibrium. In the isotropic case \( \boldsymbol{K} \) reduces to a scalar mobility \( k(C) \), and the system becomes a nonlinear diffusion equation once \( W \) is specified.</p>
+        <h2 data-reveal>Finite-element simulation</h2>
+        <p data-reveal>The coupled problem of momentum balance, chemical equilibrium, mass balance with flux and the swelling constraint is discretized and solved numerically. The animations show a specimen swelling, viewed from three directions and colored by displacement magnitude, as water is absorbed and the network deforms toward its equilibrium swollen state.</p>
+
+        <div class="fig-grid" data-reveal>
+          <figure class="fig-card"><img src="Figures/Hydrogel/displacement_iso.gif" alt="Isometric view of a specimen swelling by water absorption, colored by displacement magnitude" loading="lazy" /><figcaption>Isometric view · displacement magnitude</figcaption></figure>
+          <figure class="fig-card"><img src="Figures/Hydrogel/displacement_side.gif" alt="Side view of a specimen swelling by water absorption, colored by displacement magnitude" loading="lazy" /><figcaption>Side view · displacement magnitude</figcaption></figure>
+          <figure class="fig-card"><img src="Figures/Hydrogel/displacement_top.gif" alt="Top view of a specimen swelling by water absorption, colored by displacement magnitude" loading="lazy" /><figcaption>Top view · displacement magnitude</figcaption></figure>
+        </div>
+
+        <h2 data-reveal>Extensions in progress</h2>
+        <p data-reveal>The theory is being extended to biological tissues and to <em>delamination</em> problems in layered systems, where mismatch in swelling between adjacent layers drives interfacial failure. This connects it to my work on fracture, including the <a href="research-peridynamic-fracture.html">peridynamic fracture and peeling</a> simulations.</p>
+
+        <div class="tab-links" data-reveal>
+          <a href="research.html">← All research themes</a>
+          <a href="publications.html">Publications ↗</a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer" id="site-footer"><!-- injected --></footer>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/site.js"></script>
+</body>
+</html>

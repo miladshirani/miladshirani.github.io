@@ -155,8 +155,7 @@ window.SITE = {
       ],
       links: [
         { text: "Read · Hydrogel Swelling Model", href: "research-hydrogel-swelling.html" },
-        { text: "See · Nematic Elastomers &amp; Physics-Enforced Networks", href: "research-nematic-elastomers.html" },
-        { text: "See · Peridynamic Fracture &amp; Peeling", href: "research-peridynamic-fracture.html" }
+        { text: "See · Nematic Elastomers &amp; Physics-Enforced Networks", href: "research-nematic-elastomers.html" }
       ]
     },
     {
@@ -287,6 +286,34 @@ window.SITE = {
         "Startup work directly motivated the subsequent PI-FNO physics-constrained approach (Tab VI)"
       ],
       links: [ { text: "Related Work · PI-FNO (Tab VI)", comingSoon: true } ]
+    },
+    {
+      id: "t9", num: "IX", label: "Peridynamics:<br>Fracture &amp; Peeling",
+      title: "Peridynamic Fracture &amp; Peeling of Solids",
+      body: [
+        "We have implemented fluid-induced fracture and the peeling test using <em>peridynamics</em>, a nonlocal, meshless continuum theory in which material points interact through bonds within a finite horizon. Cracks nucleate and propagate as bonds break, with no remeshing and no crack-tracking rules.",
+        "The framework is differentiable through automatic differentiation in JAX and PyTorch, and equilibrium is computed with a dynamic relaxation solver. The results will be published soon."
+      ],
+      keyPoints: [
+        "Meshless peridynamic simulation of fluid-induced fracture and of the peeling test",
+        "Differentiable via automatic differentiation in JAX and PyTorch",
+        "Dynamic relaxation solver"
+      ],
+      links: [ { text: "See · Peridynamic Fracture &amp; Peeling", href: "research-peridynamic-fracture.html" } ]
+    },
+    {
+      id: "t10", num: "X", label: "Universal Behavior:<br>Cell Monolayers",
+      title: "Proof of a Universal Behavior in Cell Biology",
+      body: [
+        "Cells at the free edge of a polarized monolayer align tangentially to the edge. Using Cosserat elasticity for a planar unit director, I proved this mathematically: the condition \\( \\boldsymbol{d}\\cdot\\boldsymbol{\\nu}_t=0 \\) follows from the boundary conditions without any constitutive assumption, so it holds regardless of cell type, animal, or even for bacteria. The work, with J. D. Humphrey, is accepted in <em>Proceedings of the Royal Society A</em> for the special issue in honor of Prof. K. R. Rajagopal.",
+        "I also obtained Legendre-Hadamard inequalities for the problem. Loss of ellipticity marks the bifurcation at which defects and patterns form, and it is the key to shape programming of living surfaces."
+      ],
+      keyPoints: [
+        "Edge effect proved for any constitutive law: polarization stays tangential to free boundaries",
+        "Independent of cell type, animal, and valid for bacteria",
+        "Legendre-Hadamard inequalities; loss of ellipticity and shape programming"
+      ],
+      links: [ { text: "Read · Proof of a Universal Behavior in Cell Biology", href: "research-cell-monolayers.html" } ]
     }
   ],
 

@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Physics-Enforced Neural Networks — Milad Shirani</title>
-  <meta name="description" content="Physics-Enforced Neural Networks (PENN) for nematic liquid crystal elastomers, trained on the total potential energy and compared against finite-element reference solutions." />
+  <title>Physics Enforced Operator Learning — Milad Shirani</title>
+  <meta name="description" content="Physics Enforced Operator Learning: energy-trained neural networks (PENN) and DeepONets for nematic liquid crystal elastomers, compared against finite-element reference solutions." />
   <meta name="author" content="Milad Shirani" />
-  <link rel="canonical" href="https://miladshirani.github.io/research-penn.html" />
+  <link rel="canonical" href="https://miladshirani.github.io/research-physics-enforced-operator-learning.html" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232b3cf0'/%3E%3Ctext x='32' y='42' font-family='Menlo,monospace' font-size='26' font-weight='700' text-anchor='middle' fill='%23ffffff'%3EMS%3C/text%3E%3C/svg%3E" type="image/svg+xml" />
   <meta name="theme-color" content="#f2f2ed" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#0d0e12" media="(prefers-color-scheme: dark)" />
 
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Physics-Enforced Neural Networks — Milad Shirani" />
-  <meta property="og:description" content="Physics-enforced neural networks for nematic liquid crystal elastomers, visualized against finite-element references." />
-  <meta property="og:url" content="https://miladshirani.github.io/research-penn.html" />
+  <meta property="og:title" content="Physics Enforced Operator Learning — Milad Shirani" />
+  <meta property="og:description" content="Physics enforced neural networks and DeepONets for nematic liquid crystal elastomers, visualized against finite-element references." />
+  <meta property="og:url" content="https://miladshirani.github.io/research-physics-enforced-operator-learning.html" />
   <meta property="og:image" content="https://github.com/miladshirani.png" />
   <meta name="twitter:card" content="summary" />
 
@@ -51,14 +51,14 @@
     <header class="page-head wrap">
       <a class="back-link" href="projects.html" data-reveal>← All projects</a>
       <p class="kicker" data-reveal>Soft Matter · Physical AI</p>
-      <h1 class="page-title" data-reveal style="--d:.08s">Physics-enforced<br /><em>neural networks</em>.</h1>
-      <p class="page-intro" data-reveal style="--d:.16s">Networks trained on the total potential energy, with the physics built into the architecture, for liquid crystal elastomers whose deformation is coupled to an orientation (director) field, checked against finite-element reference solutions.</p>
+      <h1 class="page-title" data-reveal style="--d:.08s">Physics enforced<br /><em>operator learning</em>.</h1>
+      <p class="page-intro" data-reveal style="--d:.16s">Neural networks and operator networks (DeepONets) trained on the total potential energy, with the physics built into the architecture, for liquid crystal elastomers whose deformation is coupled to an orientation (director) field, checked against finite-element reference solutions.</p>
     </header>
 
     <section class="section">
       <div class="wrap article article-wide">
 
-        <p data-reveal>Nematic elastomers are rubber-like polymer networks coupled to an orientational order, so the deformation and the director field must be found together. This is the setting of the paper below, which formulates the problem for microstructured media and develops neural network solvers whose output is checked against necessary stability conditions<sup><a href="#ref1">[1]</a></sup>. The material is described by the following theory.</p>
+        <p data-reveal>Nematic elastomers are rubber-like polymer networks coupled to an orientational order, so the deformation and the director field must be found together. This is the setting of the paper below, which formulates the problem for microstructured media and develops neural network and operator-learning solvers whose output is checked against necessary stability conditions<sup><a href="#ref1">[1]</a></sup>. The material is described by the following theory.</p>
         <h2 data-reveal id="problem">The problem: Cosserat elasticity with a unit director</h2>
         <p data-reveal>The material is modeled as a Cosserat continuum with a single unit director. Two kinematic fields describe the body: the deformation \( \boldsymbol{x}=\boldsymbol{\chi}(\boldsymbol{X}) \) and the director \( \boldsymbol{d}(\boldsymbol{X}) \), subject to the constraint \( \boldsymbol{d}\cdot\boldsymbol{d}=1 \). The stored energy per unit reference volume depends on both fields and on the director gradient,</p>
         <div class="eq" data-reveal>\[ W=W(\boldsymbol{F},\boldsymbol{d},\nabla\boldsymbol{d}),\qquad \boldsymbol{F}=\nabla\boldsymbol{\chi},\qquad J=\det\boldsymbol{F}>0 . \]</div>
@@ -77,7 +77,7 @@
 
 
         <h2 data-reveal>Simulations</h2>
-        <p data-reveal>The problem is solved on a thin strip with four loading cases: shear and uniaxial stretch, each with and without a circular hole. The Physics-Enforced Neural Network (PENN) is compared with a finite-element (FEA) reference. The operator-learning counterpart is on the <a href="research-deeponet.html">DeepONet page</a>.</p>
+        <p data-reveal>The problem is solved on a thin strip with four loading cases: shear and uniaxial stretch, each with and without a circular hole. The Physics-Enforced Neural Network (PENN) and the DeepONet are each compared with a finite-element (FEA) reference.</p>
         <h3 class="sub" data-reveal>Physics-Enforced Neural Network (PENN)</h3>
         <p data-reveal>A <em>Physics-Enforced Neural Network</em> represents the deformation and the director field with separate networks, builds the unit-length constraint on the director into the architecture, and is trained by minimizing the total potential energy of the system, with no solution data. Each animation shows the load ramp, with the network prediction, the finite-element reference and the pointwise error side by side: displacement magnitude on top, director angle below.</p>
         <div class="fig-grid fig-grid-2" data-reveal>
@@ -87,9 +87,16 @@
           <figure class="fig-card"><img src="Figures/Nematic-Elastomers/PENN/penn_uniaxial-hole.gif" alt="Uniaxial · with hole: neural network, FEA reference and error fields" loading="lazy" /><figcaption>Uniaxial · with hole</figcaption></figure>
         </div>
 
+        <h3 class="sub" data-reveal>Operator learning: DeepONet</h3>
+        <p data-reveal>A DeepONet learns an <em>operator</em>, not a single solution. In the standard construction, a branch network encodes the input, here the load level, and a trunk network encodes the position in the body, and their combination gives the deformation and director fields at that position. After training, any load on the ramp is evaluated with one forward pass, so a single model covers the whole load ramp. The same four cases are shown below, with the DeepONet prediction, the finite-element reference and the pointwise error.</p>
+        <div class="fig-grid fig-grid-2" data-reveal>
+          <figure class="fig-card"><img src="Figures/Nematic-Elastomers/DeepONet/deeponet_shear.gif" alt="Shear: DeepONet, FEA reference and error fields" loading="lazy" /><figcaption>Shear</figcaption></figure>
+          <figure class="fig-card"><img src="Figures/Nematic-Elastomers/DeepONet/deeponet_uniaxial.gif" alt="Uniaxial stretch: DeepONet, FEA reference and error fields" loading="lazy" /><figcaption>Uniaxial stretch</figcaption></figure>
+          <figure class="fig-card"><img src="Figures/Nematic-Elastomers/DeepONet/deeponet_shear-hole.gif" alt="Shear with hole: DeepONet, FEA reference and error fields" loading="lazy" /><figcaption>Shear · with hole</figcaption></figure>
+          <figure class="fig-card"><img src="Figures/Nematic-Elastomers/DeepONet/deeponet_uniaxial-hole.gif" alt="Uniaxial with hole: DeepONet, FEA reference and error fields" loading="lazy" /><figcaption>Uniaxial · with hole</figcaption></figure>
+        </div>
+
         <p class="fig-note" data-reveal>Animations are interpolated between the stored load steps for smooth playback. The reference in every panel is a finite-element solution of the same discretized problem. Work in progress.</p>
-
-
 
         <h2 data-reveal id="validation">Validating network output: three necessary conditions</h2>
         <p data-reveal>Satisfying the balance laws is not enough: a stationary point can be a saddle or a maximum. At a stable equilibrium \( (\boldsymbol{\chi}_e,\boldsymbol{d}_e) \) the energy cannot be lowered by any admissible perturbation,</p>
@@ -134,19 +141,18 @@
         </ul>
 
         <h2 data-reveal>What is checked on the computed solutions</h2>
-        <p data-reveal>For every stored trajectory (finite element and PENN), two computational checks are applied to the nodal solutions:</p>
+        <p data-reveal>For every stored trajectory (finite element, PENN and DeepONet), two computational checks are applied to the nodal solutions:</p>
         <ul class="plain-list" data-reveal>
           <li><strong>Strong ellipticity at every Gauss point</strong>: the smallest eigenvalue of the acoustic tensor built from the deformation modulus \( \mathscr{M} \), scanned over all in-plane directions \( \boldsymbol{T} \), with the director held at its local value.</li>
           <li><strong>Second variation at every load step</strong>: the smallest eigenvalue of the reduced Hessian of the discretized total energy with respect to the free displacement and director degrees of freedom. A positive value means a strict local minimizer of the discrete problem rather than a saddle.</li>
         </ul>
-        <p data-reveal>All stored trajectories pass both checks: positive acoustic-tensor eigenvalue at every Gauss point and no negative Hessian eigenvalues. A passing check means the states are consistent with these necessary conditions and are strict local minimizers of the discretized energy. It does not mean the networks match the finite-element solution; that is what the animations above show, and the networks remain visibly less accurate than FEA, especially in director angle. The Legendre–Hadamard check implemented here covers the deformation block with the director held fixed; the fully coupled form above is satisfied analytically for this model but is not separately evaluated numerically.</p>
+        <p data-reveal>All stored trajectories pass both checks: positive acoustic-tensor eigenvalue at every Gauss point and no negative Hessian eigenvalues. A passing check means the states are consistent with these necessary conditions and are strict local minimizers of the discretized energy. It does not mean the networks match the finite-element solution; that is what the animations above show, and both the PENN and the DeepONet remain visibly less accurate than FEA, especially in director angle. The Legendre–Hadamard check implemented here covers the deformation block with the director held fixed; the fully coupled form above is satisfied analytically for this model but is not separately evaluated numerically.</p>
 
         <h2 data-reveal>Reference</h2>
         <p class="ref" id="ref1" data-reveal>[1] M. Shirani, P. H. Gueldner, M. Khidoyatov, J. L. Warren, F. Ninno, <em>Physics-Consistent Neural Networks for Learning Deformation and Director Fields in Microstructured Media with Loss-Based Validation Criteria</em>, arXiv:2603.06939 (2026). <a href="https://arxiv.org/abs/2603.06939" target="_blank" rel="noopener">arxiv.org/abs/2603.06939 ↗</a></p>
 
         <div class="tab-links" data-reveal>
           <a href="projects.html">← All projects</a>
-          <a href="research-deeponet.html">DeepONet for nematic elastomers →</a>
         </div>
 
       </div>

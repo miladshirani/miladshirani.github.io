@@ -104,12 +104,9 @@ window.SITE = {
     { title: "Peridynamic Fracture &amp; Peeling", href: "research-peridynamic-fracture.html",
       cats: ["computational-mechanics"], year: "2026", featured: true,
       summary: "Meshless, differentiable simulation of fluid-induced fracture and peeling of solids, using automatic differentiation and dynamic relaxation. In collaboration with Prof. Ali Javili." },
-    { title: "Physics-Enforced Neural Networks (PENN)", href: "research-penn.html",
+    { title: "Physics Enforced Operator Learning", href: "research-physics-enforced-operator-learning.html",
       cats: ["machine-learning", "soft-matter-biomechanics"], year: "2026", featured: true,
-      summary: "Networks trained on the total potential energy, with the physics built into the architecture, for nematic liquid crystal elastomers; checked against finite elements and stability conditions." },
-    { title: "DeepONet for Nematic Elastomers", href: "research-deeponet.html",
-      cats: ["machine-learning", "soft-matter-biomechanics"], year: "2026", featured: true,
-      summary: "An operator-learning network that returns the full deformation and director fields across a load ramp from a single trained model." },
+      summary: "Energy-trained neural networks and DeepONets, with the physics built into the architecture, for nematic liquid crystal elastomers; one trained operator returns the full deformation and director fields across a load ramp, checked against finite elements and stability conditions." },
     { title: "PI-FNO: Heart Sound Diagnosis", href: "research-pi-fno.html",
       cats: ["machine-learning"], year: "2026", featured: true,
       summary: "A Fourier neural operator with a learnable physiological frequency mask and physics-informed losses. 97.5% test accuracy on five heart conditions." },
@@ -195,8 +192,7 @@ window.SITE = {
       ],
       links: [
         { text: "Read · Dissipative Chemo-Elasticity", href: "research-dissipative-chemo-elasticity.html" },
-        { text: "See · Physics-Enforced Neural Networks (PENN)", href: "research-penn.html" },
-        { text: "See · DeepONet for Nematic Elastomers", href: "research-deeponet.html" }
+        { text: "See · Physics Enforced Operator Learning", href: "research-physics-enforced-operator-learning.html" }
       ]
     },
     {

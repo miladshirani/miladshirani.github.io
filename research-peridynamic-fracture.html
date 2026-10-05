@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Peridynamic Fracture &amp; Peeling — Milad Shirani</title>
+  <meta name="description" content="Meshless, differentiable peridynamic simulations of fluid-induced fracture and peeling of solids; results to be published soon." />
+  <meta name="author" content="Milad Shirani" />
+  <link rel="canonical" href="https://miladshirani.github.io/research-peridynamic-fracture.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232b3cf0'/%3E%3Ctext x='32' y='42' font-family='Menlo,monospace' font-size='26' font-weight='700' text-anchor='middle' fill='%23ffffff'%3EMS%3C/text%3E%3C/svg%3E" type="image/svg+xml" />
+  <meta name="theme-color" content="#f2f2ed" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0d0e12" media="(prefers-color-scheme: dark)" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Peridynamic Fracture &amp; Peeling — Milad Shirani" />
+  <meta property="og:description" content="Meshless, differentiable peridynamic simulation of fracture and peeling." />
+  <meta property="og:url" content="https://miladshirani.github.io/research-peridynamic-fracture.html" />
+  <meta property="og:image" content="https://github.com/miladshirani.png" />
+  <meta name="twitter:card" content="summary" />
+
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("theme") ||
+          (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    })();
+  </script>
+
+  <script>
+    MathJax = {
+      tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'] }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400;1,8..60,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body data-page="research">
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <nav class="site-nav" id="site-nav" aria-label="Site"><!-- injected --></nav>
+
+  <main id="main">
+
+    <header class="page-head wrap">
+      <a class="back-link" href="research.html" data-reveal>← Back to research</a>
+      <p class="kicker" data-reveal>Soft Matter · Computational Fracture</p>
+      <h1 class="page-title" data-reveal style="--d:.08s">Peridynamic <em>fracture</em><br />&amp; peeling.</h1>
+      <p class="page-intro" data-reveal style="--d:.16s">A meshless, differentiable simulation of fluid-driven fracture and peeling of solids — cracks that start, branch and run with no remeshing and no crack-tracking rules.</p>
+    </header>
+
+    <section class="section">
+      <div class="wrap article">
+
+        <p data-reveal>We have implemented fluid-induced (hydraulic) fracture and the peeling test using <em>peridynamics</em>, a nonlocal, meshless continuum theory in which material points interact through bonds rather than through spatial derivatives. Because damage is simply the breaking of bonds, cracks nucleate and propagate naturally — including along interfaces — without a mesh that has to be adapted to the crack path.</p>
+
+        <h2 data-reveal>Peridynamics in brief</h2>
+        <p data-reveal>Each material point \( \boldsymbol{x} \) interacts with every point \( \boldsymbol{x}' \) inside its <em>horizon</em> \( \mathcal{H}_{\boldsymbol{x}} \), a ball of radius \( \delta \). The pair is joined by a bond, and the force a point feels is an integral over its bonds instead of a divergence of stress — so the equations stay valid where the displacement field is discontinuous, i.e. across a crack.</p>
+        <figure class="fig-card" data-reveal><div style="padding:1rem"><svg viewBox="0 0 700 360" role="img" aria-label="Peridynamic horizon: a material point x interacts through bonds with all points x' within a distance delta" style="width:100%;height:auto;display:block;font-family:var(--font-m);font-size:14px">
+  <rect x="20" y="20" width="360" height="320" rx="14" fill="var(--bg-inset)" stroke="var(--line)"/>
+  <circle cx="200" cy="185" r="115" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <line x1="200" y1="185" x2="150" y2="95" stroke="var(--accent)" stroke-opacity=".45" stroke-width="1"/><line x1="200" y1="185" x2="255" y2="100" stroke="var(--accent)" stroke-opacity=".45" stroke-width="1"/><line x1="200" y1="185" x2="120" y2="170" stroke="var(--accent)" stroke-opacity=".45" stroke-width="1"/><line x1="200" y1="185" x2="215" y2="140" stroke="var(--accent)" stroke-opacity=".45" stroke-width="1"/><line x1="200" y1="185" x2="280" y2="175" stroke="var(--accent)" stroke-opacity=".45" stroke-width="1"/><line x1="200" y1="185" x2="175" y2="225" stroke="var(--accent)" stroke-opacity=".45" stroke-width="1"/><line x1="200" y1="185" x2="250" y2="245" stroke="var(--accent)" stroke-opacity=".45" stroke-width="1"/><line x1="200" y1="185" x2="185" y2="285" stroke="var(--accent)" stroke-opacity=".45" stroke-width="1"/><circle cx="150" cy="95" r="4.5" fill="var(--accent)"/><circle cx="205" cy="70" r="4.5" fill="var(--ink-faint)"/><circle cx="255" cy="100" r="4.5" fill="var(--accent)"/><circle cx="120" cy="170" r="4.5" fill="var(--accent)"/><circle cx="215" cy="140" r="4.5" fill="var(--accent)"/><circle cx="280" cy="175" r="4.5" fill="var(--accent)"/><circle cx="95" cy="235" r="4.5" fill="var(--ink-faint)"/><circle cx="175" cy="225" r="4.5" fill="var(--accent)"/><circle cx="250" cy="245" r="4.5" fill="var(--accent)"/><circle cx="310" cy="120" r="4.5" fill="var(--ink-faint)"/><circle cx="330" cy="215" r="4.5" fill="var(--ink-faint)"/><circle cx="60" cy="150" r="4.5" fill="var(--ink-faint)"/><circle cx="185" cy="285" r="4.5" fill="var(--accent)"/><circle cx="300" cy="290" r="4.5" fill="var(--ink-faint)"/><circle cx="100" cy="300" r="4.5" fill="var(--ink-faint)"/><circle cx="70" cy="80" r="4.5" fill="var(--ink-faint)"/><circle cx="340" cy="60" r="4.5" fill="var(--ink-faint)"/>
+  <circle cx="200" cy="185" r="7" fill="var(--ink)"/>
+  <text x="192" y="209" fill="var(--ink)" font-style="italic" font-size="16">x</text>
+  <line x1="200" y1="185" x2="303.5" y2="135.55" stroke="var(--ink)" stroke-width="1.5"/>
+  <text x="260" y="179" fill="var(--ink)" font-size="15" font-style="italic">δ</text>
+  <text x="340" y="52" fill="var(--ink-faint)" font-style="italic" font-size="16" text-anchor="end">B</text>
+  <text x="200" y="60" fill="var(--accent)" text-anchor="middle" font-size="13">horizon H_x</text>
+  <text x="152" y="252" fill="var(--ink-faint)" font-size="11"></text>
+  <!-- deformed bond panel -->
+  <g transform="translate(400,0)">
+    <text x="150" y="40" fill="var(--ink-soft)" text-anchor="middle" font-size="12" letter-spacing="1">BOND KINEMATICS</text>
+    <circle cx="40" cy="250" r="6" fill="var(--ink-faint)"/><circle cx="170" cy="250" r="6" fill="var(--ink-faint)"/>
+    <line x1="40" y1="250" x2="170" y2="250" stroke="var(--ink-faint)" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <text x="105" y="272" fill="var(--ink-faint)" text-anchor="middle" font-style="italic">ξ</text>
+    <text x="28" y="276" fill="var(--ink-faint)" font-style="italic">x</text><text x="176" y="276" fill="var(--ink-faint)" font-style="italic">x′</text>
+    <circle cx="80" cy="130" r="6" fill="var(--accent)"/><circle cx="250" cy="90" r="6" fill="var(--accent)"/>
+    <line x1="80" y1="130" x2="250" y2="90" stroke="var(--accent)" stroke-width="2"/>
+    <text x="165" y="96" fill="var(--accent)" text-anchor="middle" font-style="italic">ξ + η</text>
+    <text x="62" y="118" fill="var(--accent)" font-style="italic">y</text><text x="258" y="86" fill="var(--accent)" font-style="italic">y′</text>
+    <defs><marker id="ah" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="var(--ink-soft)"/></marker></defs>
+    <line x1="43" y1="244" x2="77" y2="137" stroke="var(--ink-soft)" stroke-width="1.2" marker-end="url(#ah)"/>
+    <text x="38" y="190" fill="var(--ink-soft)" font-style="italic" text-anchor="end">u</text>
+    <line x1="173" y1="244" x2="247" y2="97" stroke="var(--ink-soft)" stroke-width="1.2" marker-end="url(#ah)"/>
+    <text x="226" y="178" fill="var(--ink-soft)" font-style="italic">u′</text>
+    <text x="150" y="320" fill="var(--ink-faint)" text-anchor="middle" font-size="12">reference (dashed) → deformed (solid)</text>
+  </g>
+</svg></div><figcaption>Left: a point and its horizon · Right: a bond before and after deformation</figcaption></figure>
+        <p data-reveal>The equation of motion is</p>
+        <div class="eq" data-reveal>\[ \rho\,\ddot{\boldsymbol{u}}(\boldsymbol{x},t)=\int_{\mathcal{H}_{\boldsymbol{x}}}\boldsymbol{f}\big(\boldsymbol{u}'-\boldsymbol{u},\,\boldsymbol{x}'-\boldsymbol{x}\big)\,\mathrm{d}V_{\boldsymbol{x}'}+\boldsymbol{b}(\boldsymbol{x},t),\qquad \mathcal{H}_{\boldsymbol{x}}=\{\boldsymbol{x}':\ |\boldsymbol{x}'-\boldsymbol{x}|\le\delta\} , \]</div>
+        <p data-reveal>where \( \boldsymbol{f} \) is the pairwise bond force and \( \boldsymbol{b} \) the body force. With the reference bond \( \boldsymbol{\xi}=\boldsymbol{x}'-\boldsymbol{x} \) and relative displacement \( \boldsymbol{\eta}=\boldsymbol{u}'-\boldsymbol{u} \), the bond stretch is</p>
+        <div class="eq" data-reveal>\[ s=\frac{|\boldsymbol{\xi}+\boldsymbol{\eta}|-|\boldsymbol{\xi}|}{|\boldsymbol{\xi}|} . \]</div>
+        <p data-reveal>A bond breaks irreversibly once its stretch exceeds a critical value \( s_c \), and the local damage is the fraction of broken bonds,</p>
+        <div class="eq" data-reveal>\[ \mu(\boldsymbol{\xi},t)=\begin{cases}1,&amp; s(\tau,\boldsymbol{\xi})&lt;s_c\ \ \forall\,\tau\le t\\0,&amp;\text{otherwise}\end{cases}\qquad \varphi(\boldsymbol{x},t)=1-\frac{\int_{\mathcal{H}_{\boldsymbol{x}}}\mu\,\mathrm{d}V_{\boldsymbol{x}'}}{\int_{\mathcal{H}_{\boldsymbol{x}}}\mathrm{d}V_{\boldsymbol{x}'}} . \]</div>
+
+        <h2 data-reveal>Fluid-induced fracture</h2>
+        <p data-reveal>A pre-cracked solid is loaded by fluid pressure acting on the faces of the crack. As the pressure is ramped up, the crack opens, the fluid follows it, and the interface ahead of the tip delaminates. Colors show damage, displacement magnitude and vertical displacement on the deformed specimen.</p>
+        <div class="fig-grid" data-reveal>
+          <figure class="fig-card"><img src="Figures/Peridynamics/Fluid-Induced-Fracture.gif" alt="Peridynamic simulation of fluid-induced fracture of a pre-cracked solid" loading="lazy" /><figcaption>Fluid-induced fracture · damage, displacement</figcaption></figure>
+        </div>
+
+        <h2 data-reveal>Peeling test</h2>
+        <p data-reveal>In the peeling test the arms of the pre-cracked specimen are pulled apart under displacement control. The simulation records the grip force and the crack length as the interface peels.</p>
+        <div class="fig-grid" data-reveal>
+          <figure class="fig-card"><img src="Figures/Peridynamics/Peeling-Test.gif" alt="Peridynamic simulation of a peeling test on a pre-cracked solid" loading="lazy" /><figcaption>Peeling test · damage, displacement</figcaption></figure>
+        </div>
+
+        <h2 data-reveal>Differentiable by design</h2>
+        <p data-reveal>The framework is fully differentiable: it is written with automatic differentiation in <strong>JAX</strong> and <strong>PyTorch</strong>, so exact derivatives of the simulation are available for tangents, sensitivities and gradient-based inverse design or learning. The equilibrium states are computed with a <strong>dynamic relaxation</strong> solver.</p>
+
+        <h2 data-reveal>Results</h2>
+        <p data-reveal>The results will be published soon.</p>
+
+        <div class="tab-links" data-reveal>
+          <a href="research-hydrogel-swelling.html">← Hydrogel swelling model</a>
+          <a href="research.html">All research themes</a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer" id="site-footer"><!-- injected --></footer>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/site.js"></script>
+</body>
+</html>

@@ -30,7 +30,7 @@
 
   <script>
     MathJax = {
-      tex: { inlineMath: [['\\(', '\\)']] },
+      tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
       options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'] }
     };
   </script>
@@ -78,7 +78,69 @@
           <figure class="fig-card"><img src="Figures/Nematic-Elastomers/DeepONet/deeponet_uniaxial-hole.gif" alt="Uniaxial · with hole: neural surrogate, FEA reference and error fields" loading="lazy" /><figcaption>Uniaxial · with hole</figcaption></figure>
         </div>
 
-        <p class="fig-note" data-reveal>Animations are interpolated between the stored load steps for smooth playback. The reference in every panel is a finite-element solution of the same discretized problem. Work in progress; details forthcoming.</p>
+        <p class="fig-note" data-reveal>Animations are interpolated between the stored load steps for smooth playback. The reference in every panel is a finite-element solution of the same discretized problem. Work in progress.</p>
+
+
+        <h2 data-reveal id="theory">Theory: Cosserat elasticity with a unit director</h2>
+        <p data-reveal>The material is modeled as a Cosserat continuum with a single unit director. Two kinematic fields describe the body: the deformation \( \boldsymbol{x}=\boldsymbol{\chi}(\boldsymbol{X}) \) and the director \( \boldsymbol{d}(\boldsymbol{X}) \), subject to the constraint \( \boldsymbol{d}\cdot\boldsymbol{d}=1 \). The stored energy per unit reference volume depends on both fields and on the director gradient,</p>
+        <div class="eq" data-reveal>\[ W=W(\boldsymbol{F},\boldsymbol{d},\nabla\boldsymbol{d}),\qquad \boldsymbol{F}=\nabla\boldsymbol{\chi},\qquad J=\det\boldsymbol{F}>0 . \]</div>
+        <p data-reveal>Frame invariance requires \( W(\boldsymbol{F},\boldsymbol{d},\nabla\boldsymbol{d})=W(\boldsymbol{Q}\boldsymbol{F},\boldsymbol{Q}\boldsymbol{d},\boldsymbol{Q}\nabla\boldsymbol{d}) \) for every rotation \( \boldsymbol{Q} \). With the generalized stresses \( \boldsymbol{P}=\partial W/\partial\boldsymbol{F} \), \( \boldsymbol{N}=\partial W/\partial\boldsymbol{d} \) and couple stress \( \boldsymbol{M}=\partial W/\partial\nabla\boldsymbol{d} \), this is equivalent to</p>
+        <div class="eq" data-reveal>\[ \boldsymbol{P}\boldsymbol{F}^{T}+\boldsymbol{N}\otimes\boldsymbol{d}+\boldsymbol{M}(\nabla\boldsymbol{d})^{T}\in\mathrm{Sym}. \]</div>
+        <p data-reveal>Equilibrium is a stationary point of the total potential energy \( \mathcal{E}=\int W\,dV-\mathcal{L} \). Varying \( \boldsymbol{\chi} \) freely and \( \boldsymbol{d} \) subject to \( \boldsymbol{d}\cdot\delta\boldsymbol{d}=0 \) gives the balance of linear momentum and of director momentum,</p>
+        <div class="eq" data-reveal>\[ \mathrm{Div}\,\boldsymbol{P}+\boldsymbol{f}=\boldsymbol{0},\qquad \boldsymbol{d}\times\big(\mathrm{Div}\,\boldsymbol{M}-\boldsymbol{N}+\boldsymbol{l}\big)=\boldsymbol{0}, \]</div>
+        <p data-reveal>with \( \boldsymbol{f},\boldsymbol{l} \) the body force and body couple. A network trained on \( \mathcal{E} \) is driven toward such a stationary point.</p>
+
+        <h2 data-reveal>The nematic elastomer energy</h2>
+        <p data-reveal>For the planar simulations shown above, the energy is of neo-Hookean type with an anisotropic network metric, plus a Frank-type director-gradient term:</p>
+        <div class="eq" data-reveal>\[ W=\frac{\mu}{2}\Big(\mathrm{tr}\big(\boldsymbol{L}_0\boldsymbol{F}^{T}\boldsymbol{L}^{-1}\boldsymbol{F}\big)-2-2\ln J\Big)+\frac{\alpha\gamma^{2}}{2}\,\nabla\boldsymbol{d}\cdot\nabla\boldsymbol{d}, \]</div>
+        <div class="eq" data-reveal>\[ \boldsymbol{L}=\boldsymbol{I}+(r-1)\,\boldsymbol{d}\otimes\boldsymbol{d},\qquad \boldsymbol{L}_0=\boldsymbol{I}+(r-1)\,\boldsymbol{D}\otimes\boldsymbol{D},\qquad r=\ell_\parallel/\ell_\perp , \]</div>
+        <p data-reveal>where \( \boldsymbol{D} \) is the initial director, \( \mu \) the shear modulus, \( \alpha \) the Frank modulus and \( \gamma \) a size-effect length. The corresponding stresses are \( \boldsymbol{P}=\mu(\boldsymbol{L}^{-1}\boldsymbol{F}\boldsymbol{L}_0-\boldsymbol{F}^{-T}) \) and \( \boldsymbol{M}=\alpha\gamma^{2}\nabla\boldsymbol{d} \).</p>
+
+        <h2 data-reveal id="validation">Validating network output: three necessary conditions</h2>
+        <p data-reveal>Satisfying the balance laws is not enough: a stationary point can be a saddle or a maximum. At a stable equilibrium \( (\boldsymbol{\chi}_e,\boldsymbol{d}_e) \) the energy cannot be lowered by any admissible perturbation,</p>
+        <div class="eq" data-reveal>\[ \mathcal{E}(\tilde{\boldsymbol{\chi}},\tilde{\boldsymbol{d}})-\mathcal{E}(\boldsymbol{\chi}_e,\boldsymbol{d}_e)\ \ge\ 0 . \]</div>
+        <p data-reveal>Choosing localized perturbations (a compactly supported displacement \( \boldsymbol{\Phi} \) and a director rotation built from an axial field \( \boldsymbol{w} \)) and shrinking their support to a point yields a hierarchy of conditions. They are necessary for any energy minimizer, whether it comes from finite elements, a neural network or an analytical solution, so a state that violates one cannot be a stable minimizer and can be rejected.</p>
+
+        <div class="cond" data-reveal>
+          <h3>1 · Quasiconvexity</h3>
+          <p>At every material point \( \boldsymbol{X}_0 \), for every compactly supported \( \boldsymbol{\Phi} \) and \( \boldsymbol{w} \) on any subdomain \( \mathcal{D} \),</p>
+          <div class="eq">\[ \int_{\mathcal{D}}\Big[W\big(\boldsymbol{F}_{0}+\nabla\boldsymbol{\Phi},\ \boldsymbol{d}_{0},\ \nabla\boldsymbol{d}_{0}+\nabla\boldsymbol{w}\times\boldsymbol{d}_{0}\big)-W\big(\boldsymbol{F}_{0},\boldsymbol{d}_{0},\nabla\boldsymbol{d}_{0}\big)\Big]dV_Z\ \ge\ 0 . \]</div>
+          <p>This is the sharpest of the three, but it is an integral inequality over all admissible perturbations, so it cannot be checked directly on a computed solution. It is the theoretical parent of the two pointwise conditions below.</p>
+        </div>
+
+        <div class="cond" data-reveal>
+          <h3>2 · Rank-one convexity</h3>
+          <p>Restricting the perturbation to a laminate (a jump across a plane with normal \( \boldsymbol{T} \)) turns the integral into a pointwise inequality. For all vectors \( \boldsymbol{a},\boldsymbol{b} \) and \( \boldsymbol{T} \),</p>
+          <div class="eq">\[ W\big(\boldsymbol{F}_{0}+\boldsymbol{a}\otimes\boldsymbol{T},\ \boldsymbol{d}_{0},\ \nabla\boldsymbol{d}_{0}+\boldsymbol{b}\times\boldsymbol{d}_{0}\otimes\boldsymbol{T}\big)-W\big(\boldsymbol{F}_{0},\boldsymbol{d}_{0},\nabla\boldsymbol{d}_{0}\big)\ \ge\ \boldsymbol{P}_{0}\cdot\boldsymbol{a}\otimes\boldsymbol{T}+\boldsymbol{M}_{0}\cdot\boldsymbol{b}\times\boldsymbol{d}_{0}\otimes\boldsymbol{T}. \]</div>
+          <p>It says that the energy, as a function of the rank-one perturbation, lies above its tangent. A violation signals that a fine-scale laminate (a microstructure) would have lower energy than the computed state. It can be tested on a computed field by sampling \( \boldsymbol{a},\boldsymbol{b},\boldsymbol{T} \).</p>
+        </div>
+
+        <div class="cond" data-reveal>
+          <h3>3 · Legendre–Hadamard inequality</h3>
+          <p>Taking \( \boldsymbol{a}=\epsilon\boldsymbol{s} \), \( \boldsymbol{b}=\epsilon\boldsymbol{q} \) and letting \( \epsilon\to0 \) gives the second-order, local form. For all \( \boldsymbol{s},\boldsymbol{q},\boldsymbol{T} \),</p>
+          <div class="eq">\[ \mathscr{M}[\boldsymbol{s}\otimes\boldsymbol{T}]\cdot\boldsymbol{s}\otimes\boldsymbol{T}+2\,\mathscr{N}[\boldsymbol{s}\otimes\boldsymbol{T}]\cdot\boldsymbol{q}\times\boldsymbol{d}_0\otimes\boldsymbol{T}+\mathscr{L}[\boldsymbol{q}\times\boldsymbol{d}_0\otimes\boldsymbol{T}]\cdot\boldsymbol{q}\times\boldsymbol{d}_0\otimes\boldsymbol{T}\ \ge\ 0, \]</div>
+          <p>with the moduli \( \mathscr{M}=\partial^2W/\partial\boldsymbol{F}^2 \), \( \mathscr{N}=\partial^2W/\partial\boldsymbol{F}\,\partial\nabla\boldsymbol{d} \), \( \mathscr{L}=\partial^2W/\partial(\nabla\boldsymbol{d})^2 \), evaluated at the computed state. With strict inequality this is the <em>strong ellipticity</em> condition; its loss marks the onset of material instability such as shear bands. It is the cheapest of the three to evaluate because it needs only second derivatives of \( W \) at each point.</p>
+        </div>
+
+        <p data-reveal>The three are ordered by strength: polyconvexity \( \Rightarrow \) quasiconvexity \( \Rightarrow \) rank-one convexity \( \Rightarrow \) Legendre–Hadamard. They are necessary, not sufficient: passing them does not prove a state is the global minimizer, but failing any one disqualifies it.</p>
+
+        <h2 data-reveal>Applied to this model</h2>
+        <p data-reveal>For the energy above, the mixed modulus vanishes (\( \mathscr{N}=0 \)) and the director-gradient modulus is \( \mathscr{L}=\alpha\gamma^2\boldsymbol{I}>0 \). For unit vectors \( \boldsymbol{s} \) and \( \boldsymbol{T} \), the deformation modulus is</p>
+        <div class="eq" data-reveal>\[ \mathscr{M}[\boldsymbol{s}\otimes\boldsymbol{T}]\cdot\boldsymbol{s}\otimes\boldsymbol{T}=\mu\Big[(\boldsymbol{s}\cdot\boldsymbol{L}^{-1}\boldsymbol{s})(\boldsymbol{T}\cdot\boldsymbol{L}_0\boldsymbol{T})+(\boldsymbol{s}\cdot\boldsymbol{F}^{-T}\boldsymbol{T})^{2}\Big], \]</div>
+        <div class="eq" data-reveal>\[ (\boldsymbol{s}\cdot\boldsymbol{L}^{-1}\boldsymbol{s})(\boldsymbol{T}\cdot\boldsymbol{L}_0\boldsymbol{T})=\frac{\big(r+1-(r-1)\cos2\lambda\big)\big(r+1+(r-1)\cos2\lambda_0\big)}{4r}>0, \]</div>
+        <p data-reveal>where \( \cos\lambda=\boldsymbol{s}\cdot\boldsymbol{d} \) and \( \cos\lambda_0=\boldsymbol{T}\cdot\boldsymbol{D} \). Both terms are non-negative and the first is strictly positive for any \( r>0 \), so this model is strongly elliptic for every admissible state (\( J>0 \), unit director). Two consequences for validation:</p>
+        <ul class="plain-list" data-reveal>
+          <li>For this energy, Legendre–Hadamard holds a priori. Checking it on network output confirms that the output is an admissible state (\( J>0 \), director normalized), but it cannot expose a poor solution by itself.</li>
+          <li>The conditions become discriminating for energies that are not elliptic by construction, such as learned or data-driven constitutive models, and for the global quantities below.</li>
+        </ul>
+
+        <h2 data-reveal>What is checked on the computed solutions</h2>
+        <p data-reveal>For every stored trajectory (finite element, PINN and DeepONet), two computational checks are applied to the nodal solutions:</p>
+        <ul class="plain-list" data-reveal>
+          <li><strong>Strong ellipticity at every Gauss point</strong>: the smallest eigenvalue of the acoustic tensor \( Q_{ik}(\boldsymbol{T})=\mathscr{M}_{iJkL}T_JT_L \) over all in-plane directions \( \boldsymbol{T} \), with the director held at its local value.</li>
+          <li><strong>Second variation at every load step</strong>: the smallest eigenvalue of the reduced Hessian of the discretized total energy with respect to the free displacement and director degrees of freedom. A positive value means a strict local minimizer of the discrete problem rather than a saddle.</li>
+        </ul>
+        <p data-reveal>All stored trajectories pass both checks: positive acoustic-tensor eigenvalue at every Gauss point and no negative Hessian eigenvalues. A passing check means the states are consistent with these necessary conditions and are strict local minimizers of the discretized energy. It does not mean the networks match the finite-element solution; that is what the animations above show, and the networks remain visibly less accurate than FEA, especially in director angle. The Legendre–Hadamard check implemented here covers the deformation block with the director held fixed; the fully coupled form above is satisfied analytically for this model but is not separately evaluated numerically.</p>
 
         <div class="tab-links" data-reveal>
           <a href="research.html">← All research themes</a>

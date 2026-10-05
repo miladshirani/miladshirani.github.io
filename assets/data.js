@@ -92,6 +92,8 @@ window.SITE = {
       desc: "Closed-loop agentic pipelines (LangGraph) for constitutive model discovery. Bridging symbolic reasoning, PDE solving, and data-driven learning in automated scientific workflows." },
     { icon: "⌬", title: "Experimental Mechanics",
       desc: "DIC and strain-gauge characterization of composites; photoelastic full-field stress mapping; DSC thermal analysis and tensile testing of shape memory alloys; magnetomechanical experiments on FSMAs." },
+    { icon: "μ", title: "Dissipative Chemo-Elasticity", href: "research-dissipative-chemo-elasticity.html",
+      desc: "A thermodynamically consistent theory of swelling driven by water absorption: coupled mechanical and chemical balance laws from one energy, and second-law restrictions on the solvent flux." },
     { icon: "↺", title: "Universal Behavior in Cell Monolayers", href: "research-cell-monolayers.html",
       desc: "A mathematical proof that cell polarization stays tangential at free edges of a monolayer, independent of cell type, animal, and even for bacteria. Accepted in Proc. R. Soc. A (Rajagopal special issue)." },
     { icon: "♡", title: "Cardiovascular AI Startup",

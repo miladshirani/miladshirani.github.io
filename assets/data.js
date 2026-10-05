@@ -231,23 +231,23 @@ window.SITE = {
       title: "PI-FNO: Physics-Informed Neural Operators for Cardiac Acoustics",
       body: [
         "The same design principles that govern physics-consistent constitutive modeling in continuum mechanics — encoding known structure as inductive biases, enforcing inequalities as hard or hinge constraints, and using interpretable learned parameters — transfer naturally to biomedical signal classification. This project applies that philosophy to the automated diagnosis of valvular heart disease from raw phonocardiogram (PCG) recordings.",
-        "The primary model is a <em>Fourier Neural Operator (FNO)</em> operating directly on raw waveforms, with physiological structure encoded at three levels. First, a learnable <em>physiological frequency mask</em> is initialized from known S1 (25-45 Hz) and S2 (50-70 Hz) cardiac sound bands and parameterized in logit space to keep weights in \\( (0,1) \\). Second, spectral convolutions retain only the \\( M = 20 \\) lowest Fourier modes — a band-limited inductive bias matching the sub-1 kHz frequency content of cardiac acoustics. Third, the training loss augments cross-entropy with two physiologically motivated terms: a <em>periodicity loss</em> penalizing energy away from heart-rate harmonics, and a <em>frequency hierarchy loss</em> enforcing \\( E_{S1} \\geq E_{S2} \\) via a hinge penalty — directly analogous to Legendre-Hadamard enforcement in hyperelastic constitutive modeling.",
-        "The model classifies five clinically distinct conditions — Aortic Stenosis, Mitral Regurgitation, Mitral Stenosis, Mitral Valve Prolapse, and Normal — from 1,000 PCG recordings. The FNO achieves <strong>97.3% test accuracy</strong> with perfect classification of Mitral Stenosis (F1 = 1.00). After training, the learned mask weights autonomously recover the S1/S2 bands while also discovering additional murmur-frequency modes — providing direct clinical interpretability with no post-hoc attribution required."
+        "The primary model is a <em>Fourier Neural Operator (FNO)</em> operating directly on raw waveforms, with physiological structure encoded at three levels. First, a learnable <em>physiological frequency mask</em> is initialized from known S1 (25-45 Hz) and S2 (50-70 Hz) cardiac sound bands and parameterized in logit space to keep weights in \\( (0,1) \\). Second, spectral convolutions retain only the \\( M = 150 \\) lowest Fourier modes — a band-limited inductive bias matching the sub-1 kHz frequency content of cardiac acoustics. Third, the training loss augments cross-entropy with two physiologically motivated terms: a <em>periodicity loss</em> penalizing energy away from heart-rate harmonics, and a <em>frequency hierarchy loss</em> enforcing \\( E_{S1} \\geq E_{S2} \\) via a hinge penalty — directly analogous to Legendre-Hadamard enforcement in hyperelastic constitutive modeling.",
+        "The model classifies five clinically distinct conditions — Aortic Stenosis, Mitral Regurgitation, Mitral Stenosis, Mitral Valve Prolapse, and Normal — from 1,000 PCG recordings. The FNO achieves <strong>97.5% test accuracy</strong> (against 96.0% for a CNN baseline) with perfect classification of Aortic Stenosis (F1 = 1.00). After training, the learned mask weights autonomously recover the S1/S2 bands while also discovering additional murmur-frequency modes — providing direct clinical interpretability with no post-hoc attribution required."
       ],
       keyLabel: "Key Results",
       keyPoints: [
-        "97.3% five-class test accuracy on 1,000 PCG recordings (AS / MR / MS / MVP / Normal)",
-        "Perfect Mitral Stenosis classification (F1 = 1.00); hardest class MR at F1 = 0.92",
+        "97.5% five-class test accuracy on 1,000 PCG recordings (AS / MR / MS / MVP / Normal)",
+        "Perfect Aortic Stenosis classification (F1 = 1.00, against 0.90 for the CNN); hardest class MR at F1 = 0.92",
         "Learnable physiological frequency mask autonomously recovers S1 and S2 bands post-training",
         "Hinge-form frequency hierarchy loss enforces \\( E_{S1} \\geq E_{S2} \\) — exact analogue of LH inequality enforcement in mechanics",
-        "Well-separated t-SNE clusters for all five classes; Normal class fully isolated from all pathologies"
+        "Well-separated t-SNE clusters for all five classes; Normal class clearly isolated from the pathologies"
       ],
       table: {
         label: "Performance Summary",
         head: ["Model", "Val Acc", "Test Acc", "Convergence"],
         rows: [
-          { cells: ["FNO (physio-constrained)", "98.00%", "<strong>97.33%</strong>", "Epoch 30"], highlight: true },
-          { cells: ["CNN Baseline (Mel spectrogram)", "98.67%", "<strong>97.33%</strong>", "Epoch 20"] }
+          { cells: ["FNO (physio-constrained)", "98.50%", "<strong>97.50%</strong>", "Epoch 40"], highlight: true },
+          { cells: ["CNN Baseline (Mel spectrogram)", "99.50%", "<strong>96.00%</strong>", "Epoch 30"] }
         ]
       },
       links: [

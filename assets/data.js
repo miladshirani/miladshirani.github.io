@@ -117,7 +117,7 @@ window.SITE = {
   /* ---- RESEARCH: intro + philosophy -------------------------- */
   researchIntro: "My research is driven by a single conviction: that a deep understanding of physical systems demands mathematical rigor, experimental honesty, and computational power working together. From the thermodynamics of a swelling hydrogel to the stability conditions of a fiber-reinforced elastic solid, from the migration of cells on a soft substrate to the design of neural networks that provably satisfy the laws of mechanics — each project begins with the same question: <em>what does the physics actually require?</em>",
   philosophy: {
-    quote: "\"Nature does not negotiate its laws — it conceals them. My work is the art of unraveling those concealments: finding the <em>mathematical necessities</em> hidden in physical phenomena, and building models <em>rigorous enough to outlast</em> the data they were never meant to merely fit.\"",
+    quote: "\"The laws of nature produce the data, not the other way around. My models <em>obey</em> those laws; they do not imitate them.\"",
     attr:  "Research Philosophy · M. Shirani"
   },
 
@@ -251,6 +251,7 @@ window.SITE = {
         ]
       },
       links: [
+        { text: "Read · PI-FNO for Cardiac Disease Detection", href: "research-pi-fno.html" },
         { text: "GitHub · PI-FNO Repository", href: "https://github.com/miladshirani/PI-FNO", external: true },
         { text: "Article · Coming Soon", comingSoon: true }
       ]

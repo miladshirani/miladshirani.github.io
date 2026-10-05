@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heart Disease Risk Prediction — Milad Shirani</title>
+  <meta name="description" content="A leakage-safe machine learning pipeline that flags coronary heart disease risk from self-reported survey data, with an honest look at what it can and cannot do." />
+  <meta name="author" content="Milad Shirani" />
+  <link rel="canonical" href="https://miladshirani.github.io/research-heart-disease-prediction.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232b3cf0'/%3E%3Ctext x='32' y='42' font-family='Menlo,monospace' font-size='26' font-weight='700' text-anchor='middle' fill='%23ffffff'%3EMS%3C/text%3E%3C/svg%3E" type="image/svg+xml" />
+  <meta name="theme-color" content="#f2f2ed" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0d0e12" media="(prefers-color-scheme: dark)" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Heart Disease Risk Prediction — Milad Shirani" />
+  <meta property="og:description" content="A leakage-safe machine learning pipeline for heart disease risk from survey data." />
+  <meta property="og:url" content="https://miladshirani.github.io/research-heart-disease-prediction.html" />
+  <meta property="og:image" content="https://github.com/miladshirani.png" />
+  <meta name="twitter:card" content="summary" />
+
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("theme") ||
+          (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    })();
+  </script>
+
+  <script>
+    MathJax = {
+      tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'] }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400;1,8..60,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body data-page="research">
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <nav class="site-nav" id="site-nav" aria-label="Site"><!-- injected --></nav>
+
+  <main id="main">
+
+    <header class="page-head wrap">
+      <a class="back-link" href="research.html" data-reveal>← Back to research</a>
+      <p class="kicker" data-reveal>Machine Learning · Public Health Data</p>
+      <h1 class="page-title" data-reveal style="--d:.08s">Heart disease<br /><em>risk prediction</em>.</h1>
+      <p class="page-intro" data-reveal style="--d:.16s">How well can lifestyle and demographic answers on a health survey flag coronary heart disease? A careful, leakage-safe pipeline, and an honest account of what it can and cannot do.</p>
+    </header>
+
+    <section class="section">
+      <div class="wrap article">
+
+        <p data-reveal><strong>This is an educational and portfolio project.</strong> It is not a medical device, not a diagnostic tool, and not validated for clinical use. The model reflects association, not causation.</p>
+        <h2 data-reveal>Data</h2>
+        <p data-reveal>The data are the <em>Personal Key Indicators of Heart Disease</em> set from Kaggle, derived from the CDC 2020 BRFSS telephone survey. There are 319,795 respondents, 301,717 after removing 18,078 exact duplicate rows, with 17 predictors (binary, ordinal and categorical) and a binary target. The classes are heavily imbalanced, with about 9% positive cases. The features are coarse categories and rounded numbers, with no clinical measurements such as blood pressure or cholesterol.</p>
+        <h2 data-reveal>Pipeline</h2>
+        <p data-reveal>Preprocessing standardizes the numeric features (BMI, physical and mental health days, sleep), ordinally encodes age bands and general health, and one-hot encodes race and diabetic status, giving 23 features from the 17 raw columns. Everything, including resampling, sits inside a single pipeline so that information cannot leak from the validation or test data into training. The data are split 60/20/20 (181,029 / 60,344 / 60,344 rows). The validation set is used to choose the algorithm and the decision threshold, and the test set is touched once at the end. All random seeds are fixed to 42.</p>
+        <h2 data-reveal>Model selection</h2>
+        <p data-reveal>I compared twelve configurations: six algorithms (CatBoost, LightGBM, XGBoost, random forest, decision tree and logistic regression) with two ways of handling imbalance, SMOTE and class weighting.</p>
+        <figure class="fig-card" data-reveal><div style="padding:1rem;background:#fff"><img src="Figures/Heart-Disease-Prediction/model_comparison.png" alt="PR-AUC on the validation set for six algorithms with SMOTE and with class weighting" loading="lazy" style="width:100%" /></div><figcaption>Validation PR-AUC · class weighting beats SMOTE for every algorithm</figcaption></figure>
+        <p data-reveal>The imbalance strategy mattered more than the algorithm. SMOTE lowered the PR-AUC of the gradient-boosted models by up to 0.07, because interpolating between binary indicators creates meaningless synthetic people (for example a "37% smoker"). Class weighting worked better for tree-based models, and CatBoost with class weighting was the best configuration.</p>
+        <h2 data-reveal>Choosing the threshold</h2>
+        <p data-reveal>For screening, missing a case is worse than a false alarm, so the threshold was tuned on the validation set with the F2 score, which weights recall four times as much as precision. The chosen threshold is 0.505.</p>
+        <figure class="fig-card" data-reveal><div style="padding:1rem;background:#fff"><img src="Figures/Heart-Disease-Prediction/threshold_tuning.png" alt="F2 score as a function of the probability threshold" loading="lazy" style="width:100%" /></div><figcaption>F2 score against probability threshold on the validation set</figcaption></figure>
+        <h2 data-reveal>Results on the test set</h2>
+        <p data-reveal>The test set was evaluated once.</p>
+
+        <div class="tab-table" data-reveal><table><caption>Test-set performance</caption>
+          <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td>PR-AUC</td><td>0.351</td></tr>
+            <tr><td>ROC-AUC</td><td>0.836</td></tr>
+            <tr><td>Recall</td><td>0.791</td></tr>
+            <tr><td>Precision</td><td>0.225</td></tr>
+            <tr><td>F2</td><td>0.527</td></tr>
+          </tbody>
+        </table></div>
+        <figure class="fig-card" data-reveal><div style="padding:1rem;background:#fff"><img src="Figures/Heart-Disease-Prediction/roc_pr_curves.png" alt="ROC and precision-recall curves on the test set" loading="lazy" style="width:100%" /></div><figcaption>ROC and precision–recall curves on the test set</figcaption></figure>
+        <p data-reveal>The model finds 79.1% of true cases (4,313 of 5,452), but precision is 0.225: about three of every four flags are false alarms, and 27.0% of healthy respondents are flagged. That makes it suitable only for triage into further evaluation, never for a standalone decision.</p>
+        <figure class="fig-card" data-reveal><div style="padding:1rem;background:#fff"><img src="Figures/Heart-Disease-Prediction/confusion_matrix.png" alt="Confusion matrix on the test set" loading="lazy" style="width:100%" /></div><figcaption>Confusion matrix on the test set</figcaption></figure>
+        <h2 data-reveal>What drives the prediction</h2>
+        <p data-reveal>A linear model fitted alongside the boosted trees gives readable odds ratios. The top predictors are age (an odds ratio of 1.34 per age band), prior stroke (3.26), male sex (2.09), kidney disease (1.83) and diabetes (1.66). Better self-reported general health lowers the risk (0.61 per step toward "Excellent").</p>
+        <figure class="fig-card" data-reveal><div style="padding:1rem;background:#fff"><img src="Figures/Heart-Disease-Prediction/odds_ratios.png" alt="Odds ratios from the logistic regression" loading="lazy" style="width:100%" /></div><figcaption>Odds ratios from the logistic regression</figcaption></figure>
+        <h2 data-reveal>Code</h2>
+        <p data-reveal>The notebooks, the fitted pipeline and the exported reports are at <a href="https://github.com/miladshirani/Heart-Disease-Prediction" target="_blank" rel="noopener">github.com/miladshirani/Heart-Disease-Prediction ↗</a>. The notebook runs in a few minutes.</p>
+
+        <div class="tab-links" data-reveal>
+          <a href="research.html">← All research themes</a>
+          <a href="https://github.com/miladshirani/Heart-Disease-Prediction" target="_blank" rel="noopener">GitHub repository ↗</a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer" id="site-footer"><!-- injected --></footer>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/site.js"></script>
+</body>
+</html>

@@ -94,6 +94,8 @@ window.SITE = {
       desc: "DIC and strain-gauge characterization of composites; photoelastic full-field stress mapping; DSC thermal analysis and tensile testing of shape memory alloys; magnetomechanical experiments on FSMAs." },
     { icon: "μ", title: "Dissipative Chemo-Elasticity", href: "research-dissipative-chemo-elasticity.html",
       desc: "A thermodynamically consistent theory of swelling driven by water absorption: coupled mechanical and chemical balance laws from one energy, and second-law restrictions on the solvent flux." },
+    { icon: "♥", title: "PI-FNO: Physics-Informed Heart Sound Diagnosis", href: "research-pi-fno.html",
+      desc: "A Fourier neural operator that classifies five valvular heart conditions from raw phonocardiograms, with a learnable physiological frequency mask and physics-informed losses. 97.5% test accuracy." },
     { icon: "↺", title: "Universal Behavior in Cell Monolayers", href: "research-cell-monolayers.html",
       desc: "A mathematical proof that cell polarization stays tangential at free edges of a monolayer, independent of cell type, animal, and even for bacteria. Accepted in Proc. R. Soc. A (Rajagopal special issue)." },
   ],
@@ -278,7 +280,10 @@ window.SITE = {
         "Developed CNN + transfer learning pipeline for multi-class heart sound classification; 95% accuracy on held-out test sets",
         "Mentored undergraduate student in building a hardware digital stethoscope paired with the deployed model",
       ],
-      links: [ { text: "Related Work · PI-FNO (Tab VI)", comingSoon: true } ]
+      links: [
+        { text: "Related Work · PI-FNO (Tab VI)", comingSoon: true },
+        { text: "Related Work · Heart Disease Risk Prediction", href: "research-heart-disease-prediction.html" }
+      ]
     },
     {
       id: "t9", num: "IX", label: "Peridynamics:<br>Fracture &amp; Peeling",

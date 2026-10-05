@@ -512,3 +512,11 @@ a { color: inherit; }
 .article-wide { max-width: 1100px; }
 .article-wide > p, .article-wide > h2 { max-width: 820px; margin-left: auto; margin-right: auto; }
 .fig-note { font-family: var(--font-m); font-size: .7rem; letter-spacing: .04em; color: var(--ink-faint); }
+
+/* theory section */
+.article .eq { overflow-x: auto; margin: 1.1rem 0 1.4rem; padding: .2rem 0; text-align: center; color: var(--ink); }
+.article .cond { background: var(--bg-raised); border: 1px solid var(--line-soft); border-left: 3px solid var(--accent); border-radius: var(--r); padding: 1.2rem 1.5rem .4rem; margin: 1.6rem 0; }
+.article .cond h3 { font-size: 1.05rem; font-weight: 600; letter-spacing: -0.01em; margin-bottom: .7rem; }
+.article .plain-list { color: var(--ink-soft); font-size: .98rem; line-height: 1.8; margin: 0 0 1.4rem 1.2rem; }
+.article .plain-list li { margin-bottom: .5rem; }
+.article-wide > .eq, .article-wide > .cond, .article-wide > .plain-list, .article-wide > .tab-links { max-width: 820px; margin-left: auto; margin-right: auto; }

@@ -155,7 +155,7 @@ window.SITE = {
       ],
       links: [
         { text: "Read · Hydrogel Swelling Model", href: "research-hydrogel-swelling.html" },
-        { text: "See · Nematic Elastomers &amp; Neural Surrogates", href: "research-nematic-elastomers.html" }
+        { text: "See · Nematic Elastomers &amp; Physics-Enforced Networks", href: "research-nematic-elastomers.html" }
       ]
     },
     {

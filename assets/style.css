@@ -520,3 +520,7 @@ a { color: inherit; }
 .article .plain-list { color: var(--ink-soft); font-size: .98rem; line-height: 1.8; margin: 0 0 1.4rem 1.2rem; }
 .article .plain-list li { margin-bottom: .5rem; }
 .article-wide > .eq, .article-wide > .cond, .article-wide > .plain-list, .article-wide > .tab-links { max-width: 820px; margin-left: auto; margin-right: auto; }
+.article h3.sub { font-size: 1.15rem; font-weight: 600; letter-spacing: -0.01em; margin: 2rem 0 .7rem; }
+.article-wide > h3.sub { max-width: 820px; margin-left: auto; margin-right: auto; }
+.article .ref { font-size: .88rem; }
+.article .ref a, .article sup a { color: var(--accent); text-decoration: none; }

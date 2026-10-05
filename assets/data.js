@@ -61,7 +61,7 @@ window.SITE = {
   // `stats` numbers left as-is; publication counts on the Publications
   // page are computed automatically so they never drift.
   stats: [
-    { num: "31", label: "Journal Papers" },
+    { num: "33", label: "Journal Papers" },
     { num: "2",  label: "Co-authored Books" },
     { num: "5",  label: "Book Chapters" },
     { num: "3",  label: "Years at Yale" }
@@ -104,9 +104,12 @@ window.SITE = {
     { title: "Peridynamic Fracture &amp; Peeling", href: "research-peridynamic-fracture.html",
       cats: ["computational-mechanics"], year: "2026", featured: true,
       summary: "Meshless, differentiable simulation of fluid-induced fracture and peeling of solids, using automatic differentiation and dynamic relaxation. In collaboration with Prof. Ali Javili." },
-    { title: "Physics-Consistent Networks for Nematic Elastomers", href: "research-nematic-elastomers.html",
+    { title: "Physics-Enforced Neural Networks (PENN)", href: "research-penn.html",
       cats: ["machine-learning", "soft-matter-biomechanics"], year: "2026", featured: true,
-      summary: "Neural networks (PENN, DeepONet) for deformation and director fields of nematic liquid crystal elastomers, validated against stability conditions." },
+      summary: "Networks trained on the total potential energy, with the physics built into the architecture, for nematic liquid crystal elastomers; checked against finite elements and stability conditions." },
+    { title: "DeepONet for Nematic Elastomers", href: "research-deeponet.html",
+      cats: ["machine-learning", "soft-matter-biomechanics"], year: "2026", featured: true,
+      summary: "An operator-learning network that returns the full deformation and director fields across a load ramp from a single trained model." },
     { title: "PI-FNO: Heart Sound Diagnosis", href: "research-pi-fno.html",
       cats: ["machine-learning"], year: "2026", featured: true,
       summary: "A Fourier neural operator with a learnable physiological frequency mask and physics-informed losses. 97.5% test accuracy on five heart conditions." },
@@ -139,7 +142,7 @@ window.SITE = {
       sub: "Constitutive modeling of shape memory alloys and magnetic shape memory alloys. 8 publications, Best Thesis Award. Combined experiment, theory, and numerical validation." },
     { years: "2014 – 2016", title: "Penn State University", hidden: true,
       sub: "Experimental characterization of shape memory alloys. Transitioned to UC Berkeley to pursue research in theoretical mechanics." },
-    { years: "2014 – 2023", title: "PhD · UC Berkeley · Dept. of Mechanical Engineering",
+    { years: "2016 – 2023", title: "PhD · UC Berkeley · Dept. of Mechanical Engineering",
       sub: "Advisor: Prof. David Steigmann. Minors in Mathematics and Dynamics. Co-authored two graduate textbooks on continuum mechanics and theories of plates &amp; shells. 21 journal papers and 5 book chapters. Derived stability conditions (Legendre–Hadamard, rank-one convexity, quasiconvexity) for Cosserat media, fibrous materials, and liquid crystal elastomers." },
     { years: "2022 – 2023", title: "Co-Founder &amp; ML Engineer — Berkeley AI Startup",
       sub: "Co-founded cardiovascular AI startup accepted into UC Berkeley SkyDeck Pad-13 and CITRIS Foundry 2023. Built CNN + transfer learning models for multi-class heart sound classification achieving 95% accuracy. Mentored undergraduate hardware development." },
@@ -192,7 +195,8 @@ window.SITE = {
       ],
       links: [
         { text: "Read · Dissipative Chemo-Elasticity", href: "research-dissipative-chemo-elasticity.html" },
-        { text: "See · Nematic Elastomers &amp; Physics-Enforced Networks", href: "research-nematic-elastomers.html" }
+        { text: "See · Physics-Enforced Neural Networks (PENN)", href: "research-penn.html" },
+        { text: "See · DeepONet for Nematic Elastomers", href: "research-deeponet.html" }
       ]
     },
     {

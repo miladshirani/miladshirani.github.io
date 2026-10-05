@@ -127,8 +127,6 @@ window.SITE = {
       desc: "Fourier Neural Operators, MeshGraphNets, and transformer-based operator learning for mesh-dependent PDE surrogates. Differentiable simulation pipelines in JAX and PyTorch for Physical AI." },
     { icon: "∂", cat: "computational-mechanics", title: "Computational Mechanics", href: "projects.html#computational-mechanics", more: "See projects →",
       desc: "FEniCSx, JAX-FEM, and custom finite element codes for hyperelasticity, phase-field fracture, and swelling. End-to-end differentiable simulation targeting real-time physical AI applications." },
-    { icon: "Σ", cat: "machine-learning", title: "Agentic Scientific Computing", href: "projects.html#machine-learning", more: "See projects →",
-      desc: "Closed-loop agentic pipelines (LangGraph) for constitutive model discovery. Bridging symbolic reasoning, PDE solving, and data-driven learning in automated scientific workflows." },
     { icon: "⌬", cat: "experimental-mechanics", title: "Experimental Mechanics", href: "projects.html#experimental-mechanics", more: "See projects →",
       desc: "DIC and strain-gauge characterization of composites; photoelastic full-field stress mapping; DSC thermal analysis and tensile testing of shape memory alloys; magnetomechanical experiments on FSMAs." },
     { icon: "♡", cat: "machine-learning", title: "Cardiovascular AI Startup", href: "projects.html#machine-learning", more: "See projects →",
@@ -232,8 +230,7 @@ window.SITE = {
         "Physics-consistent neural networks for Cosserat media; LH verification in the computational graph",
         "Analytical proof of polyconvexity conditions for fibrous tissues with two fiber families",
         "Variational and data-driven DeepONets for nematic materials",
-        "Differentiable FEA in JAX: T3/Q9 elements, Neo-Hookean and SVK materials, autodiff tangent stiffness",
-        "Agentic constitutive model discovery pipelines using LangGraph with JAX and PyTorch backends"
+        "Differentiable FEA in JAX: T3/Q9 elements, Neo-Hookean and SVK materials, autodiff tangent stiffness"
       ],
       links: [
         { text: "Article · ICNN Constitutive Models — Coming Soon", comingSoon: true },

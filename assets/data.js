@@ -103,7 +103,7 @@ window.SITE = {
       summary: "A thermodynamically consistent theory of swelling driven by water absorption: coupled mechanical and chemical balance laws from one energy, and second-law restrictions on the flux." },
     { title: "Peridynamic Fracture &amp; Peeling", href: "research-peridynamic-fracture.html",
       cats: ["computational-mechanics"], year: "2026", featured: true,
-      summary: "Meshless, differentiable simulation of fluid-induced fracture and peeling of solids, using automatic differentiation and dynamic relaxation." },
+      summary: "Meshless, differentiable simulation of fluid-induced fracture and peeling of solids, using automatic differentiation and dynamic relaxation. In collaboration with Prof. Ali Javili." },
     { title: "Physics-Consistent Networks for Nematic Elastomers", href: "research-nematic-elastomers.html",
       cats: ["machine-learning", "soft-matter-biomechanics"], year: "2026", featured: true,
       summary: "Neural networks (PENN, DeepONet) for deformation and director fields of nematic liquid crystal elastomers, validated against stability conditions." },
@@ -335,7 +335,7 @@ window.SITE = {
       title: "Peridynamic Fracture &amp; Peeling of Solids",
       body: [
         "We have implemented fluid-induced fracture and the peeling test using <em>peridynamics</em>, a nonlocal, meshless continuum theory in which material points interact through bonds within a finite horizon. Cracks nucleate and propagate as bonds break, with no remeshing and no crack-tracking rules.",
-        "The framework is differentiable through automatic differentiation in JAX and PyTorch, and equilibrium is computed with a dynamic relaxation solver. The results will be published soon."
+        "The framework is differentiable through automatic differentiation in JAX and PyTorch, and equilibrium is computed with a dynamic relaxation solver. The results will be published soon. This is a collaboration with <a href=\"https://www.nahalab.com/\" target=\"_blank\" rel=\"noopener\">Prof. Ali Javili</a> (Bilkent University)."
       ],
       keyPoints: [
         "Meshless peridynamic simulation of fluid-induced fracture and of the peeling test",

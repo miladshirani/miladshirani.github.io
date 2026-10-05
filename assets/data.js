@@ -155,7 +155,7 @@ window.SITE = {
       ],
       links: [
         { text: "Read · Hydrogel Swelling Model", href: "research-hydrogel-swelling.html" },
-        { text: "Article · LCE Stability &amp; Neural Networks — Coming Soon", comingSoon: true }
+        { text: "See · Nematic Elastomers &amp; Neural Surrogates", href: "research-nematic-elastomers.html" }
       ]
     },
     {

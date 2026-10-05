@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nematic Elastomers &amp; Physics-Enforced Networks — Milad Shirani</title>
-  <meta name="description" content="Physics-Enforced Neural Networks (PENN) and DeepONets for nematic liquid crystal elastomers, compared against finite-element reference solutions." />
+  <title>Physics-Enforced Neural Networks — Milad Shirani</title>
+  <meta name="description" content="Physics-Enforced Neural Networks (PENN) for nematic liquid crystal elastomers, trained on the total potential energy and compared against finite-element reference solutions." />
   <meta name="author" content="Milad Shirani" />
-  <link rel="canonical" href="https://miladshirani.github.io/research-nematic-elastomers.html" />
+  <link rel="canonical" href="https://miladshirani.github.io/research-penn.html" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232b3cf0'/%3E%3Ctext x='32' y='42' font-family='Menlo,monospace' font-size='26' font-weight='700' text-anchor='middle' fill='%23ffffff'%3EMS%3C/text%3E%3C/svg%3E" type="image/svg+xml" />
   <meta name="theme-color" content="#f2f2ed" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#0d0e12" media="(prefers-color-scheme: dark)" />
 
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Nematic Elastomers &amp; Physics-Enforced Networks — Milad Shirani" />
+  <meta property="og:title" content="Physics-Enforced Neural Networks — Milad Shirani" />
   <meta property="og:description" content="Physics-enforced neural networks for nematic liquid crystal elastomers, visualized against finite-element references." />
-  <meta property="og:url" content="https://miladshirani.github.io/research-nematic-elastomers.html" />
+  <meta property="og:url" content="https://miladshirani.github.io/research-penn.html" />
   <meta property="og:image" content="https://github.com/miladshirani.png" />
   <meta name="twitter:card" content="summary" />
 
@@ -51,8 +51,8 @@
     <header class="page-head wrap">
       <a class="back-link" href="projects.html" data-reveal>← All projects</a>
       <p class="kicker" data-reveal>Soft Matter · Physical AI</p>
-      <h1 class="page-title" data-reveal style="--d:.08s">Nematic<br /><em>elastomers</em>.</h1>
-      <p class="page-intro" data-reveal style="--d:.16s">Physics-enforced neural networks for liquid crystal elastomers, whose deformation is coupled to an orientation (director) field, checked against finite-element reference solutions.</p>
+      <h1 class="page-title" data-reveal style="--d:.08s">Physics-enforced<br /><em>neural networks</em>.</h1>
+      <p class="page-intro" data-reveal style="--d:.16s">Networks trained on the total potential energy, with the physics built into the architecture, for liquid crystal elastomers whose deformation is coupled to an orientation (director) field, checked against finite-element reference solutions.</p>
     </header>
 
     <section class="section">
@@ -77,7 +77,7 @@
 
 
         <h2 data-reveal>Simulations</h2>
-        <p data-reveal>The problem is solved on a thin strip with four loading cases: shear and uniaxial stretch, each with and without a circular hole. Two neural methods are compared with a finite-element (FEA) reference.</p>
+        <p data-reveal>The problem is solved on a thin strip with four loading cases: shear and uniaxial stretch, each with and without a circular hole. The Physics-Enforced Neural Network (PENN) is compared with a finite-element (FEA) reference. The operator-learning counterpart is on the <a href="research-deeponet.html">DeepONet page</a>.</p>
         <h3 class="sub" data-reveal>Physics-Enforced Neural Network (PENN)</h3>
         <p data-reveal>A <em>Physics-Enforced Neural Network</em> represents the deformation and the director field with separate networks, builds the unit-length constraint on the director into the architecture, and is trained by minimizing the total potential energy of the system, with no solution data. Each animation shows the load ramp, with the network prediction, the finite-element reference and the pointwise error side by side: displacement magnitude on top, director angle below.</p>
         <div class="fig-grid fig-grid-2" data-reveal>
@@ -85,15 +85,6 @@
           <figure class="fig-card"><img src="Figures/Nematic-Elastomers/PENN/penn_uniaxial.gif" alt="Uniaxial stretch: neural network, FEA reference and error fields" loading="lazy" /><figcaption>Uniaxial stretch</figcaption></figure>
           <figure class="fig-card"><img src="Figures/Nematic-Elastomers/PENN/penn_shear-hole.gif" alt="Shear · with hole: neural network, FEA reference and error fields" loading="lazy" /><figcaption>Shear · with hole</figcaption></figure>
           <figure class="fig-card"><img src="Figures/Nematic-Elastomers/PENN/penn_uniaxial-hole.gif" alt="Uniaxial · with hole: neural network, FEA reference and error fields" loading="lazy" /><figcaption>Uniaxial · with hole</figcaption></figure>
-        </div>
-
-        <h3 class="sub" data-reveal>DeepONet</h3>
-        <p data-reveal>A DeepONet is an operator-learning network: it takes the load level as an input and returns the full deformation and director fields, so one trained model covers the whole load ramp. The same four problems are shown.</p>
-        <div class="fig-grid fig-grid-2" data-reveal>
-          <figure class="fig-card"><img src="Figures/Nematic-Elastomers/DeepONet/deeponet_shear.gif" alt="Shear: neural network, FEA reference and error fields" loading="lazy" /><figcaption>Shear</figcaption></figure>
-          <figure class="fig-card"><img src="Figures/Nematic-Elastomers/DeepONet/deeponet_uniaxial.gif" alt="Uniaxial stretch: neural network, FEA reference and error fields" loading="lazy" /><figcaption>Uniaxial stretch</figcaption></figure>
-          <figure class="fig-card"><img src="Figures/Nematic-Elastomers/DeepONet/deeponet_shear-hole.gif" alt="Shear · with hole: neural network, FEA reference and error fields" loading="lazy" /><figcaption>Shear · with hole</figcaption></figure>
-          <figure class="fig-card"><img src="Figures/Nematic-Elastomers/DeepONet/deeponet_uniaxial-hole.gif" alt="Uniaxial · with hole: neural network, FEA reference and error fields" loading="lazy" /><figcaption>Uniaxial · with hole</figcaption></figure>
         </div>
 
         <p class="fig-note" data-reveal>Animations are interpolated between the stored load steps for smooth playback. The reference in every panel is a finite-element solution of the same discretized problem. Work in progress.</p>
@@ -143,7 +134,7 @@
         </ul>
 
         <h2 data-reveal>What is checked on the computed solutions</h2>
-        <p data-reveal>For every stored trajectory (finite element, PENN and DeepONet), two computational checks are applied to the nodal solutions:</p>
+        <p data-reveal>For every stored trajectory (finite element and PENN), two computational checks are applied to the nodal solutions:</p>
         <ul class="plain-list" data-reveal>
           <li><strong>Strong ellipticity at every Gauss point</strong>: the smallest eigenvalue of the acoustic tensor built from the deformation modulus \( \mathscr{M} \), scanned over all in-plane directions \( \boldsymbol{T} \), with the director held at its local value.</li>
           <li><strong>Second variation at every load step</strong>: the smallest eigenvalue of the reduced Hessian of the discretized total energy with respect to the free displacement and director degrees of freedom. A positive value means a strict local minimizer of the discrete problem rather than a saddle.</li>
@@ -155,7 +146,7 @@
 
         <div class="tab-links" data-reveal>
           <a href="projects.html">← All projects</a>
-          <a href="publications.html">Publications ↗</a>
+          <a href="research-deeponet.html">DeepONet for nematic elastomers →</a>
         </div>
 
       </div>

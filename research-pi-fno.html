@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PI-FNO: Cardiac Disease Detection — Milad Shirani</title>
+  <meta name="description" content="A physics-informed Fourier neural operator that classifies five valvular heart conditions from raw phonocardiogram recordings, with a learnable physiological frequency mask." />
+  <meta name="author" content="Milad Shirani" />
+  <link rel="canonical" href="https://miladshirani.github.io/research-pi-fno.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232b3cf0'/%3E%3Ctext x='32' y='42' font-family='Menlo,monospace' font-size='26' font-weight='700' text-anchor='middle' fill='%23ffffff'%3EMS%3C/text%3E%3C/svg%3E" type="image/svg+xml" />
+  <meta name="theme-color" content="#f2f2ed" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0d0e12" media="(prefers-color-scheme: dark)" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="PI-FNO: Cardiac Disease Detection — Milad Shirani" />
+  <meta property="og:description" content="A physics-informed Fourier neural operator for cardiac disease detection from heart sounds." />
+  <meta property="og:url" content="https://miladshirani.github.io/research-pi-fno.html" />
+  <meta property="og:image" content="https://github.com/miladshirani.png" />
+  <meta name="twitter:card" content="summary" />
+
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("theme") ||
+          (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    })();
+  </script>
+
+  <script>
+    MathJax = {
+      tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'] }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400;1,8..60,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body data-page="research">
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <nav class="site-nav" id="site-nav" aria-label="Site"><!-- injected --></nav>
+
+  <main id="main">
+
+    <header class="page-head wrap">
+      <a class="back-link" href="research.html" data-reveal>← Back to research</a>
+      <p class="kicker" data-reveal>Physical AI · Biomedical Signals</p>
+      <h1 class="page-title" data-reveal style="--d:.08s">PI-FNO: <em>physics-informed</em><br />heart sound diagnosis.</h1>
+      <p class="page-intro" data-reveal style="--d:.16s">A Fourier neural operator that reads raw phonocardiograms and classifies five heart conditions, with the known physiology of heart sounds built into the architecture, the initialization and the loss.</p>
+    </header>
+
+    <section class="section">
+      <div class="wrap article">
+
+        <p data-reveal>Valvular heart disease affects millions of people, and diagnosing it by auscultation takes long training and has low agreement between examiners. PI-FNO classifies <strong>Aortic Stenosis (AS)</strong>, <strong>Mitral Regurgitation (MR)</strong>, <strong>Mitral Stenosis (MS)</strong>, <strong>Mitral Valve Prolapse (MVP)</strong> and <strong>Normal</strong> from a raw phonocardiogram (PCG). Instead of treating heart-sound classification as pure pattern recognition, the model encodes what is known about cardiac acoustics. The same design philosophy I use for constitutive modeling in mechanics applies here: put known structure into the architecture, and enforce inequalities as constraints.</p>
+        <h2 data-reveal>Architecture</h2>
+        <p data-reveal>The input is a 3 s recording at 22,050 Hz (66,150 samples). It passes through a learnable frequency mask, a lifting layer to 64 channels, four Fourier blocks, global pooling, and a small head that produces five class scores. In each block, a spectral convolution acts on the retained Fourier modes and is added to a pointwise bypass:</p>
+        <div class="eq" data-reveal>\[ v_{l+1}=\sigma\Big(W v_l+\mathcal{F}^{-1}\big(R\cdot\mathcal{F}v_l\big)\Big), \]</div>
+        <p data-reveal>where \( \mathcal{F} \) is the Fourier transform, \( R \) a learned complex weight acting on the lowest \( M=150 \) modes, which cover the diagnostically relevant band up to about 1 kHz, \( W \) a pointwise linear map, and \( \sigma \) the GELU activation. Each block also includes instance normalization.</p>
+        <h2 data-reveal>Physiology built in</h2>
+        <p data-reveal><strong>Frequency mask.</strong> A learnable soft band-pass filter acts on the input spectrum. Its weights \( m(f)=\mathrm{sigmoid}(\theta_f) \) stay in \( (0,1) \) by construction. They are initialized from the known first and second heart sounds, with weight 1.0 in the S1 band (25–45 Hz) and S2 band (50–70 Hz) and 0.1 elsewhere, and then trained freely.</p>
+        <p data-reveal><strong>Physics-informed loss.</strong> Training combines cross-entropy with two physiological terms,</p>
+        <div class="eq" data-reveal>\[ \mathcal{L}=\mathcal{L}_{\mathrm{CE}}+\lambda_1\,\mathcal{L}_{\mathrm{periodicity}}+\lambda_2\,\mathcal{L}_{\mathrm{hierarchy}},\qquad \lambda_1=\lambda_2=0.1 . \]</div>
+        <p data-reveal>The periodicity loss encourages energy at the heart-rate fundamental (1–5.3 Hz) and its harmonics. The hierarchy loss enforces the universal fact that S1 carries at least as much energy as S2, as a hinge penalty:</p>
+        <div class="eq" data-reveal>\[ \mathcal{L}_{\mathrm{hierarchy}}=\max\big(0,\;E_{S2}-E_{S1}\big). \]</div>
+        <p data-reveal>It has zero gradient whenever the constraint is satisfied, like an inequality constraint in mechanics.</p>
+        <h2 data-reveal>Data</h2>
+        <p data-reveal>1,000 recordings, 200 per class, split 60/20/20 into training, validation and test sets with a fixed seed (600/200/200). Recordings are zero-padded or trimmed to 3 s and scaled to \( [-1,1] \). The PCG data come from the repository of Yaseen Khan et al., associated with S. Kwon, <em>Classification of Heart Sound Signal Using Multiple Features</em>, Applied Sciences 8(12), 2344 (2018).</p>
+        <h2 data-reveal>Results</h2>
+        <p data-reveal>On the held-out test set the FNO reaches <strong>97.5% accuracy</strong>, against 96.0% for a conventional CNN baseline on log-Mel spectrograms. The CNN fits the validation set slightly better (99.5% vs 98.5%) but generalizes less well.</p>
+
+        <div class="tab-table" data-reveal><table><caption>Test-set performance</caption>
+          <thead><tr><th>Model</th><th>Val acc</th><th>Test acc</th></tr></thead>
+          <tbody>
+            <tr><td>FNO (physiology-constrained)</td><td>98.5%</td><td><strong>97.5%</strong></td></tr>
+            <tr><td>CNN baseline (log-Mel)</td><td>99.5%</td><td>96.0%</td></tr>
+          </tbody>
+        </table></div>
+        <figure class="fig-card" data-reveal><div style="padding:1rem;background:#fff"><img src="Figures/PI-FNO/confusion_matrices.png" alt="Normalized confusion matrices of the FNO and the CNN baseline on the test set" loading="lazy" style="width:100%" /></div><figcaption>Normalized confusion matrices on the test set · FNO (left, 97.5%) and CNN baseline (right, 96.0%)</figcaption></figure>
+        <p data-reveal>Per class, the FNO classifies Aortic Stenosis perfectly (F1 = 1.00, against 0.90 for the CNN), which matters for early detection. Mitral Regurgitation is the hardest class (F1 = 0.92), because its spectrum overlaps with other murmurs.</p>
+        <figure class="fig-card" data-reveal><div style="padding:1rem;background:#fff"><img src="Figures/PI-FNO/training_curves.png" alt="Training curves: accuracy, total loss, and the loss components" loading="lazy" style="width:100%" /></div><figcaption>Training curves · accuracy, total loss and the loss components</figcaption></figure>
+        <h2 data-reveal>Interpretability</h2>
+        <p data-reveal>Because the mask acts on the spectrum with physical units (Hz), it can be read directly. After training it keeps the S1 band at full weight and leaves the other low-frequency modes near their initial value of 0.1. No post-hoc attribution method is needed.</p>
+        <figure class="fig-card" data-reveal><div style="padding:1rem;background:#fff"><img src="Figures/PI-FNO/learned_freq_mask.png" alt="Learned physiological frequency mask over frequency" loading="lazy" style="width:100%" /></div><figcaption>Learned frequency mask after training · S1 band shaded blue, S2 band shaded red</figcaption></figure>
+        <p data-reveal>A t-SNE projection of the 64-dimensional embeddings shows well-separated clusters. Normal recordings are clearly isolated from the pathologies, which is what a screening tool needs. Partial overlap of MR with neighboring clusters matches its lower precision.</p>
+        <figure class="fig-card" data-reveal><div style="padding:1rem;background:#fff"><img src="Figures/PI-FNO/tsne_embeddings.png" alt="t-SNE projection of FNO embeddings for the five classes" loading="lazy" style="width:100%" /></div><figcaption>t-SNE of the FNO embeddings · five classes</figcaption></figure>
+        <h2 data-reveal>Code</h2>
+        <p data-reveal>The code, trained notebook, results and lecture notes are open source (MIT license) at <a href="https://github.com/miladshirani/PI-FNO" target="_blank" rel="noopener">github.com/miladshirani/PI-FNO ↗</a>. The notebook runs on a free Colab GPU.</p>
+
+        <div class="tab-links" data-reveal>
+          <a href="research.html">← All research themes</a>
+          <a href="https://github.com/miladshirani/PI-FNO" target="_blank" rel="noopener">GitHub repository ↗</a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer" id="site-footer"><!-- injected --></footer>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/site.js"></script>
+</body>
+</html>

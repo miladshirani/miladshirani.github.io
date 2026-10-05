@@ -5,7 +5,7 @@
    Modules:
      1. Theme (light/dark, persisted)
      2. Nav + footer injection
-     3. Page renderers (home / research / publications / honors)
+     3. Page renderers (home / projects / research / publications / honors)
      4. Hero physics — interactive Verlet mass–spring lattice
      5. Scroll reveal + count-up stats
    ===================================================================== */
@@ -80,7 +80,7 @@
       '<a class="btn btn-primary" href="mailto:' + S.profile.email + '">Get in touch <span class="arr">→</span></a>' +
     "</div>" +
     '<div class="wrap foot-grid"><div class="foot-links">' + footLinks + "</div>" +
-      '<div class="foot-links"><a href="research.html">Research</a><a href="publications.html">Publications</a><a href="honors.html">Honors</a></div>' +
+      '<div class="foot-links"><a href="research.html">Research</a><a href="projects.html">Projects</a><a href="publications.html">Publications</a><a href="honors.html">Honors</a></div>' +
     "</div>" +
     '<div class="wrap foot-base"><span>© ' + new Date().getFullYear() + " " + S.profile.name + "</span>" +
       "<span>Continuum Mechanics × Physical AI · New Haven, CT</span></div>");
@@ -90,6 +90,35 @@
     return stats.map(function (s, i) {
       return '<div class="stat" data-reveal style="--d:' + (i * 0.07) + 's"><b data-count="' + s.num + '">' + s.num + "</b><span>" + s.label + "</span></div>";
     }).join("");
+  }
+
+  function romanize(n) {
+    var map = [[10, "X"], [9, "IX"], [5, "V"], [4, "IV"], [1, "I"]], out = "";
+    map.forEach(function (m) { while (n >= m[0]) { out += m[1]; n -= m[0]; } });
+    return out;
+  }
+  // Items sorted by the order of SITE.categories (stable within a category).
+  function byCategory(items) {
+    var order = (S.categories || []).map(function (c) { return c.id; });
+    return items.map(function (x, i) { return { x: x, i: i }; }).sort(function (a, b) {
+      var d = order.indexOf(a.x.cat) - order.indexOf(b.x.cat);
+      return d || a.i - b.i;
+    }).map(function (o) { return o.x; });
+  }
+
+  /* ---------- PROJECTS (shared by home + projects page) ---------- */
+  function catLabel(id) {
+    var c = (S.categories || []).filter(function (x) { return x.id === id; })[0];
+    return c ? c.label : id;
+  }
+  function projectCard(p, i) {
+    var tags = (p.cats || []).map(function (c, k) {
+      return '<span class="p-tag' + (k === 0 ? " main" : "") + '">' + catLabel(c) + "</span>";
+    }).join("");
+    return '<a class="theme-card theme-link proj-card" href="' + p.href + '" data-cats="' + (p.cats || []).join(" ") +
+      '" data-reveal style="--d:' + ((i % 3) * 0.07) + 's">' +
+      '<div class="p-tags">' + tags + "</div><h3>" + p.title + "</h3><p>" + p.summary + "</p>" +
+      '<span class="t-more">' + (p.year ? p.year + " · " : "") + "Read →</span></a>";
   }
 
   /* ---------- HOME ---------- */
@@ -133,15 +162,24 @@
         '<div class="stat-grid">' + statCells(S.stats) + "</div></div>" +
       "</div>");
 
+    var themeN = 0;
     mount("home-themes",
-      S.researchThemes.map(function (t, i) {
-        var num = (i + 1 < 10 ? "0" : "") + (i + 1);
-        var tag = t.href ? "a" : "article";
-        return "<" + tag + ' class="theme-card' + (t.href ? " theme-link" : "") + '"' + (t.href ? ' href="' + t.href + '"' : "") +
-          ' data-reveal style="--d:' + ((i % 4) * 0.07) + 's">' +
-          '<span class="t-num">' + num + '</span><span class="t-icon">' + t.icon + "</span>" +
-          "<h3>" + t.title + "</h3><p>" + t.desc + "</p>" + (t.href ? '<span class="t-more">Read →</span>' : "") + "</" + tag + ">";
+      (S.categories || []).map(function (c) {
+        var items = S.researchThemes.filter(function (t) { return t.cat === c.id; });
+        if (!items.length) return "";
+        return '<div class="theme-group" data-reveal>' +
+          '<div class="group-head"><h3 class="group-title">' + c.label + '</h3><span class="group-count">' + items.length + "</span>" +
+          '<a class="group-link" href="projects.html#' + c.id + '">Projects →</a></div>' +
+          '<div class="themes-grid">' + items.map(function (t, i) {
+            themeN += 1;
+            var num = (themeN < 10 ? "0" : "") + themeN;
+            return '<article class="theme-card"><span class="t-num">' + num + '</span><span class="t-icon">' + t.icon + "</span>" +
+              "<h3>" + t.title + "</h3><p>" + t.desc + "</p></article>";
+          }).join("") + "</div></div>";
       }).join(""));
+
+    mount("home-projects",
+      (S.projects || []).filter(function (p) { return p.featured; }).map(projectCard).join(""));
 
     mount("home-timeline",
       S.journey.filter(function (j) { return !j.hidden; }).map(function (j, i) {
@@ -150,21 +188,63 @@
       }).join(""));
   }
 
+  /* ---------- PROJECTS PAGE ---------- */
+  if (page === "projects") {
+    var projs = S.projects || [];
+    var used = (S.categories || []).filter(function (c) {
+      return projs.some(function (p) { return (p.cats || []).indexOf(c.id) > -1; });
+    });
+    mount("projects-filter",
+      '<button type="button" class="chip active" data-cat="all">All <b>' + projs.length + "</b></button>" +
+      used.map(function (c) {
+        var n = projs.filter(function (p) { return (p.cats || []).indexOf(c.id) > -1; }).length;
+        return '<button type="button" class="chip" data-cat="' + c.id + '">' + c.label + " <b>" + n + "</b></button>";
+      }).join(""));
+    mount("projects-grid", projs.map(projectCard).join(""));
+
+    var chips = document.querySelectorAll("#projects-filter .chip");
+    function applyFilter(cat) {
+      var known = cat === "all" || used.some(function (c) { return c.id === cat; });
+      if (!known) cat = "all";
+      chips.forEach(function (c) { c.classList.toggle("active", c.getAttribute("data-cat") === cat); });
+      document.querySelectorAll("#projects-grid .proj-card").forEach(function (card) {
+        var cats = (card.getAttribute("data-cats") || "").split(" ");
+        card.hidden = !(cat === "all" || cats.indexOf(cat) > -1);
+      });
+    }
+    chips.forEach(function (c) {
+      c.addEventListener("click", function () {
+        var cat = c.getAttribute("data-cat");
+        applyFilter(cat);
+        try { history.replaceState(null, "", cat === "all" ? "projects.html" : "#" + cat); } catch (e) {}
+      });
+    });
+    applyFilter((location.hash || "").replace("#", "") || "all");
+    window.addEventListener("hashchange", function () { applyFilter((location.hash || "").replace("#", "") || "all"); });
+  }
+
   /* ---------- RESEARCH ---------- */
   if (page === "research") {
     mount("research-intro", S.researchIntro);
     mount("philosophy-quote", S.philosophy.quote);
     mount("philosophy-attr", S.philosophy.attr);
 
+    var tabs = byCategory(S.researchTabs);
+    var lastCat = null;
     mount("research-tabnav",
-      S.researchTabs.map(function (t, i) {
-        return '<button class="tab-btn' + (i === 0 ? " active" : "") + '" role="tab" id="btn-' + t.id +
+      tabs.map(function (t, i) {
+        var head = "";
+        if (t.cat !== lastCat) {
+          lastCat = t.cat;
+          head = '<p class="tab-group">' + catLabel(t.cat) + "</p>";
+        }
+        return head + '<button class="tab-btn' + (i === 0 ? " active" : "") + '" role="tab" id="btn-' + t.id +
           '" aria-controls="panel-' + t.id + '" aria-selected="' + (i === 0) + '">' +
-          '<span class="roman">' + t.num + "</span><span>" + t.label + "</span></button>";
+          '<span class="roman">' + romanize(i + 1) + "</span><span>" + t.label + "</span></button>";
       }).join(""));
 
     mount("research-panels",
-      S.researchTabs.map(function (t, i) {
+      tabs.map(function (t, i) {
         var body = t.body.map(function (p) { return "<p>" + p + "</p>"; }).join("");
         var kp = t.keyPoints && t.keyPoints.length
           ? '<div class="kp-block"><p class="kp-label">' + (t.keyLabel || "Key Contributions") + '</p><ul class="kp-list">' +

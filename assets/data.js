@@ -3,6 +3,7 @@
    Nothing here touches design or layout; it is pure content.
 
    Quick guide:
+     • Add a project page → add one entry to SITE.projects (see below)
      • Add a publication  → add one entry to SITE.publications.*
      • Add a research tab → add one object to SITE.researchTabs
      • Add an award       → add one object to SITE.honors
@@ -41,6 +42,7 @@ window.SITE = {
   nav: [
     { label: "About",        href: "index.html#home-hero", key: "home" },
     { label: "Research",     href: "research.html",        key: "research" },
+    { label: "Projects",     href: "projects.html",        key: "projects" },
     { label: "Publications", href: "publications.html",    key: "publications" },
     { label: "Honors",       href: "honors.html",          key: "honors" },
     { label: "Contact",      href: "mailto:milad.shirani@yale.edu", key: "contact" }
@@ -76,29 +78,60 @@ window.SITE = {
       sub: "Best Thesis Award · Constitutive Modeling of Shape Memory Alloys" }
   ],
 
+  /* ---- PROJECTS: categories + project list -------------------
+     To add a project page:
+       1. create research-<name>.html (copy an existing project page)
+       2. add one object to SITE.projects below
+     It then appears on the Projects page (filterable by category)
+     and, if featured:true, in "Selected projects" on the home page.
+     `cats` can hold several category ids; the first is the main one.
+     A category with no projects is hidden automatically.            */
+  categories: [
+    { id: "theoretical-mechanics",    label: "Theoretical Mechanics" },
+    { id: "computational-mechanics",  label: "Computational Mechanics" },
+    { id: "machine-learning",         label: "Machine Learning" },
+    { id: "soft-matter-biomechanics", label: "Soft Matter &amp; Biomechanics" },
+    { id: "experimental-mechanics",   label: "Experimental Mechanics" }
+  ],
+
+  projects: [
+    { title: "Universal Behavior in Cell Monolayers", href: "research-cell-monolayers.html",
+      cats: ["theoretical-mechanics", "soft-matter-biomechanics"], year: "2026", featured: true,
+      summary: "A mathematical proof that cell polarization stays tangential at free edges of a monolayer, independent of cell type, animal, and even for bacteria. Accepted in Proc. R. Soc. A." },
+    { title: "Dissipative Chemo-Elasticity", href: "research-dissipative-chemo-elasticity.html",
+      cats: ["theoretical-mechanics", "soft-matter-biomechanics"], year: "2026", featured: true,
+      summary: "A thermodynamically consistent theory of swelling driven by water absorption: coupled mechanical and chemical balance laws from one energy, and second-law restrictions on the flux." },
+    { title: "Peridynamic Fracture &amp; Peeling", href: "research-peridynamic-fracture.html",
+      cats: ["computational-mechanics"], year: "2026", featured: true,
+      summary: "Meshless, differentiable simulation of fluid-induced fracture and peeling of solids, using automatic differentiation and dynamic relaxation." },
+    { title: "Physics-Consistent Networks for Nematic Elastomers", href: "research-nematic-elastomers.html",
+      cats: ["machine-learning", "soft-matter-biomechanics"], year: "2026", featured: true,
+      summary: "Neural networks (PENN, DeepONet) for deformation and director fields of nematic liquid crystal elastomers, validated against stability conditions." },
+    { title: "PI-FNO: Heart Sound Diagnosis", href: "research-pi-fno.html",
+      cats: ["machine-learning"], year: "2026", featured: true,
+      summary: "A Fourier neural operator with a learnable physiological frequency mask and physics-informed losses. 97.5% test accuracy on five heart conditions." },
+    { title: "Heart Disease Risk Prediction", href: "research-heart-disease-prediction.html",
+      cats: ["machine-learning"], year: "2026",
+      summary: "A leakage-safe machine learning pipeline that flags coronary heart disease risk from self-reported survey data, with an honest look at its limits." }
+  ],
+
   /* ---- HOME: research theme cards ---------------------------- */
   researchThemes: [
-    { icon: "∇", title: "Nonlinear Continuum Mechanics",
+    { icon: "∇", cat: "theoretical-mechanics", title: "Nonlinear Continuum Mechanics", href: "projects.html#theoretical-mechanics", more: "See projects →",
       desc: "Cosserat, micropolar, and higher-gradient theories; Legendre–Hadamard and polyconvexity conditions for soft matter; variational methods for elastic rods, shells, and fibrous composites." },
-    { icon: "ψ", title: "Soft Matter &amp; Biomechanics",
+    { icon: "ψ", cat: "soft-matter-biomechanics", title: "Soft Matter &amp; Biomechanics", href: "projects.html#soft-matter-biomechanics", more: "See projects →",
       desc: "Nematic liquid crystal elastomers, hydrogels, lipid bilayers, biological tissues. Thermodynamically consistent modeling of chemotaxis, durotaxis, and cell migration in fibrous substrates." },
-    { icon: "∫", title: "Physics-Informed Machine Learning",
+    { icon: "∫", cat: "machine-learning", title: "Physics-Informed Machine Learning", href: "projects.html#machine-learning", more: "See projects →",
       desc: "PINNs, Deep Energy Methods, DeepONets, and ICNNs for constitutive modeling. Enforcing frame indifference, polyconvexity, and Legendre–Hadamard stability as hard constraints in neural architectures." },
-    { icon: "𝒢", title: "Neural Operators &amp; GNNs",
+    { icon: "𝒢", cat: "machine-learning", title: "Neural Operators &amp; GNNs", href: "projects.html#machine-learning", more: "See projects →",
       desc: "Fourier Neural Operators, MeshGraphNets, and transformer-based operator learning for mesh-dependent PDE surrogates. Differentiable simulation pipelines in JAX and PyTorch for Physical AI." },
-    { icon: "∂", title: "Computational Mechanics",
+    { icon: "∂", cat: "computational-mechanics", title: "Computational Mechanics", href: "projects.html#computational-mechanics", more: "See projects →",
       desc: "FEniCSx, JAX-FEM, and custom finite element codes for hyperelasticity, phase-field fracture, and swelling. End-to-end differentiable simulation targeting real-time physical AI applications." },
-    { icon: "Σ", title: "Agentic Scientific Computing",
+    { icon: "Σ", cat: "machine-learning", title: "Agentic Scientific Computing", href: "projects.html#machine-learning", more: "See projects →",
       desc: "Closed-loop agentic pipelines (LangGraph) for constitutive model discovery. Bridging symbolic reasoning, PDE solving, and data-driven learning in automated scientific workflows." },
-    { icon: "⌬", title: "Experimental Mechanics",
+    { icon: "⌬", cat: "experimental-mechanics", title: "Experimental Mechanics", href: "projects.html#experimental-mechanics", more: "See projects →",
       desc: "DIC and strain-gauge characterization of composites; photoelastic full-field stress mapping; DSC thermal analysis and tensile testing of shape memory alloys; magnetomechanical experiments on FSMAs." },
-    { icon: "μ", title: "Dissipative Chemo-Elasticity", href: "research-dissipative-chemo-elasticity.html",
-      desc: "A thermodynamically consistent theory of swelling driven by water absorption: coupled mechanical and chemical balance laws from one energy, and second-law restrictions on the solvent flux." },
-    { icon: "♥", title: "PI-FNO: Physics-Informed Heart Sound Diagnosis", href: "research-pi-fno.html",
-      desc: "A Fourier neural operator that classifies five valvular heart conditions from raw phonocardiograms, with a learnable physiological frequency mask and physics-informed losses. 97.5% test accuracy." },
-    { icon: "↺", title: "Universal Behavior in Cell Monolayers", href: "research-cell-monolayers.html",
-      desc: "A mathematical proof that cell polarization stays tangential at free edges of a monolayer, independent of cell type, animal, and even for bacteria. Accepted in Proc. R. Soc. A (Rajagopal special issue)." },
-    { icon: "♡", title: "Cardiovascular AI Startup",
+    { icon: "♡", cat: "machine-learning", title: "Cardiovascular AI Startup", href: "projects.html#machine-learning", more: "See projects →",
       desc: "Co-founded AI venture (UC Berkeley SkyDeck Pad-13, CITRIS Foundry 2023) for automated heart disease detection from phonocardiograms. CNN + transfer learning achieving 95% test accuracy." }
   ],
 
@@ -128,7 +161,7 @@ window.SITE = {
   // Tab button + panel are generated together — no need to edit two places.
   researchTabs: [
     {
-      id: "t1", num: "I", label: "Continuum Mechanics<br>&amp; Stability",
+      id: "t1", cat: "theoretical-mechanics", num: "I", label: "Continuum Mechanics<br>&amp; Stability",
       title: "Nonlinear Continuum Mechanics &amp; Stability Theory",
       body: [
         "My doctoral work, carried out under Prof. David Steigmann at UC Berkeley, established a systematic framework for stability analysis in generalized continua. The central objects of study were the Legendre-Hadamard condition, rank-one convexity, and quasiconvexity — necessary conditions for energy minimizers that govern whether a body can sustain localized failure modes such as shear bands or surface instabilities.",
@@ -145,7 +178,7 @@ window.SITE = {
       links: [ { text: "Article · Coming Soon", comingSoon: true } ]
     },
     {
-      id: "t2", num: "II", label: "Soft Matter:<br>Hydrogels &amp; LCEs",
+      id: "t2", cat: "soft-matter-biomechanics", num: "II", label: "Soft Matter:<br>Hydrogels &amp; LCEs",
       title: "Soft Matter: Hydrogels, Polymers &amp; Liquid Crystal Elastomers",
       body: [
         "Soft materials present a distinct class of challenges: they undergo large, geometrically nonlinear deformations; they often couple mechanical response to chemical, thermal, or electromagnetic fields; and their constitutive behavior is governed by entropy as much as by internal energy. My work in this area addresses both the mathematical structure of such coupled theories and their computational implementation.",
@@ -165,7 +198,7 @@ window.SITE = {
       ]
     },
     {
-      id: "t3", num: "III", label: "Biomechanics:<br>Cells &amp; Tissues",
+      id: "t3", cat: "soft-matter-biomechanics", num: "III", label: "Biomechanics:<br>Cells &amp; Tissues",
       title: "Biomechanics: Cell Migration, Tissues &amp; Membranes",
       body: [
         "At Yale, working with Prof. Jay D. Humphrey, my research has focused on the mechanics of living soft matter — fibrous biological tissues, cell monolayers, lipid bilayers, and hydrogel scaffolds. These systems are distinguished by their capacity for active response, growth, remodeling, and self-organization, phenomena that classical passive elasticity cannot capture.",
@@ -186,7 +219,7 @@ window.SITE = {
       ]
     },
     {
-      id: "t4", num: "IV", label: "Physics-Informed<br>Machine Learning",
+      id: "t4", cat: "machine-learning", num: "IV", label: "Physics-Informed<br>Machine Learning",
       title: "Physics-Informed Machine Learning &amp; Neural Constitutive Models",
       body: [
         "The convergence of mechanics and machine learning opens a genuinely new frontier — not merely fitting data faster, but building computational models that are constrained by physical law from the ground up. My work in this area is grounded in the conviction that the laws of mechanics are not soft regularizers to be traded against data fit; they are hard constraints that any admissible model must satisfy exactly.",
@@ -208,7 +241,7 @@ window.SITE = {
       ]
     },
     {
-      id: "t5", num: "V", label: "Shape Memory<br>Alloys &amp; FSMAs",
+      id: "t5", cat: "theoretical-mechanics", num: "V", label: "Shape Memory<br>Alloys &amp; FSMAs",
       title: "Shape Memory Alloys &amp; Ferromagnetic Smart Materials",
       body: [
         "My earliest research, carried out during my MSc at Isfahan University of Technology, focused on the constitutive modeling of shape memory alloys (SMAs) and ferromagnetic shape memory alloys (FSMAs), also referred to as magnetic shape memory alloys (MSMAs). SMAs such as NiTi memorize a reference shape and recover it upon heating through a reversible martensitic phase transition between austenite and martensite. Their applications range from medical devices and aerospace actuators to shock absorbers. FSMAs extend this behavior: in the martensitic phase, an applied magnetic field drives <em>martensite variant reorientation</em>, producing large inelastic strains without thermal cycling.",
@@ -229,7 +262,7 @@ window.SITE = {
       links: [ { text: "Articles · SMA &amp; FSMA Constitutive Modeling — See Publications", comingSoon: true } ]
     },
     {
-      id: "t6", num: "VI", label: "PI-FNO: Cardiac<br>Acoustics",
+      id: "t6", cat: "machine-learning", num: "VI", label: "PI-FNO: Cardiac<br>Acoustics",
       title: "PI-FNO: Physics-Informed Neural Operators for Cardiac Acoustics",
       body: [
         "The same design principles that govern physics-consistent constitutive modeling in continuum mechanics — encoding known structure as inductive biases, enforcing inequalities as hard or hinge constraints, and using interpretable learned parameters — transfer naturally to biomedical signal classification. This project applies that philosophy to the automated diagnosis of valvular heart disease from raw phonocardiogram (PCG) recordings.",
@@ -259,7 +292,7 @@ window.SITE = {
       ]
     },
     {
-      id: "t7", num: "VII", label: "Experimental<br>Mechanics",
+      id: "t7", cat: "experimental-mechanics", num: "VII", label: "Experimental<br>Mechanics",
       title: "Experimental Mechanics",
       body: [
         "Alongside my theoretical and computational work, I have designed and executed experimental programs in structural mechanics, smart materials, and composite failure — grounding analytical predictions in physical measurement and providing the experimental baselines against which models are validated.",
@@ -277,28 +310,28 @@ window.SITE = {
       links: [ { text: "Publications — See SMA &amp; FSMA Tab", comingSoon: true } ]
     },
     {
-      id: "t8", num: "VIII", label: "Cardiovascular<br>AI Startup",
+      id: "t8", cat: "machine-learning", num: "VIII", label: "Cardiovascular<br>AI Startup",
       title: "Cardiovascular AI Startup — UC Berkeley",
       body: [
         "During the final year of my PhD at UC Berkeley, I co-founded an AI startup focused on the automated detection of cardiovascular disease from phonocardiogram (PCG) recordings. The startup was accepted into two competitive Berkeley incubator programs: <strong>UC Berkeley SkyDeck Pad-13</strong> and the <strong>CITRIS Foundry 2023</strong> cohort, providing mentorship, infrastructure, and a translational development environment.",
         "<strong>Model development.</strong> Operating under startup timelines and constraints, I developed, benchmarked, and delivered a convolutional neural network (CNN) with transfer learning for multi-class heart sound classification — distinguishing normal cardiac function from pathological conditions including aortic stenosis, mitral regurgitation, mitral stenosis, and mitral valve prolapse. The pipeline covered the full model lifecycle: raw PCG data ingestion, preprocessing and segmentation, feature extraction, model training and cross-validation, and evaluation on held-out test sets. The final model achieved <strong>95% accuracy</strong> on held-out data, meeting the startup's clinical deployment target.",
         "<strong>Hardware integration.</strong> I mentored an undergraduate student in designing and building a hardware digital stethoscope — a custom data acquisition device that interfaces with the deployed classification model, enabling point-of-care cardiac screening without specialized clinical equipment. This hardware-software integration bridged the gap between research prototype and deployable medical instrument.",
-        "<strong>Connection to PI-FNO.</strong> The startup provided the clinical motivation and domain expertise that later informed the PI-FNO project (Tab VI), where I revisited the same five-class cardiac classification problem using a Fourier Neural Operator with explicit physiological constraints — moving from an engineering-driven CNN baseline to a physics-principled architecture grounded in the known frequency structure of cardiac acoustics."
+        "<strong>Connection to PI-FNO.</strong> The startup provided the clinical motivation and domain expertise that later informed the PI-FNO project (see the PI-FNO tab), where I revisited the same five-class cardiac classification problem using a Fourier Neural Operator with explicit physiological constraints — moving from an engineering-driven CNN baseline to a physics-principled architecture grounded in the known frequency structure of cardiac acoustics."
       ],
       keyPoints: [
         "Co-founded cardiovascular AI startup; accepted into UC Berkeley SkyDeck Pad-13 and CITRIS Foundry 2023",
         "Developed CNN + transfer learning pipeline for multi-class heart sound classification; 95% accuracy on held-out test sets",
         "Managed full model lifecycle: data pipeline, preprocessing, training, cross-validation, and evaluation on a startup timeline",
         "Mentored undergraduate student in building a hardware digital stethoscope paired with the deployed model",
-        "Startup work directly motivated the subsequent PI-FNO physics-constrained approach (Tab VI)"
+        "Startup work directly motivated the subsequent PI-FNO physics-constrained approach"
       ],
       links: [
-        { text: "Related Work · PI-FNO (Tab VI)", comingSoon: true },
+        { text: "Related Work · PI-FNO Cardiac Disease Detection", href: "research-pi-fno.html" },
         { text: "Related Work · Heart Disease Risk Prediction", href: "research-heart-disease-prediction.html" }
       ]
     },
     {
-      id: "t9", num: "IX", label: "Peridynamics:<br>Fracture &amp; Peeling",
+      id: "t9", cat: "computational-mechanics", num: "IX", label: "Peridynamics:<br>Fracture &amp; Peeling",
       title: "Peridynamic Fracture &amp; Peeling of Solids",
       body: [
         "We have implemented fluid-induced fracture and the peeling test using <em>peridynamics</em>, a nonlocal, meshless continuum theory in which material points interact through bonds within a finite horizon. Cracks nucleate and propagate as bonds break, with no remeshing and no crack-tracking rules.",
@@ -312,7 +345,7 @@ window.SITE = {
       links: [ { text: "See · Peridynamic Fracture &amp; Peeling", href: "research-peridynamic-fracture.html" } ]
     },
     {
-      id: "t10", num: "X", label: "Universal Behavior:<br>Cell Monolayers",
+      id: "t10", cat: "theoretical-mechanics", num: "X", label: "Universal Behavior:<br>Cell Monolayers",
       title: "Proof of a Universal Behavior in Cell Biology",
       body: [
         "Cells at the free edge of a polarized monolayer align tangentially to the edge. Using Cosserat elasticity for a planar unit director, I proved this mathematically: the condition \\( \\boldsymbol{d}\\cdot\\boldsymbol{\\nu}_t=0 \\) follows from the boundary conditions without any constitutive assumption, so it holds regardless of cell type, animal, or even for bacteria. The work, with J. D. Humphrey, is accepted in <em>Proceedings of the Royal Society A</em> for the special issue in honor of Prof. K. R. Rajagopal.",

@@ -70,6 +70,12 @@
         <div class="eq" data-reveal>\[ \boldsymbol{K}\,\boldsymbol{v}=\frac{\mathrm{d}}{\mathrm{d}\epsilon}\,\boldsymbol{R}(\boldsymbol{u}+\epsilon\boldsymbol{v})\Big|_{\epsilon=0}. \]</div>
         <p data-reveal>So the linear systems are solved <em>inexactly</em>, by Krylov iteration with Jacobi or block-Jacobi preconditioning, and \( \boldsymbol{K} \) is never formed. Memory grows linearly with the number of unknowns, and the same code runs on CPU and GPU. Four variants of the operator trade memory for speed, from plain forward-mode AD to tensor-valued moduli stored at the quadrature points. The fastest, an element-wise variant, replaces batched small matrix products by element-wise contractions.</p>
 
+        <h2 data-reveal>Example: plate with a hole</h2>
+        <p data-reveal>A plate with a hole in tension (Q9 elements, neo-Hookean, about 10% stretch). The solver returns the deformation, the von Mises stress, which peaks at the hole, and, from the adjoint, the sensitivity of the compliance to the stiffness of every element.</p>
+        <figure class="fig-card" data-reveal><div style="padding:1rem;background:#fff"><img src="Figures/Differentiable-FEA/plate_with_hole_deformation.png" alt="Plate with a hole: displacement magnitude, von Mises stress and adjoint sensitivity" loading="lazy" style="width:100%" /></div><figcaption>Displacement, von Mises stress and exact adjoint sensitivity of the compliance with respect to element stiffness</figcaption></figure>
+        <p data-reveal>The same problem under load continuation: the load factor goes from 0 to 1 in five increments, and each one is solved by Newton-Krylov iteration (40 Newton steps in total). The animation interpolates between the converged states.</p>
+        <figure class="fig-card" data-reveal><img src="Figures/Differentiable-FEA/plate_with_hole.gif" alt="Animation of a plate with a hole stretched in tension, colored by von Mises stress" loading="lazy" /><figcaption>Plate with a hole in tension · von Mises stress on the deformed mesh as the load increases</figcaption></figure>
+
         <h2 data-reveal>Exact sensitivities</h2>
         <p data-reveal>For a design objective \( J(\boldsymbol{u},\boldsymbol{p}) \), differentiating through all Newton iterations would be costly and fragile. Instead the gradient follows from the implicit function theorem, with <strong>one extra linear solve</strong> at the converged state:</p>
         <div class="eq" data-reveal>\[ \boldsymbol{K}^{\!\top}\boldsymbol{\lambda}=\Big(\frac{\partial J}{\partial \boldsymbol{u}}\Big)^{\!\top},\qquad \frac{\mathrm{d}J}{\mathrm{d}\boldsymbol{p}}=\frac{\partial J}{\partial \boldsymbol{p}}-\boldsymbol{\lambda}^{\top}\frac{\partial \boldsymbol{R}}{\partial \boldsymbol{p}} . \]</div>
@@ -83,8 +89,12 @@
           <li>A suite of 194 automated tests passes. Geometries such as notched plates and L-brackets are meshed with Gmsh.</li>
         </ul>
 
+        <h2 data-reveal>Agreement with FEniCSx</h2>
+        <p data-reveal>On identical meshes, energies, quadrature and loads, displacements differ from FEniCSx/dolfinx by rounding error only, for triangles and quadrilaterals of both orders. A deliberate 0.1% change of the reference material shows up at \( 10^{-4} \), so the comparison is sensitive.</p>
+        <figure class="fig-card" data-reveal><div style="padding:1rem;background:#fff"><img src="Figures/Differentiable-FEA/validation_dolfinx.png" alt="Relative difference to dolfinx for six test cases and a negative control" loading="lazy" style="width:100%" /></div><figcaption>Relative displacement difference to FEniCSx/dolfinx 0.11.0 · six cases and a sensitivity control</figcaption></figure>
         <h2 data-reveal>Performance</h2>
-        <p data-reveal>For a 10,000-element Q4 problem in double precision, a complete nonlinear solve takes <strong>2.9 s on a T4 GPU</strong> and 14.7 s on a laptop CPU with 6 threads. The element-wise variant is 11.6 times faster than the first GPU version, because it reaches about 8% of the memory bandwidth instead of 0.7%.</p>
+        <p data-reveal>For a 10,000-element Q4 problem in double precision, a complete nonlinear solve takes <strong>2.9 s on a T4 GPU</strong> and 14.7 s on a laptop CPU with 6 threads. The element-wise variant is 11.6 times faster than the first GPU version, because it reaches about 8% of the memory bandwidth instead of 0.7%. On a CPU the batched variant is faster, so the default depends on the device, and an assembled sparse matrix is still faster per product in 2D on a CPU.</p>
+        <figure class="fig-card" data-reveal><div style="padding:1rem;background:#fff"><img src="Figures/Differentiable-FEA/perf_solve_time.png" alt="Wall time of a complete nonlinear solve for three solver variants on three devices" loading="lazy" style="width:100%" /></div><figcaption>Complete nonlinear solve, 10,000 Q4 elements · reference (jvp), stored tangent (qp) and element-wise (qp_ew)</figcaption></figure>
 
         <h2 data-reveal>Limits</h2>
         <p data-reveal>The code is an early release (v0.1). It covers 2D plane strain on a single process; 3D, multi-GPU execution and multigrid preconditioning are on the roadmap, and volumetric locking appears as the Poisson ratio approaches 0.5.</p>

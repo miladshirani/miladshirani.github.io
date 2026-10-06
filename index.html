@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Milad Shirani — Physics AI, Differentiable Simulation &amp; Continuum Mechanics</title>
-  <meta name="description" content="Milad Shirani — Postdoctoral Associate at Yale University. Physics AI built on continuum mechanics: differentiable finite-element simulation, matrix-free Newton–Krylov solvers, neural operators, and physics-constrained GNNs." />
+  <meta name="description" content="Milad Shirani — Postdoctoral Associate at Yale University. Physics AI built on continuum mechanics: differentiable finite-element simulation, matrix-free Newton–Krylov solvers, neural operators, and energy-trained PINNs and DeepONets." />
   <meta name="author" content="Milad Shirani" />
   <link rel="canonical" href="https://miladshirani.github.io/" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232b3cf0'/%3E%3Ctext x='32' y='42' font-family='Menlo,monospace' font-size='26' font-weight='700' text-anchor='middle' fill='%23ffffff'%3EMS%3C/text%3E%3C/svg%3E" type="image/svg+xml" />
@@ -179,7 +179,7 @@
       </div>
     </section>
 
-    <!-- 04 · Physics AI: data-free GNNs + neural operators -->
+    <!-- 04 · Physics AI: neural operators -->
     <section class="section section-band" id="physics-ai">
       <div class="wrap">
         <div class="sec-head" data-reveal>
@@ -187,9 +187,10 @@
             <p class="kicker">04 — Physics AI</p>
             <h2 class="sec-title">The physics is the <em>training signal</em>.</h2>
           </div>
-          <p class="sec-note">Networks that obey the weak form. Operators checked against FEM.</p>
+          <p class="sec-note">Energy-trained networks and operators, checked against FEM.</p>
         </div>
 
+        <!-- HIDDEN until the GNN paper is submitted (remove this comment wrapper to restore):
         <article class="feature-block" id="gnn">
           <p class="feature-kicker" data-reveal>Featured project · PyTorch and JAX</p>
           <h3 class="feature-h" data-reveal>Data-Free Physics-Constrained GNNs</h3>
@@ -226,9 +227,10 @@
             </figure>
           </div>
         </article>
+        -->
 
         <article class="feature-block" id="operators">
-          <p class="feature-kicker" data-reveal>Operator learning · DeepONet · FNO · GNN</p>
+          <p class="feature-kicker" data-reveal>Operator learning · DeepONet · FNO</p>
           <h3 class="feature-h" data-reveal>Neural Operators</h3>
           <div class="feature feature-flip">
             <figure class="flow-card" data-reveal>
@@ -240,17 +242,17 @@
               <div class="opdiag">
                 <div class="op-in"><span>Geometry</span><span>Boundary conditions</span><span>Material</span><span>Loading</span></div>
                 <div class="op-arrow" aria-hidden="true">↓</div>
-                <div class="op-box op-core"><b>Neural operator</b><small>DeepONet · FNO · GNN</small></div>
+                <div class="op-box op-core"><b>Neural operator</b><small>DeepONet · FNO</small></div>
                 <div class="op-arrow" aria-hidden="true">↓</div>
                 <div class="op-box"><b>Physical fields</b><small>deformation · director · temperature · concentration</small></div>
                 <div class="op-arrow" aria-hidden="true">↓</div>
                 <div class="op-box op-val"><b>Validation against FEA</b><small>node by node against FEM / NEM · stability checks</small></div>
               </div>
-              <p class="fig-note">Conceptual. In the DeepONet results the input is the load level; the GNNs are built on the mesh and retrained per case. Geometry and material as inputs are the goal.</p>
+              <p class="fig-note">Conceptual. In the DeepONet results the input is the load level; geometry and material as inputs are the goal.</p>
             </figure>
 
             <div class="feature-text" data-reveal>
-              <p class="feature-lead">DeepONets, Fourier neural operators, and GNN-based operators for nonlinear mechanics and multiphysics. Rather than treating a network as a black-box replacement for simulation, the operator learns mappings that respect the structure of the physical system, and is validated against high-fidelity numerical solvers.</p>
+              <p class="feature-lead">DeepONets and Fourier neural operators for nonlinear mechanics and multiphysics. Rather than treating a network as a black-box replacement for simulation, the operator learns mappings that respect the structure of the physical system, and is validated against high-fidelity numerical solvers.</p>
               <dl class="pstruct">
                 <div><dt>Problem</dt><dd>Nematic elastomers: the deformation and director fields are coupled and nonlinear, and the answer is wanted for a whole load range, not for one load case.</dd></div>
                 <div><dt>Method</dt><dd>An energy-trained DeepONet (and a physics-enforced network) over FEM/NEM discretizations, with no solution data. PI-FNO applies the Fourier-operator idea to heart sounds.</dd></div>

@@ -424,23 +424,23 @@
                    conference: P.conference.length, review: P.review.length };
 
     var T = S.publicationTotals || {};
-    var tot = { book: counts.book, journal: T.journal || counts.journal, conference: T.conference || counts.conference,
+    var tot = { book: counts.book, journal: T.journal || counts.journal + counts.conference,
                 chapter: T.chapter || counts.chapter, review: T.review || counts.review };
-    var peer = tot.journal + tot.conference;
+    var listedJ = counts.journal + counts.conference;   // the conference paper sits in the journal total
     mount("pub-summary",
-      tot.book + " books · " + peer + " peer-reviewed papers (" + tot.journal + " journal, " + tot.conference +
-      " conference) · " + tot.chapter + " book chapters · " + tot.review + " under review");
+      tot.book + " books · " + tot.journal + " peer-reviewed journal papers (8 MSc · 22 PhD · 3 postdoc) · " +
+      tot.chapter + " book chapters · " + tot.review + " under review");
 
     mount("pub-stats",
       statCells([
         { num: String(tot.book), label: "Books" },
-        { num: String(peer), label: "Peer-reviewed Papers", sub: tot.journal + " journal · " + tot.conference + " conference" },
+        { num: String(tot.journal), label: "Journal Papers", sub: "8 MSc · 22 PhD · 3 postdoc" },
         { num: String(tot.chapter), label: "Book Chapters" },
         { num: String(tot.review), label: "Under Review" }
       ]));
-    var missJ = tot.journal - counts.journal, missR = tot.review - counts.review;
+    var missJ = tot.journal - listedJ, missR = tot.review - counts.review;
     mount("pub-note", (missJ > 0 || missR > 0)
-      ? "Totals follow the CV. The list below is still being completed: " + counts.journal + " of " + tot.journal +
+      ? "Totals follow the CV. The list below is still being completed: " + listedJ + " of " + tot.journal +
         " journal papers and " + counts.review + " of " + tot.review + " manuscripts under review are listed so far."
       : "");
 

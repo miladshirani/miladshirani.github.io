@@ -84,8 +84,8 @@ window.SITE = {
       items: ["Autodiff", "JVPs", "Matrix-free methods", "Newton–Krylov"],
       links: [{ text: "Differentiable FEA", href: "#differentiable-fea", tab: "t11" }, { text: "Meshless mechanics", href: "#meshless", tab: "t9" }] },
     { n: "04", title: "Physics AI",
-      items: ["GNNs", "PINNs", "DeepONets", "FNOs"],
-      links: [{ text: "Data-free GNNs", href: "#gnn", tab: "t4" }, { text: "Neural operators", href: "#operators", tab: "t4" }, { text: "PI-FNO", href: "research-pi-fno.html", tab: "t6" }] },
+      items: ["PINNs", "DeepONets", "FNOs"],
+      links: [{ text: "Neural operators", href: "#operators", tab: "t4" }, { text: "PI-FNO", href: "research-pi-fno.html", tab: "t6" }] },
     { n: "05", title: "Deployment",
       items: ["Fast surrogate models", "Engineering prediction", "Scientific AI"],
       links: [{ text: "PI-FNO, open source", href: "research-pi-fno.html", tab: "t6" }, { text: "Startup", href: "research.html#t8", tab: "t8" }] }
@@ -100,14 +100,14 @@ window.SITE = {
       chips: ["Weak-form residual", "Automatic differentiation", "Jacobian–vector products", "Preconditioned Krylov", "Exact adjoint gradients", "Meshless peridynamics"],
       href: "#differentiable-fea", more: "Flagship project ↓" },
     { num: "02", label: "Physics AI",
-      title: "Data-free, physics-constrained networks",
-      desc: "Networks trained by minimizing the finite-element weak-form residual directly, with no labeled solution data and exactly imposed Dirichlet conditions. The network is not fitted to simulation output; the physics itself provides the training signal.",
-      chips: ["Physics-constrained GNNs", "Weak-form residual minimization", "Conservation laws", "Thermodynamic consistency", "FEM / NEM discretization", "Geometry-informed", "PyTorch · JAX"],
-      href: "#gnn", more: "The GNN work ↓" },
+      title: "Label-free, physics-constrained networks",
+      desc: "Energy-minimizing PINNs and DeepONets trained on the total potential energy over FEM/NEM discretizations, with no labeled solution data and exactly enforced boundary conditions. The network is not fitted to simulation output; the physics itself provides the training signal.",
+      chips: ["PINNs", "Energy minimization", "Variational principles", "Stability checks", "FEM / NEM discretization", "Exact boundary conditions", "PyTorch · JAX"],
+      href: "#operators", more: "The operator work ↓" },
     { num: "03", label: "Neural Operators",
       title: "Learned maps between physical fields",
-      desc: "DeepONets, Fourier neural operators, and GNN-based operators for nonlinear mechanics and multiphysics. A traditional surrogate maps one input to one output; a neural operator learns a mapping between functions, fields, and physical conditions.",
-      chips: ["DeepONets", "FNOs", "GNN-based operators", "Nonlinear mechanics", "Multiphysics"],
+      desc: "DeepONets and Fourier neural operators for nonlinear mechanics and multiphysics. A traditional surrogate maps one input to one output; a neural operator learns a mapping between functions, fields, and physical conditions.",
+      chips: ["DeepONets", "FNOs", "Nonlinear mechanics", "Multiphysics"],
       href: "#operators", more: "Operator results ↓" },
     { num: "04", label: "Provable Mechanics", base: true,
       title: "The foundation under all of it",
@@ -143,13 +143,13 @@ window.SITE = {
   // page are computed automatically so they never drift.
   stats: [
     { num: "2",   label: "Graduate Textbooks",   sub: "Continuum Mechanics · Plates &amp; Shells", href: "publications.html#books" },
-    { num: "33",  label: "Peer-reviewed Papers", sub: "32 journal · 1 conference", href: "publications.html#journals" },
+    { num: "33",  label: "Journal Papers",       sub: "8 MSc · 22 PhD · 3 postdoc", href: "publications.html#journals" },
     { num: "5",   label: "Book Chapters",        href: "publications.html#chapters" },
     { num: "4",   label: "Under Review",         sub: "Manuscripts", href: "publications.html#review" }
   ],
   // Official totals (from the CV). The lists below hold the entries added so far;
   // the Publications page shows these totals plus a note on how many are listed.
-  publicationTotals: { journal: 32, conference: 1, chapter: 5, review: 4 },
+  publicationTotals: { journal: 33, chapter: 5, review: 4 },
 
 
   // Set hidden:true to keep an entry in the record but off the page.
@@ -207,17 +207,18 @@ window.SITE = {
         result: "8–10× runtime speedup and 9.7×10<sup>−11</sup> agreement with a validated reference solution."
       },
       summary: "Meshless, differentiable simulation of fluid-induced fracture and peeling of solids, using automatic differentiation and dynamic relaxation. In collaboration with Prof. Ali Javili." },
-    { title: "Data-Free Physics-Constrained GNNs", href: "research-physics-constrained-gnns.html",
-      cats: ["physics-ai"], year: "2026", featured: true, inFeatures: true,
-      status: { kind: "done", label: "Demonstrated · 2 systems" },
-      why: "Coupled multiphysics problems rarely come with labeled solution data, but they always come with a weak form.",
-      struct: {
-        problem: "Transient, finite-strain coupled PDE systems (gel swelling, thermoelasticity) with no labeled solution fields.",
-        method: "Graph neural networks trained directly on the FEM weak-form residual as implicit time-steppers; the mesh is the graph; PyTorch and JAX.",
-        physics: "Shape functions, quadrature and boundary conditions are shared with FEM. Conservation laws and thermodynamic consistency enter through the weak form, and the residual is an intrinsic error measure.",
-        result: "PI-GCN: 0.24% displacement and 0.73% concentration error. PI-EPD-GNN: 0.14% displacement and 0.011% temperature error."
-      },
-      summary: "Graph neural networks that solve coupled multiphysics problems by minimizing the finite-element weak-form residual, with no labeled solution data." },
+    // [HIDDEN until the GNN paper is submitted: restore by removing the // prefixes]
+    // { title: "Data-Free Physics-Constrained GNNs", href: "research-physics-constrained-gnns.html",
+    // cats: ["physics-ai"], year: "2026", featured: true, inFeatures: true,
+    // status: { kind: "done", label: "Demonstrated · 2 systems" },
+    // why: "Coupled multiphysics problems rarely come with labeled solution data, but they always come with a weak form.",
+    // struct: {
+    // problem: "Transient, finite-strain coupled PDE systems (gel swelling, thermoelasticity) with no labeled solution fields.",
+    // method: "Graph neural networks trained directly on the FEM weak-form residual as implicit time-steppers; the mesh is the graph; PyTorch and JAX.",
+    // physics: "Shape functions, quadrature and boundary conditions are shared with FEM. Conservation laws and thermodynamic consistency enter through the weak form, and the residual is an intrinsic error measure.",
+    // result: "PI-GCN: 0.24% displacement and 0.73% concentration error. PI-EPD-GNN: 0.14% displacement and 0.011% temperature error."
+    // },
+    // summary: "Graph neural networks that solve coupled multiphysics problems by minimizing the finite-element weak-form residual, with no labeled solution data." },
     { title: "Physics Enforced Operator Learning", href: "research-physics-enforced-operator-learning.html",
       cats: ["physics-ai"], year: "2026", featured: true, inFeatures: true,
       status: { kind: "ongoing", label: "Preprint · in progress" },
@@ -284,9 +285,9 @@ window.SITE = {
     { icon: "ψ", cat: "computational-mechanics", title: "Soft Matter &amp; Hydrogels", href: "projects.html#computational-mechanics", more: "See projects →",
       desc: "Nematic liquid crystal elastomers, hydrogels, and swelling polymers. Thermodynamically consistent, finite-strain modeling and simulation of coupled mechanical, chemical, and orientational fields." },
     { icon: "∫", cat: "physics-ai", title: "Physics-Informed Machine Learning", href: "projects.html#physics-ai", more: "See projects →",
-      desc: "PINNs, Deep Energy Methods, DeepONets, ICNNs, and physics-informed GNNs for constitutive modeling and coupled multiphysics. Enforcing frame indifference, polyconvexity, and Legendre–Hadamard stability as hard constraints in neural architectures." },
-    { icon: "𝒢", cat: "physics-ai", title: "Neural Operators &amp; GNNs", href: "projects.html#physics-ai", more: "See projects →",
-      desc: "Fourier neural operators, DeepONets, and GNN-based operators for nonlinear mechanics and multiphysics, validated against finite-element solutions." },
+      desc: "PINNs, Deep Energy Methods, DeepONets, and ICNNs for constitutive modeling. Enforcing frame indifference, polyconvexity, and Legendre–Hadamard stability as hard constraints in neural architectures." },
+    { icon: "𝒢", cat: "physics-ai", title: "Neural Operators", href: "projects.html#physics-ai", more: "See projects →",
+      desc: "Fourier neural operators and DeepONets for nonlinear mechanics and multiphysics, validated against finite-element solutions." },
     { icon: "∂", cat: "computational-mechanics", title: "Computational Mechanics &amp; Differentiable Simulation", href: "projects.html#computational-mechanics", more: "See projects →",
       desc: "FEniCSx and custom finite element codes for hyperelasticity, fracture, and swelling. Differentiable, matrix-free solvers (Newton–Krylov, dynamic relaxation) in PyTorch and JAX, and meshless peridynamics." },
     { icon: "⌬", cat: "experimental-mechanics", title: "Experimental Mechanics", href: "projects.html#experimental-mechanics", more: "See projects →",
@@ -302,7 +303,7 @@ window.SITE = {
     { years: "2014 – 2016", title: "Penn State University", hidden: true,
       sub: "Experimental characterization of shape memory alloys. Transitioned to UC Berkeley to pursue research in theoretical mechanics." },
     { years: "2016 – 2023", title: "PhD · UC Berkeley · Dept. of Mechanical Engineering",
-      sub: "Advisor: Prof. David Steigmann. Minors in Mathematics and Dynamics. Co-authored two graduate textbooks on continuum mechanics and theories of plates &amp; shells. 21 journal papers and 5 book chapters. Derived stability conditions (Legendre–Hadamard, rank-one convexity, quasiconvexity) for Cosserat media, fibrous materials, and liquid crystal elastomers." },
+      sub: "Advisor: Prof. David Steigmann. Minors in Mathematics and Dynamics. Co-authored two graduate textbooks on continuum mechanics and theories of plates &amp; shells. 22 journal papers and 5 book chapters. Derived stability conditions (Legendre–Hadamard, rank-one convexity, quasiconvexity) for Cosserat media, fibrous materials, and liquid crystal elastomers." },
     { years: "2022 – 2023", title: "Co-Founder &amp; ML Engineer — Berkeley AI Startup",
       sub: "Co-founded cardiovascular AI startup accepted into UC Berkeley SkyDeck Pad-13 and CITRIS Foundry 2023. Built CNN + transfer learning models for multi-class heart sound classification achieving 95% accuracy. Mentored undergraduate hardware development." },
     { years: "2023 – Present", title: "Postdoctoral Associate · Yale University",
@@ -509,23 +510,24 @@ window.SITE = {
       title: "Physics-Informed Machine Learning &amp; Neural Constitutive Models",
       levels: {
         problem: "Neural models that cannot violate the mechanics they describe, and that do not depend on labeled solution data.",
-        method: "Polyconvex ICNN energies; energy-trained PINNs and DeepONets; physics-constrained GNNs trained on the FEM weak-form residual (PyTorch, JAX).",
-        physics: "Frame indifference, material symmetry, and polyconvexity built into the architecture; conservation laws and thermodynamic consistency through the weak form; Legendre–Hadamard checks on the output.",
-        result: "GNN final-state errors against Newton–Raphson FEM of 0.011–0.73%; one DeepONet benchmark ~35–250× faster per query than a warm FEM solve at ~0.7–3% displacement error; polyconvexity conditions proved analytically for fibrous tissues with two fiber families."
+        method: "Polyconvex ICNN energies; energy-trained PINNs and DeepONets over FEM/NEM discretizations (PyTorch, JAX).",
+        physics: "Frame indifference, material symmetry, and polyconvexity built into the architecture; variational (total-energy) training; Legendre–Hadamard checks on the output.",
+        result: "One DeepONet benchmark ~35–250× faster per query than a warm FEM solve at ~0.7–3% displacement error; polyconvexity conditions proved analytically for fibrous tissues with two fiber families."
       },
       body: [
         "The convergence of mechanics and machine learning opens a genuinely new frontier — not merely fitting data faster, but building computational models that are constrained by physical law from the ground up. My work in this area is grounded in the conviction that the laws of mechanics are not soft regularizers to be traded against data fit; they are hard constraints that any admissible model must satisfy exactly.",
         "For hyperelastic constitutive modeling, I develop neural networks whose outputs are guaranteed to satisfy <em>frame indifference</em>, <em>material symmetry</em>, and the <em>Legendre–Hadamard condition</em> — not by penalizing violations during training, but by architectural design. Input Convex Neural Networks (ICNNs) provide polyconvex energy densities by construction. For fibrous biological tissues with two fiber families, I have proved analytically the polyconvexity conditions that existing approaches verify only numerically — a distinction that matters for guaranteeing stability at <em>any</em> deformation state, not just those seen during training.",
         "For operator learning — mapping loading conditions to full displacement or director fields — I work with Deep Operator Networks (DeepONets) and Physics-Informed Neural Networks (PINNs), enforcing the governing PDEs either through the loss function or directly in the architecture. Most recently, in work currently under review, I trained physics-consistent neural networks for microstructured media (Cosserat continua) where both the deformation gradient \\( \\boldsymbol{F} \\) and the director field \\( \\boldsymbol{d} \\) are learned simultaneously, with the Legendre–Hadamard tensor retained in the computational graph for post-training stability verification.",
-        "<strong>Physics-constrained GNNs.</strong> For coupled multiphysics, I train graph neural networks as implicit time-steppers by minimizing the finite-element weak-form residual directly, with no labeled solution data. The graph is the mesh (or its Voronoi dual), and the network shares shape functions, quadrature, and boundary conditions with the finite-element solver, so the weak-form residual doubles as an error monitor. The method is demonstrated on finite-strain gel swelling (four coupled fields) and on thermoelasticity, against Newton–Raphson reference solutions.",
-        "<strong>An active research direction.</strong> I am building end-to-end differentiable scientific-computing pipelines in JAX and PyTorch that connect weak-form physics, automatic differentiation, nonlinear solvers, and neural models, combining custom finite element solvers, neural constitutive models, and MeshGraphNet-style surrogates. The components exist and are validated one by one (see the status below). Applications such as soft robotics, surgical simulation, and materials design are the longer-term motivation, not results."
+        // [HIDDEN until the GNN paper is submitted]
+        // "<strong>Physics-constrained GNNs.</strong> For coupled multiphysics, I train graph neural networks as implicit time-steppers by minimizing the finite-element weak-form residual directly, with no labeled solution data. The graph is the mesh (or its Voronoi dual), and the network shares shape functions, quadrature, and boundary conditions with the finite-element solver, so the weak-form residual doubles as an error monitor. The method is demonstrated on finite-strain gel swelling (four coupled fields) and on thermoelasticity, against Newton–Raphson reference solutions.",
+        "<strong>An active research direction.</strong> I am building end-to-end differentiable scientific-computing pipelines in JAX and PyTorch that connect weak-form physics, automatic differentiation, nonlinear solvers, and neural models, combining custom finite element solvers, neural constitutive models, and neural surrogates. The components exist and are validated one by one (see the status below). Applications such as soft robotics, surgical simulation, and materials design are the longer-term motivation, not results."
       ],
       keyPoints: [
         "Deep Energy Method for nematic LCEs with LH conditions as architectural constraints",
         "Physics-consistent neural networks for Cosserat media; LH verification in the computational graph",
         "Analytical proof of polyconvexity conditions for fibrous tissues with two fiber families",
         "Variational and data-driven DeepONets for nematic materials",
-        "Physics-informed GNNs (PI-GCN, PI-EPD-GNN) trained on the FEM weak-form residual with no labeled data; final-state errors of 0.011–0.73% against Newton–Raphson FEM",
+        // [hidden] "Physics-informed GNNs (PI-GCN, PI-EPD-GNN) trained on the FEM weak-form residual with no labeled data; final-state errors of 0.011–0.73% against Newton–Raphson FEM",
         "Differentiable FEA in JAX: T3/Q9 elements, Neo-Hookean and SVK materials, autodiff tangent stiffness",
         "Differentiable FEA in PyTorch: matrix-free Newton–Krylov with exact adjoint sensitivities (open source)"
       ],
@@ -533,12 +535,12 @@ window.SITE = {
       status: {
         completed: [
           "Energy-trained neural networks and DeepONets for nematic LCEs, checked against FEM and stability conditions (arXiv:2603.06939)",
-          "Physics-informed GNNs for gel swelling and thermoelasticity, compared node by node with FEM",
+        // [hidden] "Physics-informed GNNs for gel swelling and thermoelasticity, compared node by node with FEM",
           "Open-source matrix-free differentiable FEA solver, validated against FEniCSx",
           "PI-FNO, open source"
         ],
         ongoing: [
-          "Connecting solver, neural constitutive models, and GNN surrogates into end-to-end differentiable pipelines",
+          "Connecting solver, neural constitutive models, and neural surrogates into end-to-end differentiable pipelines",
           "DeepONet operator learning for LCEs (work in progress)",
           "Differentiable peridynamics: results to be published"
         ],
@@ -549,7 +551,7 @@ window.SITE = {
         ]
       },
       links: [
-        { text: "Read · Physics-Constrained GNNs", href: "research-physics-constrained-gnns.html" },
+        // [hidden] { text: "Read · Physics-Constrained GNNs", href: "research-physics-constrained-gnns.html" },
         { text: "Read · Differentiable FEA", href: "research-differentiable-fea.html" },
         { text: "Article · ICNN Constitutive Models — Coming Soon", comingSoon: true }
       ]
@@ -659,7 +661,7 @@ window.SITE = {
         venue: "World Scientific", details: "2025",
         href: "https://doi.org/10.1142/14150" },
       { authors: "Steigmann, D. J., Bîrsan, M. &amp; <strong>Shirani, M.</strong>",
-        title: "Lecture Notes on the Theory of Plates and Shells. Classical and Modern Developments",
+        title: "Lecture Notes on the Theory of Plates and Shells",
         venue: "Springer", details: "2023",
         href: "https://link.springer.com/book/9783031256738" }
     ],

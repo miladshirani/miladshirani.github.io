@@ -16,7 +16,7 @@ Personal academic site. Pure HTML/CSS/JS, no build step.
 
 ## Site structure
 
-- **Home**: hero and credibility strip (`SITE.hero`, `SITE.stats`), What I Build (`SITE.build`), the one pipeline (`SITE.pipeline`), four featured project blocks (written directly in `index.html`: Differentiable FEA, Differentiable Meshless Mechanics, Data-Free Physics-Constrained GNNs, Neural Operators), the theory foundation with the two textbooks, more projects (`SITE.projects`), profile and research to product (`SITE.profile`, `SITE.product`), research themes, journey.
+- **Home**: hero and credibility strip (`SITE.hero`, `SITE.stats`), What I Build (`SITE.build`), the one pipeline (`SITE.pipeline`), three featured project blocks (written directly in `index.html`: Differentiable FEA, Differentiable Meshless Mechanics, Neural Operators), the theory foundation with the two textbooks, more projects (`SITE.projects`), profile and research to product (`SITE.profile`, `SITE.product`), research themes, journey.
 - **Research**: the five-stage pipeline overview, then numbered tabs (`SITE.researchTabs`). Each tab opens with four levels (`levels`: problem, method, physics and math, result); the long text (`body`) sits behind a toggle. `research.html#t11` opens a tab directly.
 - **Projects**: every project page, filterable by field (`SITE.projects`, `SITE.categories`).
 - **Publications / Honors**: generated from `data.js`.

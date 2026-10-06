@@ -1,7 +1,7 @@
 \documentclass[10pt, letterpaper]{article}
 
 % ── Packages ──────────────────────────────────────────────────────────────────
-\usepackage[top=0.5in, bottom=0.6in, left=0.45in, right=0.45in]{geometry}
+\usepackage[top=0.48in, bottom=0.55in, left=0.45in, right=0.45in]{geometry}
 \usepackage{hyperref}
 \usepackage[hyperref]{xcolor}
 \usepackage{enumitem}
@@ -15,6 +15,7 @@
 \usepackage{fancyhdr}
 \usepackage{fontawesome5}
 
+% ── Page style ────────────────────────────────────────────────────────────────
 \pagestyle{fancy}
 \fancyhf{}
 \fancyfoot[R]{\thepage}
@@ -37,44 +38,73 @@
   linkcolor=midblue
 }
 
+% ── Section formatting ────────────────────────────────────────────────────────
 \titleformat{\section}
   {\color{navyblue}\bfseries\large\uppercase}
   {}{0em}{}
   [\vspace{-6pt}\color{midblue}\rule{\linewidth}{1.2pt}\vspace{2pt}]
 
-\titlespacing{\section}{0pt}{10pt}{4pt}
+\titlespacing{\section}{0pt}{9pt}{4pt}
 
+% ── List formatting ───────────────────────────────────────────────────────────
 \setlist[itemize]{
   leftmargin=1.4em,
-  itemsep=1.5pt,
+  itemsep=1.2pt,
   topsep=2pt,
   parsep=0pt,
   label=\textcolor{midblue}{\textbullet}
 }
 
+% ── Custom commands ───────────────────────────────────────────────────────────
 \newcommand{\jobheader}[2]{%
-  \noindent\textbf{\color{darkgray}#1}\hfill{\color{midgray}\textit{#2}}\\[-2pt]
+  \noindent
+  \textbf{\color{darkgray}#1}
+  \hfill
+  {\color{midgray}\textit{#2}}
+  \\[-2pt]
 }
 
 \newcommand{\subline}[1]{%
-  \noindent{\color{midgray}\textit{#1}}\par\vspace{3pt}
+  \noindent
+  {\color{midgray}\textit{#1}}
+  \par\vspace{2pt}
 }
 
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{4pt}
+\setlength{\parskip}{3pt}
 
 % ══════════════════════════════════════════════════════════════════════════════
 \begin{document}
 
-% ── Header ─────────────────────────────────────────────────────────────────────
+% ══════════════════════════════════════════════════════════════════════════════
+% HEADER
+% ══════════════════════════════════════════════════════════════════════════════
+
 \begin{center}
-  {\fontsize{24}{28}\selectfont\bfseries\color{navyblue} MILAD SHIRANI}\\[4pt]
-  {\color{midgray}\textbf{U.S. Permanent Resident (Green Card)}}\\[3pt]
-  {\color{midgray} Postdoctoral Associate $\cdot$ Yale University $\cdot$ New Haven, CT}\\[3pt]
+
+  {\fontsize{24}{28}\selectfont
+  \bfseries\color{navyblue}
+  MILAD SHIRANI}
+  \\[3pt]
+
+  {\color{darkgray}
+  \large
+  \textbf{Scientific AI Researcher · Physics AI · Differentiable Scientific Computing}}
+  \\[4pt]
+
+  {\color{midgray}
+  \textbf{U.S. Permanent Resident (Green Card)}}
+  \\[2pt]
+
+  {\color{midgray}
+  Postdoctoral Associate · Yale University · New Haven, CT}
+  \\[3pt]
+
   {\color{midgray}
     \href{mailto:milad.shirani@yale.edu}{milad.shirani@yale.edu}
     $\;\cdot\;$
-    \href{https://scholar.google.com/citations?hl=en&user=pgoR_BkAAAAJ&view_op=list_works&sortby=pubdate}{\faGraduationCap}
+    \href{https://scholar.google.com/citations?hl=en&user=pgoR_BkAAAAJ&view_op=list_works&sortby=pubdate}
+    {\faGraduationCap}
     $\;\cdot\;$
     \href{https://linkedin.com/in/miladshirani}{\faLinkedin}
     $\;\cdot\;$
@@ -82,227 +112,298 @@
     $\;\cdot\;$
     \href{https://miladshirani.github.io}{\faGlobe}
   }
+
 \end{center}
 
 \vspace{1pt}
 
+
 % ══════════════════════════════════════════════════════════════════════════════
+% PROFILE
+% ══════════════════════════════════════════════════════════════════════════════
+
 \section{Profile}
 
-Scientific AI researcher and ML engineer with $10+$ years developing physics-based
-simulation and machine learning methods for nonlinear solids and coupled
-multiphysics systems. I train neural networks---including graph neural
-networks---to solve coupled PDE systems by minimizing the total potential energy
-or the FEM weak-form residual directly, with no labeled solution data and
-Dirichlet conditions imposed exactly. The networks share their discretization
-(shape functions, quadrature, boundary conditions) with the finite-element solver,
-so every result is compared node by node with a converged Newton--Raphson reference.
-I also build differentiable simulators: a matrix-free Newton--Krylov finite-element
-solver and autodiff-based meshless peridynamics for fracture and delamination.
-A neural operator I trained predicted unseen cases $\sim 35$--$250\times$ faster per
-query than FEM on a benchmark problem, and across four coupled systems my networks
-match converged finite-element solutions to within $0.05$--$3\%$.
-Open-source ML development and startup experience translating
-scientific ML methods into engineering models.
+Scientific AI researcher and ML engineer with 10+ years combining continuum
+mechanics, numerical simulation, differentiable programming, and machine learning
+for nonlinear solids and coupled multiphysics. Develops physics-constrained neural
+networks, neural operators, and differentiable scientific-computing systems that
+embed governing equations, variational principles, conservation laws, and
+thermodynamic consistency directly into computation. Built data-free GNN solvers
+that minimize FEM weak-form residuals, matrix-free differentiable finite-element
+solvers using autodiff and Newton--Krylov methods, and differentiable meshless
+peridynamics for fracture and delamination. Demonstrated an 11.6$\times$ GPU
+tangent-product speedup for differentiable FEA, 8--10$\times$ speedup for meshless mechanics,
+and 35--250$\times$ lower neural-operator query cost than benchmark FEM, with
+0.05--3\% agreement against converged finite-element solutions across coupled
+systems. Open-source developer with startup experience translating scientific ML
+methods into engineering systems.
+
 
 % ══════════════════════════════════════════════════════════════════════════════
+% TECHNICAL SKILLS
+% ══════════════════════════════════════════════════════════════════════════════
+
 \section{Technical Skills}
 
-\begin{description}[leftmargin=3.8cm, style=sameline, font=\bfseries\color{navyblue}]
+\begin{description}[
+  leftmargin=3.65cm,
+  style=sameline,
+  font=\bfseries\color{navyblue}
+]
 
-  \item[Scientific AI / ML]
-  Neural operators (DeepONets, FNOs);
-  physics-informed neural networks (PINNs);
-  graph neural networks (GNNs; message-passing, graph convolution);
+  \item[Physics AI / ML]
+  Physics-constrained neural networks;
+  graph neural networks;
+  neural operators (DeepONets, FNOs);
+  PINNs;
   surrogate modeling;
-  differentiable scientific computing;
   variational energy-minimizing networks;
-  weak-form (Galerkin) residual training;
-  physics-constrained learning
+  weak-form / Galerkin residual training
 
-  \item[ML / Programming]
-  PyTorch, JAX, TensorFlow, Scikit-learn
+  \item[Differentiable Computing]
+  Automatic differentiation;
+  Jacobian-vector products (JVPs);
+  matrix-free nonlinear solvers;
+  differentiable FEA;
+  differentiable meshless mechanics;
+  implicit differentiation;
+  adjoint methods
 
   \item[Numerical Methods]
-  Finite Element Methods (FEM; mixed Taylor--Hood elements);
-  Meshless Methods (Peridynamics, Natural Element Method (NEM));
-  Delaunay/Voronoi discretization and Gauss quadrature;
-  Newton--Raphson, L-BFGS and dynamic-relaxation solvers;
-  automatic-differentiation residuals and tangents;
-  matrix-free Newton--Krylov solvers and adjoint sensitivities;
-  stability analysis (Legendre--Hadamard, second variation)
+  Finite Element Methods (FEM);
+  Natural Element Method (NEM);
+  Peridynamics;
+  Newton--Raphson;
+  Newton--Krylov;
+  dynamic relaxation;
+  weak-form discretization;
+  stability analysis
+
+  \item[Scientific Programming]
+  PyTorch, JAX, TensorFlow, Scikit-learn;
+  Python; MATLAB
 
   \item[Physics]
   Nonlinear elasticity;
-  coupled multiphysics (diffusion--mechanics, electrodynamics,
-  thermoelasticity);
-  generalized continua (Cosserat, micropolar, higher-gradient);
-  soft matter (liquid crystal elastomers, hydrogels, polymers)
+  coupled multiphysics;
+  diffusion--mechanics;
+  thermoelasticity;
+  electrodynamics;
+  generalized continua;
+  Cosserat / micropolar / higher-gradient mechanics;
+  liquid crystal elastomers;
+  hydrogels;
+  polymers
 
-  \item[Simulation Software]
-  FEniCSx, COMSOL Multiphysics
+  \item[Simulation]
+  FEniCSx; COMSOL Multiphysics
 
-  \item[Production / MLOps]
-  End-to-end ML pipelines (data ingestion, training, checkpointing, evaluation);
-  modular, standalone JAX/PyTorch packages with one-command, multi-seed sweeps;
-  open-source library development;
-  surrogate benchmarking against converged FEM ground truth
-
-  \item[Programming]
-  Python (primary), MATLAB
+  \item[Engineering / MLOps]
+  End-to-end ML pipelines;
+  data ingestion;
+  training and checkpointing;
+  evaluation;
+  modular JAX/PyTorch packages;
+  multi-seed experiments;
+  open-source development;
+  surrogate benchmarking against converged FEM
 
 \end{description}
 
+
 % ══════════════════════════════════════════════════════════════════════════════
+% RESEARCH & PROFESSIONAL EXPERIENCE
+% ══════════════════════════════════════════════════════════════════════════════
+
 \section{Research \& Professional Experience}
 
-\jobheader{Postdoctoral Associate --- Yale University}{Sept 2023 -- Present}
-\subline{Department of Biomedical Engineering, New Haven, CT}
+\jobheader
+{Postdoctoral Associate --- Yale University}
+{Sept 2023 -- Present}
+
+\subline
+{Department of Biomedical Engineering · New Haven, CT}
 
 \begin{itemize}
 
-% ── Differentiable simulation ─────────────────────────────────────────────────
-\item \textbf{Differentiable scientific computing:}
-Developed a differentiable, autodiff-based meshless peridynamics solver for
-nonlinear solid mechanics, modeling brittle fracture, pressure-driven (hydraulic)
-fracture, and delamination (Mode I/mixed-mode peel) without remeshing; achieved an
-$\mathbf{8-10\times}$ \textbf{runtime speedup} and $\mathbf{9.7\times10^{-11}}$
-\textbf{agreement} with a validated reference solution. Engineered a matrix-free
-dynamic-relaxation scheme to overcome Newton--Raphson tangent singularities and
-converge through unstable crack propagation. In collaboration with
-Prof.~Ali Javili (Bilkent University);
-\href{https://miladshirani.github.io/research-peridynamic-fracture.html}{project page}.
+% ── Matrix-free differentiable FEA ────────────────────────────────────────────
 
-% ── Differentiable FEA ────────────────────────────────────────────────────────
-\item \textbf{Differentiable FEA (matrix-free Newton--Krylov):}
-Built an \href{https://github.com/miladshirani/Differentiable-FEA}{open-source}
-PyTorch finite-element solver for large-strain hyperelasticity that never assembles
-the stiffness matrix: residuals and tangents come from automatic differentiation, and
-each Newton step is solved by preconditioned Krylov (conjugate-gradient) iteration
-using only Jacobian--vector products. Exact design gradients follow from the implicit
-function theorem with one adjoint solve. Matches FEniCSx to $<10^{-13}$ (relative);
-an element-wise operator variant makes the GPU tangent product
-$\mathbf{11.6\times}$ \textbf{faster} (40{,}000 Q4 elements, T4), and a complete
-10{,}000-element solve takes $\mathbf{2.9}$~s
-(\href{https://miladshirani.github.io/research-differentiable-fea.html}{project page}).
+\item \textbf{Matrix-free differentiable FEA --- Newton--Krylov:}
+Built an
+\href{https://github.com/miladshirani/Differentiable-FEA}
+{open-source}
+PyTorch finite-element solver for large-strain hyperelasticity that eliminates
+global stiffness-matrix assembly. Residuals and Jacobian--vector products are
+computed through automatic differentiation; each Newton step is solved with
+preconditioned Krylov iteration using only matrix-free Jacobian--vector
+products. Computed exact design gradients through implicit differentiation
+and an adjoint solve. Achieved $<10^{-13}$ relative agreement with FEniCSx
+and an $11.6\times$ GPU speedup for tangent products, solving 10,000
+elements in 2.9~s.
+\href{https://miladshirani.github.io/research-differentiable-fea.html}
+{Project page}.
+% \item \textbf{Matrix-free differentiable FEA --- Newton--Krylov:}
+% Built an
+% \href{https://github.com/miladshirani/Differentiable-FEA}
+% {open-source}
+% PyTorch finite-element solver for large-strain hyperelasticity that avoids
+% global stiffness-matrix assembly. Residuals and tangents are obtained through
+% automatic differentiation; each Newton step is solved with preconditioned
+% Krylov iteration using Jacobian--vector products. Computed exact design
+% gradients through implicit differentiation and an adjoint solve. Achieved
+% $<10^{-13}$ agreement with FEniCSx and $11.6\times$ speedup after GPU
+% optimization, solving 10,000 elements in 2.9~s.
+% \href{https://miladshirani.github.io/research-differentiable-fea.html}
+% {Project page}.
 
-% ── Operator learning + energy-minimizing networks ────────────────────────────
-\item \textbf{Label-free physics-informed networks and neural operators for nonlinear solids:}
-Designed variational, energy-minimizing PINNs and DeepONets in PyTorch and JAX
-for liquid crystal elastomers (coupled finite-strain deformation and director
-fields), trained on the total potential energy over FEM/NEM discretizations
-(Delaunay/Voronoi, perforated domains) with Gauss quadrature and exactly
-enforced boundary conditions. A single operator trained over a load range predicts
-the full deformation and director fields in $\sim 0.5$--$0.7$~ms, \textbf{$\mathbf{\sim 35}$--$\mathbf{250\times}$
-faster per query} than a warm FEM solve (156-node plane-strain benchmark, CPU;
-training repaid after $\sim 100$--$800$ queries), with $\sim 0.7\%$ (shear) and
-$1.6$--$3\%$ (uniaxial) displacement error on unseen stretches against the same-mesh
-FEM reference. Derived quasiconvexity, rank-one convexity, and Legendre--Hadamard
-inequalities from the energy loss and used them as validation criteria:
-all stored trajectories are strongly elliptic strict local minimizers of the
-discretized energy
-(\href{https://miladshirani.github.io/research-physics-enforced-operator-learning.html}{project page}).
+% ── Differentiable meshless mechanics ─────────────────────────────────────────
 
-% ── Physics-informed GNNs ─────────────────────────────────────────────────────
-\item \textbf{Data-free, discretization-consistent physics-constrained GNNs:}
-Trained graph neural networks to solve coupled multiphysics PDE systems as
-implicit time-steppers by minimizing the FEM weak-form residual directly, enforcing
-conservation laws and thermodynamic consistency with no labeled solution data.
-The graph is the mesh (or its Voronoi dual) and the network shares shape
-functions, quadrature and boundary conditions with the FEM solver, so each network
-is geometry-informed, and the weak-form residual serves as a built-in error
-monitor. Retrained per case. Demonstrated on two systems against reference
-Newton--Raphson FEM solutions, in both JAX and PyTorch (residuals parity-checked
-to $\sim 10^{-12}$):
+\item \textbf{Differentiable meshless mechanics --- fracture and delamination:}
+Developed an autodiff-based meshless peridynamics solver for nonlinear solids,
+including brittle fracture, pressure-driven hydraulic fracture, and Mode-I /
+mixed-mode delamination without remeshing. Achieved $8$--$10\times$ runtime
+speedup and $9.7\times10^{-11}$ agreement with a validated reference solution.
+Engineered a matrix-free dynamic-relaxation scheme to overcome Newton--Raphson
+tangent singularities and converge through unstable crack propagation.
+\href{https://miladshirani.github.io/research-peridynamic-fracture.html}
+{Project page}.
 
-\begin{itemize}[leftmargin=1.2em,
-itemsep=1pt, topsep=2pt, parsep=0pt,
-label=\textcolor{midgray}{\textendash}]
+% ── Physics-constrained GNNs ──────────────────────────────────────────────────
 
-\item \textbf{PI-GCN for chemoelasticity (gel swelling):}
-Graph-convolutional network with residual connections for a transient, finite-strain,
-coupled 4-field system (displacement, pressure, chemical potential, concentration);
-block-weighted weak-form loss and Adam\,$\to$\,L-BFGS training, FEM and meshless NEM
-back ends, plate with a hole. Final-state error $0.24\%$ in displacement and $0.73\%$
-in concentration over 50 implicit steps (441 nodes).
+\item \textbf{Data-free physics-constrained GNNs for multiphysics:}
+Developed geometry-informed graph neural networks that solve coupled PDE
+systems as implicit time-steppers by minimizing the FEM weak-form residual
+directly, without labeled solution data. Embedded conservation laws and
+thermodynamic consistency in the computational formulation. The graph shares
+the FEM discretization, shape functions, quadrature, and boundary conditions,
+making the weak-form residual both the training objective and an intrinsic
+physics-based error monitor. Implemented in JAX and PyTorch with residual
+parity to $\sim10^{-12}$.
 
-\item \textbf{PI-EPD-GNN for thermoelasticity:}
-MeshGraphNets-style Encode--Process--Decode network for transient heat conduction
-coupled to finite-deformation elasticity (u--p--$\theta$), with Taylor--Hood
-elements, a Voronoi message-passing graph, and a loss preconditioned by the
-rest-state tangent. Errors of $0.14\%$ (displacement) and $0.011\%$ (temperature)
-on a plate with a hole (PyTorch).
+\begin{itemize}[
+  leftmargin=1.2em,
+  itemsep=1pt,
+  topsep=2pt,
+  parsep=0pt,
+  label=\textcolor{midgray}{\textendash}
+]
+
+\item \textbf{PI-GCN --- chemoelasticity:}
+Developed a graph-convolutional network for transient finite-strain
+chemoelasticity with four coupled fields: displacement, pressure, chemical
+potential, and concentration. Used block-weighted weak-form residuals and
+Adam $\rightarrow$ L-BFGS optimization with FEM and meshless NEM back ends.
+Achieved $0.24\%$ displacement and $0.73\%$ concentration error over 50
+implicit time steps.
+
+\item \textbf{PI-EPD-GNN --- thermoelasticity:}
+Developed a MeshGraphNets-style Encode--Process--Decode model for transient
+heat conduction coupled to finite-deformation elasticity. Used Taylor--Hood
+elements, a Voronoi message-passing graph, and tangent-based loss
+preconditioning. Achieved $0.14\%$ displacement and $0.011\%$ temperature
+error.
 
 \end{itemize}
 
+% ── Neural operators ─────────────────────────────────────────────────────────
+
+\item \textbf{Physics-constrained neural operators and variational networks:}
+Designed label-free energy-minimizing PINNs and DeepONets in PyTorch and JAX
+for liquid crystal elastomers, coupling finite-strain deformation and director
+fields. Trained over FEM/NEM discretizations using total potential energy,
+Gauss quadrature, and exactly enforced boundary conditions. A single operator
+predicted full fields in $\sim0.5$--$0.7$ ms, with $35$--$250\times$ lower
+query cost than warm FEM on a 156-node benchmark. Achieved $0.7\%$ shear and
+$1.6$--$3\%$ uniaxial displacement error on unseen stretches. Validated
+quasiconvexity, rank-one convexity, and Legendre--Hadamard conditions.
+\href{https://miladshirani.github.io/research-physics-enforced-operator-learning.html}
+{Project page}.
+
 % ── Inverse constitutive modeling ─────────────────────────────────────────────
-\item \textbf{Inverse constitutive modeling / data-driven material discovery:}
+
+\item \textbf{Inverse constitutive modeling:}
 Developed PINN-based inverse frameworks in JAX and PyTorch for learning
 polyconvex stored-energy functions for isotropic and anisotropic materials,
 including fibrous composites and biological tissues, directly from FEA-generated
 datasets, with polyconvexity enforced as a hard architectural constraint.
 
 % ── PI-FNO ────────────────────────────────────────────────────────────────────
-\item \textbf{PI-FNO --- open-source neural operator deployment:}
+
+\item \textbf{PI-FNO --- open-source Physics-Informed Fourier Neural Operator:}
 Designed, implemented, and open-sourced
-\href{https://github.com/miladshirani/PI-FNO}{PI-FNO},
-a Physics-Informed Fourier Neural Operator for 5-class valvular heart disease
-classification from phonocardiograms. Enforced physiological constraints
-(cardiac periodicity and S1/S2 frequency hierarchy) as hard architectural priors,
-with a learnable frequency mask initialized from cardiac acoustics and adapted
-end-to-end; achieved \textbf{97.5\% test accuracy} across 1,000 recordings.
+\href{https://github.com/miladshirani/PI-FNO}{PI-FNO}
+for 5-class valvular heart-disease classification from phonocardiograms.
+Embedded cardiac periodicity and S1/S2 frequency hierarchy as hard architectural
+priors and used a learnable frequency mask initialized from cardiac acoustics.
+Achieved 97.5\% test accuracy across 1,000 recordings.
+\href{https://miladshirani.github.io/research-pi-fno.html}
+{Project page}.
 
 % ── Multiphysics infrastructure ───────────────────────────────────────────────
+
 \item \textbf{Multiphysics simulation infrastructure:}
-Built high-fidelity simulation frameworks in FEniCSx, COMSOL, JAX and PyTorch for
-fibrous biomaterials, hydrogel and elastomer swelling, thermoelasticity, and
-diffusion--mechanics coupling, with Newton--Raphson solvers using autodiff
-tangents. Implemented large-deformation swelling across multiple material
-models and compared penalty, Lagrange-multiplier, and augmented-Lagrangian
-constraint formulations. Currently extending the hydrogel swelling model to
-biological tissues and to delamination of layered hydrogel systems. Simulation
-datasets serve as ground truth for surrogate training and benchmarking.
+Built FEM and multiphysics frameworks using FEniCSx, COMSOL, JAX, and PyTorch
+for gel swelling, thermoelasticity, and fibrous biomaterials, providing
+high-fidelity references for surrogate training and benchmarking. Currently
+extending the hydrogel swelling model to biological tissues and to delamination
+of layered hydrogel systems.
 
 % ── Leadership ────────────────────────────────────────────────────────────────
-\item \textbf{Research leadership:}
-Led a multidisciplinary team of 4 researchers across Yale, Brown, and Stanford;
-mentored PhD and undergraduate students in PyTorch-based constitutive model
-discovery from biaxial experimental data.
 
-\item \textbf{Output:}
-3 published $\cdot$ 4 under review $\cdot$ active peer reviewer.
+\item \textbf{Research leadership:}
+Led a multidisciplinary team of four researchers across Yale, Brown, and
+Stanford; mentored PhD and undergraduate researchers in PyTorch-based
+constitutive-model discovery from biaxial experimental data.
+
+\item \textbf{Research output:}
+3 published · 4 under review · active peer reviewer.
 
 \end{itemize}
 
+
 % ══════════════════════════════════════════════════════════════════════════════
+% ENTREPRENEURIAL EXPERIENCE
+% ══════════════════════════════════════════════════════════════════════════════
+
 \section{Entrepreneurial Experience}
 
-\jobheader{Co-Founder \& ML Engineer --- UC Berkeley (SkyDeck Pad-13 / CITRIS Foundry)}
+\jobheader
+{Co-Founder \& ML Engineer --- UC Berkeley SkyDeck / CITRIS Foundry}
 {Jul 2022 -- Sept 2023}
+
 \subline{Berkeley, CA}
 
 \begin{itemize}
 
 \item Co-founded an AI startup for cardiovascular disease detection from
-phonocardiograms; accepted into two competitive Berkeley incubator programs
-(SkyDeck Pad-13 and CITRIS Foundry 2023).
+phonocardiograms; accepted into UC Berkeley SkyDeck Pad-13 and CITRIS Foundry.
 
-\item Developed, benchmarked, and delivered CNN + transfer-learning models for
-multi-class heart-sound classification; achieved \textbf{95\% accuracy} on
-held-out test sets, meeting the startup's clinical deployment target, and managed the full model lifecycle from data pipeline
-through evaluation on a startup timeline.
+\item Developed and benchmarked CNN and transfer-learning models for
+multi-class heart-sound classification, achieving \textbf{95\% accuracy}
+on held-out test data and meeting the startup's clinical deployment target.
+Owned the end-to-end ML lifecycle, including data preprocessing,
+model development, validation, benchmarking, and evaluation under a
+startup development timeline.
 
-\item Mentored an undergraduate student in building a hardware digital stethoscope
-paired with the deployed model.
+\item Mentored an undergraduate student in building a hardware digital
+stethoscope paired with the deployed model.
 
 \end{itemize}
 
+
 % ══════════════════════════════════════════════════════════════════════════════
+% PH.D. RESEARCH
+% ══════════════════════════════════════════════════════════════════════════════
+
 \section{Ph.D. Research --- University of California, Berkeley}
 
-\jobheader{Ph.D. Researcher --- University of California, Berkeley}
+\jobheader
+{Ph.D. Researcher --- University of California, Berkeley}
 {Aug 2016 -- Aug 2023}
-\subline{Department of Mechanical Engineering $\cdot$ Minors: Mathematics, Dynamics $\cdot$ Berkeley, CA}
+
+\subline
+{Department of Mechanical Engineering · Minors: Mathematics, Dynamics · Berkeley, CA}
 
 \begin{itemize}
 
@@ -312,118 +413,127 @@ Co-authored
 {\textit{Principles of Continuum Mechanics}}
 (World Scientific) and
 \href{https://link.springer.com/book/10.1007/978-3-031-25674-5}
-{\textit{Lecture Notes on the Theory of Plates and Shells. Classical and Modern Developments}}
+{\textit{Lecture Notes on the Theory of Plates and Shells}}
 (Springer).
 
 \item Derived quasiconvexity, rank-one convexity, and Legendre--Hadamard
 inequalities for Cosserat elasticity, fibrous composites, and liquid crystals,
-establishing analytically rigorous output envelopes applicable as validation
-criteria for FEA and neural-network predictions.
+providing mathematically rigorous stability and validation criteria for
+computational and neural predictions.
 
 \item Developed constitutive models for fiber-reinforced composites and
-metamaterials capturing size-dependent Cosserat and strain-gradient behavior;
-implemented FEA in COMSOL and Python.
+metamaterials incorporating size-dependent Cosserat and strain-gradient
+behavior; implemented FEA in COMSOL and Python.
 
 \item Developed Kirchhoff-rod models for fibrous materials, fiber-reinforced
 thin-structure models for heart valves, and computational models of lipid
 bilayers reproducing biconcave red-blood-cell geometry.
 
 \item \textbf{Output:}
-2 books $\cdot$ 21 peer-reviewed papers $\cdot$ 5 book chapters $\cdot$
-Paul Naghdi Fellowship $\cdot$ Bob Steidel Fellowship $\cdot$
+2 books · 22 peer-reviewed papers · 5 book chapters ·
+Paul Naghdi Fellowship · Bob Steidel Fellowship ·
 \textbf{Outstanding Graduate Student Instructor Award}.
 
 \end{itemize}
 
+
 % ══════════════════════════════════════════════════════════════════════════════
+% EARLIER RESEARCH
+% ══════════════════════════════════════════════════════════════════════════════
+
 \section{Earlier Research Experience}
 
-\jobheader{Graduate Researcher --- Pennsylvania State University}
+\jobheader
+{Graduate Researcher --- Pennsylvania State University}
 {Aug 2014 -- May 2016}
-\subline{Department of Engineering Science and Mechanics $\cdot$ State College, PA}
+
+\subline
+{Department of Engineering Science and Mechanics · State College, PA}
 
 \begin{itemize}
+
 \item Experimental characterization of iron-based shape-memory alloys
-(DSC, tensile testing) and carbon-fiber/fiberglass
-composites; photoelastic stress analysis.
+(DSC, tensile testing) and carbon-fiber/fiberglass composites; photoelastic
+stress analysis.
+
 \end{itemize}
 
-\vspace{3pt}
 
-\jobheader{Graduate Researcher --- Isfahan University of Technology}
+\jobheader
+{Graduate Researcher --- Isfahan University of Technology}
 {Sept 2010 -- Jan 2013}
-\subline{Department of Mechanical Engineering $\cdot$ Isfahan, Iran}
+
+\subline
+{Department of Mechanical Engineering · Isfahan, Iran}
 
 \begin{itemize}
 
 \item Proved thermodynamic inconsistency of the classical Brinson (1993)
-shape-memory-alloy model; derived a corrected constitutive framework validated
-against experimental data in MATLAB, Python, and Abaqus.
+shape-memory-alloy model and derived a corrected constitutive framework
+validated against experimental data in MATLAB, Python, and Abaqus.
 
-\item Derived a thermodynamically consistent model for magnetic shape-memory
-alloys; single-calibration protocol reproduced 12 distinct magneto-mechanical
-loading cases. Predicted from thermodynamic reasoning that biaxial compression
-must produce hysteresis, then designed and executed experiments confirming it.
+\item Derived a thermodynamically consistent magnetic shape-memory-alloy model;
+a single calibration reproduced 12 distinct magneto-mechanical loading cases.
+Predicted from thermodynamic reasoning that biaxial compression must produce
+hysteresis, then designed and executed experiments confirming the prediction.
 
 \item \textbf{Output:}
-8 peer-reviewed papers $\cdot$
+8 peer-reviewed papers ·
 \textbf{Best Thesis Award (across all degree levels: BSc, MSc, PhD)}.
 
 \end{itemize}
 
+
 % ══════════════════════════════════════════════════════════════════════════════
+% EDUCATION
+% ══════════════════════════════════════════════════════════════════════════════
+
 \section{Education}
 
 \begin{tabularx}{\linewidth}{@{} X r @{}}
-  \textbf{Ph.D., Mechanical Engineering} --- University of California, Berkeley
-  & \textit{2023} \\
 
-  \multicolumn{2}{@{}l@{}}{\quad\textit{\small
-  Minors: Mathematics \& Dynamics $\cdot$
-  2 books $\cdot$ 21 papers $\cdot$ 5 chapters $\cdot$
-  Paul Naghdi Fellowship $\cdot$ Bob Steidel Fellowship}}\\[2pt]
+\textbf{Ph.D., Mechanical Engineering}
+--- University of California, Berkeley
+&
+\textit{2023}
+\\
 
-  \multicolumn{2}{@{}l@{}}{\quad\textit{\small
-  \textbf{Outstanding Graduate Student Instructor Award}}}\\[4pt]
+\multicolumn{2}{@{}l@{}}{
+\quad\textit{\small
+Minors: Mathematics \& Dynamics ·
+Paul Naghdi Fellowship ·
+Bob Steidel Fellowship ·
+Outstanding Graduate Student Instructor Award}
+}
+\\[4pt]
 
-  \textbf{M.Sc., Mechanical Engineering} ---
-  Isfahan University of Technology
-  & \textit{2013} \\
+\textbf{M.Sc., Mechanical Engineering}
+---
+Isfahan University of Technology
+&
+\textit{2013}
+\\
 
-  \multicolumn{2}{@{}l@{}}{\quad\textit{\small
-  \textbf{Best Thesis Award (across all degree levels: BSc, MSc, PhD)}
-  $\cdot$ 8 publications}}\\[4pt]
+\multicolumn{2}{@{}l@{}}{
+\quad\textit{\small
+\textbf{Best Thesis Award (across all degree levels: BSc, MSc, PhD)}
+· 8 publications}
+}
+\\[4pt]
 
-  \textbf{B.Sc., Mechanical Engineering} ---
-  Isfahan University of Technology
-  & \textit{2009} \\
+\textbf{B.Sc., Mechanical Engineering}
+---
+Isfahan University of Technology
+&
+\textit{2009}
 
 \end{tabularx}
 
-% ══════════════════════════════════════════════════════════════════════════════
-\section{Certificates \& Training}
-
-\jobheader{Data Science Certificate --- Flatiron School}
-{Nov 2021 -- Aug 2022}
-\subline{Machine Learning \& Deep Learning $\cdot$ New York, NY (Online)}
-
-\begin{itemize}
-
-\item \href{https://github.com/miladshirani/Emotion-Detection-in-Speech}
-{\textbf{Audio Emotion Detection:}}
-CNN + transfer learning (EfficientNetB3/B7) for multi-class speech-emotion
-classification; mel-spectrogram preprocessing pipeline;
-\textbf{$\sim$99\% test accuracy}.
-
-\item \href{https://github.com/miladshirani/Fake-Real-News-Classification}
-{\textbf{Fake/Real News Detector:}}
-NLP pipeline using NLTK, TF-IDF, GloVe, logistic regression, LightGBM,
-and TF-Hub transfer learning on 76,525 samples;
-\textbf{90\% test accuracy, 0.90 weighted F1}.
-
-\end{itemize}
 
 % ══════════════════════════════════════════════════════════════════════════════
+% PUBLICATIONS & OUTPUT
+% ══════════════════════════════════════════════════════════════════════════════
+
 \section{Publications \& Output}
 
 \begin{itemize}
@@ -433,17 +543,18 @@ and TF-Hub transfer learning on 76,525 samples;
 {\textit{Principles of Continuum Mechanics}}
 $\;\cdot\;$
 \href{https://link.springer.com/book/10.1007/978-3-031-25674-5}
-{\textit{Lecture Notes on the Theory of Plates and Shells. Classical and Modern Developments}}
+{\textit{Lecture Notes on the Theory of Plates and Shells}}
 
-\item \textbf{33} peer-reviewed papers
-(32 journal $\cdot$ 1 conference)
-$\cdot$ 4 under review
-$\cdot$ 5 book chapters
+\item \textbf{33} peer-reviewed journal papers
+(8 MSc · 22 PhD · 3 postdoc)
+· 4 under review · 5 book chapters
 
-\item \textbf{Full list:}
+\item \textbf{Full publication list:}
 \href{https://scholar.google.com/citations?hl=en&user=pgoR_BkAAAAJ&view_op=list_works&sortby=pubdate}
 {Google Scholar}
 
 \end{itemize}
 
+
+% ══════════════════════════════════════════════════════════════════════════════
 \end{document}

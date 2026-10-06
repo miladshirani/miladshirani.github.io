@@ -459,7 +459,7 @@
           '<p class="p-meta">' + p.authors + '</p><p class="p-venue">' + venue + "</p></div>" + cover + "</div>";
       }).join("");
       var anchor = { book: "books", journal: "journals", chapter: "chapters", conference: "conference", review: "review" }[key] || key;
-      return '<section class="pub-group" id="' + anchor + '" data-group="' + key + '" data-reveal>' +
+      return '<section class="pub-group" id="' + anchor + '" data-group="' + key + '">' +
         '<div class="pub-group-head"><span class="g-icon">' + icon + "</span><h2>" + title + "</h2>" +
         '<span class="g-count">' + list.length + " " + unit + "</span></div>" + items + "</section>";
     }

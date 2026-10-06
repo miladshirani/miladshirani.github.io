@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Differentiable FEA — Milad Shirani</title>
+  <meta name="description" content="A differentiable, matrix-free finite element solver for large-strain hyperelasticity, using Newton-Krylov iteration and exact adjoint sensitivities." />
+  <meta name="author" content="Milad Shirani" />
+  <link rel="canonical" href="https://miladshirani.github.io/research-differentiable-fea.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232b3cf0'/%3E%3Ctext x='32' y='42' font-family='Menlo,monospace' font-size='26' font-weight='700' text-anchor='middle' fill='%23ffffff'%3EMS%3C/text%3E%3C/svg%3E" type="image/svg+xml" />
+  <meta name="theme-color" content="#f2f2ed" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0d0e12" media="(prefers-color-scheme: dark)" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Differentiable FEA — Milad Shirani" />
+  <meta property="og:description" content="A differentiable, matrix-free finite element solver for large-strain hyperelasticity." />
+  <meta property="og:url" content="https://miladshirani.github.io/research-differentiable-fea.html" />
+  <meta property="og:image" content="https://github.com/miladshirani.png" />
+  <meta name="twitter:card" content="summary" />
+
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("theme") ||
+          (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    })();
+  </script>
+
+  <script>
+    MathJax = {
+      tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'] }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400;1,8..60,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body data-page="research">
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <nav class="site-nav" id="site-nav" aria-label="Site"><!-- injected --></nav>
+
+  <main id="main">
+
+    <header class="page-head wrap">
+      <a class="back-link" href="projects.html" data-reveal>← All projects</a>
+      <p class="kicker" data-reveal>Computational Mechanics · Differentiable Programming</p>
+      <h1 class="page-title" data-reveal style="--d:.08s">Differentiable <em>FEA</em><br />without a stiffness matrix.</h1>
+      <p class="page-intro" data-reveal style="--d:.16s">A finite element solver for large-strain hyperelasticity, written in purely functional PyTorch. Derivatives come from automatic differentiation, equilibrium from a matrix-free Newton-Krylov iteration, and design gradients from one extra linear solve.</p>
+    </header>
+
+    <section class="section">
+      <div class="wrap article">
+
+        <p data-reveal>Most finite element codes assemble a global tangent stiffness matrix and factorize it. For large nonlinear problems that matrix is the bottleneck, and differentiating through the solver is awkward. This project takes a different route: the stiffness matrix is <strong>never assembled</strong>. The internal force comes from the weak form, every derivative is obtained by automatic differentiation, and the whole solver is differentiable, so it can sit inside an optimization or learning loop.</p>
+
+        <h2 data-reveal>Formulation</h2>
+        <p data-reveal>The solver handles displacement-based, 2D plane-strain finite elasticity with Q4, Q8, Q9, Tri3 and Tri6 elements, and hyperelastic laws including neo-Hookean, Mooney-Rivlin and Saint Venant-Kirchhoff. The unknown nodal displacements \( \boldsymbol{u} \) minimize the total potential energy, which is the same as solving the residual equation</p>
+        <div class="eq" data-reveal>\[ \boldsymbol{R}(\boldsymbol{u},\boldsymbol{p})=\frac{\partial \Pi}{\partial \boldsymbol{u}}=\boldsymbol{f}_{\mathrm{int}}(\boldsymbol{u},\boldsymbol{p})-\boldsymbol{f}_{\mathrm{ext}}=\boldsymbol{0}, \]</div>
+        <p data-reveal>where \( \boldsymbol{p} \) collects material and design parameters. The residual is itself obtained by differentiating the strain energy, so adding a new constitutive model means writing only its energy density.</p>
+
+        <h2 data-reveal>Matrix-free Newton-Krylov</h2>
+        <p data-reveal>Each Newton step requires the solution of \( \boldsymbol{K}\,\delta\boldsymbol{u}=-\boldsymbol{R} \) with \( \boldsymbol{K}=\partial\boldsymbol{R}/\partial\boldsymbol{u} \). A Krylov method only needs the action of \( \boldsymbol{K} \) on a vector, and that is a single forward-mode derivative of the residual (a Jacobian-vector product):</p>
+        <div class="eq" data-reveal>\[ \boldsymbol{K}\,\boldsymbol{v}=\frac{\mathrm{d}}{\mathrm{d}\epsilon}\,\boldsymbol{R}(\boldsymbol{u}+\epsilon\boldsymbol{v})\Big|_{\epsilon=0}. \]</div>
+        <p data-reveal>So the linear systems are solved <em>inexactly</em>, by Krylov iteration with Jacobi or block-Jacobi preconditioning, and \( \boldsymbol{K} \) is never formed. Memory grows linearly with the number of unknowns, and the same code runs on CPU and GPU. Four variants of the operator trade memory for speed, from plain forward-mode AD to tensor-valued moduli stored at the quadrature points. The fastest, an element-wise variant, replaces batched small matrix products by element-wise contractions.</p>
+
+        <h2 data-reveal>Exact sensitivities</h2>
+        <p data-reveal>For a design objective \( J(\boldsymbol{u},\boldsymbol{p}) \), differentiating through all Newton iterations would be costly and fragile. Instead the gradient follows from the implicit function theorem, with <strong>one extra linear solve</strong> at the converged state:</p>
+        <div class="eq" data-reveal>\[ \boldsymbol{K}^{\!\top}\boldsymbol{\lambda}=\Big(\frac{\partial J}{\partial \boldsymbol{u}}\Big)^{\!\top},\qquad \frac{\mathrm{d}J}{\mathrm{d}\boldsymbol{p}}=\frac{\partial J}{\partial \boldsymbol{p}}-\boldsymbol{\lambda}^{\top}\frac{\partial \boldsymbol{R}}{\partial \boldsymbol{p}} . \]</div>
+        <p data-reveal>The adjoint solve reuses the same matrix-free operator, and the gradients are checked against finite differences.</p>
+
+        <h2 data-reveal>Validation</h2>
+        <ul class="plain-list" data-reveal>
+          <li>Solutions agree with FEniCSx/dolfinx to rounding level (relative difference below \( 10^{-13} \)) on identical discretizations.</li>
+          <li>Cantilever deflections agree with Timoshenko beam theory to about 1%.</li>
+          <li>The stress concentration for a plate with a hole matches Heywood's Kirsch-based formula within 3%.</li>
+          <li>A suite of 194 automated tests passes. Geometries such as notched plates and L-brackets are meshed with Gmsh.</li>
+        </ul>
+
+        <h2 data-reveal>Performance</h2>
+        <p data-reveal>For a 10,000-element Q4 problem in double precision, a complete nonlinear solve takes <strong>2.9 s on a T4 GPU</strong> and 14.7 s on a laptop CPU with 6 threads. The element-wise variant is 11.6 times faster than the first GPU version, because it reaches about 8% of the memory bandwidth instead of 0.7%.</p>
+
+        <h2 data-reveal>Limits</h2>
+        <p data-reveal>The code is an early release (v0.1). It covers 2D plane strain on a single process; 3D, multi-GPU execution and multigrid preconditioning are on the roadmap, and volumetric locking appears as the Poisson ratio approaches 0.5.</p>
+
+        <h2 data-reveal>Code</h2>
+        <p data-reveal>The package, tests, benchmarks, a Streamlit app and a Colab notebook are open source at <a href="https://github.com/miladshirani/Differentiable-FEA" target="_blank" rel="noopener">github.com/miladshirani/Differentiable-FEA ↗</a>.</p>
+
+        <div class="tab-links" data-reveal>
+          <a href="projects.html">← All projects</a>
+          <a href="https://github.com/miladshirani/Differentiable-FEA" target="_blank" rel="noopener">GitHub repository ↗</a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer" id="site-footer"><!-- injected --></footer>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/site.js"></script>
+</body>
+</html>

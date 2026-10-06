@@ -101,6 +101,9 @@ window.SITE = {
     { title: "Dissipative Chemo-Elasticity", href: "research-dissipative-chemo-elasticity.html",
       cats: ["theoretical-mechanics", "soft-matter-biomechanics"], year: "2026", featured: true,
       summary: "A thermodynamically consistent theory of swelling driven by water absorption: coupled mechanical and chemical balance laws from one energy, and second-law restrictions on the flux." },
+    { title: "Differentiable FEA", href: "research-differentiable-fea.html",
+      cats: ["computational-mechanics"], year: "2026", featured: true,
+      summary: "A differentiable finite element solver for large-strain hyperelasticity: matrix-free Newton-Krylov iteration, automatic differentiation, and exact adjoint sensitivities, matching FEniCSx to rounding level." },
     { title: "Peridynamic Fracture &amp; Peeling", href: "research-peridynamic-fracture.html",
       cats: ["computational-mechanics"], year: "2026", featured: true,
       summary: "Meshless, differentiable simulation of fluid-induced fracture and peeling of solids, using automatic differentiation and dynamic relaxation. In collaboration with Prof. Ali Javili." },
@@ -354,6 +357,24 @@ window.SITE = {
         "Legendre-Hadamard inequalities; loss of ellipticity and shape programming"
       ],
       links: [ { text: "Read · Proof of a Universal Behavior in Cell Biology", href: "research-cell-monolayers.html" } ]
+    },
+    {
+      id: "t11", cat: "computational-mechanics", num: "XI", label: "Differentiable<br>FEA",
+      title: "Differentiable FEA with a Matrix-Free Newton-Krylov Solver",
+      body: [
+        "I built a finite element solver for large-strain hyperelasticity in purely functional PyTorch in which the global stiffness matrix is never assembled. Residuals and tangents come from automatic differentiation of the strain energy, and each Newton step is solved inexactly by Krylov iteration with Jacobi or block-Jacobi preconditioning, using only Jacobian-vector products.",
+        "Design gradients follow from the implicit function theorem with one extra linear solve, so the solver can be placed inside optimization and learning loops. Solutions match FEniCSx/dolfinx to rounding level, and a 10,000-element Q4 problem solves in 2.9 s on a T4 GPU."
+      ],
+      keyPoints: [
+        "Matrix-free inexact Newton-Krylov iteration; Q4, Q8, Q9, Tri3 and Tri6 elements, several hyperelastic laws",
+        "Exact adjoint sensitivities by the implicit function theorem, checked against finite differences",
+        "Agreement with FEniCSx to rounding level; cantilever and plate-with-hole benchmarks within 1-3% of theory",
+        "11.6x GPU speedup from an element-wise operator variant; 194 automated tests"
+      ],
+      links: [
+        { text: "Read · Differentiable FEA", href: "research-differentiable-fea.html" },
+        { text: "GitHub · Differentiable-FEA Repository", href: "https://github.com/miladshirani/Differentiable-FEA", external: true }
+      ]
     }
   ],
 

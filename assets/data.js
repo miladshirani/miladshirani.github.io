@@ -145,11 +145,11 @@ window.SITE = {
     { num: "2",   label: "Graduate Textbooks",   sub: "Continuum Mechanics · Plates &amp; Shells", href: "publications.html#books" },
     { num: "33",  label: "Journal Papers",       sub: "8 MSc · 22 PhD · 3 postdoc", href: "publications.html#journals" },
     { num: "5",   label: "Book Chapters",        href: "publications.html#chapters" },
-    { num: "4",   label: "Under Review",         sub: "Manuscripts", href: "publications.html#review" }
+    { num: "10+", label: "Years",                sub: "Physics-based simulation &amp; ML" }
   ],
   // Official totals (from the CV). The lists below hold the entries added so far;
   // the Publications page shows these totals plus a note on how many are listed.
-  publicationTotals: { journal: 33, chapter: 5, review: 4 },
+  publicationTotals: { journal: 33, conference: 1, chapter: 5 },
 
 
   // Set hidden:true to keep an entry in the record but off the page.
@@ -517,7 +517,7 @@ window.SITE = {
       body: [
         "The convergence of mechanics and machine learning opens a genuinely new frontier — not merely fitting data faster, but building computational models that are constrained by physical law from the ground up. My work in this area is grounded in the conviction that the laws of mechanics are not soft regularizers to be traded against data fit; they are hard constraints that any admissible model must satisfy exactly.",
         "For hyperelastic constitutive modeling, I develop neural networks whose outputs are guaranteed to satisfy <em>frame indifference</em>, <em>material symmetry</em>, and the <em>Legendre–Hadamard condition</em> — not by penalizing violations during training, but by architectural design. Input Convex Neural Networks (ICNNs) provide polyconvex energy densities by construction. For fibrous biological tissues with two fiber families, I have proved analytically the polyconvexity conditions that existing approaches verify only numerically — a distinction that matters for guaranteeing stability at <em>any</em> deformation state, not just those seen during training.",
-        "For operator learning — mapping loading conditions to full displacement or director fields — I work with Deep Operator Networks (DeepONets) and Physics-Informed Neural Networks (PINNs), enforcing the governing PDEs either through the loss function or directly in the architecture. Most recently, in work currently under review, I trained physics-consistent neural networks for microstructured media (Cosserat continua) where both the deformation gradient \\( \\boldsymbol{F} \\) and the director field \\( \\boldsymbol{d} \\) are learned simultaneously, with the Legendre–Hadamard tensor retained in the computational graph for post-training stability verification.",
+        "For operator learning — mapping loading conditions to full displacement or director fields — I work with Deep Operator Networks (DeepONets) and Physics-Informed Neural Networks (PINNs), enforcing the governing PDEs either through the loss function or directly in the architecture. Most recently, I trained physics-consistent neural networks for microstructured media (Cosserat continua) where both the deformation gradient \\( \\boldsymbol{F} \\) and the director field \\( \\boldsymbol{d} \\) are learned simultaneously, with the Legendre–Hadamard tensor retained in the computational graph for post-training stability verification.",
         // [HIDDEN until the GNN paper is submitted]
         // "<strong>Physics-constrained GNNs.</strong> For coupled multiphysics, I train graph neural networks as implicit time-steppers by minimizing the finite-element weak-form residual directly, with no labeled solution data. The graph is the mesh (or its Voronoi dual), and the network shares shape functions, quadrature, and boundary conditions with the finite-element solver, so the weak-form residual doubles as an error monitor. The method is demonstrated on finite-strain gel swelling (four coupled fields) and on thermoelasticity, against Newton–Raphson reference solutions.",
         "<strong>An active research direction.</strong> I am building end-to-end differentiable scientific-computing pipelines in JAX and PyTorch that connect weak-form physics, automatic differentiation, nonlinear solvers, and neural models, combining custom finite element solvers, neural constitutive models, and neural surrogates. The components exist and are validated one by one (see the status below). Applications such as soft robotics, surgical simulation, and materials design are the longer-term motivation, not results."
@@ -659,13 +659,23 @@ window.SITE = {
       { authors: "Steigmann, D. J. &amp; <strong>Shirani, M.</strong>",
         title: "Principles of Continuum Mechanics",
         venue: "World Scientific", details: "2025",
-        href: "https://doi.org/10.1142/14150" },
+        href: "https://doi.org/10.1142/14150",
+        cover: "Figures/Books/principles-of-continuum-mechanics.jpg" },
       { authors: "Steigmann, D. J., Bîrsan, M. &amp; <strong>Shirani, M.</strong>",
         title: "Lecture Notes on the Theory of Plates and Shells",
         venue: "Springer", details: "2023",
-        href: "https://link.springer.com/book/9783031256738" }
+        href: "https://link.springer.com/book/9783031256738",
+        cover: "Figures/Books/lecture-notes-plates-and-shells.jpg" }
     ],
     journals: [
+      { authors: "<strong>Shirani, M.</strong> &amp; Humphrey, J. D.",
+        title: "A universal behavior in polarized cell monolayers",
+        venue: "Proceedings of the Royal Society A", details: "2026 · accepted",
+        tag: "In Press" },
+      { authors: "Steigmann, D. J., <strong>Shirani, M.</strong> &amp; La Valle, G.",
+        title: "Extended Cosserat elasticity theory incorporating the second gradient of the rotation field",
+        venue: "Mathematics and Mechanics of Complex Systems", details: "2026 · accepted",
+        tag: "In Press" },
       { authors: "Bîrsan, M. &amp; <strong>Shirani, M.</strong>",
         title: "Legendre-Hadamard inequalities for Cosserat elastic shells with a single deformable director",
         venue: "Journal of Applied Mechanics", details: "2026 · accepted",
@@ -825,15 +835,12 @@ window.SITE = {
         details: "ASME · 2014 · Vol. 46148, V001T01A001",
         href: "https://asmedigitalcollection.asme.org/SMASIS/proceedings-abstract/SMASIS2014/V001T01A001/286324" }
     ],
-    review: [
-      { authors: "<strong>Shirani, M.</strong>, Gueldner, P. H., Khidoyatov, M., Warren, J. &amp; Ninno, F.",
-        title: "Physics-Consistent Neural Networks for Learning Deformation and Director Fields in Microstructured Media with Loss-Based Validation Criteria",
-        details: "2026", tag: "Under Review", tagClass: "under-review",
-        href: "https://arxiv.org/abs/2603.06939", linkLabel: "arXiv" },
-      { authors: "<strong>Shirani, M.</strong> &amp; Humphrey, J. D.",
-        title: "A universal behavior in polarized cell monolayers",
-        tag: "Under Review", tagClass: "under-review" }
-    ]
+    review: [],
+    // [HIDDEN: "Under Review" is not shown on the site. Move an entry back into review: [...] to show it.]
+    // { authors: "<strong>Shirani, M.</strong>, Gueldner, P. H., Khidoyatov, M., Warren, J. &amp; Ninno, F.",
+    // title: "Physics-Consistent Neural Networks for Learning Deformation and Director Fields in Microstructured Media with Loss-Based Validation Criteria",
+    // details: "2026", tag: "Under Review", tagClass: "under-review",
+    // href: "https://arxiv.org/abs/2603.06939", linkLabel: "arXiv" }
   },
 
   /* ---- HONORS ------------------------------------------------ */

@@ -835,3 +835,12 @@ a.proj-card { display: flex; flex-direction: column; }
 
 .pub-note { margin: -1.4rem 0 2rem; font-size: .8rem; color: var(--ink-soft); line-height: 1.6; }
 .pub-note:empty { display: none; }
+
+/* book covers */
+.book { display: flex; gap: .9rem; align-items: flex-start; }
+.book-cover { flex: none; width: 72px; height: auto; border-radius: 4px; box-shadow: 0 1px 2px rgba(23,23,28,.12), 0 6px 16px rgba(23,23,28,.14); background: #fff; }
+.book-text { display: block; min-width: 0; }
+.pub-item.has-cover { grid-template-columns: 3.2rem 1fr 84px; }
+.pub-cover { display: block; align-self: start; }
+.pub-cover img { width: 84px; height: auto; border-radius: 4px; box-shadow: 0 1px 2px rgba(23,23,28,.12), 0 6px 16px rgba(23,23,28,.14); background: #fff; }
+@media (max-width: 560px) { .pub-item.has-cover { grid-template-columns: 2.4rem 1fr 64px; } .pub-cover img { width: 64px; } }

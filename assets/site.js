@@ -236,9 +236,10 @@
     mount("home-books",
       (S.publications.books || []).map(function (b, i) {
         return '<a class="book" href="publications.html#books" data-reveal style="--d:' + (i * 0.08) + 's">' +
-          '<span class="book-pub">' + b.venue + " · " + b.details + "</span>" +
+          (b.cover ? '<img class="book-cover" src="' + b.cover + '" alt="Cover of ' + b.title + '" width="72" height="108" loading="lazy" decoding="async" />' : "") +
+          '<span class="book-text"><span class="book-pub">' + b.venue + " · " + b.details + "</span>" +
           '<span class="book-title">' + b.title + "</span>" +
-          '<span class="book-auth">' + b.authors + "</span></a>";
+          '<span class="book-auth">' + b.authors + "</span></span></a>";
       }).join(""));
 
     var visibleAff = S.affiliations.filter(function (a) { return !a.hidden; });
@@ -424,25 +425,22 @@
                    conference: P.conference.length, review: P.review.length };
 
     var T = S.publicationTotals || {};
-    var tot = { book: counts.book, journal: T.journal || counts.journal + counts.conference,
-                chapter: T.chapter || counts.chapter, review: T.review || counts.review };
-    var listedJ = counts.journal + counts.conference;   // the conference paper sits in the journal total
+    var tot = { book: counts.book, journal: T.journal || counts.journal, conference: T.conference || counts.conference,
+                chapter: T.chapter || counts.chapter };
     mount("pub-summary",
       tot.book + " books · " + tot.journal + " peer-reviewed journal papers (8 MSc · 22 PhD · 3 postdoc) · " +
-      tot.chapter + " book chapters · " + tot.review + " under review");
+      tot.conference + " conference paper · " + tot.chapter + " book chapters");
 
     mount("pub-stats",
       statCells([
         { num: String(tot.book), label: "Books" },
         { num: String(tot.journal), label: "Journal Papers", sub: "8 MSc · 22 PhD · 3 postdoc" },
         { num: String(tot.chapter), label: "Book Chapters" },
-        { num: String(tot.review), label: "Under Review" }
+        { num: String(tot.conference), label: "Conference Paper" }
       ]));
-    var missJ = tot.journal - listedJ, missR = tot.review - counts.review;
-    mount("pub-note", (missJ > 0 || missR > 0)
-      ? "Totals follow the CV. The list below is still being completed: " + listedJ + " of " + tot.journal +
-        " journal papers and " + counts.review + " of " + tot.review + " manuscripts under review are listed so far."
-      : "");
+    var parts = [];
+    if (tot.journal > counts.journal) parts.push(counts.journal + " of " + tot.journal + " journal papers");
+    mount("pub-note", parts.length ? "Totals follow the CV. The list below is still being completed: " + parts.join(" and ") + " are listed so far." : "");
 
     function pubGroup(key, icon, title, unit, list) {
       if (!list.length) return "";
@@ -452,11 +450,13 @@
         var titleHtml = p.href
           ? '<a href="' + p.href + '" target="_blank" rel="noopener">' + p.title + "</a>"
           : p.title;
-        var venue = p.venue + (p.details ? " · " + p.details : "");
-        if (p.href) venue += ' · <a href="' + p.href + '" target="_blank" rel="noopener">link ↗</a>';
-        return '<div class="pub-item"><span class="pub-num">' + (num < 10 ? "0" : "") + num + "</span>" +
+        var venue = [p.venue, p.details].filter(Boolean).join(" · ");
+        if (p.href) venue += (venue ? " · " : "") + '<a href="' + p.href + '" target="_blank" rel="noopener">' + (p.linkLabel || "link") + ' ↗</a>';
+        var cover = p.cover
+          ? '<a class="pub-cover" href="' + p.href + '" target="_blank" rel="noopener"><img src="' + p.cover + '" alt="Cover of ' + p.title + '" width="84" height="126" loading="lazy" decoding="async" /></a>' : "";
+        return '<div class="pub-item' + (p.cover ? " has-cover" : "") + '"><span class="pub-num">' + (num < 10 ? "0" : "") + num + "</span>" +
           '<div class="pub-body"><p class="p-title">' + titleHtml + tag + "</p>" +
-          '<p class="p-meta">' + p.authors + '</p><p class="p-venue">' + venue + "</p></div></div>";
+          '<p class="p-meta">' + p.authors + '</p><p class="p-venue">' + venue + "</p></div>" + cover + "</div>";
       }).join("");
       var anchor = { book: "books", journal: "journals", chapter: "chapters", conference: "conference", review: "review" }[key] || key;
       return '<section class="pub-group" id="' + anchor + '" data-group="' + key + '" data-reveal>' +
@@ -466,7 +466,6 @@
 
     mount("pub-sections",
       pubGroup("book", "§", "Graduate Textbooks", counts.book === 1 ? "volume" : "volumes", P.books) +
-      pubGroup("review", "∴", "Under Review", counts.review === 1 ? "manuscript" : "manuscripts", P.review) +
       pubGroup("journal", "∂", "Refereed Journal Publications", "papers", P.journals) +
       pubGroup("chapter", "◈", "Refereed Book Chapters", "chapters", P.chapters) +
       pubGroup("conference", "◇", "Conference Paper", counts.conference === 1 ? "paper" : "papers", P.conference));

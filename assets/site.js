@@ -745,5 +745,30 @@
     }, { threshold: 0.5 });
     counters.forEach(function (n) { cio.observe(n); });
   }
-  window.__siteReady = true; // set only if every renderer above ran without throwing
+  /* ---------- Beyond research: photo filter + lightbox ---------- */
+(function () {
+  var filter = document.getElementById("shot-filter"), grid = document.getElementById("shots");
+  var lb = document.getElementById("lightbox");
+  if (!filter || !grid) return;
+  filter.addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-cat]"); if (!b) return;
+    var cat = b.getAttribute("data-cat");
+    filter.querySelectorAll("button").forEach(function (x) {
+      var on = x === b; x.classList.toggle("active", on); x.setAttribute("aria-pressed", on);
+    });
+    grid.querySelectorAll(".shot").forEach(function (f) { f.hidden = cat !== "all" && f.getAttribute("data-cat") !== cat; });
+  });
+  if (!lb || !lb.showModal) return;
+  grid.addEventListener("click", function (e) {
+    var b = e.target.closest(".shot-btn"); if (!b) return;
+    var img = b.querySelector("img");
+    document.getElementById("lb-img").src = img.src;
+    document.getElementById("lb-img").alt = img.alt;
+    document.getElementById("lb-cap").textContent = img.alt;
+    lb.showModal();
+  });
+  lb.addEventListener("click", function () { lb.close(); });
+})();
+
+window.__siteReady = true; // set only if every renderer above ran without throwing
 })();

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Matrix-Free Differentiable FEA — Milad Shirani</title>
-  <meta name="description" content="A differentiable, matrix-free finite element solver for large-strain hyperelasticity, using Newton-Krylov iteration and exact adjoint sensitivities." />
+  <title>Differentiable FEA — Beyond the Stiffness Matrix — Milad Shirani</title>
+  <meta name="description" content="Matrix-free differentiable finite elements: weak-form residuals and Jacobian-vector products through automatic differentiation, enabling Newton-Krylov solution without assembling the global stiffness matrix." />
   <meta name="author" content="Milad Shirani" />
   <link rel="canonical" href="https://miladshirani.github.io/research-differentiable-fea.html" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232b3cf0'/%3E%3Ctext x='32' y='42' font-family='Menlo,monospace' font-size='26' font-weight='700' text-anchor='middle' fill='%23ffffff'%3EMS%3C/text%3E%3C/svg%3E" type="image/svg+xml" />
@@ -12,8 +12,8 @@
   <meta name="theme-color" content="#0d0e12" media="(prefers-color-scheme: dark)" />
 
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Matrix-Free Differentiable FEA — Milad Shirani" />
-  <meta property="og:description" content="A differentiable, matrix-free finite element solver for large-strain hyperelasticity." />
+  <meta property="og:title" content="Differentiable FEA — Beyond the Stiffness Matrix — Milad Shirani" />
+  <meta property="og:description" content="Matrix-free differentiable finite elements in PyTorch: Newton-Krylov solution through Jacobian-vector products, with exact adjoint design gradients." />
   <meta property="og:url" content="https://miladshirani.github.io/research-differentiable-fea.html" />
   <meta property="og:image" content="https://github.com/miladshirani.png" />
   <meta name="twitter:card" content="summary" />
@@ -50,60 +50,110 @@
 
     <header class="page-head wrap">
       <a class="back-link" href="projects.html" data-reveal>← All projects</a>
-      <p class="kicker" data-reveal>Computational Mechanics · Differentiable Programming</p>
-      <h1 class="page-title" data-reveal style="--d:.08s">Matrix-Free<br />Differentiable <em>FEA</em>.</h1>
-      <p class="page-intro" data-reveal style="--d:.16s">A finite element solver for large-strain hyperelasticity, written in purely functional PyTorch. Derivatives come from automatic differentiation, equilibrium from a matrix-free Newton-Krylov iteration, and design gradients from one extra linear solve.</p>
+      <p class="kicker" data-reveal>Matrix-Free · Differentiable · Newton–Krylov</p>
+      <h1 class="page-title" data-reveal style="--d:.08s">Differentiable FEA —<br />beyond the <em>stiffness matrix</em>.</h1>
+      <p class="page-intro" data-reveal style="--d:.16s">Matrix-free differentiable finite elements: weak-form residuals and Jacobian–vector products are evaluated through automatic differentiation, enabling Newton–Krylov solution without explicitly assembling the global stiffness matrix. A solver for large-strain hyperelasticity in purely functional PyTorch.</p>
     </header>
 
     <section class="section">
       <div class="wrap article">
 
-        <p data-reveal>Most finite element codes assemble a global tangent stiffness matrix and factorize it. For large nonlinear problems that matrix is the bottleneck, and differentiating through the solver is awkward. This project takes a different route: the stiffness matrix is <strong>never assembled</strong>. The internal force comes from the weak form, every derivative is obtained by automatic differentiation, and the whole solver is differentiable, so it can sit inside an optimization or learning loop.</p>
+        <div class="glance" data-reveal>
+          <p class="kp-label">At a glance</p>
+          <dl class="pstruct">
+            <div><dt>Problem</dt><dd>Solving nonlinear finite-element problems without forming the global tangent matrix, and with exact derivatives.</dd></div>
+            <div><dt>Method</dt><dd>Differentiable matrix-free Newton–Krylov FEA: automatic-differentiation Jacobian–vector products inside preconditioned conjugate gradients, in an inexact Newton iteration.</dd></div>
+            <div><dt>Physics &amp; math</dt><dd>Weak-form mechanics. The residual and the tangent are the first and second derivatives of one strain-energy density; design gradients follow from the implicit function theorem and one adjoint solve.</dd></div>
+            <div><dt>Result</dt><dd>Agreement with FEniCSx/dolfinx below 10<sup>−13</sup> (≤ 9×10<sup>−14</sup>); an 11.6× faster GPU tangent product after profiling; 10,000 Q4 elements solved in 2.9 s on a T4 GPU.</dd></div>
+          </dl>
+        </div>
+
+        <h2 data-reveal>The problem</h2>
+        <p data-reveal>Traditional nonlinear finite-element analysis generally solves a sequence of linearized systems, one per Newton iteration. Each involves a tangent (Jacobian, or stiffness) matrix \( \boldsymbol{K}=\partial\boldsymbol{R}/\partial\boldsymbol{u} \) that is assembled from the element contributions, stored, and then factorized or iterated on. For large problems that matrix can dominate memory, more so for high-order elements and in 3D.</p>
+        <p data-reveal>The key point is <strong>not</strong> that stiffness matrices are obsolete. It is narrower: the global stiffness (Jacobian) matrix does not need to be explicitly assembled or stored. Everything a Newton–Krylov method needs from it is the action of the matrix on a vector.</p>
 
         <h2 data-reveal>Formulation</h2>
-        <p data-reveal>The solver handles displacement-based, 2D plane-strain finite elasticity with Q4, Q8, Q9, Tri3 and Tri6 elements, and hyperelastic laws including neo-Hookean, Mooney-Rivlin and Saint Venant-Kirchhoff. The unknown nodal displacements \( \boldsymbol{u} \) minimize the total potential energy, which is the same as solving the residual equation</p>
+        <p data-reveal>The solver handles displacement-based, 2D plane-strain finite elasticity with Q4, Q8, Q9, Tri3 and Tri6 elements, and hyperelastic laws including neo-Hookean, Mooney–Rivlin and Saint Venant–Kirchhoff. The unknown nodal displacements \( \boldsymbol{u} \) minimize the total potential energy, which is the same as solving the residual equation</p>
         <div class="eq" data-reveal>\[ \boldsymbol{R}(\boldsymbol{u},\boldsymbol{p})=\frac{\partial \Pi}{\partial \boldsymbol{u}}=\boldsymbol{f}_{\mathrm{int}}(\boldsymbol{u},\boldsymbol{p})-\boldsymbol{f}_{\mathrm{ext}}=\boldsymbol{0}, \]</div>
         <p data-reveal>where \( \boldsymbol{p} \) collects material and design parameters. The residual is itself obtained by differentiating the strain energy, so adding a new constitutive model means writing only its energy density.</p>
 
-        <h2 data-reveal>Matrix-free Newton-Krylov</h2>
-        <p data-reveal>Each Newton step requires the solution of \( \boldsymbol{K}\,\delta\boldsymbol{u}=-\boldsymbol{R} \) with \( \boldsymbol{K}=\partial\boldsymbol{R}/\partial\boldsymbol{u} \). A Krylov method only needs the action of \( \boldsymbol{K} \) on a vector, and that is a single forward-mode derivative of the residual (a Jacobian-vector product):</p>
-        <div class="eq" data-reveal>\[ \boldsymbol{K}\,\boldsymbol{v}=\frac{\mathrm{d}}{\mathrm{d}\epsilon}\,\boldsymbol{R}(\boldsymbol{u}+\epsilon\boldsymbol{v})\Big|_{\epsilon=0}. \]</div>
-        <p data-reveal>So the linear systems are solved <em>inexactly</em>, by Krylov iteration with Jacobi or block-Jacobi preconditioning, and \( \boldsymbol{K} \) is never formed. Memory grows linearly with the number of unknowns, and the same code runs on CPU and GPU. Four variants of the operator trade memory for speed, from plain forward-mode AD to tensor-valued moduli stored at the quadrature points. The fastest, an element-wise variant, replaces batched small matrix products by element-wise contractions.</p>
+        <h2 data-reveal>Matrix-free Newton–Krylov</h2>
+        <p data-reveal>Each Newton step requires the solution of \( \boldsymbol{K}\,\delta\boldsymbol{u}=-\boldsymbol{R} \). The pipeline below replaces the assembled \( \boldsymbol{K} \) by a routine that returns \( \boldsymbol{K}\boldsymbol{v} \) for any vector \( \boldsymbol{v} \).</p>
+        <figure class="flow-card" data-reveal>
+          <p class="flow-label">One Newton step, matrix-free</p>
+          <ol class="flow">
+            <li><span class="f-t">Weak form</span><span class="f-m">&int; P(F) : &nabla;v dV &minus; &ell;(v) = 0</span><span class="f-s">Equilibrium as a stationary point of the strain energy.</span></li>
+            <li><span class="f-t">Residual R(u)</span><span class="f-m">R(u) = f<sub>int</sub>(u) &minus; f<sub>ext</sub></span><span class="f-s">Evaluated element by element at quadrature points.</span></li>
+            <li class="key"><span class="f-t">Automatic differentiation</span><span class="f-m">d/d&epsilon; R(u + &epsilon;v) at &epsilon; = 0</span><span class="f-s">Forward-mode derivative through the constitutive law.</span></li>
+            <li class="key"><span class="f-t">J(u)v <em class="f-tag">no global matrix</em></span><span class="f-m">J(u) v</span><span class="f-s">The action of the tangent on a vector, which is all a Krylov method needs. Computed by forward-mode AD, or from tangent moduli stored at the quadrature points.</span></li>
+            <li><span class="f-t">Krylov solver</span><span class="f-m">J &delta;u = &minus;R, solved inexactly</span><span class="f-s">Preconditioned conjugate gradients; the tolerance is loose far from the solution and tightens near it (Eisenstat&ndash;Walker forcing term).</span></li>
+            <li><span class="f-t">Newton update</span><span class="f-m">u &larr; u + &alpha; &delta;u</span><span class="f-s">Armijo line search, inside an adaptive load-continuation loop that halves the load step if Newton fails.</span></li>
+          </ol>
+          <p class="flow-loop">&#8634; repeat from the residual until &Vert;R(u)&Vert; is below tolerance</p>
+        </figure>
 
-        <h2 data-reveal>Example: plate with a hole</h2>
-        <p data-reveal>A plate with a hole in tension (Q9 elements, neo-Hookean, about 10% stretch). The solver returns the deformation, the von Mises stress, which peaks at the hole, and, from the adjoint, the sensitivity of the compliance to the stiffness of every element.</p>
-        <figure class="fig-card" data-reveal><div style="padding:1rem;background:#fff"><img src="Figures/Differentiable-FEA/plate_with_hole_deformation.png" alt="Plate with a hole: displacement magnitude, von Mises stress and adjoint sensitivity" loading="lazy" style="width:100%" /></div><figcaption>Displacement, von Mises stress and exact adjoint sensitivity of the compliance with respect to element stiffness</figcaption></figure>
-        <p data-reveal>The same problem under load continuation: the load factor goes from 0 to 1 in five increments, and each one is solved by Newton-Krylov iteration (40 Newton steps in total). The animation interpolates between the converged states.</p>
-        <figure class="fig-card" data-reveal><img src="Figures/Differentiable-FEA/plate_with_hole.gif" alt="Animation of a plate with a hole stretched in tension, colored by von Mises stress" loading="lazy" /><figcaption>Plate with a hole in tension · von Mises stress on the deformed mesh as the load increases</figcaption></figure>
+        <h2 data-reveal>What automatic differentiation provides</h2>
+        <p data-reveal>The residual is a differentiable function of the nodal displacements. Forward-mode automatic differentiation returns the directional derivative</p>
+        <div class="eq" data-reveal>\[ \boldsymbol{K}\,\boldsymbol{v}=\frac{\mathrm{d}}{\mathrm{d}\epsilon}\,\boldsymbol{R}(\boldsymbol{u}+\epsilon\boldsymbol{v})\Big|_{\epsilon=0} \]</div>
+        <p data-reveal>for a given \( \boldsymbol{v} \), at a cost of a small multiple of one residual evaluation, and without ever writing \( \boldsymbol{K} \) down. This is a Jacobian–vector product. Four variants of the operator trade memory for speed, from plain forward-mode AD to tangent moduli stored at the quadrature points (computed once per Newton step by the same machinery) and applied per product. The fastest, an element-wise variant, replaces batched small matrix products by element-wise contractions.</p>
+
+        <h2 data-reveal>Why Krylov methods only need products</h2>
+        <p data-reveal>A Krylov method builds its iterates from the vectors \( \boldsymbol{r},\ \boldsymbol{K}\boldsymbol{r},\ \boldsymbol{K}^2\boldsymbol{r},\dots \) and never asks for individual entries of \( \boldsymbol{K} \). Preconditioned conjugate gradients, used here for the symmetric tangent of hyperelasticity (positive definite near stable equilibria), therefore needs only the routine that returns \( \boldsymbol{K}\boldsymbol{v} \). The Jacobi and block-Jacobi preconditioners are built from element-level quantities, again without the global matrix. The Newton iteration is inexact: the linear solve is deliberately loose far from the solution, because accurate solves there are wasted work.</p>
+
+        <h2 data-reveal>Memory and differentiability</h2>
+        <p data-reveal>With no global matrix, memory is dominated by vectors of the size of the unknowns, plus small per-quadrature-point blocks in the stored-tangent variants. That is why matrix-free evaluation <em>can</em> reduce memory requirements, especially where assembled matrices grow quickly: high-order elements and 3D. In this code that has not been measured yet; GPU memory per variant is still on the roadmap.</p>
+        <p data-reveal>It also makes nonlinear simulation differentiable end to end. The solve is a composition of differentiable operations followed by one implicit solve, so derivatives of a design objective can be taken exactly, as described next.</p>
 
         <h2 data-reveal>Exact sensitivities</h2>
         <p data-reveal>For a design objective \( J(\boldsymbol{u},\boldsymbol{p}) \), differentiating through all Newton iterations would be costly and fragile. Instead the gradient follows from the implicit function theorem, with <strong>one extra linear solve</strong> at the converged state:</p>
         <div class="eq" data-reveal>\[ \boldsymbol{K}^{\!\top}\boldsymbol{\lambda}=\Big(\frac{\partial J}{\partial \boldsymbol{u}}\Big)^{\!\top},\qquad \frac{\mathrm{d}J}{\mathrm{d}\boldsymbol{p}}=\frac{\partial J}{\partial \boldsymbol{p}}-\boldsymbol{\lambda}^{\top}\frac{\partial \boldsymbol{R}}{\partial \boldsymbol{p}} . \]</div>
         <p data-reveal>The adjoint solve reuses the same matrix-free operator, and the gradients are checked against finite differences.</p>
 
+        <h2 data-reveal>Example: plate with a hole</h2>
+        <p data-reveal>A plate with a hole in tension (Q9 elements, neo-Hookean, about 10% stretch). The solver returns the deformation, the von Mises stress, which peaks at the hole, and, from the adjoint, the sensitivity of the compliance to the stiffness of every element.</p>
+        <figure class="fig-card" data-reveal><div style="padding:1rem;background:#fff"><img src="Figures/Differentiable-FEA/plate_with_hole_deformation.png" alt="Plate with a hole: displacement magnitude, von Mises stress and adjoint sensitivity" loading="lazy" decoding="async" style="width:100%" /></div><figcaption>Displacement, von Mises stress and exact adjoint sensitivity of the compliance with respect to element stiffness</figcaption></figure>
+        <p data-reveal>The same problem under load continuation: the load factor goes from 0 to 1 in five increments, and each one is solved by Newton–Krylov iteration (40 Newton steps in total). The animation interpolates between the converged states.</p>
+        <figure class="fig-card" data-reveal><img src="Figures/Differentiable-FEA/plate_with_hole.gif" alt="Animation of a plate with a hole stretched in tension, colored by von Mises stress" loading="lazy" decoding="async" /><figcaption>Plate with a hole in tension · von Mises stress on the deformed shape as the load increases</figcaption></figure>
+
         <h2 data-reveal>Validation</h2>
         <ul class="plain-list" data-reveal>
-          <li>Solutions agree with FEniCSx/dolfinx to rounding level (relative difference below \( 10^{-13} \)) on identical discretizations.</li>
+          <li>Solutions agree with FEniCSx/dolfinx to rounding level (relative difference ≤ \( 9\times10^{-14} \), below \( 10^{-13} \)) on identical discretizations.</li>
           <li>Cantilever deflections agree with Timoshenko beam theory to about 1%.</li>
           <li>The stress concentration for a plate with a hole matches Heywood's Kirsch-based formula within 3%.</li>
           <li>A suite of 194 automated tests passes. Geometries such as notched plates and L-brackets are meshed with Gmsh.</li>
         </ul>
-
-        <h2 data-reveal>Agreement with FEniCSx</h2>
         <p data-reveal>On identical meshes, energies, quadrature and loads, displacements differ from FEniCSx/dolfinx by rounding error only, for triangles and quadrilaterals of both orders. A deliberate 0.1% change of the reference material shows up at \( 10^{-4} \), so the comparison is sensitive.</p>
-        <figure class="fig-card" data-reveal><div style="padding:1rem;background:#fff"><img src="Figures/Differentiable-FEA/validation_dolfinx.png" alt="Relative difference to dolfinx for six test cases and a negative control" loading="lazy" style="width:100%" /></div><figcaption>Relative displacement difference to FEniCSx/dolfinx 0.11.0 · six cases and a sensitivity control</figcaption></figure>
-        <h2 data-reveal>Performance</h2>
-        <p data-reveal>For a 10,000-element Q4 problem in double precision, a complete nonlinear solve takes <strong>2.9 s on a T4 GPU</strong> and 14.7 s on a laptop CPU with 6 threads. The element-wise variant is 11.6 times faster than the first GPU version, because it reaches about 8% of the memory bandwidth instead of 0.7%. On a CPU the batched variant is faster, so the default depends on the device, and an assembled sparse matrix is still faster per product in 2D on a CPU.</p>
-        <figure class="fig-card" data-reveal><div style="padding:1rem;background:#fff"><img src="Figures/Differentiable-FEA/perf_solve_time.png" alt="Wall time of a complete nonlinear solve for three solver variants on three devices" loading="lazy" style="width:100%" /></div><figcaption>Complete nonlinear solve, 10,000 Q4 elements · reference (jvp), stored tangent (qp) and element-wise (qp_ew)</figcaption></figure>
+        <figure class="fig-card" data-reveal><div style="padding:1rem;background:#fff"><img src="Figures/Differentiable-FEA/validation_dolfinx.png" alt="Relative difference to dolfinx for six test cases and a negative control" loading="lazy" decoding="async" style="width:100%" /></div><figcaption>Relative displacement difference to FEniCSx/dolfinx 0.11.0 · six cases and a sensitivity control</figcaption></figure>
 
-        <h2 data-reveal>Limits</h2>
-        <p data-reveal>The code is an early release (v0.1). It covers 2D plane strain on a single process; 3D, multi-GPU execution and multigrid preconditioning are on the roadmap, and volumetric locking appears as the Poisson ratio approaches 0.5.</p>
+        <h2 data-reveal>Performance</h2>
+        <p data-reveal>For a 10,000-element Q4 problem in double precision, a complete nonlinear solve takes <strong>2.9 s on a T4 GPU</strong> with the element-wise variant. Profiling found that the first stored-tangent GPU version spent most of its time in batched matrix products on tiny matrices; rewriting the same contractions as element-wise operations made the tangent product <strong>11.6× faster</strong> (1.28 ms against 14.9 ms at 40,000 elements; 5.0 ms against 59 ms at 160,000). That figure is for the tangent product, not for the whole solve.</p>
+        <div class="tab-table" data-reveal><table><caption>Complete nonlinear solve · 10,000 Q4 elements · float64</caption>
+          <thead><tr><th>Device</th><th>Forward-mode AD (reference)</th><th>Stored tangent, batched</th><th>Stored tangent, element-wise</th></tr></thead>
+          <tbody>
+            <tr class="hl"><td>NVIDIA T4 GPU</td><td>48.3 s</td><td>12.8 s</td><td><strong>2.90 s</strong></td></tr>
+            <tr><td>Laptop CPU (6 threads)</td><td>76.4 s</td><td><strong>9.45 s</strong></td><td>14.7 s</td></tr>
+            <tr><td>Colab CPU (1 thread)</td><td>200.7 s</td><td><strong>49.1 s</strong></td><td>124.1 s</td></tr>
+          </tbody>
+        </table></div>
+        <p data-reveal>On a CPU the batched variant is faster, so the default depends on the device. On a CPU in 2D an assembled sparse matrix is still faster per product than any matrix-free variant (0.61 ms against 6.4 ms for the stored-tangent variant, 40,000 Q4 elements, laptop).</p>
+        <figure class="fig-card" data-reveal><div style="padding:1rem;background:#fff"><img src="Figures/Differentiable-FEA/perf_solve_time.png" alt="Wall time of a complete nonlinear solve for three solver variants on three devices" loading="lazy" decoding="async" style="width:100%" /></div><figcaption>Complete nonlinear solve, 10,000 Q4 elements · reference (jvp), stored tangent (qp) and element-wise (qp_ew)</figcaption></figure>
+
+        <h2 data-reveal>What this does and does not claim</h2>
+        <ul class="plain-list" data-reveal>
+          <li><strong>Does:</strong> the global matrix is never assembled or stored; Jacobian–vector products come from automatic differentiation; derivatives are exact; the results are validated against FEniCSx/dolfinx and analytic solutions.</li>
+          <li><strong>Does not:</strong> claim that stiffness matrices are obsolete, that matrix-free evaluation is faster for every problem, or that linear algebra disappears. A linear system is still solved at every Newton step.</li>
+          <li><strong>Not yet measured:</strong> 3D, high-order elements at scale, GPU memory per variant, float32, and multi-GPU execution.</li>
+        </ul>
+        <p data-reveal>The code is an early release (v0.1) for 2D plane strain on a single process. Completed: the solver, the adjoint sensitivities, and the validation. Planned: 3D hexahedral elements, scalable preconditioning (p-multigrid), distributed and multi-GPU execution, plasticity and contact. Volumetric locking appears as the Poisson ratio approaches 0.5.</p>
 
         <h2 data-reveal>Code</h2>
-        <p data-reveal>The package, tests, benchmarks, a Streamlit app and a Colab notebook are open source at <a href="https://github.com/miladshirani/Differentiable-FEA" target="_blank" rel="noopener">github.com/miladshirani/Differentiable-FEA ↗</a>.</p>
+        <p data-reveal>The package, tests, benchmarks, a Streamlit app and a Colab notebook are open source at <a href="https://github.com/miladshirani/Differentiable-FEA" target="_blank" rel="noopener">github.com/miladshirani/Differentiable-FEA ↗</a>. Related work: <a href="research-peridynamic-fracture.html">differentiable meshless mechanics</a>, and the <a href="research-physics-constrained-gnns.html">data-free GNNs</a> that train on the same kind of weak-form residual.</p>
 
         <div class="tab-links" data-reveal>
           <a href="projects.html">← All projects</a>
+          <a href="research-peridynamic-fracture.html">Differentiable meshless mechanics →</a>
+          <a href="research-physics-constrained-gnns.html">Data-free GNNs →</a>
+          <a href="research-physics-enforced-operator-learning.html">Operator learning →</a>
           <a href="https://github.com/miladshirani/Differentiable-FEA" target="_blank" rel="noopener">GitHub repository ↗</a>
         </div>
 

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Milad Shirani — Continuum Mechanics × Physical AI</title>
-  <meta name="description" content="Milad Shirani — Postdoctoral Associate at Yale University working on nonlinear continuum mechanics, soft-matter biomechanics, and physics-informed machine learning for Physical AI." />
+  <title>Milad Shirani — Physics AI, Differentiable Simulation &amp; Continuum Mechanics</title>
+  <meta name="description" content="Milad Shirani — Postdoctoral Associate at Yale University. Physics AI built on continuum mechanics: differentiable finite-element simulation, matrix-free Newton–Krylov solvers, neural operators, and physics-constrained GNNs." />
   <meta name="author" content="Milad Shirani" />
   <link rel="canonical" href="https://miladshirani.github.io/" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232b3cf0'/%3E%3Ctext x='32' y='42' font-family='Menlo,monospace' font-size='26' font-weight='700' text-anchor='middle' fill='%23ffffff'%3EMS%3C/text%3E%3C/svg%3E" type="image/svg+xml" />
@@ -12,8 +12,8 @@
   <meta name="theme-color" content="#0d0e12" media="(prefers-color-scheme: dark)" />
 
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Milad Shirani — Continuum Mechanics × Physical AI" />
-  <meta property="og:description" content="Rigorous continuum mechanics meets physics-informed machine learning: provable models for soft tissues, smart materials, and Physical AI." />
+  <meta property="og:title" content="Milad Shirani — Physics AI, Differentiable Simulation &amp; Continuum Mechanics" />
+  <meta property="og:description" content="Provable models, physical intelligence: continuum mechanics, differentiable simulation, matrix-free nonlinear solvers, and neural operators." />
   <meta property="og:url" content="https://miladshirani.github.io/" />
   <meta property="og:image" content="https://github.com/miladshirani.png" />
   <meta name="twitter:card" content="summary" />
@@ -47,6 +47,7 @@
     ],
     "email": "mailto:milad.shirani@yale.edu",
     "url": "https://miladshirani.github.io/",
+    "knowsAbout": ["Continuum mechanics", "Physics AI", "Differentiable simulation", "Finite element method", "Neural operators", "Physics-informed machine learning", "Scientific computing"],
     "sameAs": ["https://github.com/miladshirani"]
   }
   </script>
@@ -61,55 +62,303 @@
     <!-- Hero: interactive mass–spring lattice + intro (injected) -->
     <section class="hero" id="home-hero"></section>
 
-    <!-- Profile: photo · affiliations · stats -->
+    <!-- Credibility strip: numbers come from SITE.stats (injected) -->
+    <section class="cred" id="home-cred" aria-label="Research record"></section>
+
+    <!-- 01 · What I build: three cards on one foundation card (injected) -->
+    <section class="section" id="build">
+      <div class="wrap">
+        <div class="sec-head" data-reveal>
+          <div>
+            <p class="kicker">01 — What I Build</p>
+            <h2 class="sec-title">Physics → computation → <em>AI</em>.</h2>
+          </div>
+          <p class="sec-note">Four areas, one foundation: the physics and the numerical method come first.</p>
+        </div>
+        <div id="home-build"><!-- injected --></div>
+      </div>
+    </section>
+
+    <!-- 02 · One pipeline (injected from SITE.pipeline) -->
+    <section class="section section-band" id="pipeline">
+      <div class="wrap">
+        <div class="sec-head" data-reveal>
+          <div>
+            <p class="kicker">02 — One Pipeline</p>
+            <h2 class="sec-title">From axioms <em>to deployment</em>.</h2>
+          </div>
+          <p class="sec-note">These are not separate projects. Each stage feeds the next.</p>
+        </div>
+        <div id="home-pipeline"><!-- injected --></div>
+      </div>
+    </section>
+
+    <!-- 03 · Differentiable simulation: flagship FEA + meshless mechanics -->
+    <section class="section" id="differentiable-simulation">
+      <div class="wrap">
+        <div class="sec-head" data-reveal>
+          <div>
+            <p class="kicker">03 — Differentiable Simulation</p>
+            <h2 class="sec-title">Simulation you can <em>differentiate</em>.</h2>
+          </div>
+          <p class="sec-note">Finite elements and peridynamics, with no assembled global matrix.</p>
+        </div>
+
+        <article class="feature-block" id="differentiable-fea">
+          <p class="feature-kicker" data-reveal>Flagship project · open source</p>
+          <h3 class="feature-h" data-reveal>Differentiable FEA — Beyond the Stiffness Matrix</h3>
+          <div class="feature">
+            <div class="feature-text" data-reveal>
+              <p class="feature-lead">Matrix-free differentiable finite elements: weak-form residuals and Jacobian–vector products are evaluated through automatic differentiation, enabling Newton–Krylov solution without explicitly assembling the global stiffness matrix.</p>
+              <dl class="pstruct">
+                <div><dt>Problem</dt><dd>Traditional nonlinear FEA repeatedly forms and solves large linearized systems involving a global stiffness (Jacobian) matrix. Here, large-strain hyperelastic problems are solved without forming it, and with exact derivatives.</dd></div>
+                <div><dt>Method</dt><dd>A PyTorch solver. Automatic differentiation supplies the residual and the Jacobian–vector products; preconditioned conjugate gradients needs only those products, inside an inexact Newton iteration.</dd></div>
+                <div><dt>Physics &amp; math</dt><dd>Weak-form mechanics: equilibrium is a stationary point of the strain energy, so the residual and the tangent are its first and second derivatives. Design gradients follow from the implicit function theorem and one adjoint solve.</dd></div>
+                <div><dt>Result</dt><dd>
+                  <ul class="res-list">
+                    <li><b>&lt; 10<sup>−13</sup></b> relative agreement with FEniCSx/dolfinx (≤ 9×10<sup>−14</sup>) on identical discretizations</li>
+                    <li><b>11.6×</b> faster GPU tangent product after profiling (element-wise versus batched matrix products; 40,000 Q4 elements, T4)</li>
+                    <li><b>2.9 s</b> for a complete nonlinear solve of 10,000 Q4 elements on a T4 GPU</li>
+                  </ul>
+                </dd></div>
+              </dl>
+              <p class="scope"><strong>Scope.</strong> A linear system is still solved at every Newton step; what is avoided is assembling and storing the global matrix. Matrix-free evaluation does not by itself make every simulation faster: on a CPU in 2D an assembled sparse matrix is still faster per product. The advantage is expected for high-order elements, 3D and GPU memory, and has not been measured there yet. v0.1, 2D plane strain.</p>
+              <p class="status-line"><span class="status-item"><span class="s-dot done"></span>Completed: released, validated against FEniCSx and analytic solutions</span><span class="status-item"><span class="s-dot next"></span>Planned: 3D elements, multigrid preconditioning, multi-GPU</span></p>
+              <div class="feature-links">
+                <a class="btn btn-primary" href="research-differentiable-fea.html">Open the project <span class="arr">→</span></a>
+                <a class="btn btn-ghost" href="https://github.com/miladshirani/Differentiable-FEA" target="_blank" rel="noopener">GitHub <span class="arr">↗</span></a>
+              </div>
+            </div>
+
+            <figure class="flow-card" data-reveal style="--d:.1s">
+              <p class="flow-label">Matrix-free Newton–Krylov</p>
+              <ol class="flow">
+                <li><span class="f-t">Weak form</span><span class="f-m">∫ P(F) : ∇v dV − ℓ(v) = 0</span><span class="f-s">Equilibrium as a stationary point of the strain energy.</span></li>
+                <li><span class="f-t">Residual R(u)</span><span class="f-m">R(u) = f<sub>int</sub>(u) − f<sub>ext</sub></span><span class="f-s">Evaluated element by element at quadrature points.</span></li>
+                <li class="key"><span class="f-t">Automatic differentiation</span><span class="f-m">d/dε R(u + εv) at ε = 0</span><span class="f-s">Forward-mode derivative through the constitutive law.</span></li>
+                <li class="key"><span class="f-t">J(u)v <em class="f-tag">no global matrix</em></span><span class="f-m">J(u) v</span><span class="f-s">The action of the tangent on a vector, which is all a Krylov method needs.</span></li>
+                <li><span class="f-t">Krylov solver</span><span class="f-m">J δu = −R, solved inexactly</span><span class="f-s">Preconditioned conjugate gradients with a loose, adaptive tolerance.</span></li>
+                <li><span class="f-t">Newton update</span><span class="f-m">u ← u + α δu</span><span class="f-s">Line search, then repeat.</span></li>
+              </ol>
+              <p class="flow-loop">↺ repeat from the residual until ‖R(u)‖ is below tolerance</p>
+            </figure>
+          </div>
+        </article>
+
+        <article class="feature-block" id="meshless">
+          <p class="feature-kicker" data-reveal>Featured project · with Prof. Ali Javili, Bilkent University</p>
+          <h3 class="feature-h" data-reveal>Differentiable Meshless Mechanics</h3>
+          <figure class="fig-card media" data-reveal>
+            <img src="Figures/Peridynamics/fracture-poster.jpg" data-gif="Figures/Peridynamics/Fluid-Induced-Fracture.gif" width="1296" height="403" loading="lazy" decoding="async" alt="Peridynamic simulation of fluid-driven fracture of a pre-cracked solid: damage, displacement magnitude and vertical displacement as the crack opens" />
+            <figcaption>Hydraulic fracture of a pre-cracked solid · damage, displacement, vertical displacement · no remeshing</figcaption>
+          </figure>
+          <div class="feature">
+            <div class="feature-text" data-reveal>
+              <p class="feature-lead">Differentiable, autodiff-based peridynamics for nonlinear solid mechanics. The same idea as the finite-element solver, in a meshless setting: differentiable simulation is broader than FEA.</p>
+              <p>Cracks nucleate and propagate as bonds break, so brittle fracture, hydraulic fracture, and delamination need no remeshing and no crack-tracking rules.</p>
+              <div class="feature-links">
+                <a class="btn btn-primary" href="research-peridynamic-fracture.html">Open the project <span class="arr">→</span></a>
+              </div>
+            </div>
+            <div class="feature-text" data-reveal style="--d:.08s">
+              <dl class="pstruct">
+                <div><dt>Problem</dt><dd>Brittle and hydraulic fracture and Mode I / mixed-mode peeling (delamination) without remeshing.</dd></div>
+                <div><dt>Method</dt><dd>Differentiable meshless peridynamics (JAX, PyTorch), with a matrix-free dynamic-relaxation scheme in place of Newton–Raphson.</dd></div>
+                <div><dt>Physics &amp; math</dt><dd>A nonlocal bond model in which damage is bond breakage. Dynamic relaxation converges through unstable crack propagation, where Newton–Raphson tangents become singular.</dd></div>
+                <div><dt>Result</dt><dd>
+                  <ul class="res-list">
+                    <li><b>8–10×</b> runtime speedup</li>
+                    <li><b>9.7×10<sup>−11</sup></b> agreement with a validated reference solution</li>
+                  </ul>
+                </dd></div>
+              </dl>
+              <p class="status-line"><span class="status-item"><span class="s-dot ongoing"></span>Ongoing: the full study is to be published</span></p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 04 · Physics AI: data-free GNNs + neural operators -->
+    <section class="section section-band" id="physics-ai">
+      <div class="wrap">
+        <div class="sec-head" data-reveal>
+          <div>
+            <p class="kicker">04 — Physics AI</p>
+            <h2 class="sec-title">The physics is the <em>training signal</em>.</h2>
+          </div>
+          <p class="sec-note">Networks that obey the weak form. Operators checked against FEM.</p>
+        </div>
+
+        <article class="feature-block" id="gnn">
+          <p class="feature-kicker" data-reveal>Featured project · PyTorch and JAX</p>
+          <h3 class="feature-h" data-reveal>Data-Free Physics-Constrained GNNs</h3>
+          <div class="feature">
+            <div class="feature-text" data-reveal>
+              <p class="feature-lead">Graph neural networks trained by minimizing the FEM weak-form residual directly. There are no labeled solution fields: the network is not fitted to simulation data, and the physics itself provides the training signal.</p>
+              <dl class="pstruct">
+                <div><dt>Problem</dt><dd>Coupled multiphysics PDE systems (finite-strain gel swelling, thermoelasticity) solved as implicit time-steppers, with no labeled solution data and Dirichlet conditions imposed exactly.</dd></div>
+                <div><dt>Method</dt><dd>The mesh itself becomes the graph (or its Voronoi dual). Shape functions, quadrature and boundary conditions are shared with the FEM discretization; PI-GCN runs on both FEM and meshless NEM back ends.</dd></div>
+                <div><dt>Physics &amp; math</dt><dd>Conservation laws and thermodynamic consistency enter through the weak form, and the weak-form residual provides an intrinsic, physics-based error measure. Each network is geometry-informed and retrained per case.</dd></div>
+                <div><dt>Result</dt><dd>
+                  <ul class="res-list">
+                    <li><b>0.24% · 0.73%</b> displacement · concentration error: PI-GCN, gel swelling (four coupled fields, 50 implicit steps, 441 nodes)</li>
+                    <li><b>0.14% · 0.011%</b> displacement · temperature error: PI-EPD-GNN, thermoelasticity (plate with a hole)</li>
+                  </ul>
+                </dd></div>
+              </dl>
+              <p class="scope"><strong>Scope.</strong> Two systems are demonstrated, each against a converged Newton–Raphson FEM solution on the same discretization; residuals are parity-checked between JAX and PyTorch to about 10<sup>−12</sup>. No speed comparison with FEM is claimed.</p>
+              <div class="feature-links">
+                <a class="btn btn-primary" href="research-physics-constrained-gnns.html">Open the project <span class="arr">→</span></a>
+              </div>
+            </div>
+
+            <figure class="flow-card" data-reveal style="--d:.1s">
+              <p class="flow-label">How the physics trains the network</p>
+              <ol class="flow">
+                <li><span class="f-t">Mesh = graph</span><span class="f-m">nodes, elements → graph</span><span class="f-s">The FEM mesh, or its Voronoi dual, is the message-passing graph.</span></li>
+                <li><span class="f-t">GNN prediction</span><span class="f-m">û = GNN(graph)</span><span class="f-s">Nodal fields: displacement, pressure, chemical potential, concentration, temperature.</span></li>
+                <li class="key"><span class="f-t">Weak-form residual <em class="f-tag">no labels</em></span><span class="f-m">R(û) at quadrature points</span><span class="f-s">The same shape functions, quadrature and boundary conditions as the FEM solver.</span></li>
+                <li class="key"><span class="f-t">Loss = residual</span><span class="f-m">min ‖R(û)‖ per time step</span><span class="f-s">Implicit time-stepping; conservation laws and thermodynamic consistency enter here.</span></li>
+                <li><span class="f-t">Intrinsic check</span><span class="f-m">residual = error monitor</span><span class="f-s">Plus a node-by-node comparison with Newton–Raphson FEM.</span></li>
+              </ol>
+              <p class="flow-loop">A data-driven surrogate is fitted to simulation output. Here the weak form is the loss.</p>
+            </figure>
+          </div>
+        </article>
+
+        <article class="feature-block" id="operators">
+          <p class="feature-kicker" data-reveal>Operator learning · DeepONet · FNO · GNN</p>
+          <h3 class="feature-h" data-reveal>Neural Operators</h3>
+          <div class="feature feature-flip">
+            <figure class="flow-card" data-reveal>
+              <p class="flow-label">Surrogate versus operator</p>
+              <div class="contrast">
+                <div><b>Traditional surrogate</b><span>one input → one output</span><small>e.g. one load case → one solution</small></div>
+                <div class="is-op"><b>Neural operator</b><span>a learned mapping between functions, fields, or physical conditions</span><small>e.g. a load range → the whole deformation field</small></div>
+              </div>
+              <div class="opdiag">
+                <div class="op-in"><span>Geometry</span><span>Boundary conditions</span><span>Material</span><span>Loading</span></div>
+                <div class="op-arrow" aria-hidden="true">↓</div>
+                <div class="op-box op-core"><b>Neural operator</b><small>DeepONet · FNO · GNN</small></div>
+                <div class="op-arrow" aria-hidden="true">↓</div>
+                <div class="op-box"><b>Physical fields</b><small>deformation · director · temperature · concentration</small></div>
+                <div class="op-arrow" aria-hidden="true">↓</div>
+                <div class="op-box op-val"><b>Validation against FEA</b><small>node by node against FEM / NEM · stability checks</small></div>
+              </div>
+              <p class="fig-note">Conceptual. In the DeepONet results the input is the load level; the GNNs are built on the mesh and retrained per case. Geometry and material as inputs are the goal.</p>
+            </figure>
+
+            <div class="feature-text" data-reveal>
+              <p class="feature-lead">DeepONets, Fourier neural operators, and GNN-based operators for nonlinear mechanics and multiphysics. Rather than treating a network as a black-box replacement for simulation, the operator learns mappings that respect the structure of the physical system, and is validated against high-fidelity numerical solvers.</p>
+              <dl class="pstruct">
+                <div><dt>Problem</dt><dd>Nematic elastomers: the deformation and director fields are coupled and nonlinear, and the answer is wanted for a whole load range, not for one load case.</dd></div>
+                <div><dt>Method</dt><dd>An energy-trained DeepONet (and a physics-enforced network) over FEM/NEM discretizations, with no solution data. PI-FNO applies the Fourier-operator idea to heart sounds.</dd></div>
+                <div><dt>Physics &amp; math</dt><dd>Stationarity of the total potential energy is the training signal. Conditions derived from quasiconvexity (strong ellipticity, second variation) validate every stored trajectory.</dd></div>
+                <div><dt>Result</dt><dd>
+                  <ul class="res-list">
+                    <li><b>~0.5–0.7 ms</b> per query for the full deformation and director fields, ~35–250× faster per query than a warm FEM solve (156-node plane-strain benchmark, CPU; training repaid after ~100–800 queries)</li>
+                    <li><b>~0.7% · 1.6–3%</b> displacement error on unseen stretches, shear · uniaxial, against the same-mesh FEM reference</li>
+                    <li><b>97.5%</b> test accuracy for PI-FNO heart-sound classification, a separate project (CNN baseline 96.0%)</li>
+                  </ul>
+                </dd></div>
+              </dl>
+              <p class="scope"><strong>Scope.</strong> The speed and error figures belong to this one DeepONet benchmark, not to every operator I have built. “Faster per query” compares one trained-operator evaluation with one warm FEM solve; it is not an overall speedup of a simulation campaign. The director angle is the least accurate output, and the DeepONet results are work in progress.</p>
+              <div class="feature-links">
+                <a class="btn btn-primary" href="research-physics-enforced-operator-learning.html">Operator learning <span class="arr">→</span></a>
+                <a class="btn btn-ghost" href="research-pi-fno.html">PI-FNO <span class="arr">→</span></a>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 05 · Provable mechanics: the theoretical foundation + the two textbooks -->
+    <section class="section" id="foundation">
+      <div class="wrap">
+        <div class="sec-head" data-reveal>
+          <div>
+            <p class="kicker">05 — Provable Mechanics</p>
+            <h2 class="sec-title">The foundation:<br /><em>provable</em> mechanics.</h2>
+          </div>
+          <p class="sec-note">I did not come to Physics AI from generic machine learning.</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-text" data-reveal>
+            <p class="feature-lead">I came to Physics AI from theoretical mechanics: constitutive modeling, thermodynamics, nonlinear elasticity, stability theory, and numerical simulation.</p>
+            <p>The Ph.D. (Mechanical Engineering, UC Berkeley, with minors in Mathematics and Dynamics) was spent on the stability of generalized continua. The same results now work as computational checks on simulations and on neural-network output.</p>
+            <ul class="found-list">
+              <li><b>Quasiconvexity, rank-one convexity, Legendre–Hadamard conditions.</b> Derived for Cosserat elasticity, fibrous composites, and liquid crystals, giving analytically rigorous output envelopes that serve as validation criteria for FEA and neural-network predictions.</li>
+              <li><b>Thermodynamically consistent constitutive models.</b> Hydrogel swelling, cell migration, and shape memory alloys, where the second law restricts what a model may do.</li>
+              <li><b>Polyconvexity.</b> Enforced as a hard architectural constraint when learning stored-energy functions for fibrous composites and biological tissues.</li>
+              <li><b>Generalized continua and fibrous materials.</b> Cosserat, micropolar, and higher-gradient theories; Kirchhoff-rod models; fiber-reinforced shells; liquid crystal elastomers.</li>
+            </ul>
+            <div class="feature-links">
+              <a class="btn btn-ghost" href="research.html">Research overview <span class="arr">→</span></a>
+            </div>
+          </div>
+
+          <aside class="books-panel" data-reveal style="--d:.1s" aria-label="Graduate textbooks">
+            <p class="books-count"><b>2</b> Graduate Textbooks</p>
+            <p class="books-sub">Continuum Mechanics · Plates &amp; Shells</p>
+            <div class="books" id="home-books"><!-- injected --></div>
+            <a class="t-link" href="publications.html#books">Publications <span aria-hidden="true">→</span></a>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 · More projects (the four featured above are not repeated) -->
+    <section class="section section-band" id="projects">
+      <div class="wrap">
+        <div class="sec-head" data-reveal>
+          <div>
+            <p class="kicker">06 — More Projects</p>
+            <h2 class="sec-title">Theory, learning, <em>and the rest</em>.</h2>
+          </div>
+          <p class="sec-note">Problem → method → physics &amp; math → result.</p>
+        </div>
+        <div class="themes-grid proj-grid" id="home-projects"><!-- injected --></div>
+        <p class="sec-more" data-reveal><a class="btn btn-ghost" href="projects.html">All projects <span class="arr">→</span></a></p>
+      </div>
+    </section>
+
+    <!-- 07 · Profile: photo · bio · affiliations · research to product -->
     <section class="section" id="about">
       <div class="wrap">
         <div class="sec-head" data-reveal>
           <div>
-            <p class="kicker">01 — Profile</p>
-            <h2 class="sec-title">Provable models,<br /><em>physical</em> intelligence.</h2>
+            <p class="kicker">07 — Profile</p>
+            <h2 class="sec-title">Trained in <em>mechanics</em>,<br />building Physics AI.</h2>
           </div>
-          <p class="sec-note">Theory · Experiment · Computation — one pipeline from axioms to deployment.</p>
+          <p class="sec-note">Mechanics and mathematics first; computation and AI built on top.</p>
         </div>
         <div id="home-profile"><!-- injected --></div>
       </div>
     </section>
 
-    <!-- Research themes -->
+    <!-- 08 · Research themes (technical depth) -->
     <section class="section section-band" id="research">
       <div class="wrap">
         <div class="sec-head" data-reveal>
           <div>
-            <p class="kicker">02 — Areas of Expertise</p>
+            <p class="kicker">08 — Areas of Expertise</p>
             <h2 class="sec-title">Research <em>themes</em>.</h2>
           </div>
-          <p class="sec-note">Seven threads, one question: what does the physics actually require?</p>
+          <p class="sec-note">Different materials, one question: what does the physics actually require?</p>
         </div>
         <div class="theme-groups" id="home-themes"><!-- injected --></div>
       </div>
     </section>
 
-    <!-- Selected projects -->
-    <section class="section" id="projects">
-      <div class="wrap">
-        <div class="sec-head" data-reveal>
-          <div>
-            <p class="kicker">03 — Projects</p>
-            <h2 class="sec-title">Selected <em>projects</em>.</h2>
-          </div>
-          <p class="sec-note">Theory, simulation and learning, organized by field.</p>
-        </div>
-        <div class="themes-grid" id="home-projects"><!-- injected --></div>
-        <p class="sec-more" data-reveal><a class="btn btn-ghost" href="projects.html">All projects <span class="arr">→</span></a></p>
-      </div>
-    </section>
-
-    <!-- Journey -->
+    <!-- 09 · Journey -->
     <section class="section" id="journey">
       <div class="wrap">
         <div class="sec-head" data-reveal>
           <div>
-            <p class="kicker">04 — Academic Journey</p>
+            <p class="kicker">09 — Academic Journey</p>
             <h2 class="sec-title">From Isfahan <em>to Yale</em>.</h2>
           </div>
         </div>

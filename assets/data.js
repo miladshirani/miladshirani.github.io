@@ -111,7 +111,7 @@ window.SITE = {
       cats: ["physics-ai"], year: "2026", featured: true,
       summary: "Energy-trained neural networks and DeepONets, with the physics built into the architecture, for nematic liquid crystal elastomers; one trained operator returns the full deformation and director fields across a load ramp, checked against finite elements and stability conditions." },
     { title: "PI-FNO: Heart Sound Diagnosis", href: "research-pi-fno.html",
-      cats: ["machine-learning"], year: "2026", featured: true,
+      cats: ["physics-ai"], year: "2026", featured: true,
       summary: "A Fourier neural operator with a learnable physiological frequency mask and physics-informed losses. 97.5% test accuracy on five heart conditions." },
     { title: "Heart Disease Risk Prediction", href: "research-heart-disease-prediction.html",
       cats: ["machine-learning"], year: "2026",
@@ -128,7 +128,7 @@ window.SITE = {
       desc: "Nematic liquid crystal elastomers, hydrogels, and swelling polymers. Thermodynamically consistent, finite-strain modeling and simulation of coupled mechanical, chemical, and orientational fields." },
     { icon: "∫", cat: "physics-ai", title: "Physics-Informed Machine Learning", href: "projects.html#physics-ai", more: "See projects →",
       desc: "PINNs, Deep Energy Methods, DeepONets, and ICNNs for constitutive modeling. Enforcing frame indifference, polyconvexity, and Legendre–Hadamard stability as hard constraints in neural architectures." },
-    { icon: "𝒢", cat: "machine-learning", title: "Neural Operators &amp; GNNs", href: "projects.html#machine-learning", more: "See projects →",
+    { icon: "𝒢", cat: "physics-ai", title: "Neural Operators &amp; GNNs", href: "projects.html#physics-ai", more: "See projects →",
       desc: "Fourier Neural Operators, MeshGraphNets, and transformer-based operator learning for mesh-dependent PDE surrogates. Differentiable simulation pipelines in JAX and PyTorch for Physical AI." },
     { icon: "∂", cat: "computational-mechanics", title: "Computational Mechanics", href: "projects.html#computational-mechanics", more: "See projects →",
       desc: "FEniCSx, JAX-FEM, and custom finite element codes for hyperelasticity, phase-field fracture, and swelling. End-to-end differentiable simulation targeting real-time physical AI applications." },
@@ -264,7 +264,7 @@ window.SITE = {
       links: [ { text: "Articles · SMA &amp; FSMA Constitutive Modeling — See Publications", comingSoon: true } ]
     },
     {
-      id: "t6", cat: "machine-learning", num: "VI", label: "PI-FNO: Cardiac<br>Acoustics",
+      id: "t6", cat: "physics-ai", num: "VI", label: "PI-FNO: Cardiac<br>Acoustics",
       title: "PI-FNO: Physics-Informed Neural Operators for Cardiac Acoustics",
       body: [
         "The same design principles that govern physics-consistent constitutive modeling in continuum mechanics — encoding known structure as inductive biases, enforcing inequalities as hard or hinge constraints, and using interpretable learned parameters — transfer naturally to biomedical signal classification. This project applies that philosophy to the automated diagnosis of valvular heart disease from raw phonocardiogram (PCG) recordings.",

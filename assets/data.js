@@ -21,7 +21,8 @@ window.SITE = {
     name:      "Milad Shirani",
     shortName: "M. Shirani",
     role:      "Postdoctoral Associate · Yale University",
-    roleLine:  "Continuum Mechanics &amp; Physical AI<br />Biomedical Engineering, Yale University",
+    roleLine:  "Continuum Mechanics &amp; Physics AI<br />Biomedical Engineering, Yale University",
+    bio:       "I did not come to Physics AI from generic machine learning. I came from theoretical mechanics: constitutive modeling, thermodynamics, nonlinear elasticity, stability theory, and numerical simulation. My research spans the boundary between that continuum mechanics and physics-informed machine learning — from thermodynamically consistent models of soft biological tissues and nematic elastomers to differentiable simulation and neural constitutive laws. I build models that are mathematically provable, computationally efficient, and physically meaningful.",
     email:     "milad.shirani@yale.edu",
     photo:     "Figures/profile.jpeg",              // your photo — place it in a "Figures" folder next to the .html files
     photoFallback: "https://github.com/miladshirani.png", // shown if the local photo can't be found (e.g. in preview)
@@ -40,7 +41,7 @@ window.SITE = {
   /* ---- NAV (order = display order) --------------------------- */
   // `key` matches the page's <body data-page="..."> to highlight the active link.
   nav: [
-    { label: "About",        href: "index.html#home-hero", key: "home" },
+    { label: "About",        href: "index.html#about",     key: "home" },
     { label: "Research",     href: "research.html",        key: "research" },
     { label: "Projects",     href: "projects.html",        key: "projects" },
     { label: "Publications", href: "publications.html",    key: "publications" },
@@ -49,23 +50,108 @@ window.SITE = {
   ],
 
   /* ---- HOME: hero ------------------------------------------- */
+  // headline + tagline = the site's identity (unchanged); desc = what a
+  // technical visitor should learn in 15 seconds; chain = the physics-to-AI stack.
   hero: {
-    desc: "My research spans the boundary between rigorous continuum mechanics and physics-informed machine learning — from thermodynamically consistent models of soft biological tissues and nematic elastomers, to differentiable simulation and neural constitutive laws for Physical AI. I build models that are mathematically provable, computationally efficient, and physically meaningful.",
+    headline: "Provable models, <em>physical</em> intelligence.",
+    tagline: "Theory · Experiment · Computation — one pipeline from axioms to deployment.",
+    desc: "I am a scientific AI researcher and ML engineer who builds computational models that combine the laws of physics with modern AI: from rigorous continuum theories and differentiable simulation to neural operators and matrix-free nonlinear solvers. My Physics AI grows out of computational mechanics, so the physics and the numerical method are the foundation of the model, not an add-on.",
+    chain: ["Continuum mechanics", "FEM &amp; meshless methods", "Differentiable simulation", "Matrix-free solvers", "Neural operators", "Physics AI &amp; scientific ML"],
     cta: [
-      { label: "Explore Research", href: "research.html", style: "primary" },
+      { label: "What I Build",     href: "#build",        style: "primary" },
+      { label: "Explore Research", href: "research.html", style: "ghost" },
       { label: "Get in Touch",     href: "mailto:milad.shirani@yale.edu", style: "ghost" }
     ]
+  },
+
+  /* ---- HOME: credibility strip (numbers = SITE.stats) ---------- */
+  credibility: {
+    label: "Foundation",
+    text: "The Physics AI work rests on a research record in continuum mechanics and mathematical physics."
+  },
+
+  /* ---- PIPELINE (home section + research-page overview) --------
+     `items` = the vocabulary of each stage; `links` open a research tab
+     (tab: "tN") or point at an anchor / page (href).                  */
+  pipeline: [
+    { n: "01", title: "Theory",
+      items: ["Continuum mechanics", "Thermodynamics", "Variational principles", "Stability"],
+      links: [{ text: "Provable mechanics", href: "#foundation", tab: "t1" }, { text: "Cell monolayers", href: "research-cell-monolayers.html", tab: "t10" }] },
+    { n: "02", title: "Simulation",
+      items: ["FEM", "NEM", "Peridynamics", "Weak forms"],
+      links: [{ text: "Meshless mechanics", href: "#meshless", tab: "t9" }, { text: "Hydrogels &amp; LCEs", href: "research.html#t2", tab: "t2" }] },
+    { n: "03", title: "Differentiable computation",
+      items: ["Autodiff", "JVPs", "Matrix-free methods", "Newton–Krylov"],
+      links: [{ text: "Differentiable FEA", href: "#differentiable-fea", tab: "t11" }, { text: "Meshless mechanics", href: "#meshless", tab: "t9" }] },
+    { n: "04", title: "Physics AI",
+      items: ["GNNs", "PINNs", "DeepONets", "FNOs"],
+      links: [{ text: "Data-free GNNs", href: "#gnn", tab: "t4" }, { text: "Neural operators", href: "#operators", tab: "t4" }, { text: "PI-FNO", href: "research-pi-fno.html", tab: "t6" }] },
+    { n: "05", title: "Deployment",
+      items: ["Fast surrogate models", "Engineering prediction", "Scientific AI"],
+      links: [{ text: "PI-FNO, open source", href: "research-pi-fno.html", tab: "t6" }, { text: "Startup", href: "research.html#t8", tab: "t8" }] }
+  ],
+
+  /* ---- HOME: What I Build ------------------------------------- */
+  // Cards 01–03 sit on card 04, the foundation (rendered as a wide base card).
+  build: [
+    { num: "01", label: "Differentiable Simulation", flagship: true,
+      title: "Differentiable FEA — Beyond the Stiffness Matrix",
+      desc: "Matrix-free differentiable finite elements: weak-form residuals and Jacobian–vector products are evaluated through automatic differentiation, enabling Newton–Krylov solution without explicitly assembling the global stiffness matrix. A PyTorch solver for large-strain hyperelasticity, checked against FEniCSx. Alongside it: differentiable meshless peridynamics for fracture and peeling.",
+      chips: ["Weak-form residual", "Automatic differentiation", "Jacobian–vector products", "Preconditioned Krylov", "Exact adjoint gradients", "Meshless peridynamics"],
+      href: "#differentiable-fea", more: "Flagship project ↓" },
+    { num: "02", label: "Physics AI",
+      title: "Data-free, physics-constrained networks",
+      desc: "Networks trained by minimizing the finite-element weak-form residual directly, with no labeled solution data and exactly imposed Dirichlet conditions. The network is not fitted to simulation output; the physics itself provides the training signal.",
+      chips: ["Physics-constrained GNNs", "Weak-form residual minimization", "Conservation laws", "Thermodynamic consistency", "FEM / NEM discretization", "Geometry-informed", "PyTorch · JAX"],
+      href: "#gnn", more: "The GNN work ↓" },
+    { num: "03", label: "Neural Operators",
+      title: "Learned maps between physical fields",
+      desc: "DeepONets, Fourier neural operators, and GNN-based operators for nonlinear mechanics and multiphysics. A traditional surrogate maps one input to one output; a neural operator learns a mapping between functions, fields, and physical conditions.",
+      chips: ["DeepONets", "FNOs", "GNN-based operators", "Nonlinear mechanics", "Multiphysics"],
+      href: "#operators", more: "Operator results ↓" },
+    { num: "04", label: "Provable Mechanics", base: true,
+      title: "The foundation under all of it",
+      desc: "Continuum mechanics and nonlinear elasticity, thermodynamically consistent constitutive modeling, and the stability theory of generalized continua. Quasiconvexity, rank-one convexity, and Legendre–Hadamard conditions are derived analytically for Cosserat media, fibrous materials, and liquid crystal elastomers, then used as validation criteria for FEA and neural-network output. The theory is written up in two graduate textbooks.",
+      chips: ["Continuum mechanics", "Nonlinear elasticity", "Thermodynamics", "Stability", "Variational principles", "Constitutive modeling", "Quasiconvexity", "Rank-one convexity", "Legendre–Hadamard conditions", "Generalized continua", "Liquid crystal elastomers", "Fibrous materials"],
+      href: "#foundation", more: "The foundation ↓" }
+  ],
+  capabilitiesLabel: "What this adds up to",
+  capabilities: [
+    "Building AI that understands physical systems, not AI that replaces the physics.",
+    "Accelerating nonlinear simulation.",
+    "Learning operators rather than individual solutions.",
+    "Embedding physical laws into machine learning.",
+    "Combining differentiable programming with classical numerical solvers."
+  ],
+  relevance: "Relevant wherever nonlinear physical systems must be simulated, differentiated, or learned: engineering simulation, materials, scientific computing, computational physics, robotics, and semiconductor manufacturing.",
+
+  /* ---- HOME: research to product (startup) -------------------- */
+  product: {
+    label: "Research to product",
+    lead: "Startup experience translating scientific ML into an engineering and product environment.",
+    items: [
+      "Co-founded an AI startup for cardiovascular disease detection from phonocardiograms; accepted into Berkeley SkyDeck Pad-13 and CITRIS Foundry 2023.",
+      "Developed, benchmarked, and delivered CNN and transfer-learning heart-sound models: <strong>95% accuracy</strong> on held-out test sets.",
+      "Managed the full model lifecycle, from data pipeline through evaluation, on a startup timeline.",
+      "Mentored an undergraduate student in building a hardware digital stethoscope paired with the deployed model."
+    ],
+    href: "research.html#t8", more: "Read the startup story →"
   },
 
   /* ---- HOME: research-profile panel -------------------------- */
   // `stats` numbers left as-is; publication counts on the Publications
   // page are computed automatically so they never drift.
   stats: [
-    { num: "33", label: "Journal Papers" },
-    { num: "2",  label: "Co-authored Books" },
-    { num: "5",  label: "Book Chapters" },
-    { num: "3",  label: "Years at Yale" }
+    { num: "2",   label: "Graduate Textbooks",   sub: "Continuum Mechanics · Plates &amp; Shells", href: "publications.html#books" },
+    { num: "33",  label: "Peer-reviewed Papers", sub: "32 journal · 1 conference", href: "publications.html#journals" },
+    { num: "5",   label: "Book Chapters",        href: "publications.html#chapters" },
+    { num: "4",   label: "Under Review",         sub: "Manuscripts", href: "publications.html#review" }
   ],
+  // Official totals (from the CV). The lists below hold the entries added so far;
+  // the Publications page shows these totals plus a note on how many are listed.
+  publicationTotals: { journal: 32, conference: 1, chapter: 5, review: 4 },
+
+
   // Set hidden:true to keep an entry in the record but off the page.
   affiliations: [
     { title: "Postdoctoral Associate", org: "Yale University",
@@ -94,27 +180,98 @@ window.SITE = {
     { id: "experimental-mechanics",   label: "Experimental Mechanics" }
   ],
 
+  // Each project: `why` = one sentence on why it matters; `struct` = the four
+  // levels (problem → method → physics & math → result); `status` = done/ongoing.
+  // `inFeatures` = shown as a full block on the home page, so the home
+  // "More projects" grid skips it. Order = display order.
   projects: [
-    { title: "Universal Behavior in Cell Monolayers", href: "research-cell-monolayers.html",
-      cats: ["theoretical-mechanics"], year: "2026", featured: true,
-      summary: "A mathematical proof that cell polarization stays tangential at free edges of a monolayer, independent of cell type, animal, and even for bacteria. Accepted in Proc. R. Soc. A." },
-    { title: "Dissipative Chemo-Elasticity", href: "research-dissipative-chemo-elasticity.html",
-      cats: ["theoretical-mechanics", "computational-mechanics"], year: "2026", featured: true,
-      summary: "A thermodynamically consistent theory of swelling driven by water absorption: coupled mechanical and chemical balance laws from one energy, and second-law restrictions on the flux." },
-    { title: "Differentiable FEA", href: "research-differentiable-fea.html",
-      cats: ["computational-mechanics"], year: "2026", featured: true,
-      summary: "A differentiable finite element solver for large-strain hyperelasticity: matrix-free Newton-Krylov iteration, automatic differentiation, and exact adjoint sensitivities, matching FEniCSx to rounding level." },
-    { title: "Peridynamic Fracture &amp; Peeling", href: "research-peridynamic-fracture.html",
-      cats: ["computational-mechanics"], year: "2026", featured: true,
+    { title: "Differentiable FEA — Beyond the Stiffness Matrix", href: "research-differentiable-fea.html",
+      cats: ["computational-mechanics"], year: "2026", featured: true, inFeatures: true,
+      status: { kind: "done", label: "Open source · v0.1" },
+      why: "Nonlinear FEA repeatedly forms and solves linearized systems with a global tangent matrix. Here that matrix is never assembled, and the whole solve stays differentiable.",
+      struct: {
+        problem: "Solving nonlinear finite-element problems without forming the global tangent matrix, with exact derivatives.",
+        method: "Differentiable matrix-free Newton–Krylov FEA in PyTorch: automatic-differentiation Jacobian–vector products inside preconditioned conjugate gradients.",
+        physics: "Weak-form mechanics: the residual and the tangent are the first and second derivatives of one strain-energy density.",
+        result: "Agreement with FEniCSx/dolfinx below 10<sup>−13</sup>; 11.6× faster GPU tangent product after profiling; 10,000 Q4 elements solved in 2.9 s on a T4 GPU."
+      },
+      summary: "A differentiable finite element solver for large-strain hyperelasticity: matrix-free Newton–Krylov iteration, automatic differentiation, and exact adjoint sensitivities, matching FEniCSx to rounding level." },
+    { title: "Differentiable Meshless Mechanics", href: "research-peridynamic-fracture.html",
+      cats: ["computational-mechanics"], year: "2026", featured: true, inFeatures: true,
+      status: { kind: "ongoing", label: "Ongoing · to be published" },
+      why: "Fracture and delamination are awkward for mesh-based methods, which must track and remesh around the crack.",
+      struct: {
+        problem: "Brittle and hydraulic fracture and Mode I / mixed-mode peeling, without remeshing.",
+        method: "Differentiable, autodiff-based peridynamics (JAX, PyTorch) with a matrix-free dynamic-relaxation scheme.",
+        physics: "A nonlocal bond model: damage is bond breakage. Dynamic relaxation converges through unstable crack growth, where Newton–Raphson tangents turn singular.",
+        result: "8–10× runtime speedup and 9.7×10<sup>−11</sup> agreement with a validated reference solution."
+      },
       summary: "Meshless, differentiable simulation of fluid-induced fracture and peeling of solids, using automatic differentiation and dynamic relaxation. In collaboration with Prof. Ali Javili." },
+    { title: "Data-Free Physics-Constrained GNNs", href: "research-physics-constrained-gnns.html",
+      cats: ["physics-ai"], year: "2026", featured: true, inFeatures: true,
+      status: { kind: "done", label: "Demonstrated · 2 systems" },
+      why: "Coupled multiphysics problems rarely come with labeled solution data, but they always come with a weak form.",
+      struct: {
+        problem: "Transient, finite-strain coupled PDE systems (gel swelling, thermoelasticity) with no labeled solution fields.",
+        method: "Graph neural networks trained directly on the FEM weak-form residual as implicit time-steppers; the mesh is the graph; PyTorch and JAX.",
+        physics: "Shape functions, quadrature and boundary conditions are shared with FEM. Conservation laws and thermodynamic consistency enter through the weak form, and the residual is an intrinsic error measure.",
+        result: "PI-GCN: 0.24% displacement and 0.73% concentration error. PI-EPD-GNN: 0.14% displacement and 0.011% temperature error."
+      },
+      summary: "Graph neural networks that solve coupled multiphysics problems by minimizing the finite-element weak-form residual, with no labeled solution data." },
     { title: "Physics Enforced Operator Learning", href: "research-physics-enforced-operator-learning.html",
-      cats: ["physics-ai"], year: "2026", featured: true,
+      cats: ["physics-ai"], year: "2026", featured: true, inFeatures: true,
+      status: { kind: "ongoing", label: "Preprint · in progress" },
+      why: "A simulator answers one load case at a time; a trained operator answers a whole load range.",
+      struct: {
+        problem: "Nematic elastomers: the deformation and director fields are coupled and nonlinear.",
+        method: "Energy-trained neural network and DeepONet over FEM/NEM discretizations; no solution data; unit-director constraint built in.",
+        physics: "Stationarity of the total potential energy is the training signal. Conditions derived from quasiconvexity (strong ellipticity, second variation) validate the output.",
+        result: "~0.5–0.7 ms per query, ~35–250× faster per query than a warm FEM solve (156-node benchmark, CPU); ~0.7% (shear) and 1.6–3% (uniaxial) displacement error on unseen stretches."
+      },
       summary: "Energy-trained neural networks and DeepONets, with the physics built into the architecture, for nematic liquid crystal elastomers; one trained operator returns the full deformation and director fields across a load ramp, checked against finite elements and stability conditions." },
     { title: "PI-FNO: Heart Sound Diagnosis", href: "research-pi-fno.html",
       cats: ["physics-ai"], year: "2026", featured: true,
+      status: { kind: "done", label: "Open source" },
+      why: "Diagnosis by auscultation has low agreement between examiners, and the acoustics of heart sounds are known well enough to build in.",
+      struct: {
+        problem: "Five-class valvular heart disease from raw phonocardiograms.",
+        method: "A physics-informed Fourier neural operator (150 lowest modes) with a learnable physiological frequency mask; open source.",
+        physics: "S1/S2 frequency bands, cardiac periodicity, and the S1 ≥ S2 energy hierarchy, built in as priors and as an inequality constraint.",
+        result: "97.5% test accuracy on 1,000 recordings (CNN baseline 96.0%); Aortic Stenosis F1 = 1.00."
+      },
       summary: "A Fourier neural operator with a learnable physiological frequency mask and physics-informed losses. 97.5% test accuracy on five heart conditions." },
+    { title: "Dissipative Chemo-Elasticity", href: "research-dissipative-chemo-elasticity.html",
+      cats: ["theoretical-mechanics", "computational-mechanics"], year: "2026", featured: true,
+      status: { kind: "ongoing", label: "Theory · extension ongoing" },
+      why: "Swelling gels couple large deformation to solvent transport, and that coupling has to respect the second law.",
+      struct: {
+        problem: "Swelling of an elastic network by water absorption, coupled to solvent transport.",
+        method: "One free energy (elastic plus Flory–Huggins mixing); balance laws from virtual power; Coleman–Noll analysis.",
+        physics: "The second law restricts the water-flux mobility tensor to be positive semi-definite.",
+        result: "A thermodynamically consistent coupled mechanical–chemical theory; the flux restriction is directly usable in simulation."
+      },
+      summary: "A thermodynamically consistent theory of swelling driven by water absorption: coupled mechanical and chemical balance laws from one energy, and second-law restrictions on the flux." },
+    { title: "Universal Behavior in Cell Monolayers", href: "research-cell-monolayers.html",
+      cats: ["theoretical-mechanics"], year: "2026", featured: true,
+      status: { kind: "done", label: "Accepted · Proc. R. Soc. A" },
+      why: "A universal experimental observation, the edge effect, had no mathematical explanation.",
+      struct: {
+        problem: "Why cell polarization is tangential at the free edges of a monolayer.",
+        method: "A Cosserat surface with a unit director; constrained first variation.",
+        physics: "The condition d·ν = 0 follows from the boundary conditions alone; no constitutive law enters.",
+        result: "A theorem valid for any cell type, any animal, even bacteria; accepted in Proc. R. Soc. A."
+      },
+      summary: "A mathematical proof that cell polarization stays tangential at free edges of a monolayer, independent of cell type, animal, and even for bacteria. Accepted in Proc. R. Soc. A." },
     { title: "Heart Disease Risk Prediction", href: "research-heart-disease-prediction.html",
       cats: ["machine-learning"], year: "2026",
+      why: "A screening model is only useful if it is honest about what survey data can support.",
+      labels: { physics: "Statistics" },
+      struct: {
+        problem: "Flag coronary heart disease risk from self-reported survey data (301,717 respondents after de-duplication).",
+        method: "A leakage-safe pipeline; twelve configurations compared; CatBoost with class weighting; F2-tuned threshold.",
+        physics: "Class weighting beat SMOTE for every algorithm, because interpolating binary indicators creates meaningless synthetic people.",
+        result: "Test recall 0.791 at precision 0.225 (ROC-AUC 0.836): suitable for triage, not diagnosis."
+      },
       summary: "A leakage-safe machine learning pipeline that flags coronary heart disease risk from self-reported survey data, with an honest look at its limits." }
   ],
 
@@ -127,11 +284,11 @@ window.SITE = {
     { icon: "ψ", cat: "computational-mechanics", title: "Soft Matter &amp; Hydrogels", href: "projects.html#computational-mechanics", more: "See projects →",
       desc: "Nematic liquid crystal elastomers, hydrogels, and swelling polymers. Thermodynamically consistent, finite-strain modeling and simulation of coupled mechanical, chemical, and orientational fields." },
     { icon: "∫", cat: "physics-ai", title: "Physics-Informed Machine Learning", href: "projects.html#physics-ai", more: "See projects →",
-      desc: "PINNs, Deep Energy Methods, DeepONets, and ICNNs for constitutive modeling. Enforcing frame indifference, polyconvexity, and Legendre–Hadamard stability as hard constraints in neural architectures." },
+      desc: "PINNs, Deep Energy Methods, DeepONets, ICNNs, and physics-informed GNNs for constitutive modeling and coupled multiphysics. Enforcing frame indifference, polyconvexity, and Legendre–Hadamard stability as hard constraints in neural architectures." },
     { icon: "𝒢", cat: "physics-ai", title: "Neural Operators &amp; GNNs", href: "projects.html#physics-ai", more: "See projects →",
-      desc: "Fourier Neural Operators, MeshGraphNets, and transformer-based operator learning for mesh-dependent PDE surrogates. Differentiable simulation pipelines in JAX and PyTorch for Physical AI." },
-    { icon: "∂", cat: "computational-mechanics", title: "Computational Mechanics", href: "projects.html#computational-mechanics", more: "See projects →",
-      desc: "FEniCSx, JAX-FEM, and custom finite element codes for hyperelasticity, phase-field fracture, and swelling. End-to-end differentiable simulation targeting real-time physical AI applications." },
+      desc: "Fourier neural operators, DeepONets, and GNN-based operators for nonlinear mechanics and multiphysics, validated against finite-element solutions." },
+    { icon: "∂", cat: "computational-mechanics", title: "Computational Mechanics &amp; Differentiable Simulation", href: "projects.html#computational-mechanics", more: "See projects →",
+      desc: "FEniCSx and custom finite element codes for hyperelasticity, fracture, and swelling. Differentiable, matrix-free solvers (Newton–Krylov, dynamic relaxation) in PyTorch and JAX, and meshless peridynamics." },
     { icon: "⌬", cat: "experimental-mechanics", title: "Experimental Mechanics", href: "projects.html#experimental-mechanics", more: "See projects →",
       desc: "DIC and strain-gauge characterization of composites; photoelastic full-field stress mapping; DSC thermal analysis and tensile testing of shape memory alloys; magnetomechanical experiments on FSMAs." },
     { icon: "♡", cat: "machine-learning", title: "Cardiovascular AI Startup", href: "projects.html#machine-learning", more: "See projects →",
@@ -149,44 +306,117 @@ window.SITE = {
     { years: "2022 – 2023", title: "Co-Founder &amp; ML Engineer — Berkeley AI Startup",
       sub: "Co-founded cardiovascular AI startup accepted into UC Berkeley SkyDeck Pad-13 and CITRIS Foundry 2023. Built CNN + transfer learning models for multi-class heart sound classification achieving 95% accuracy. Mentored undergraduate hardware development." },
     { years: "2023 – Present", title: "Postdoctoral Associate · Yale University",
-      sub: "Advisor: Prof. Jay D. Humphrey. Biomedical Engineering. 3 publications. Research on fibrous tissues, thermodynamically consistent chemotaxis, phase-field fracture, and physics-informed neural networks for soft matter." }
+      sub: "Advisor: Prof. Jay D. Humphrey. Biomedical Engineering. 3 publications. Research on fibrous tissues, thermodynamically consistent chemotaxis, fracture, differentiable simulation with matrix-free solvers, and physics-informed neural networks and operators for soft matter." }
   ],
 
   /* ---- RESEARCH: intro + philosophy -------------------------- */
-  researchIntro: "My research is driven by a single conviction: that a deep understanding of physical systems demands mathematical rigor, experimental honesty, and computational power working together. From the thermodynamics of a swelling hydrogel to the stability conditions of a fiber-reinforced elastic solid, from the migration of cells on a soft substrate to the design of neural networks that provably satisfy the laws of mechanics — each project begins with the same question: <em>what does the physics actually require?</em>",
+  researchIntro: "<strong>Physics is the foundation of the AI, not a separate topic.</strong> My research is driven by a single conviction: that a deep understanding of physical systems demands mathematical rigor, experimental honesty, and computational power working together. From the thermodynamics of a swelling hydrogel to the stability conditions of a fiber-reinforced elastic solid, from the migration of cells on a soft substrate to the design of neural networks that provably satisfy the laws of mechanics — each project begins with the same question: <em>what does the physics actually require?</em>",
   philosophy: {
     quote: "\"The laws of nature produce the data, not the other way around. My models <em>obey</em> those laws; they do not imitate them.\"",
     attr:  "Research Philosophy · M. Shirani"
   },
 
   /* ---- RESEARCH TABS ----------------------------------------- */
+  // Optional per tab: `lead` (short summary shown first; the full `body` then
+  // sits in a collapsed "technical account"), `status` ({completed, ongoing,
+  // next} lists).
   // To add a tab: copy one block, give it a new id + roman numeral.
   // Tab button + panel are generated together — no need to edit two places.
   researchTabs: [
     {
       id: "t1", cat: "theoretical-mechanics", num: "I", label: "Continuum Mechanics<br>&amp; Stability",
       title: "Nonlinear Continuum Mechanics &amp; Stability Theory",
+      levels: {
+        problem: "Which deformation states of a nonlinear, generalized continuum can be stable energy minimizers?",
+        method: "Analytical derivation of necessary conditions (Legendre–Hadamard, rank-one convexity, quasiconvexity) for Cosserat media, fiber-reinforced solids and shells, and liquid crystal elastomers.",
+        physics: "Variational principles. The acoustic tensor of a Cosserat medium couples translational and rotational degrees of freedom.",
+        result: "Closed-form stability conditions for these material classes, including a coupled Legendre–Hadamard inequality for fiber-reinforced shells. They serve as validation criteria for FEA and neural-network output."
+      },
       body: [
-        "My doctoral work, carried out under Prof. David Steigmann at UC Berkeley, established a systematic framework for stability analysis in generalized continua. The central objects of study were the Legendre-Hadamard condition, rank-one convexity, and quasiconvexity — necessary conditions for energy minimizers that govern whether a body can sustain localized failure modes such as shear bands or surface instabilities.",
-        "In classical elasticity these conditions are well understood, but for <em>Cosserat media</em> — where material points carry both position and orientation — the analysis is fundamentally richer. The acoustic tensor acquires a block structure, coupling the translational and rotational degrees of freedom, and the admissible wave speeds depend on both the elastic and couple-stress moduli. I derived these conditions analytically for Cosserat solids, lattice structures, fiber-reinforced materials with one, two, and three fiber families, liquid crystal elastomers, and elastic shells with intrinsic fiber bending and twist stiffness. A key contribution was proving the <em>coupled</em> Legendre-Hadamard inequality for fiber-reinforced shells, where the fiber's own Kirchhoff-rod energy interacts with the shell's membrane-bending response.",
+        "My doctoral work, carried out under Prof. David Steigmann at UC Berkeley, established a systematic framework for stability analysis in generalized continua. The central objects of study were the Legendre–Hadamard condition, rank-one convexity, and quasiconvexity — necessary conditions for energy minimizers that govern whether a body can sustain localized failure modes such as shear bands or surface instabilities.",
+        "In classical elasticity these conditions are well understood, but for <em>Cosserat media</em> — where material points carry both position and orientation — the analysis is fundamentally richer. The acoustic tensor acquires a block structure, coupling the translational and rotational degrees of freedom, and the admissible wave speeds depend on both the elastic and couple-stress moduli. I derived these conditions analytically for Cosserat solids, lattice structures, fiber-reinforced materials with one, two, and three fiber families, liquid crystal elastomers, and elastic shells with intrinsic fiber bending and twist stiffness. A key contribution was proving the <em>coupled</em> Legendre–Hadamard inequality for fiber-reinforced shells, where the fiber's own Kirchhoff-rod energy interacts with the shell's membrane-bending response.",
         "More recently, I showed that fibrous biological tissues simultaneously exhibit <em>strain-gradient</em> and <em>Cosserat</em> effects — a consequence of the finite thickness and curvature of individual fibers — and that this dual nonlocality can produce macroscopic Poynting effects with no classical analogue."
       ],
       keyPoints: [
-        "Analytical Legendre-Hadamard conditions for Cosserat elasticity, fiber-reinforced solids, and elastic shells",
+        "Analytical Legendre–Hadamard conditions for Cosserat elasticity, fiber-reinforced solids, and elastic shells",
         "Quasiconvexity and rank-one convexity in Cosserat models for lattice and fiber-reinforced materials",
-        "Maxwell-Eshelby relation and its generalization in Cosserat and 6-parameter shell theories",
+        "Maxwell–Eshelby relation and its generalization in Cosserat and 6-parameter shell theories",
         "Mixed Cosserat/strain-gradient formulation for fibrous tissues; prediction of Poynting effects",
         "Elastic-plastic response of hemitropic Cosserat solids"
       ],
       links: [ { text: "Article · Coming Soon", comingSoon: true } ]
     },
     {
+      id: "t11", cat: "computational-mechanics", num: "XI", label: "Differentiable<br>FEA",
+      title: "Differentiable FEA — Beyond the Stiffness Matrix",
+      levels: {
+        problem: "Solving nonlinear finite-element problems without forming the global tangent matrix, with exact derivatives.",
+        method: "Differentiable matrix-free Newton–Krylov FEA in PyTorch: automatic-differentiation Jacobian–vector products inside preconditioned conjugate gradients.",
+        physics: "Weak-form mechanics: the residual and the tangent are the first and second derivatives of one strain-energy density.",
+        result: "Agreement with FEniCSx/dolfinx below 10<sup>−13</sup>; 11.6× faster GPU tangent product after profiling; 10,000 Q4 elements solved in 2.9 s on a T4 GPU."
+      },
+      body: [
+        "Traditional nonlinear FEA repeatedly forms and solves large linearized systems involving a global stiffness (Jacobian) matrix. My approach evaluates the weak-form residual directly and obtains Jacobian–vector products through automatic differentiation, which enables a matrix-free Newton–Krylov solution. The solver is written in purely functional PyTorch, and each Newton step is solved inexactly by preconditioned conjugate gradients (Jacobi or block-Jacobi), using only Jacobian–vector products.",
+        "A linear system is still solved at every Newton step; what is avoided is assembling and storing the global matrix. Design gradients follow from the implicit function theorem with one extra linear solve, so the solver can be placed inside optimization and learning loops. Solutions match FEniCSx/dolfinx to rounding level, and a 10,000-element Q4 problem solves in 2.9 s on a T4 GPU.",
+        "<strong>Scope.</strong> This is an early release (v0.1) for 2D plane strain. On a CPU in 2D, an assembled sparse matrix is still faster per product; the matrix-free advantage is expected for high-order elements, 3D, and GPU memory, and has not been measured there yet."
+      ],
+      keyPoints: [
+        "Matrix-free inexact Newton–Krylov iteration; Q4, Q8, Q9, Tri3 and Tri6 elements, several hyperelastic laws",
+        "Exact adjoint sensitivities by the implicit function theorem, checked against finite differences",
+        "Agreement with FEniCSx to rounding level; cantilever and plate-with-hole benchmarks within 1-3% of theory",
+        "11.6× faster GPU tangent product from an element-wise operator variant (40,000 Q4 elements, T4); 10,000 Q4 elements solved in 2.9 s; 194 automated tests"
+      ],
+      status: {
+        completed: [
+          "Version 0.1 released as open source (PyTorch)",
+          "Validated against FEniCSx/dolfinx and analytic beam and Kirsch/Heywood solutions",
+          "Exact adjoint sensitivities, checked against finite differences"
+        ],
+        next: [
+          "3D elements, where matrix-free methods and GPUs are expected to pay off",
+          "Scalable preconditioning (p-multigrid) and distributed, multi-GPU execution",
+          "Plasticity and contact"
+        ]
+      },
+      links: [
+        { text: "Read · Differentiable FEA", href: "research-differentiable-fea.html" },
+        { text: "GitHub · Differentiable-FEA Repository", href: "https://github.com/miladshirani/Differentiable-FEA", external: true }
+      ]
+    },
+    {
+      id: "t9", cat: "computational-mechanics", num: "IX", label: "Differentiable<br>Meshless Mechanics",
+      title: "Differentiable Meshless Mechanics: Peridynamic Fracture &amp; Peeling",
+      levels: {
+        problem: "Brittle and hydraulic fracture and Mode I / mixed-mode peeling, without remeshing or crack-tracking rules.",
+        method: "Differentiable, autodiff-based meshless peridynamics (JAX, PyTorch) with a matrix-free dynamic-relaxation scheme.",
+        physics: "A nonlocal bond model: damage is bond breakage. Dynamic relaxation converges through unstable crack growth, where Newton–Raphson tangents turn singular.",
+        result: "8–10× runtime speedup and 9.7×10<sup>−11</sup> agreement with a validated reference solution. In collaboration with Prof. Ali Javili; results to be published."
+      },
+      body: [
+        "We have implemented brittle fracture, fluid-induced (hydraulic) fracture, and delamination (the Mode I and mixed-mode peeling test) using <em>peridynamics</em>, a nonlocal, meshless continuum theory in which material points interact through bonds within a finite horizon. Cracks nucleate and propagate as bonds break, with no remeshing and no crack-tracking rules.",
+        "The framework is differentiable through automatic differentiation in JAX and PyTorch, and equilibrium is computed with a matrix-free dynamic relaxation scheme, which avoids the singular tangents that stall Newton–Raphson during unstable crack propagation. The solver reaches an 8–10× runtime speedup and 9.7×10<sup>−11</sup> agreement with a validated reference solution; the full study will be published soon. This is a collaboration with <a href=\"https://www.nahalab.com/\" target=\"_blank\" rel=\"noopener\">Prof. Ali Javili</a> (Bilkent University)."
+      ],
+      keyPoints: [
+        "Brittle fracture, hydraulic fracture, and delamination (Mode I / mixed-mode peel) without remeshing",
+        "Differentiable via automatic differentiation in JAX and PyTorch",
+        "Matrix-free dynamic relaxation, to converge through unstable crack propagation where Newton–Raphson tangents turn singular",
+        "8–10× runtime speedup and 9.7×10<sup>−11</sup> agreement with a validated reference solution"
+      ],
+      links: [ { text: "Read · Differentiable Meshless Mechanics", href: "research-peridynamic-fracture.html" } ]
+    },
+    {
       id: "t2", cat: "computational-mechanics", num: "II", label: "Soft Matter:<br>Hydrogels &amp; LCEs",
       title: "Soft Matter: Hydrogels, Polymers &amp; Liquid Crystal Elastomers",
+      levels: {
+        problem: "Large-strain swelling gels and liquid crystal elastomers, whose deformation is coupled to chemical or orientational fields.",
+        method: "Variational continuum models and Coleman–Noll analysis; energy-minimizing neural networks trained over FEM/NEM discretizations (see operator learning).",
+        physics: "One free energy (elastic plus Flory–Huggins mixing) gives the mechanical and chemical balance laws; the second law restricts the flux; Legendre–Hadamard conditions govern stability under deformation and director perturbations.",
+        result: "The water-flux mobility tensor must be positive semi-definite; stability conditions for nematic LCEs, used as validation criteria for neural models of the same materials."
+      },
       body: [
         "Soft materials present a distinct class of challenges: they undergo large, geometrically nonlinear deformations; they often couple mechanical response to chemical, thermal, or electromagnetic fields; and their constitutive behavior is governed by entropy as much as by internal energy. My work in this area addresses both the mathematical structure of such coupled theories and their computational implementation.",
-        "For hydrogels, I developed a thermodynamically consistent continuum model for swelling driven by water absorption, grounding the Flory-Huggins mixing energy within a variational framework and deriving the coupled mechanical and chemical balance laws via the principle of virtual power. The Coleman-Noll procedure shows that the reduced dissipation inequality constrains the water-flux mobility tensor to be positive semi-definite — a result that is both physically necessary and computationally actionable. The model is currently being extended to biological tissues and to delamination problems in layered hydrogel systems.",
-        "For <em>nematic liquid crystal elastomers</em> (LCEs), where a rubber-like polymer network is coupled to an orientational order parameter \\( \\boldsymbol{n} \\), I derived the Legendre-Hadamard inequalities governing stability with respect to both deformation and director-field perturbations. I then used these as validation criteria — rather than loss-function penalties — when training physics-consistent neural networks to predict the deformation and director fields. This distinction matters: a loss penalty can be violated during inference, while an architectural constraint cannot."
+        "For hydrogels, I developed a thermodynamically consistent continuum model for swelling driven by water absorption, grounding the Flory–Huggins mixing energy within a variational framework and deriving the coupled mechanical and chemical balance laws via the principle of virtual power. The Coleman–Noll procedure shows that the reduced dissipation inequality constrains the water-flux mobility tensor to be positive semi-definite — a result that is both physically necessary and computationally actionable. The model is currently being extended to biological tissues and to delamination problems in layered hydrogel systems.",
+        "For <em>nematic liquid crystal elastomers</em> (LCEs), where a rubber-like polymer network is coupled to an orientational order parameter \\( \\boldsymbol{n} \\), I derived the Legendre–Hadamard inequalities governing stability with respect to both deformation and director-field perturbations. I then used these as validation criteria — rather than loss-function penalties — when training physics-consistent neural networks to predict the deformation and director fields. This distinction matters: a loss penalty can be violated during inference, while an architectural constraint cannot."
       ],
       keyPoints: [
         "Variational continuum model for hydrogel swelling; thermodynamic restrictions on the water flux",
@@ -203,15 +433,21 @@ window.SITE = {
     {
       id: "t3", cat: "theoretical-mechanics", num: "III", label: "Cell<br>Migration",
       title: "Cell Migration",
+      levels: {
+        problem: "Collective cell migration under chemical gradients, substrate stiffness, and tension.",
+        method: "A thermodynamically consistent continuum framework covering chemotaxis, durotaxis, and taxis toward tension; a Cosserat-surface analysis of polarity at free boundaries.",
+        physics: "Second-law consistency. The Keller–Segel chemotaxis model violates it, and a corrected formulation is given.",
+        result: "Proof that the Keller–Segel model is thermodynamically inconsistent, a corrected model, and the universal tangentiality of polarity at free edges (accepted, Proc. R. Soc. A)."
+      },
       body: [
         "At Yale, working with Prof. Jay D. Humphrey, my research has focused on the mechanics of living soft matter — fibrous biological tissues, cell monolayers, lipid bilayers, and hydrogel scaffolds. These systems are distinguished by their capacity for active response, growth, remodeling, and self-organization, phenomena that classical passive elasticity cannot capture.",
-        "I developed a continuum model for collective cell migration driven by <em>chemotaxis</em> (response to chemical gradients), <em>durotaxis</em> (response to substrate stiffness), and <em>taxis</em> toward tension, unifying these into a single thermodynamically consistent framework applicable to multiple cell families and chemoattractants simultaneously. A significant theoretical finding was demonstrating that the Keller-Segel chemotaxis model — widely used in mathematical biology — violates thermodynamic consistency, and providing a corrected formulation.",
+        "I developed a continuum model for collective cell migration driven by <em>chemotaxis</em> (response to chemical gradients), <em>durotaxis</em> (response to substrate stiffness), and <em>taxis</em> toward tension, unifying these into a single thermodynamically consistent framework applicable to multiple cell families and chemoattractants simultaneously. A significant theoretical finding was demonstrating that the Keller–Segel chemotaxis model — widely used in mathematical biology — violates thermodynamic consistency, and providing a corrected formulation.",
         "A separate line of work concerned the geometry of cell polarization near free boundaries. I proved that in any polarized cell monolayer, the polarity vector must remain tangential to free boundaries — a result that is <em>universal</em> in the sense that it depends only on the boundary geometry and the continuity of the polarity field, not on the specific constitutive model for polarization dynamics.",
         "Earlier work at Berkeley addressed the equilibrium mechanics of lipid bilayers, including asymmetric and tilted bilayers and bilayers with a conforming cytoskeletal membrane, where the coupling between membrane curvature and cytoskeletal tension produces nontrivial shape transitions."
       ],
       keyPoints: [
         "Thermodynamically consistent model for collective cell migration under chemo-mechanical stimuli",
-        "Proof of thermodynamic inconsistency in the Keller-Segel model; corrected continuum formulation",
+        "Proof of thermodynamic inconsistency in the Keller–Segel model; corrected continuum formulation",
         "Universal tangentiality of cell polarity at free boundaries of cell monolayers",
         "Equilibrium theory for asymmetric tilted lipid bilayers and bilayers with cytoskeletal coupling",
         "Finite elastic deformations of incompressible fiber-reinforced biological plates"
@@ -222,29 +458,34 @@ window.SITE = {
       ]
     },
     {
-      id: "t4", cat: "physics-ai", num: "IV", label: "Physics-Informed<br>Machine Learning",
-      title: "Physics-Informed Machine Learning &amp; Neural Constitutive Models",
+      id: "t10", cat: "theoretical-mechanics", num: "X", label: "Universal Behavior:<br>Cell Monolayers",
+      title: "Proof of a Universal Behavior in Cell Biology",
+      levels: {
+        problem: "Why cell polarization is tangential at the free edges of a monolayer, for any cell type.",
+        method: "A Cosserat surface with a unit director; constrained first variation with Lagrange multipliers.",
+        physics: "The condition d·ν = 0 follows from the boundary conditions with no constitutive assumption; Legendre–Hadamard inequalities for the problem.",
+        result: "A theorem valid for any cell type, any animal, even bacteria. Accepted in Proceedings of the Royal Society A."
+      },
       body: [
-        "The convergence of mechanics and machine learning opens a genuinely new frontier — not merely fitting data faster, but building computational models that are constrained by physical law from the ground up. My work in this area is grounded in the conviction that the laws of mechanics are not soft regularizers to be traded against data fit; they are hard constraints that any admissible model must satisfy exactly.",
-        "For hyperelastic constitutive modeling, I develop neural networks whose outputs are guaranteed to satisfy <em>frame indifference</em>, <em>material symmetry</em>, and the <em>Legendre-Hadamard condition</em> — not by penalizing violations during training, but by architectural design. Input Convex Neural Networks (ICNNs) provide polyconvex energy densities by construction. For fibrous biological tissues with two fiber families, I have proved analytically the polyconvexity conditions that existing approaches verify only numerically — a distinction that matters for guaranteeing stability at <em>any</em> deformation state, not just those seen during training.",
-        "For operator learning — mapping loading conditions to full displacement or director fields — I work with Deep Operator Networks (DeepONets) and Physics-Informed Neural Networks (PINNs), enforcing the governing PDEs either through the loss function or directly in the architecture. Most recently, in work currently under review, I trained physics-consistent neural networks for microstructured media (Cosserat continua) where both the deformation gradient \\( \\boldsymbol{F} \\) and the director field \\( \\boldsymbol{d} \\) are learned simultaneously, with the Legendre-Hadamard tensor retained in the computational graph for post-training stability verification.",
-        "Looking forward, I am building end-to-end differentiable simulation pipelines in JAX and PyTorch — combining custom finite element solvers, neural constitutive models, and MeshGraphNet-based surrogates — as the foundation for Physical AI applications in soft robotics, surgical simulation, and materials design."
+        "Cells at the free edge of a polarized monolayer align tangentially to the edge. Using Cosserat elasticity for a planar unit director, I proved this mathematically: the condition \\( \\boldsymbol{d}\\cdot\\boldsymbol{\\nu}_t=0 \\) follows from the boundary conditions without any constitutive assumption, so it holds regardless of cell type, animal, or even for bacteria. The work, with J. D. Humphrey, is accepted in <em>Proceedings of the Royal Society A</em> for the special issue in honor of Prof. K. R. Rajagopal.",
+        "I also obtained Legendre–Hadamard inequalities for the problem. Loss of ellipticity marks the bifurcation at which defects and patterns form, and it is the key to shape programming of living surfaces."
       ],
       keyPoints: [
-        "Deep Energy Method for nematic LCEs with LH conditions as architectural constraints",
-        "Physics-consistent neural networks for Cosserat media; LH verification in the computational graph",
-        "Analytical proof of polyconvexity conditions for fibrous tissues with two fiber families",
-        "Variational and data-driven DeepONets for nematic materials",
-        "Differentiable FEA in JAX: T3/Q9 elements, Neo-Hookean and SVK materials, autodiff tangent stiffness"
+        "Edge effect proved for any constitutive law: polarization stays tangential to free boundaries",
+        "Independent of cell type, animal, and valid for bacteria",
+        "Legendre–Hadamard inequalities; loss of ellipticity and shape programming"
       ],
-      links: [
-        { text: "Article · ICNN Constitutive Models — Coming Soon", comingSoon: true },
-        { text: "Article · Differentiable Simulation — Coming Soon", comingSoon: true }
-      ]
+      links: [ { text: "Read · Proof of a Universal Behavior in Cell Biology", href: "research-cell-monolayers.html" } ]
     },
     {
       id: "t5", cat: "theoretical-mechanics", num: "V", label: "Shape Memory<br>Alloys &amp; FSMAs",
       title: "Shape Memory Alloys &amp; Ferromagnetic Smart Materials",
+      levels: {
+        problem: "Constitutive models of shape memory and ferromagnetic shape memory alloys that respect the second law.",
+        method: "Thermodynamic analysis; 3-D transformation and reorientation surfaces; single-reference calibration; purpose-built thermomechanical and magnetomechanical experiments.",
+        physics: "The second law of thermodynamics, with loading history entering the transformation criterion.",
+        result: "Proof that phase-diagram models (including Brinson 1993) violate the second law; one calibration reproduced 12 datasets; biaxial-compression pseudoelasticity predicted, then confirmed experimentally 18 months later."
+      },
       body: [
         "My earliest research, carried out during my MSc at Isfahan University of Technology, focused on the constitutive modeling of shape memory alloys (SMAs) and ferromagnetic shape memory alloys (FSMAs), also referred to as magnetic shape memory alloys (MSMAs). SMAs such as NiTi memorize a reference shape and recover it upon heating through a reversible martensitic phase transition between austenite and martensite. Their applications range from medical devices and aerospace actuators to shock absorbers. FSMAs extend this behavior: in the martensitic phase, an applied magnetic field drives <em>martensite variant reorientation</em>, producing large inelastic strains without thermal cycling.",
         "<strong>Thermodynamic consistency of SMA phase diagrams.</strong> The dominant modeling paradigm at the time relied on phase diagrams in stress-temperature space to determine when transformation initiates and completes. I showed that this class of models — including the widely used Brinson (1993) model — violates the second law of thermodynamics. The argument was constructive: I designed a thought experiment involving a sequence of <em>interrupted phase transformations</em> and showed that, in the limit as the number of interruptions tends to infinity, phase-diagram-based models predict that transformation ends without the phase fraction satisfying the completion condition. This paradox arises because such models exclude loading history from the transformation initiation criterion, which is thermodynamically inadmissible. I designed and carried out multiple thermomechanical experiments to confirm the discrepancy between model predictions and physical behavior.",
@@ -264,11 +505,67 @@ window.SITE = {
       links: [ { text: "Articles · SMA &amp; FSMA Constitutive Modeling — See Publications", comingSoon: true } ]
     },
     {
+      id: "t4", cat: "physics-ai", num: "IV", label: "Physics-Informed<br>Machine Learning",
+      title: "Physics-Informed Machine Learning &amp; Neural Constitutive Models",
+      levels: {
+        problem: "Neural models that cannot violate the mechanics they describe, and that do not depend on labeled solution data.",
+        method: "Polyconvex ICNN energies; energy-trained PINNs and DeepONets; physics-constrained GNNs trained on the FEM weak-form residual (PyTorch, JAX).",
+        physics: "Frame indifference, material symmetry, and polyconvexity built into the architecture; conservation laws and thermodynamic consistency through the weak form; Legendre–Hadamard checks on the output.",
+        result: "GNN final-state errors against Newton–Raphson FEM of 0.011–0.73%; one DeepONet benchmark ~35–250× faster per query than a warm FEM solve at ~0.7–3% displacement error; polyconvexity conditions proved analytically for fibrous tissues with two fiber families."
+      },
+      body: [
+        "The convergence of mechanics and machine learning opens a genuinely new frontier — not merely fitting data faster, but building computational models that are constrained by physical law from the ground up. My work in this area is grounded in the conviction that the laws of mechanics are not soft regularizers to be traded against data fit; they are hard constraints that any admissible model must satisfy exactly.",
+        "For hyperelastic constitutive modeling, I develop neural networks whose outputs are guaranteed to satisfy <em>frame indifference</em>, <em>material symmetry</em>, and the <em>Legendre–Hadamard condition</em> — not by penalizing violations during training, but by architectural design. Input Convex Neural Networks (ICNNs) provide polyconvex energy densities by construction. For fibrous biological tissues with two fiber families, I have proved analytically the polyconvexity conditions that existing approaches verify only numerically — a distinction that matters for guaranteeing stability at <em>any</em> deformation state, not just those seen during training.",
+        "For operator learning — mapping loading conditions to full displacement or director fields — I work with Deep Operator Networks (DeepONets) and Physics-Informed Neural Networks (PINNs), enforcing the governing PDEs either through the loss function or directly in the architecture. Most recently, in work currently under review, I trained physics-consistent neural networks for microstructured media (Cosserat continua) where both the deformation gradient \\( \\boldsymbol{F} \\) and the director field \\( \\boldsymbol{d} \\) are learned simultaneously, with the Legendre–Hadamard tensor retained in the computational graph for post-training stability verification.",
+        "<strong>Physics-constrained GNNs.</strong> For coupled multiphysics, I train graph neural networks as implicit time-steppers by minimizing the finite-element weak-form residual directly, with no labeled solution data. The graph is the mesh (or its Voronoi dual), and the network shares shape functions, quadrature, and boundary conditions with the finite-element solver, so the weak-form residual doubles as an error monitor. The method is demonstrated on finite-strain gel swelling (four coupled fields) and on thermoelasticity, against Newton–Raphson reference solutions.",
+        "<strong>An active research direction.</strong> I am building end-to-end differentiable scientific-computing pipelines in JAX and PyTorch that connect weak-form physics, automatic differentiation, nonlinear solvers, and neural models, combining custom finite element solvers, neural constitutive models, and MeshGraphNet-style surrogates. The components exist and are validated one by one (see the status below). Applications such as soft robotics, surgical simulation, and materials design are the longer-term motivation, not results."
+      ],
+      keyPoints: [
+        "Deep Energy Method for nematic LCEs with LH conditions as architectural constraints",
+        "Physics-consistent neural networks for Cosserat media; LH verification in the computational graph",
+        "Analytical proof of polyconvexity conditions for fibrous tissues with two fiber families",
+        "Variational and data-driven DeepONets for nematic materials",
+        "Physics-informed GNNs (PI-GCN, PI-EPD-GNN) trained on the FEM weak-form residual with no labeled data; final-state errors of 0.011–0.73% against Newton–Raphson FEM",
+        "Differentiable FEA in JAX: T3/Q9 elements, Neo-Hookean and SVK materials, autodiff tangent stiffness",
+        "Differentiable FEA in PyTorch: matrix-free Newton–Krylov with exact adjoint sensitivities (open source)"
+      ],
+      statusLabel: "Where the pipeline stands",
+      status: {
+        completed: [
+          "Energy-trained neural networks and DeepONets for nematic LCEs, checked against FEM and stability conditions (arXiv:2603.06939)",
+          "Physics-informed GNNs for gel swelling and thermoelasticity, compared node by node with FEM",
+          "Open-source matrix-free differentiable FEA solver, validated against FEniCSx",
+          "PI-FNO, open source"
+        ],
+        ongoing: [
+          "Connecting solver, neural constitutive models, and GNN surrogates into end-to-end differentiable pipelines",
+          "DeepONet operator learning for LCEs (work in progress)",
+          "Differentiable peridynamics: results to be published"
+        ],
+        next: [
+          "Operators over geometry, boundary conditions, and material, not only load",
+          "3D elements, scalable preconditioning, and multi-GPU execution for the solver",
+          "Applications: soft robotics, surgical simulation, materials design"
+        ]
+      },
+      links: [
+        { text: "Read · Physics-Constrained GNNs", href: "research-physics-constrained-gnns.html" },
+        { text: "Read · Differentiable FEA", href: "research-differentiable-fea.html" },
+        { text: "Article · ICNN Constitutive Models — Coming Soon", comingSoon: true }
+      ]
+    },
+    {
       id: "t6", cat: "physics-ai", num: "VI", label: "PI-FNO: Cardiac<br>Acoustics",
       title: "PI-FNO: Physics-Informed Neural Operators for Cardiac Acoustics",
+      levels: {
+        problem: "Five-class valvular heart disease classification from raw phonocardiograms.",
+        method: "A Fourier neural operator (150 lowest modes) with a learnable physiological frequency mask and physics-informed losses; open source.",
+        physics: "S1/S2 frequency bands (25–45 Hz, 50–70 Hz), heart-rate periodicity, and the S1 ≥ S2 energy hierarchy as an inequality constraint.",
+        result: "97.5% test accuracy on 1,000 recordings against 96.0% for a CNN baseline; Aortic Stenosis F1 = 1.00."
+      },
       body: [
         "The same design principles that govern physics-consistent constitutive modeling in continuum mechanics — encoding known structure as inductive biases, enforcing inequalities as hard or hinge constraints, and using interpretable learned parameters — transfer naturally to biomedical signal classification. This project applies that philosophy to the automated diagnosis of valvular heart disease from raw phonocardiogram (PCG) recordings.",
-        "The primary model is a <em>Fourier Neural Operator (FNO)</em> operating directly on raw waveforms, with physiological structure encoded at three levels. First, a learnable <em>physiological frequency mask</em> is initialized from known S1 (25-45 Hz) and S2 (50-70 Hz) cardiac sound bands and parameterized in logit space to keep weights in \\( (0,1) \\). Second, spectral convolutions retain only the \\( M = 150 \\) lowest Fourier modes — a band-limited inductive bias matching the sub-1 kHz frequency content of cardiac acoustics. Third, the training loss augments cross-entropy with two physiologically motivated terms: a <em>periodicity loss</em> penalizing energy away from heart-rate harmonics, and a <em>frequency hierarchy loss</em> enforcing \\( E_{S1} \\geq E_{S2} \\) via a hinge penalty — directly analogous to Legendre-Hadamard enforcement in hyperelastic constitutive modeling.",
+        "The primary model is a <em>Fourier Neural Operator (FNO)</em> operating directly on raw waveforms, with physiological structure encoded at three levels. First, a learnable <em>physiological frequency mask</em> is initialized from known S1 (25-45 Hz) and S2 (50-70 Hz) cardiac sound bands and parameterized in logit space to keep weights in \\( (0,1) \\). Second, spectral convolutions retain only the \\( M = 150 \\) lowest Fourier modes — a band-limited inductive bias matching the sub-1 kHz frequency content of cardiac acoustics. Third, the training loss augments cross-entropy with two physiologically motivated terms: a <em>periodicity loss</em> penalizing energy away from heart-rate harmonics, and a <em>frequency hierarchy loss</em> enforcing \\( E_{S1} \\geq E_{S2} \\) via a hinge penalty — directly analogous to Legendre–Hadamard enforcement in hyperelastic constitutive modeling.",
         "The model classifies five clinically distinct conditions — Aortic Stenosis, Mitral Regurgitation, Mitral Stenosis, Mitral Valve Prolapse, and Normal — from 1,000 PCG recordings. The FNO achieves <strong>97.5% test accuracy</strong> (against 96.0% for a CNN baseline) with perfect classification of Aortic Stenosis (F1 = 1.00). After training, the learned mask weights autonomously recover the S1/S2 bands while also discovering additional murmur-frequency modes — providing direct clinical interpretability with no post-hoc attribution required."
       ],
       keyLabel: "Key Results",
@@ -296,6 +593,12 @@ window.SITE = {
     {
       id: "t7", cat: "experimental-mechanics", num: "VII", label: "Experimental<br>Mechanics",
       title: "Experimental Mechanics",
+      levels: {
+        problem: "Grounding and validating theoretical and computational models with measurements.",
+        method: "Strain gauges and digital image correlation on composites; thermomechanical and magnetomechanical testing of SMAs and FSMAs; DSC; photoelasticity.",
+        physics: "Full-field strain and stress measurements compared with analytical and numerical predictions.",
+        result: "Full-field strain maps resolving failure initiation sites and tensile strength bounds; experiments confirming thermodynamic predictions for shape memory alloys."
+      },
       body: [
         "Alongside my theoretical and computational work, I have designed and executed experimental programs in structural mechanics, smart materials, and composite failure — grounding analytical predictions in physical measurement and providing the experimental baselines against which models are validated.",
         "<strong>Composites — strain gauges and Digital Image Correlation (DIC).</strong> Tensile failure in carbon fiber and fiberglass composites involves localized strain concentrations that coupon-average measurements cannot resolve. To characterize failure initiation sites and tensile strength under combined loading with full-field ground truth, I designed and executed tensile failure tests on composite specimens, instrumented with strain gauges for local strain measurement at anticipated failure sites, and deployed DIC for simultaneous full-field strain mapping. I designed acceptance criteria and loading protocols to isolate failure modes and avoid confounding effects. The result was full-field strain maps resolving failure initiation sites and tensile strength bounds under combined loading, with model predictions validated directly against experimental ground truth.",
@@ -314,6 +617,12 @@ window.SITE = {
     {
       id: "t8", cat: "machine-learning", num: "VIII", label: "Cardiovascular<br>AI Startup",
       title: "Cardiovascular AI Startup — UC Berkeley",
+      levels: {
+        problem: "Automated cardiovascular disease detection from phonocardiograms, on a startup timeline.",
+        method: "CNN with transfer learning; the full model lifecycle from data pipeline through evaluation; a hardware digital stethoscope built by a mentored undergraduate student.",
+        physics: "Heart-sound acoustics (S1/S2), which later became the physical prior in PI-FNO.",
+        result: "95% accuracy on held-out test sets; accepted into Berkeley SkyDeck Pad-13 and CITRIS Foundry 2023."
+      },
       body: [
         "During the final year of my PhD at UC Berkeley, I co-founded an AI startup focused on the automated detection of cardiovascular disease from phonocardiogram (PCG) recordings. The startup was accepted into two competitive Berkeley incubator programs: <strong>UC Berkeley SkyDeck Pad-13</strong> and the <strong>CITRIS Foundry 2023</strong> cohort, providing mentorship, infrastructure, and a translational development environment.",
         "<strong>Model development.</strong> Operating under startup timelines and constraints, I developed, benchmarked, and delivered a convolutional neural network (CNN) with transfer learning for multi-class heart sound classification — distinguishing normal cardiac function from pathological conditions including aortic stenosis, mitral regurgitation, mitral stenosis, and mitral valve prolapse. The pipeline covered the full model lifecycle: raw PCG data ingestion, preprocessing and segmentation, feature extraction, model training and cross-validation, and evaluation on held-out test sets. The final model achieved <strong>95% accuracy</strong> on held-out data, meeting the startup's clinical deployment target.",
@@ -330,52 +639,6 @@ window.SITE = {
       links: [
         { text: "Related Work · PI-FNO Cardiac Disease Detection", href: "research-pi-fno.html" },
         { text: "Related Work · Heart Disease Risk Prediction", href: "research-heart-disease-prediction.html" }
-      ]
-    },
-    {
-      id: "t9", cat: "computational-mechanics", num: "IX", label: "Peridynamics:<br>Fracture &amp; Peeling",
-      title: "Peridynamic Fracture &amp; Peeling of Solids",
-      body: [
-        "We have implemented fluid-induced fracture and the peeling test using <em>peridynamics</em>, a nonlocal, meshless continuum theory in which material points interact through bonds within a finite horizon. Cracks nucleate and propagate as bonds break, with no remeshing and no crack-tracking rules.",
-        "The framework is differentiable through automatic differentiation in JAX and PyTorch, and equilibrium is computed with a dynamic relaxation solver. The results will be published soon. This is a collaboration with <a href=\"https://www.nahalab.com/\" target=\"_blank\" rel=\"noopener\">Prof. Ali Javili</a> (Bilkent University)."
-      ],
-      keyPoints: [
-        "Meshless peridynamic simulation of fluid-induced fracture and of the peeling test",
-        "Differentiable via automatic differentiation in JAX and PyTorch",
-        "Dynamic relaxation solver"
-      ],
-      links: [ { text: "See · Peridynamic Fracture &amp; Peeling", href: "research-peridynamic-fracture.html" } ]
-    },
-    {
-      id: "t10", cat: "theoretical-mechanics", num: "X", label: "Universal Behavior:<br>Cell Monolayers",
-      title: "Proof of a Universal Behavior in Cell Biology",
-      body: [
-        "Cells at the free edge of a polarized monolayer align tangentially to the edge. Using Cosserat elasticity for a planar unit director, I proved this mathematically: the condition \\( \\boldsymbol{d}\\cdot\\boldsymbol{\\nu}_t=0 \\) follows from the boundary conditions without any constitutive assumption, so it holds regardless of cell type, animal, or even for bacteria. The work, with J. D. Humphrey, is accepted in <em>Proceedings of the Royal Society A</em> for the special issue in honor of Prof. K. R. Rajagopal.",
-        "I also obtained Legendre-Hadamard inequalities for the problem. Loss of ellipticity marks the bifurcation at which defects and patterns form, and it is the key to shape programming of living surfaces."
-      ],
-      keyPoints: [
-        "Edge effect proved for any constitutive law: polarization stays tangential to free boundaries",
-        "Independent of cell type, animal, and valid for bacteria",
-        "Legendre-Hadamard inequalities; loss of ellipticity and shape programming"
-      ],
-      links: [ { text: "Read · Proof of a Universal Behavior in Cell Biology", href: "research-cell-monolayers.html" } ]
-    },
-    {
-      id: "t11", cat: "computational-mechanics", num: "XI", label: "Differentiable<br>FEA",
-      title: "Differentiable FEA with a Matrix-Free Newton-Krylov Solver",
-      body: [
-        "I built a finite element solver for large-strain hyperelasticity in purely functional PyTorch in which the global stiffness matrix is never assembled. Residuals and tangents come from automatic differentiation of the strain energy, and each Newton step is solved inexactly by Krylov iteration with Jacobi or block-Jacobi preconditioning, using only Jacobian-vector products.",
-        "Design gradients follow from the implicit function theorem with one extra linear solve, so the solver can be placed inside optimization and learning loops. Solutions match FEniCSx/dolfinx to rounding level, and a 10,000-element Q4 problem solves in 2.9 s on a T4 GPU."
-      ],
-      keyPoints: [
-        "Matrix-free inexact Newton-Krylov iteration; Q4, Q8, Q9, Tri3 and Tri6 elements, several hyperelastic laws",
-        "Exact adjoint sensitivities by the implicit function theorem, checked against finite differences",
-        "Agreement with FEniCSx to rounding level; cantilever and plate-with-hole benchmarks within 1-3% of theory",
-        "11.6x GPU speedup from an element-wise operator variant; 194 automated tests"
-      ],
-      links: [
-        { text: "Read · Differentiable FEA", href: "research-differentiable-fea.html" },
-        { text: "GitHub · Differentiable-FEA Repository", href: "https://github.com/miladshirani/Differentiable-FEA", external: true }
       ]
     }
   ],

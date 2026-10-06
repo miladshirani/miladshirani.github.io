@@ -58,6 +58,16 @@
     <section class="section">
       <div class="wrap article">
 
+        <div class="glance" data-reveal>
+          <p class="kp-label">At a glance</p>
+          <dl class="pstruct">
+            <div><dt>Problem</dt><dd>Swelling of an elastic network by water absorption, which couples finite elastic deformation to solvent transport.</dd></div>
+            <div><dt>Method</dt><dd>One free energy (elastic plus Flory&ndash;Huggins mixing); mechanical and chemical balance laws from the principle of virtual power; a Coleman&ndash;Noll analysis of the second law.</dd></div>
+            <div><dt>Physics &amp; math</dt><dd>Water-flux dissipation must be non-negative, which restricts the mobility tensor to be positive semi-definite.</dd></div>
+            <div><dt>Result</dt><dd>A thermodynamically consistent coupled mechanical&ndash;chemical theory whose flux restriction is directly usable in simulation.</dd></div>
+          </dl>
+        </div>
+
         <p data-reveal>Many soft materials absorb a solvent and swell to many times their dry volume while remaining elastic. Describing them requires coupling <em>finite elastic deformation</em> to <em>solvent transport</em>. I call the resulting class of models <strong>dissipative chemo-elasticity</strong>: <em>chemo-elastic</em> because the chemical potential of the solvent and the mechanical stress are derived from a single free energy and feed back on each other, and <em>dissipative</em> because the diffusion of the solvent is an irreversible process that the second law must constrain. Here the solvent is water. I assume quasi-static conditions and neglect viscoelastic effects.</p>
         <h2 data-reveal>Kinematics and mass balance</h2>
         <p data-reveal>The polymer network and the water are each incompressible, so the volume change of the body is due solely to absorbed water. The body goes from a dry reference configuration to a swollen current configuration through the motion \( \boldsymbol{x}=\boldsymbol{\chi}(\boldsymbol{X},t) \), with deformation gradient \( \boldsymbol{F}=\nabla\boldsymbol{x} \) and \( J=\det\boldsymbol{F}>0 \). Let \( C \) be the water concentration per unit dry volume and \( \boldsymbol{J}_w \) its flux. With no source or sink,</p>
@@ -96,6 +106,7 @@
 
         <div class="tab-links" data-reveal>
           <a href="projects.html">← All projects</a>
+          <a href="research-physics-constrained-gnns.html">Data-free GNNs for gel swelling →</a>
           <a href="publications.html">Publications ↗</a>
         </div>
 

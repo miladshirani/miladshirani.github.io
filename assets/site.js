@@ -83,13 +83,27 @@
       '<div class="foot-links"><a href="research.html">Research</a><a href="projects.html">Projects</a><a href="publications.html">Publications</a><a href="honors.html">Honors</a></div>' +
     "</div>" +
     '<div class="wrap foot-base"><span>© ' + new Date().getFullYear() + " " + S.profile.name + "</span>" +
-      "<span>Continuum Mechanics × Physical AI · New Haven, CT</span></div>");
+      "<span>Continuum Mechanics × Physics AI · New Haven, CT</span></div>");
 
   /* ===================== 3 · PAGE RENDERERS ======================== */
   function statCells(stats) {
     return stats.map(function (s, i) {
-      return '<div class="stat" data-reveal style="--d:' + (i * 0.07) + 's"><b data-count="' + s.num + '">' + s.num + "</b><span>" + s.label + "</span></div>";
+      var tag = s.href ? "a" : "div";
+      return "<" + tag + ' class="stat' + (s.href ? " is-link" : "") + '"' + (s.href ? ' href="' + s.href + '"' : "") +
+        ' data-reveal style="--d:' + (i * 0.07) + 's"><b data-count="' + s.num + '">' + s.num + "</b><span>" + s.label + "</span>" +
+        (s.sub ? '<em class="stat-sub">' + s.sub + "</em>" : "") + "</" + tag + ">";
     }).join("");
+  }
+
+  // Math typesetting, serialized behind MathJax's own start-up pass. Calling
+  // typesetPromise while the start-up typeset is still running makes the two
+  // passes fight over the same text nodes (equations then stay as raw \( \) text).
+  function typeset(nodes) {
+    var MJ = window.MathJax;
+    if (!MJ || !MJ.typesetPromise || !MJ.startup || !MJ.startup.promise) return;   // not loaded yet: its start-up pass will do it
+    MJ.startup.promise = MJ.startup.promise
+      .then(function () { return MJ.typesetPromise(nodes); })
+      .catch(function (e) { if (window.console) console.warn("MathJax:", e && e.message); });
   }
 
   function romanize(n) {
@@ -111,14 +125,57 @@
     var c = (S.categories || []).filter(function (x) { return x.id === id; })[0];
     return c ? c.label : id;
   }
+  // The four levels used across the site: what problem, what method, what
+  // physics / mathematics makes it work, what quantitative result.
+  var STRUCT_LABELS = [
+    ["problem", "Problem"], ["method", "Method"], ["physics", "Physics &amp; math"], ["result", "Result"]
+  ];
   function projectCard(p, i) {
     var tags = (p.cats || []).map(function (c, k) {
       return '<span class="p-tag' + (k === 0 ? " main" : "") + '">' + catLabel(c) + "</span>";
     }).join("");
-    return '<a class="theme-card theme-link proj-card" href="' + p.href + '" data-cats="' + (p.cats || []).join(" ") +
-      '" data-reveal style="--d:' + ((i % 3) * 0.07) + 's">' +
-      '<div class="p-tags">' + tags + "</div><h3>" + p.title + "</h3><p>" + p.summary + "</p>" +
-      '<span class="t-more">' + (p.year ? p.year + " · " : "") + "Read →</span></a>";
+    var status = p.status
+      ? '<span class="p-status s-' + (p.status.kind || "done") + '">' + p.status.label + "</span>" : "";
+    var foot = '<span class="t-more">' + (p.year ? p.year + " · " : "") + "Read →</span>";
+    var attrs = 'href="' + p.href + '" data-cats="' + (p.cats || []).join(" ") +
+      '" data-reveal style="--d:' + ((i % 3) * 0.07) + 's"';
+    if (p.struct) {
+      var lab = p.labels || {};
+      var rows = STRUCT_LABELS.filter(function (r) { return p.struct[r[0]]; }).map(function (r) {
+        return "<div><dt>" + (lab[r[0]] || r[1]) + "</dt><dd>" + p.struct[r[0]] + "</dd></div>";
+      }).join("");
+      // structured cards show only the main field next to the status, so the heading row stays aligned
+      var mainTag = '<span class="p-tag main">' + catLabel((p.cats || [])[0]) + "</span>";
+      return '<a class="theme-card theme-link proj-card proj-struct" ' + attrs + ">" +
+        '<div class="p-tags">' + mainTag + status + "</div><h3>" + p.title + "</h3>" +
+        '<p class="why">' + p.why + '</p><dl class="pstruct">' + rows + "</dl>" + foot + "</a>";
+    }
+    return '<a class="theme-card theme-link proj-card" ' + attrs + ">" +
+      '<div class="p-tags">' + tags + status + "</div><h3>" + p.title + "</h3><p>" + p.summary + "</p>" + foot + "</a>";
+  }
+  // The one pipeline: theory → simulation → differentiable computation → Physics AI → deployment.
+  // mode "research": links open a tab on this page; "home": links go to anchors / pages.
+  function pipelineHtml(mode) {
+    return (S.pipeline || []).map(function (a, i) {
+      var links = a.links.map(function (l) {
+        if (mode === "research" && l.tab) return '<a href="#' + l.tab + '" data-open-tab="' + l.tab + '">' + l.text + "</a>";
+        return '<a href="' + (l.href || "research.html#" + l.tab) + '">' + l.text + "</a>";
+      }).join("");
+      return '<div class="arch-stage" data-reveal style="--d:' + (i * 0.06) + 's"><span class="arch-n">' + a.n + "</span>" +
+        "<h3>" + a.title + '</h3><ul class="arch-items">' +
+        a.items.map(function (x) { return "<li>" + x + "</li>"; }).join("") +
+        '</ul><div class="arch-links">' + links + "</div></div>";
+    }).join("");
+  }
+  function statusBlock(st, label) {
+    if (!st) return "";
+    var cols = [["completed", "Completed", "done"], ["ongoing", "Ongoing", "ongoing"], ["next", "Next", "next"]]
+      .filter(function (c) { return st[c[0]] && st[c[0]].length; });
+    return '<div class="status-wrap"><p class="kp-label">' + (label || "Status") + '</p><div class="status-block">' +
+      cols.map(function (c) {
+        return '<div class="status-col s-' + c[2] + '"><h4>' + c[1] + "</h4><ul>" +
+          st[c[0]].map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ul></div>";
+      }).join("") + "</div></div>";
   }
 
   /* ---------- HOME ---------- */
@@ -129,15 +186,19 @@
       '<div class="hero-inner wrap"><div class="hero-grid">' +
         '<p class="kicker" data-reveal>' + S.profile.role + "</p>" +
         '<h1 class="hero-name" data-reveal style="--d:.08s">Milad<br />Shirani<em>.</em></h1>' +
-        '<p class="hero-sub" data-reveal style="--d:.16s">Continuum mechanics × physics-informed machine learning — toward <em style="font-family:var(--font-s)">Physical AI</em>.</p>' +
+        '<p class="hero-sub is-headline" data-reveal style="--d:.16s">' + S.hero.headline + "</p>" +
+        '<p class="hero-tagline" data-reveal style="--d:.2s">' + S.hero.tagline + "</p>" +
         '<p class="hero-desc" data-reveal style="--d:.24s">' + S.hero.desc + "</p>" +
-        '<div class="hero-cta" data-reveal style="--d:.32s">' +
+        '<div class="hero-chain" data-reveal style="--d:.3s" aria-label="From continuum mechanics to Physics AI">' +
+          S.hero.chain.map(function (n) { return '<span class="node">' + n + "</span>"; }).join('<span class="arr" aria-hidden="true">→</span>') +
+        "</div>" +
+        '<div class="hero-cta" data-reveal style="--d:.36s">' +
           S.hero.cta.map(function (c) {
             var cls = c.style === "primary" ? "btn btn-primary" : "btn btn-ghost";
             return '<a class="' + cls + '" href="' + c.href + '">' + c.label + ' <span class="arr">→</span></a>';
           }).join("") +
         "</div>" +
-        '<div class="hero-meta" data-reveal style="--d:.4s">' +
+        '<div class="hero-meta" data-reveal style="--d:.44s">' +
           '<a href="mailto:' + S.profile.email + '">' + S.profile.email + "</a>" +
           (L.github ? '<span class="sep">/</span><a href="' + L.github + '" target="_blank" rel="noopener">GitHub</a>' : "") +
           (L.scholar ? '<span class="sep">/</span><a href="' + L.scholar + '" target="_blank" rel="noopener">Scholar</a>' : "") +
@@ -147,19 +208,55 @@
       '<div class="sim-chip"><span class="pulse"></span>Live · Verlet mass–spring lattice — drag to deform</div>' +
       '<div class="scroll-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4v15m0 0-5.5-5.5M12 19l5.5-5.5"/></svg></div>');
 
+    /* credibility strip: same numbers as SITE.stats, so they never drift */
+    mount("home-cred",
+      '<div class="wrap cred-inner">' +
+        '<div class="cred-lead" data-reveal><p class="kicker">' + S.credibility.label + "</p><p>" + S.credibility.text + "</p></div>" +
+        '<div class="stat-grid">' + statCells(S.stats) + "</div>" +
+      "</div>");
+
+    /* What I Build: cards 01–03, then the wide foundation card */
+    function buildCard(b, i) {
+      return '<a class="build-card' + (b.base ? " is-base" : "") + (b.flagship ? " is-flagship" : "") + '" href="' + b.href + '" data-reveal style="--d:' + (i * 0.07) + 's">' +
+        '<div class="b-head"><span class="b-num">' + b.num + '</span><span class="b-label">' + b.label + "</span>" +
+        (b.flagship ? '<span class="b-flag">Flagship</span>' : "") + "</div>" +
+        "<h3>" + b.title + "</h3><p>" + b.desc + "</p>" +
+        '<div class="k-chips">' + b.chips.map(function (c) { return '<span class="k-chip">' + c + "</span>"; }).join("") + "</div>" +
+        '<span class="t-more">' + b.more + "</span></a>";
+    }
+    mount("home-build",
+      '<div class="build-grid">' + S.build.map(buildCard).join("") + "</div>" +
+      '<div class="caps" data-reveal><p class="caps-label">' + S.capabilitiesLabel + "</p><div><ul>" +
+        S.capabilities.map(function (c) { return "<li>" + c + "</li>"; }).join("") + "</ul>" +
+        '<p class="caps-rel">' + S.relevance + "</p></div></div>");
+
+    mount("home-pipeline", '<div class="arch">' + pipelineHtml("home") + "</div>");
+
+    /* the two graduate textbooks, straight from the publications list */
+    mount("home-books",
+      (S.publications.books || []).map(function (b, i) {
+        return '<a class="book" href="publications.html#books" data-reveal style="--d:' + (i * 0.08) + 's">' +
+          '<span class="book-pub">' + b.venue + " · " + b.details + "</span>" +
+          '<span class="book-title">' + b.title + "</span>" +
+          '<span class="book-auth">' + b.authors + "</span></a>";
+      }).join(""));
+
     var visibleAff = S.affiliations.filter(function (a) { return !a.hidden; });
     mount("home-profile",
       '<div class="profile-grid">' +
         '<div data-reveal><div class="photo-frame"><span class="corner tl"></span><span class="corner br"></span>' +
           '<img src="' + S.profile.photo + '" alt="Portrait of ' + S.profile.name + '" onerror="this.onerror=null;this.src=\'' + S.profile.photoFallback + '\'" />' +
         '</div><p class="photo-cap">' + S.profile.roleLine + "</p></div>" +
-        '<div><div class="aff-list">' +
+        '<div><p class="profile-bio" data-reveal>' + S.profile.bio + "</p><div class=\"aff-list\">" +
           visibleAff.map(function (a, i) {
             return '<div class="aff-item" data-reveal style="--d:' + (i * 0.08) + 's"><span class="aff-title">' + a.title + " · <span>" + a.org + "</span></span>" +
                    '<span class="aff-sub">' + a.sub + "</span></div>";
           }).join("") +
         "</div>" +
-        '<div class="stat-grid">' + statCells(S.stats) + "</div></div>" +
+        '<div class="product" data-reveal><p class="kp-label">' + S.product.label + "</p><p class=\"product-lead\">" + S.product.lead + "</p><ul>" +
+          S.product.items.map(function (x) { return "<li>" + x + "</li>"; }).join("") +
+        '</ul><a class="t-link" href="' + S.product.href + '">' + S.product.more + "</a></div>" +
+        "</div>" +
       "</div>");
 
     var themeN = 0;
@@ -178,8 +275,9 @@
           }).join("") + "</div></div>";
       }).join(""));
 
+    // the four projects shown as full blocks above are not repeated here
     mount("home-projects",
-      (S.projects || []).filter(function (p) { return p.featured; }).map(projectCard).join(""));
+      (S.projects || []).filter(function (p) { return p.featured && !p.inFeatures; }).map(projectCard).join(""));
 
     mount("home-timeline",
       S.journey.filter(function (j) { return !j.hidden; }).map(function (j, i) {
@@ -226,8 +324,7 @@
   /* ---------- RESEARCH ---------- */
   if (page === "research") {
     mount("research-intro", S.researchIntro);
-    mount("philosophy-quote", S.philosophy.quote);
-    mount("philosophy-attr", S.philosophy.attr);
+    mount("research-arch", pipelineHtml("research"));
 
     var tabs = byCategory(S.researchTabs);
     var lastCat = null;
@@ -246,10 +343,19 @@
     mount("research-panels",
       tabs.map(function (t, i) {
         var body = t.body.map(function (p) { return "<p>" + p + "</p>"; }).join("");
+        var lv = t.levels;
+        var glance = lv ? '<div class="glance"><p class="kp-label">At a glance</p><dl class="pstruct">' +
+          STRUCT_LABELS.filter(function (r) { return lv[r[0]]; }).map(function (r) {
+            return "<div><dt>" + r[1] + "</dt><dd>" + lv[r[0]] + "</dd></div>";
+          }).join("") + "</dl></div>" : "";
         var kp = t.keyPoints && t.keyPoints.length
           ? '<div class="kp-block"><p class="kp-label">' + (t.keyLabel || "Key Contributions") + '</p><ul class="kp-list">' +
             t.keyPoints.map(function (k) { return "<li>" + k + "</li>"; }).join("") + "</ul></div>"
           : "";
+        var full = lv
+          ? '<details class="deep"><summary>Full technical account</summary><div class="deep-body">' + body + "</div></details>"
+          : body;
+        var status = statusBlock(t.status, t.statusLabel);
         var table = "";
         if (t.table) {
           table = '<div class="tab-table"><table><caption>' + t.table.label + "</caption><thead><tr>" +
@@ -267,24 +373,48 @@
             }).join("") + "</div>"
           : "";
         return '<div class="tab-panel' + (i === 0 ? " active" : "") + '" role="tabpanel" id="panel-' + t.id + '" aria-labelledby="btn-' + t.id + '">' +
-          "<h2>" + t.title + '</h2><div class="panel-rule"></div>' + body + kp + table + links + "</div>";
+          "<h2>" + t.title + '</h2><div class="panel-rule"></div>' + glance + kp + status + full + table + links + "</div>";
       }).join(""));
 
     var btns = document.querySelectorAll(".tab-btn");
-    btns.forEach(function (b) {
-      b.addEventListener("click", function () {
-        btns.forEach(function (x) { x.classList.remove("active"); x.setAttribute("aria-selected", "false"); });
-        document.querySelectorAll(".tab-panel").forEach(function (p) { p.classList.remove("active"); });
-        b.classList.add("active");
-        b.setAttribute("aria-selected", "true");
-        var panel = el(b.getAttribute("aria-controls"));
-        if (panel) {
-          panel.classList.add("active");
-          if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([panel]);
-        }
+    function openTab(b, scroll) {
+      btns.forEach(function (x) { x.classList.remove("active"); x.setAttribute("aria-selected", "false"); });
+      document.querySelectorAll(".tab-panel").forEach(function (p) { p.classList.remove("active"); });
+      b.classList.add("active");
+      b.setAttribute("aria-selected", "true");
+      var panel = el(b.getAttribute("aria-controls"));
+      if (panel) {
+        panel.classList.add("active");
+        typeset([panel]);
+      }
+      if (scroll) {
+        var wrapEl = el("research-tabnav");
+        if (wrapEl) wrapEl.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      }
+    }
+    btns.forEach(function (b) { b.addEventListener("click", function () { openTab(b, false); }); });
+    // keyboard: arrows / Home / End move between the themes (WAI-ARIA tabs pattern)
+    var tabNav = el("research-tabnav");
+    if (tabNav) tabNav.addEventListener("keydown", function (e) {
+      var keys = ["ArrowDown", "ArrowUp", "ArrowRight", "ArrowLeft", "Home", "End"];
+      if (keys.indexOf(e.key) < 0) return;
+      var list = Array.prototype.slice.call(btns), i = list.indexOf(document.activeElement);
+      if (i < 0) return;
+      e.preventDefault();
+      var n = e.key === "Home" ? 0 : e.key === "End" ? list.length - 1 :
+              (e.key === "ArrowDown" || e.key === "ArrowRight") ? (i + 1) % list.length : (i - 1 + list.length) % list.length;
+      list[n].focus(); openTab(list[n], false);
+    });
+    // links from the architecture overview (and #tN in the URL) open a tab
+    document.querySelectorAll("[data-open-tab]").forEach(function (a) {
+      a.addEventListener("click", function (e) {
+        var b = el("btn-" + a.getAttribute("data-open-tab"));
+        if (b) { e.preventDefault(); openTab(b, true); }
       });
     });
-    if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise();
+    var hashTab = (location.hash || "").replace("#", "");
+    if (hashTab && el("btn-" + hashTab)) openTab(el("btn-" + hashTab), false);
+    typeset();
   }
 
   /* ---------- PUBLICATIONS ---------- */
@@ -293,17 +423,26 @@
     var counts = { book: P.books.length, journal: P.journals.length, chapter: P.chapters.length,
                    conference: P.conference.length, review: P.review.length };
 
+    var T = S.publicationTotals || {};
+    var tot = { book: counts.book, journal: T.journal || counts.journal, conference: T.conference || counts.conference,
+                chapter: T.chapter || counts.chapter, review: T.review || counts.review };
+    var peer = tot.journal + tot.conference;
     mount("pub-summary",
-      counts.book + " books · " + counts.journal + " journal papers · " + counts.chapter +
-      " book chapters · " + counts.conference + " conference paper · " + counts.review + " under review");
+      tot.book + " books · " + peer + " peer-reviewed papers (" + tot.journal + " journal, " + tot.conference +
+      " conference) · " + tot.chapter + " book chapters · " + tot.review + " under review");
 
     mount("pub-stats",
       statCells([
-        { num: String(counts.book), label: "Books" },
-        { num: String(counts.journal), label: "Journal Papers" },
-        { num: String(counts.chapter), label: "Book Chapters" },
-        { num: String(counts.review), label: "Under Review" }
+        { num: String(tot.book), label: "Books" },
+        { num: String(peer), label: "Peer-reviewed Papers", sub: tot.journal + " journal · " + tot.conference + " conference" },
+        { num: String(tot.chapter), label: "Book Chapters" },
+        { num: String(tot.review), label: "Under Review" }
       ]));
+    var missJ = tot.journal - counts.journal, missR = tot.review - counts.review;
+    mount("pub-note", (missJ > 0 || missR > 0)
+      ? "Totals follow the CV. The list below is still being completed: " + counts.journal + " of " + tot.journal +
+        " journal papers and " + counts.review + " of " + tot.review + " manuscripts under review are listed so far."
+      : "");
 
     function pubGroup(key, icon, title, unit, list) {
       if (!list.length) return "";
@@ -319,14 +458,15 @@
           '<div class="pub-body"><p class="p-title">' + titleHtml + tag + "</p>" +
           '<p class="p-meta">' + p.authors + '</p><p class="p-venue">' + venue + "</p></div></div>";
       }).join("");
-      return '<section class="pub-group" data-group="' + key + '" data-reveal>' +
+      var anchor = { book: "books", journal: "journals", chapter: "chapters", conference: "conference", review: "review" }[key] || key;
+      return '<section class="pub-group" id="' + anchor + '" data-group="' + key + '" data-reveal>' +
         '<div class="pub-group-head"><span class="g-icon">' + icon + "</span><h2>" + title + "</h2>" +
         '<span class="g-count">' + list.length + " " + unit + "</span></div>" + items + "</section>";
     }
 
     mount("pub-sections",
+      pubGroup("book", "§", "Graduate Textbooks", counts.book === 1 ? "volume" : "volumes", P.books) +
       pubGroup("review", "∴", "Under Review", counts.review === 1 ? "manuscript" : "manuscripts", P.review) +
-      pubGroup("book", "§", "Books", counts.book === 1 ? "volume" : "volumes", P.books) +
       pubGroup("journal", "∂", "Refereed Journal Publications", "papers", P.journals) +
       pubGroup("chapter", "◈", "Refereed Book Chapters", "chapters", P.chapters) +
       pubGroup("conference", "◇", "Conference Paper", counts.conference === 1 ? "paper" : "papers", P.conference));
@@ -549,6 +689,26 @@
     hero.addEventListener("pointerleave", function () { pointer.active = false; pointer.down = false; pointer.x = pointer.px = -9999; });
   })();
 
+  /* ============== 4b · LAZY GIFS (poster → animation) =============== */
+  // <img src="poster.jpg" data-gif="anim.gif">: the poster is shown at once; the
+  // animation is fetched only near the viewport, and never for reduced-motion users
+  // (they get a "Play animation" button instead).
+  document.querySelectorAll("img[data-gif]").forEach(function (img) {
+    var fig = img.closest("figure");
+    var btn = null;
+    function play() { img.src = img.getAttribute("data-gif"); img.removeAttribute("data-gif"); if (btn) btn.remove(); }
+    if (reduceMotion) {
+      btn = document.createElement("button");
+      btn.type = "button"; btn.className = "gif-play"; btn.textContent = "▶ Play animation";
+      btn.addEventListener("click", play);
+      if (fig) fig.appendChild(btn);
+      return;
+    }
+    new IntersectionObserver(function (en, obs) {
+      if (en[0].isIntersecting) { play(); obs.disconnect(); }
+    }, { rootMargin: "300px 0px" }).observe(img);
+  });
+
   /* ============== 5 · REVEAL + COUNT-UP ============================ */
   var revealEls = document.querySelectorAll("[data-reveal]");
   if (reduceMotion) {
@@ -586,4 +746,5 @@
     }, { threshold: 0.5 });
     counters.forEach(function (n) { cio.observe(n); });
   }
+  window.__siteReady = true; // set only if every renderer above ran without throwing
 })();

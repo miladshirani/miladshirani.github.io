@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Peridynamic Fracture &amp; Peeling — Milad Shirani</title>
-  <meta name="description" content="Meshless, differentiable peridynamic simulations of fluid-induced fracture and peeling of solids; results to be published soon." />
+  <title>Differentiable Meshless Mechanics — Milad Shirani</title>
+  <meta name="description" content="Differentiable, autodiff-based meshless peridynamics for brittle and hydraulic fracture and delamination without remeshing, with matrix-free dynamic relaxation." />
   <meta name="author" content="Milad Shirani" />
   <link rel="canonical" href="https://miladshirani.github.io/research-peridynamic-fracture.html" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232b3cf0'/%3E%3Ctext x='32' y='42' font-family='Menlo,monospace' font-size='26' font-weight='700' text-anchor='middle' fill='%23ffffff'%3EMS%3C/text%3E%3C/svg%3E" type="image/svg+xml" />
@@ -12,8 +12,8 @@
   <meta name="theme-color" content="#0d0e12" media="(prefers-color-scheme: dark)" />
 
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Peridynamic Fracture &amp; Peeling — Milad Shirani" />
-  <meta property="og:description" content="Meshless, differentiable peridynamic simulation of fracture and peeling." />
+  <meta property="og:title" content="Differentiable Meshless Mechanics — Milad Shirani" />
+  <meta property="og:description" content="Differentiable meshless peridynamics for fracture and peeling without remeshing." />
   <meta property="og:url" content="https://miladshirani.github.io/research-peridynamic-fracture.html" />
   <meta property="og:image" content="https://github.com/miladshirani.png" />
   <meta name="twitter:card" content="summary" />
@@ -50,15 +50,25 @@
 
     <header class="page-head wrap">
       <a class="back-link" href="projects.html" data-reveal>← All projects</a>
-      <p class="kicker" data-reveal>Soft Matter · Computational Fracture</p>
-      <h1 class="page-title" data-reveal style="--d:.08s">Peridynamic <em>fracture</em><br />&amp; peeling.</h1>
-      <p class="page-intro" data-reveal style="--d:.16s">A meshless, differentiable simulation of fluid-driven fracture and peeling of solids — cracks that start, branch and run with no remeshing and no crack-tracking rules.</p>
+      <p class="kicker" data-reveal>Computational Mechanics · Peridynamics · Differentiable</p>
+      <h1 class="page-title" data-reveal style="--d:.08s">Differentiable<br /><em>meshless mechanics</em>.</h1>
+      <p class="page-intro" data-reveal style="--d:.16s">Differentiable, autodiff-based peridynamics for nonlinear solid mechanics: brittle and hydraulic fracture and delamination (Mode I and mixed-mode peeling), with cracks that start, branch and run with no remeshing and no crack-tracking rules. Peridynamic fracture and peeling, differentiable end to end.</p>
     </header>
 
     <section class="section">
       <div class="wrap article">
 
-        <p data-reveal>We have implemented fluid-induced (hydraulic) fracture and the peeling test using <em>peridynamics</em>, a nonlocal, meshless continuum theory in which material points interact through bonds rather than through spatial derivatives. Because damage is simply the breaking of bonds, cracks nucleate and propagate naturally — including along interfaces — without a mesh that has to be adapted to the crack path.</p>
+        <div class="glance" data-reveal>
+          <p class="kp-label">At a glance</p>
+          <dl class="pstruct">
+            <div><dt>Problem</dt><dd>Brittle fracture, pressure-driven (hydraulic) fracture and delamination (Mode I and mixed-mode peeling) without remeshing.</dd></div>
+            <div><dt>Method</dt><dd>A differentiable, autodiff-based meshless peridynamics solver (JAX, PyTorch), with a matrix-free dynamic-relaxation scheme in place of Newton–Raphson.</dd></div>
+            <div><dt>Physics &amp; math</dt><dd>A nonlocal bond model in which damage is bond breakage. Dynamic relaxation converges through unstable crack propagation, where Newton–Raphson tangents become singular.</dd></div>
+            <div><dt>Result</dt><dd>An 8–10× runtime speedup and 9.7×10<sup>−11</sup> agreement with a validated reference solution. The full study is to be published.</dd></div>
+          </dl>
+        </div>
+
+        <p data-reveal>We have implemented brittle fracture, fluid-induced (hydraulic) fracture and delamination (the peeling test) using <em>peridynamics</em>, a nonlocal, meshless continuum theory in which material points interact through bonds rather than through spatial derivatives. Because damage is simply the breaking of bonds, cracks nucleate and propagate naturally — including along interfaces — without a mesh that has to be adapted to the crack path.</p>
         <p data-reveal>This is a collaboration with <a href="https://www.nahalab.com/" target="_blank" rel="noopener">Prof. Ali Javili ↗</a> (Bilkent University).</p>
 
         <h2 data-reveal>Peridynamics in brief</h2>
@@ -103,24 +113,31 @@
         <h2 data-reveal>Fluid-induced fracture</h2>
         <p data-reveal>A pre-cracked solid is loaded by fluid pressure acting on the faces of the crack. As the pressure is ramped up, the crack opens, the fluid follows it, and the interface ahead of the tip delaminates. Colors show damage, displacement magnitude and vertical displacement on the deformed specimen.</p>
         <div class="fig-grid" data-reveal>
-          <figure class="fig-card"><img src="Figures/Peridynamics/Fluid-Induced-Fracture.gif" alt="Peridynamic simulation of fluid-induced fracture of a pre-cracked solid" loading="lazy" /><figcaption>Fluid-induced fracture · damage, displacement</figcaption></figure>
+          <figure class="fig-card"><img src="Figures/Peridynamics/fracture-poster.jpg" data-gif="Figures/Peridynamics/Fluid-Induced-Fracture.gif" width="1296" height="403" alt="Peridynamic simulation of fluid-induced fracture of a pre-cracked solid" loading="lazy" decoding="async" /><figcaption>Fluid-induced fracture · damage, displacement</figcaption></figure>
         </div>
 
         <h2 data-reveal>Peeling test</h2>
         <p data-reveal>In the peeling test the arms of the pre-cracked specimen are pulled apart under displacement control. The simulation records the grip force and the crack length as the interface peels.</p>
         <div class="fig-grid" data-reveal>
-          <figure class="fig-card"><img src="Figures/Peridynamics/Peeling-Test.gif" alt="Peridynamic simulation of a peeling test on a pre-cracked solid" loading="lazy" /><figcaption>Peeling test · damage, displacement</figcaption></figure>
+          <figure class="fig-card"><img src="Figures/Peridynamics/peeling-poster.jpg" data-gif="Figures/Peridynamics/Peeling-Test.gif" width="1296" height="406" alt="Peridynamic simulation of a peeling test on a pre-cracked solid" loading="lazy" decoding="async" /><figcaption>Peeling test · damage, displacement</figcaption></figure>
         </div>
 
         <h2 data-reveal>Differentiable by design</h2>
-        <p data-reveal>The framework is fully differentiable: it is written with automatic differentiation in <strong>JAX</strong> and <strong>PyTorch</strong>, so exact derivatives of the simulation are available for tangents, sensitivities and gradient-based inverse design or learning. The equilibrium states are computed with a <strong>dynamic relaxation</strong> solver.</p>
+        <p data-reveal>The framework is fully differentiable: it is written with automatic differentiation in <strong>JAX</strong> and <strong>PyTorch</strong>, so exact derivatives of the simulation are available for tangents, sensitivities and gradient-based inverse design or learning. The equilibrium states are computed with a <strong>matrix-free dynamic relaxation</strong> scheme, which avoids the singular tangents that can stall a Newton–Raphson iteration during unstable crack propagation.</p>
 
         <h2 data-reveal>Results</h2>
-        <p data-reveal>The results will be published soon.</p>
+        <ul class="plain-list" data-reveal>
+          <li>An <strong>8–10× runtime speedup</strong>.</li>
+          <li><strong>9.7×10<sup>−11</sup> agreement</strong> with a validated reference solution.</li>
+          <li>Hydraulic fracture and Mode I / mixed-mode peeling simulated without remeshing.</li>
+        </ul>
+        <p data-reveal>The full study, with the details behind these numbers, will be published soon. The same idea of residual, automatic differentiation and matrix-free solution drives the <a href="research-differentiable-fea.html">differentiable finite-element solver</a>, so differentiable simulation here is broader than FEA.</p>
 
         <div class="tab-links" data-reveal>
-          <a href="research-dissipative-chemo-elasticity.html">← Dissipative chemo-elasticity</a>
           <a href="projects.html">← All projects</a>
+          <a href="research-differentiable-fea.html">Differentiable FEA →</a>
+          <a href="research-physics-constrained-gnns.html">Data-free GNNs →</a>
+          <a href="research-dissipative-chemo-elasticity.html">Chemo-elasticity theory →</a>
         </div>
 
       </div>

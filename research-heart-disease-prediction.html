@@ -58,6 +58,16 @@
     <section class="section">
       <div class="wrap article">
 
+        <div class="glance" data-reveal>
+          <p class="kp-label">At a glance</p>
+          <dl class="pstruct">
+            <div><dt>Problem</dt><dd>How well can lifestyle and demographic answers on a health survey flag coronary heart disease? (301,717 respondents after removing duplicates.)</dd></div>
+            <div><dt>Method</dt><dd>A leakage-safe pipeline; twelve configurations compared (six algorithms, SMOTE or class weighting); CatBoost with class weighting; a threshold tuned for recall with the F2 score.</dd></div>
+            <div><dt>Statistics</dt><dd>Statistics, not physics: class weighting beat SMOTE for every algorithm, because interpolating binary indicators creates meaningless synthetic people.</dd></div>
+            <div><dt>Result</dt><dd>On the test set, recall 0.791 at precision 0.225 (ROC-AUC 0.836, PR-AUC 0.351): suitable for triage into further evaluation, never for a standalone decision.</dd></div>
+          </dl>
+        </div>
+
         <p data-reveal><strong>This is an educational and portfolio project.</strong> It is not a medical device, not a diagnostic tool, and not validated for clinical use. The model reflects association, not causation.</p>
         <h2 data-reveal>Data</h2>
         <p data-reveal>The data are the <em>Personal Key Indicators of Heart Disease</em> set from Kaggle, derived from the CDC 2020 BRFSS telephone survey. There are 319,795 respondents, 301,717 after removing 18,078 exact duplicate rows, with 17 predictors (binary, ordinal and categorical) and a binary target. The classes are heavily imbalanced, with about 9% positive cases. The features are coarse categories and rounded numbers, with no clinical measurements such as blood pressure or cholesterol.</p>
@@ -94,6 +104,8 @@
 
         <div class="tab-links" data-reveal>
           <a href="projects.html">← All projects</a>
+          <a href="research-pi-fno.html">PI-FNO →</a>
+          <a href="research.html#t8">The startup →</a>
           <a href="https://github.com/miladshirani/Heart-Disease-Prediction" target="_blank" rel="noopener">GitHub repository ↗</a>
         </div>
 

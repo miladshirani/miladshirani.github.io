@@ -89,17 +89,17 @@ window.SITE = {
   categories: [
     { id: "theoretical-mechanics",    label: "Theoretical Mechanics" },
     { id: "computational-mechanics",  label: "Computational Mechanics" },
+    { id: "physics-ai",               label: "Physics AI" },
     { id: "machine-learning",         label: "Machine Learning" },
-    { id: "soft-matter-biomechanics", label: "Soft Matter &amp; Biomechanics" },
     { id: "experimental-mechanics",   label: "Experimental Mechanics" }
   ],
 
   projects: [
     { title: "Universal Behavior in Cell Monolayers", href: "research-cell-monolayers.html",
-      cats: ["theoretical-mechanics", "soft-matter-biomechanics"], year: "2026", featured: true,
+      cats: ["theoretical-mechanics"], year: "2026", featured: true,
       summary: "A mathematical proof that cell polarization stays tangential at free edges of a monolayer, independent of cell type, animal, and even for bacteria. Accepted in Proc. R. Soc. A." },
     { title: "Dissipative Chemo-Elasticity", href: "research-dissipative-chemo-elasticity.html",
-      cats: ["theoretical-mechanics", "soft-matter-biomechanics"], year: "2026", featured: true,
+      cats: ["theoretical-mechanics", "computational-mechanics"], year: "2026", featured: true,
       summary: "A thermodynamically consistent theory of swelling driven by water absorption: coupled mechanical and chemical balance laws from one energy, and second-law restrictions on the flux." },
     { title: "Differentiable FEA", href: "research-differentiable-fea.html",
       cats: ["computational-mechanics"], year: "2026", featured: true,
@@ -108,7 +108,7 @@ window.SITE = {
       cats: ["computational-mechanics"], year: "2026", featured: true,
       summary: "Meshless, differentiable simulation of fluid-induced fracture and peeling of solids, using automatic differentiation and dynamic relaxation. In collaboration with Prof. Ali Javili." },
     { title: "Physics Enforced Operator Learning", href: "research-physics-enforced-operator-learning.html",
-      cats: ["machine-learning", "soft-matter-biomechanics"], year: "2026", featured: true,
+      cats: ["physics-ai"], year: "2026", featured: true,
       summary: "Energy-trained neural networks and DeepONets, with the physics built into the architecture, for nematic liquid crystal elastomers; one trained operator returns the full deformation and director fields across a load ramp, checked against finite elements and stability conditions." },
     { title: "PI-FNO: Heart Sound Diagnosis", href: "research-pi-fno.html",
       cats: ["machine-learning"], year: "2026", featured: true,
@@ -122,9 +122,11 @@ window.SITE = {
   researchThemes: [
     { icon: "∇", cat: "theoretical-mechanics", title: "Nonlinear Continuum Mechanics", href: "projects.html#theoretical-mechanics", more: "See projects →",
       desc: "Cosserat, micropolar, and higher-gradient theories; Legendre–Hadamard and polyconvexity conditions for soft matter; variational methods for elastic rods, shells, and fibrous composites." },
-    { icon: "ψ", cat: "soft-matter-biomechanics", title: "Soft Matter &amp; Biomechanics", href: "projects.html#soft-matter-biomechanics", more: "See projects →",
-      desc: "Nematic liquid crystal elastomers, hydrogels, lipid bilayers, biological tissues. Thermodynamically consistent modeling of chemotaxis, durotaxis, and cell migration in fibrous substrates." },
-    { icon: "∫", cat: "machine-learning", title: "Physics-Informed Machine Learning", href: "projects.html#machine-learning", more: "See projects →",
+    { icon: "μ", cat: "theoretical-mechanics", title: "Cell Migration", href: "projects.html#theoretical-mechanics", more: "See projects →",
+      desc: "Thermodynamically consistent modeling of chemotaxis, durotaxis, and cell migration in fibrous substrates; lipid bilayers and biological tissues; universal edge behavior of polarized cell monolayers." },
+    { icon: "ψ", cat: "computational-mechanics", title: "Soft Matter &amp; Hydrogels", href: "projects.html#computational-mechanics", more: "See projects →",
+      desc: "Nematic liquid crystal elastomers, hydrogels, and swelling polymers. Thermodynamically consistent, finite-strain modeling and simulation of coupled mechanical, chemical, and orientational fields." },
+    { icon: "∫", cat: "physics-ai", title: "Physics-Informed Machine Learning", href: "projects.html#physics-ai", more: "See projects →",
       desc: "PINNs, Deep Energy Methods, DeepONets, and ICNNs for constitutive modeling. Enforcing frame indifference, polyconvexity, and Legendre–Hadamard stability as hard constraints in neural architectures." },
     { icon: "𝒢", cat: "machine-learning", title: "Neural Operators &amp; GNNs", href: "projects.html#machine-learning", more: "See projects →",
       desc: "Fourier Neural Operators, MeshGraphNets, and transformer-based operator learning for mesh-dependent PDE surrogates. Differentiable simulation pipelines in JAX and PyTorch for Physical AI." },
@@ -179,7 +181,7 @@ window.SITE = {
       links: [ { text: "Article · Coming Soon", comingSoon: true } ]
     },
     {
-      id: "t2", cat: "soft-matter-biomechanics", num: "II", label: "Soft Matter:<br>Hydrogels &amp; LCEs",
+      id: "t2", cat: "computational-mechanics", num: "II", label: "Soft Matter:<br>Hydrogels &amp; LCEs",
       title: "Soft Matter: Hydrogels, Polymers &amp; Liquid Crystal Elastomers",
       body: [
         "Soft materials present a distinct class of challenges: they undergo large, geometrically nonlinear deformations; they often couple mechanical response to chemical, thermal, or electromagnetic fields; and their constitutive behavior is governed by entropy as much as by internal energy. My work in this area addresses both the mathematical structure of such coupled theories and their computational implementation.",
@@ -199,8 +201,8 @@ window.SITE = {
       ]
     },
     {
-      id: "t3", cat: "soft-matter-biomechanics", num: "III", label: "Biomechanics:<br>Cells &amp; Tissues",
-      title: "Biomechanics: Cell Migration, Tissues &amp; Membranes",
+      id: "t3", cat: "theoretical-mechanics", num: "III", label: "Cell<br>Migration",
+      title: "Cell Migration",
       body: [
         "At Yale, working with Prof. Jay D. Humphrey, my research has focused on the mechanics of living soft matter — fibrous biological tissues, cell monolayers, lipid bilayers, and hydrogel scaffolds. These systems are distinguished by their capacity for active response, growth, remodeling, and self-organization, phenomena that classical passive elasticity cannot capture.",
         "I developed a continuum model for collective cell migration driven by <em>chemotaxis</em> (response to chemical gradients), <em>durotaxis</em> (response to substrate stiffness), and <em>taxis</em> toward tension, unifying these into a single thermodynamically consistent framework applicable to multiple cell families and chemoattractants simultaneously. A significant theoretical finding was demonstrating that the Keller-Segel chemotaxis model — widely used in mathematical biology — violates thermodynamic consistency, and providing a corrected formulation.",
@@ -220,7 +222,7 @@ window.SITE = {
       ]
     },
     {
-      id: "t4", cat: "machine-learning", num: "IV", label: "Physics-Informed<br>Machine Learning",
+      id: "t4", cat: "physics-ai", num: "IV", label: "Physics-Informed<br>Machine Learning",
       title: "Physics-Informed Machine Learning &amp; Neural Constitutive Models",
       body: [
         "The convergence of mechanics and machine learning opens a genuinely new frontier — not merely fitting data faster, but building computational models that are constrained by physical law from the ground up. My work in this area is grounded in the conviction that the laws of mechanics are not soft regularizers to be traded against data fit; they are hard constraints that any admissible model must satisfy exactly.",

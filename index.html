@@ -13,7 +13,7 @@
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Milad Shirani — Physics AI, Differentiable Simulation &amp; Continuum Mechanics" />
-  <meta property="og:description" content="Provable models, physical intelligence: continuum mechanics, differentiable simulation, matrix-free nonlinear solvers, and neural operators." />
+  <meta property="og:description" content="Provable models, physics intelligence: continuum mechanics, differentiable simulation, matrix-free nonlinear solvers, and neural operators." />
   <meta property="og:url" content="https://miladshirani.github.io/" />
   <meta property="og:image" content="https://github.com/miladshirani.png" />
   <meta name="twitter:card" content="summary" />
@@ -64,12 +64,26 @@
     <!-- Credibility strip: numbers come from SITE.stats (injected) -->
     <section class="cred" id="home-cred" aria-label="Research record"></section>
 
+    <!-- 01 · Profile: photo · bio · affiliations · research to product -->
+    <section class="section" id="about">
+      <div class="wrap">
+        <div class="sec-head" data-reveal>
+          <div>
+            <p class="kicker">01 — Profile</p>
+            <h2 class="sec-title">Trained in <em>mechanics</em>,<br />building Physics AI.</h2>
+          </div>
+          <p class="sec-note">Mechanics and mathematics first; computation and AI built on top.</p>
+        </div>
+        <div id="home-profile"><!-- injected --></div>
+      </div>
+    </section>
+
     <!-- 01 · What I build: three cards on one foundation card (injected) -->
     <section class="section" id="build">
       <div class="wrap">
         <div class="sec-head" data-reveal>
           <div>
-            <p class="kicker">01 — What I Build</p>
+            <p class="kicker">02 — What I Build</p>
             <h2 class="sec-title">Physics → computation → <em>AI</em>.</h2>
           </div>
           <p class="sec-note">Four areas, one foundation: the physics and the numerical method come first.</p>
@@ -83,7 +97,7 @@
       <div class="wrap">
         <div class="sec-head" data-reveal>
           <div>
-            <p class="kicker">02 — One Pipeline</p>
+            <p class="kicker">03 — One Pipeline</p>
             <h2 class="sec-title">From axioms <em>to deployment</em>.</h2>
           </div>
           <p class="sec-note">These are not separate projects. Each stage feeds the next.</p>
@@ -97,7 +111,7 @@
       <div class="wrap">
         <div class="sec-head" data-reveal>
           <div>
-            <p class="kicker">03 — Differentiable Simulation</p>
+            <p class="kicker">04 — Differentiable Simulation</p>
             <h2 class="sec-title">Simulation you can <em>differentiate</em>.</h2>
           </div>
           <p class="sec-note">Finite elements and peridynamics, with no assembled global matrix.</p>
@@ -183,7 +197,7 @@
       <div class="wrap">
         <div class="sec-head" data-reveal>
           <div>
-            <p class="kicker">04 — Physics AI</p>
+            <p class="kicker">05 — Physics AI</p>
             <h2 class="sec-title">The physics is the <em>training signal</em>.</h2>
           </div>
           <p class="sec-note">Energy-trained networks and operators, checked against FEM.</p>
@@ -254,7 +268,7 @@
               <p class="feature-lead">DeepONets and Fourier neural operators for nonlinear mechanics and multiphysics. Rather than treating a network as a black-box replacement for simulation, the operator learns mappings that respect the structure of the physical system, and is validated against high-fidelity numerical solvers.</p>
               <dl class="pstruct">
                 <div><dt>Problem</dt><dd>Nematic elastomers: the deformation and director fields are coupled and nonlinear, and the answer is wanted for a whole load range, not for one load case.</dd></div>
-                <div><dt>Method</dt><dd>An energy-trained DeepONet (and a physics-enforced network) over FEM/NEM discretizations, with no solution data. PI-FNO applies the Fourier-operator idea to heart sounds.</dd></div>
+                <div><dt>Method</dt><dd>An energy-trained DeepONet (and a physics-enforced network) over the geometry of the body, with no solution data. PI-FNO applies the Fourier-operator idea to heart sounds.</dd></div>
                 <div><dt>Physics &amp; math</dt><dd>Stationarity of the total potential energy is the training signal. Conditions derived from quasiconvexity (strong ellipticity, second variation) validate every stored trajectory.</dd></div>
                 <div><dt>Result</dt><dd>
                   <ul class="res-list">
@@ -280,7 +294,7 @@
       <div class="wrap">
         <div class="sec-head" data-reveal>
           <div>
-            <p class="kicker">05 — Provable Mechanics</p>
+            <p class="kicker">06 — Provable Mechanics</p>
             <h2 class="sec-title">The foundation:<br /><em>provable</em> mechanics.</h2>
           </div>
           <p class="sec-note">I did not come to Physics AI from generic machine learning.</p>
@@ -316,27 +330,13 @@
       <div class="wrap">
         <div class="sec-head" data-reveal>
           <div>
-            <p class="kicker">06 — More Projects</p>
+            <p class="kicker">07 — More Projects</p>
             <h2 class="sec-title">Theory, learning, <em>and the rest</em>.</h2>
           </div>
           <p class="sec-note">Problem → method → physics &amp; math → result.</p>
         </div>
         <div class="themes-grid proj-grid" id="home-projects"><!-- injected --></div>
         <p class="sec-more" data-reveal><a class="btn btn-ghost" href="projects.html">All projects <span class="arr">→</span></a></p>
-      </div>
-    </section>
-
-    <!-- 07 · Profile: photo · bio · affiliations · research to product -->
-    <section class="section" id="about">
-      <div class="wrap">
-        <div class="sec-head" data-reveal>
-          <div>
-            <p class="kicker">07 — Profile</p>
-            <h2 class="sec-title">Trained in <em>mechanics</em>,<br />building Physics AI.</h2>
-          </div>
-          <p class="sec-note">Mechanics and mathematics first; computation and AI built on top.</p>
-        </div>
-        <div id="home-profile"><!-- injected --></div>
       </div>
     </section>
 

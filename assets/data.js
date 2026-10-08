@@ -46,6 +46,7 @@ window.SITE = {
     { label: "Projects",     href: "projects.html",        key: "projects" },
     { label: "Publications", href: "publications.html",    key: "publications" },
     { label: "Honors",       href: "honors.html",          key: "honors" },
+    { label: "Beyond Research", href: "beyond-research.html", key: "beyond" },
     { label: "Contact",      href: "mailto:milad.shirani@yale.edu", key: "contact" }
   ],
 

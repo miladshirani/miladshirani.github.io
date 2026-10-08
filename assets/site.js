@@ -80,7 +80,7 @@
       '<a class="btn btn-primary" href="mailto:' + S.profile.email + '">Get in touch <span class="arr">→</span></a>' +
     "</div>" +
     '<div class="wrap foot-grid"><div class="foot-links">' + footLinks + "</div>" +
-      '<div class="foot-links"><a href="research.html">Research</a><a href="projects.html">Projects</a><a href="publications.html">Publications</a><a href="honors.html">Honors</a></div>' +
+      '<div class="foot-links"><a href="research.html">Research</a><a href="projects.html">Projects</a><a href="publications.html">Publications</a><a href="honors.html">Honors</a><a href="beyond-research.html">Beyond Research</a></div>' +
     "</div>" +
     '<div class="wrap foot-base"><span>© ' + new Date().getFullYear() + " " + S.profile.name + "</span>" +
       "<span>Continuum Mechanics × Physics AI · New Haven, CT</span></div>");

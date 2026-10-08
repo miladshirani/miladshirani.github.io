@@ -53,7 +53,7 @@ window.SITE = {
   // headline + tagline = the site's identity (unchanged); desc = what a
   // technical visitor should learn in 15 seconds; chain = the physics-to-AI stack.
   hero: {
-    headline: "Provable models, <em>physical</em> intelligence.",
+    headline: "Provable models, <em>physics</em> intelligence.",
     tagline: "Theory · Experiment · Computation — one pipeline from axioms to deployment.",
     desc: "I am a scientific AI researcher and ML engineer who builds computational models that combine the laws of physics with modern AI: from rigorous continuum theories and differentiable simulation to neural operators and matrix-free nonlinear solvers. My Physics AI grows out of computational mechanics, so the physics and the numerical method are the foundation of the model, not an add-on.",
     chain: ["Continuum mechanics", "FEM &amp; meshless methods", "Differentiable simulation", "Matrix-free solvers", "Neural operators", "Physics AI &amp; scientific ML"],
@@ -78,7 +78,7 @@ window.SITE = {
       items: ["Continuum mechanics", "Thermodynamics", "Variational principles", "Stability"],
       links: [{ text: "Provable mechanics", href: "#foundation", tab: "t1" }, { text: "Cell monolayers", href: "research-cell-monolayers.html", tab: "t10" }] },
     { n: "02", title: "Simulation",
-      items: ["FEM", "NEM", "Peridynamics", "Weak forms"],
+      items: ["FEM", "NEM", "Peridynamics"],
       links: [{ text: "Meshless mechanics", href: "#meshless", tab: "t9" }, { text: "Hydrogels &amp; LCEs", href: "research.html#t2", tab: "t2" }] },
     { n: "03", title: "Differentiable computation",
       items: ["Autodiff", "JVPs", "Matrix-free methods", "Newton–Krylov"],
@@ -102,7 +102,7 @@ window.SITE = {
     { num: "02", label: "Physics AI",
       title: "Label-free, physics-constrained networks",
       desc: "Energy-minimizing PINNs and DeepONets trained on the total potential energy over FEM/NEM discretizations, with no labeled solution data and exactly enforced boundary conditions. The network is not fitted to simulation output; the physics itself provides the training signal.",
-      chips: ["PINNs", "Energy minimization", "Variational principles", "Stability checks", "FEM / NEM discretization", "Exact boundary conditions", "PyTorch · JAX"],
+      chips: ["PINNs", "Energy minimization", "Variational principles", "Stability checks", "Exact boundary conditions", "PyTorch · JAX"],
       href: "#operators", more: "The operator work ↓" },
     { num: "03", label: "Neural Operators",
       title: "Learned maps between physical fields",

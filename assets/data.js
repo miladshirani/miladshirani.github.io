@@ -126,14 +126,6 @@ window.SITE = {
   ],
   relevance: "Relevant wherever nonlinear physical systems must be simulated, differentiated, or learned: engineering simulation, materials, scientific computing, computational physics, robotics, and semiconductor manufacturing.",
 
-  product: {
-    label: "Research to product",
-    items: [
-      "Developed, benchmarked, and delivered CNN and transfer-learning heart-sound models: <strong>95% accuracy</strong> on held-out test sets.",
-      "Mentored an undergraduate student in building a hardware digital stethoscope paired with the deployed model."
-    ],
-  },
-
   /* ---- HOME: research-profile panel -------------------------- */
   // `stats` numbers left as-is; publication counts on the Publications
   // page are computed automatically so they never drift.
@@ -607,23 +599,6 @@ window.SITE = {
         "Photoelastic full-field stress mapping in complex geometries; validated against small-strain model predictions"
       ],
       links: [ { text: "Publications — See SMA &amp; FSMA Tab", comingSoon: true } ]
-    },
-    {
-      levels: {
-        method: "CNN with transfer learning; the full model lifecycle from data pipeline through evaluation; a hardware digital stethoscope built by a mentored undergraduate student.",
-        physics: "Heart-sound acoustics (S1/S2), which later became the physical prior in PI-FNO.",
-      },
-      body: [
-        "<strong>Hardware integration.</strong> I mentored an undergraduate student in designing and building a hardware digital stethoscope — a custom data acquisition device that interfaces with the deployed classification model, enabling point-of-care cardiac screening without specialized clinical equipment. This hardware-software integration bridged the gap between research prototype and deployable medical instrument.",
-      ],
-      keyPoints: [
-        "Developed CNN + transfer learning pipeline for multi-class heart sound classification; 95% accuracy on held-out test sets",
-        "Mentored undergraduate student in building a hardware digital stethoscope paired with the deployed model",
-      ],
-      links: [
-        { text: "Related Work · PI-FNO Cardiac Disease Detection", href: "research-pi-fno.html" },
-        { text: "Related Work · Heart Disease Risk Prediction", href: "research-heart-disease-prediction.html" }
-      ]
     }
   ],
 

@@ -267,9 +267,6 @@
                    '<span class="aff-sub">' + a.sub + "</span></div>";
           }).join("") +
         "</div>" +
-        '<div class="product" data-reveal><p class="kp-label">' + S.product.label + "</p><p class=\"product-lead\">" + S.product.lead + "</p><ul>" +
-          S.product.items.map(function (x) { return "<li>" + x + "</li>"; }).join("") +
-        '</ul><a class="t-link" href="' + S.product.href + '">' + S.product.more + "</a></div>" +
         "</div>" +
       "</div>");
 
